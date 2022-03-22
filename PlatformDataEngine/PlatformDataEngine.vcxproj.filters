@@ -133,43 +133,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\Main.tmx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\SpaceTileset.tsx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\Character.json">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="..\vcpkg.json">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\Plants.tsx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="shaders\foliage.vert">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="game\world.json">
-      <Filter>Resource Files\Game</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="assets\SpaceTileset.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="assets\Plants.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="assets\Character.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="assets\VT323-Regular.ttf">
-      <Filter>Resource Files</Filter>
-    </Font>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="shaders\foliage.frag">
@@ -177,6 +143,36 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="game\gameObjects\PlayerCharacter.json">
       <Filter>Resource Files\Game\GameObjects</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\Character.png">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\Plants.png">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\SpaceTileset.png">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\VT323-Regular.ttf">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\Main.tmx">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="game\world.json">
+      <Filter>Resource Files\Game</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\Character.json">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="shaders\foliage.vert">
+      <Filter>Resource Files\Shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\Plants.tsx">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\SpaceTileset.tsx">
+      <Filter>Resource Files</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

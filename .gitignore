@@ -37,3 +37,5 @@ vcpkg_installed/*
 /.vs
 /x64/Release
 /PlatformDataEngine/x64/Release
+/PlatformDataEngine/x64/Debug
+/x64/Debug

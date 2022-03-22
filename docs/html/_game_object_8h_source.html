@@ -101,47 +101,47 @@ $(document).ready(function(){initNavTree('_game_object_8h_source.html',''); init
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>PlatformDataEngine {</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="class_platform_data_engine_1_1_game_object.html">   15</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> : <span class="keyword">public</span> sf::Transformable, <span class="keyword">public</span> sf::Drawable</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <a class="code hl_function" href="class_platform_data_engine_1_1_game_object.html#a0348e3ee2e83d56eafca7a3547f432c4">GameObject</a>();</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <a class="code hl_class" href="class_platform_data_engine_1_1_game_object.html">~GameObject</a>();</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="comment">// copy constructor</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <a class="code hl_function" href="class_platform_data_engine_1_1_game_object.html#a0348e3ee2e83d56eafca7a3547f432c4">GameObject</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_platform_data_engine_1_1_game_object.html">GameObject</a>&amp; other);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_game_object.html#a9b565e5ec63bef28e5c860f724d2de7c">init</a>();</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_game_object.html#aa80462742b51fe06e9e44d59e178ec32">update</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; dt, <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; elapsedTime);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_game_object.html#aa6d7650a920e2dd79b0125560faf3807">draw</a>(sf::RenderTarget&amp; target, sf::RenderStates states) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_game_object.html#a608cd0d7c9a4be3cf7836019d610f5fe">loadDefinition</a>(std::string filename);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_game_object.html#ad401e96f38b4ffd0ba2ea65cb29899b1">registerComponentHierarchy</a>(std::shared_ptr&lt;GameObject&gt; self);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keyword">inline</span> std::shared_ptr&lt;T&gt; findComponentOfType()</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; compPair : this-&gt;m_components)</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                <span class="comment">// check if T is equal to the type of the component</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                <span class="keywordflow">if</span> (<span class="keyword">typeid</span>(T) == <span class="keyword">typeid</span>(*compPair.second))</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                    std::shared_ptr&lt;T&gt; derived =</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                        std::dynamic_pointer_cast&lt;T&gt; (compPair.second);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                    <span class="keywordflow">return</span> derived;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                }</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            }</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        }</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        std::map&lt;std::string, std::shared_ptr&lt;Component&gt;&gt; m_components;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        std::string m_id;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        std::string m_name;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="class_platform_data_engine_1_1_game_object.html">   20</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> : <span class="keyword">public</span> sf::Transformable, <span class="keyword">public</span> sf::Drawable</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <a class="code hl_function" href="class_platform_data_engine_1_1_game_object.html#a0348e3ee2e83d56eafca7a3547f432c4">GameObject</a>();</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <a class="code hl_class" href="class_platform_data_engine_1_1_game_object.html">~GameObject</a>();</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="comment">// copy constructor</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <a class="code hl_function" href="class_platform_data_engine_1_1_game_object.html#a0348e3ee2e83d56eafca7a3547f432c4">GameObject</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_platform_data_engine_1_1_game_object.html">GameObject</a>&amp; other);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_game_object.html#a9b565e5ec63bef28e5c860f724d2de7c">init</a>();</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_game_object.html#aa80462742b51fe06e9e44d59e178ec32">update</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; dt, <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; elapsedTime);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_game_object.html#aa6d7650a920e2dd79b0125560faf3807">draw</a>(sf::RenderTarget&amp; target, sf::RenderStates states) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_game_object.html#a608cd0d7c9a4be3cf7836019d610f5fe">loadDefinition</a>(std::string filename);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_game_object.html#ad401e96f38b4ffd0ba2ea65cb29899b1">registerComponentHierarchy</a>(std::shared_ptr&lt;GameObject&gt; self);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keyword">inline</span> std::shared_ptr&lt;T&gt; findComponentOfType()</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; compPair : this-&gt;m_components)</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                <span class="comment">// check if T is equal to the type of the component</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                <span class="keywordflow">if</span> (<span class="keyword">typeid</span>(T) == <span class="keyword">typeid</span>(*compPair.second))</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                    std::shared_ptr&lt;T&gt; derived =</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                        std::dynamic_pointer_cast&lt;T&gt; (compPair.second);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                    <span class="keywordflow">return</span> derived;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                }</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            }</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        }</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        std::map&lt;std::string, nlohmann::json&gt; m_properties;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    };</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
-<div class="ttc" id="aclass_platform_data_engine_1_1_game_object_html"><div class="ttname"><a href="class_platform_data_engine_1_1_game_object.html">PlatformDataEngine::GameObject</a></div><div class="ttdef"><b>Definition:</b> GameObject.h:16</div></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        std::map&lt;std::string, std::shared_ptr&lt;Component&gt;&gt; m_components;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        std::string m_id;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        std::string m_name;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        std::map&lt;std::string, nlohmann::json&gt; m_properties;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    };</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_game_object_html"><div class="ttname"><a href="class_platform_data_engine_1_1_game_object.html">PlatformDataEngine::GameObject</a></div><div class="ttdoc">The base container class for a gameplay related object, it's drawable, transformable and components c...</div><div class="ttdef"><b>Definition:</b> GameObject.h:21</div></div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_game_object_html_a0348e3ee2e83d56eafca7a3547f432c4"><div class="ttname"><a href="class_platform_data_engine_1_1_game_object.html#a0348e3ee2e83d56eafca7a3547f432c4">PlatformDataEngine::GameObject::GameObject</a></div><div class="ttdeci">GameObject()</div><div class="ttdoc">Constructor, keep in mind this is called when creating a gameObject definition as well as an instance...</div><div class="ttdef"><b>Definition:</b> GameObject.cpp:10</div></div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_game_object_html_a608cd0d7c9a4be3cf7836019d610f5fe"><div class="ttname"><a href="class_platform_data_engine_1_1_game_object.html#a608cd0d7c9a4be3cf7836019d610f5fe">PlatformDataEngine::GameObject::loadDefinition</a></div><div class="ttdeci">void loadDefinition(std::string filename)</div><div class="ttdoc">Loads a gameObject definition from a json file</div><div class="ttdef"><b>Definition:</b> GameObject.cpp:79</div></div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_game_object_html_a9b565e5ec63bef28e5c860f724d2de7c"><div class="ttname"><a href="class_platform_data_engine_1_1_game_object.html#a9b565e5ec63bef28e5c860f724d2de7c">PlatformDataEngine::GameObject::init</a></div><div class="ttdeci">void init()</div><div class="ttdoc">Calls init() for every component in this gameObject and itself</div><div class="ttdef"><b>Definition:</b> GameObject.cpp:31</div></div>

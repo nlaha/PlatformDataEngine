@@ -1,0 +1,43 @@
+\hypertarget{_tile_map_8h_source}{}\doxysection{Tile\+Map.\+h}
+\label{_tile_map_8h_source}\index{PlatformDataEngine/TileMap.h@{PlatformDataEngine/TileMap.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <tmxlite/Map.hpp>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <tmxlite/TileLayer.hpp>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <tmxlite/Tileset.hpp>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <spdlog/spdlog.h>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}Tileset.h"{}}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}TileSprite.h"{}}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }PlatformDataEngine \{}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     \textcolor{keyword}{class }\mbox{\hyperlink{class_platform_data_engine_1_1_tile_map}{TileMap}} : \textcolor{keyword}{public} sf::Drawable}
+\DoxyCodeLine{19     \{}
+\DoxyCodeLine{20     \textcolor{keyword}{public}:}
+\DoxyCodeLine{21         \mbox{\hyperlink{class_platform_data_engine_1_1_tile_map_a7f83bdae41d910effdd9dbbe47fc717b}{TileMap}}(\textcolor{keyword}{const} std::string\& tmxPath);}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} draw(sf::RenderTarget\& target, sf::RenderStates states) \textcolor{keyword}{const};}
+\DoxyCodeLine{24         \textcolor{keywordtype}{void} update(\textcolor{keyword}{const} \textcolor{keywordtype}{float}\& dt, \textcolor{keyword}{const} \textcolor{keywordtype}{float}\& elapsedTime);}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_platform_data_engine_1_1_tile_map_1_1_tileset_pair}{TilesetPair}}}
+\DoxyCodeLine{27         \{}
+\DoxyCodeLine{28             tmx::Tileset tmxTileset;}
+\DoxyCodeLine{29             std::shared\_ptr<Tileset> tileset;}
+\DoxyCodeLine{30         \};}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32     \textcolor{keyword}{private}:}
+\DoxyCodeLine{33         std::vector<TilesetPair> m\_tilesets;}
+\DoxyCodeLine{34         std::vector<std::unique\_ptr<TileSprite>> m\_tileSprites;}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36     \};}
+\DoxyCodeLine{37 \}}
+
+\end{DoxyCode}

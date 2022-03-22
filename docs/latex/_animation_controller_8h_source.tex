@@ -1,0 +1,22 @@
+\hypertarget{_animation_controller_8h_source}{}\doxysection{Animation\+Controller.\+h}
+\label{_animation_controller_8h_source}\index{PlatformDataEngine/AnimationController.h@{PlatformDataEngine/AnimationController.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include "{}Component.h"{}}}
+\DoxyCodeLine{3 \textcolor{keyword}{namespace }PlatformDataEngine \{}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{9     \textcolor{keyword}{class }\mbox{\hyperlink{class_platform_data_engine_1_1_animation_controller}{AnimationController}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_platform_data_engine_1_1_component}{Component}}}
+\DoxyCodeLine{10     \{}
+\DoxyCodeLine{11     \textcolor{keyword}{public}:}
+\DoxyCodeLine{12         \textcolor{keywordtype}{void} init();}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14         \textcolor{keywordtype}{void} update(\textcolor{keyword}{const} \textcolor{keywordtype}{float}\& dt, \textcolor{keyword}{const} \textcolor{keywordtype}{float}\& elapsedTime);}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16         \textcolor{keywordtype}{void} draw(sf::RenderTarget\& target, sf::RenderStates states) \textcolor{keyword}{const};}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18         \textcolor{keywordtype}{void} loadDefinition(nlohmann::json \textcolor{keywordtype}{object});}
+\DoxyCodeLine{19     \};}
+\DoxyCodeLine{20 \}}
+
+\end{DoxyCode}

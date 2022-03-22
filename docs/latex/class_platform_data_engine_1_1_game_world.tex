@@ -1,0 +1,146 @@
+\hypertarget{class_platform_data_engine_1_1_game_world}{}\doxysection{Platform\+Data\+Engine\+::Game\+World Class Reference}
+\label{class_platform_data_engine_1_1_game_world}\index{PlatformDataEngine::GameWorld@{PlatformDataEngine::GameWorld}}
+Inheritance diagram for Platform\+Data\+Engine\+::Game\+World\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_platform_data_engine_1_1_game_world}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_platform_data_engine_1_1_game_world_adebf4525972363b1af166612006480b8}{init}} (std\+::string file\+Path, sf\+::\+View \&view)
+\begin{DoxyCompactList}\small\item\em Initializes the game world with a world.\+json definition file and a view as defined by the game wrapper \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_platform_data_engine_1_1_game_world_a3aca4e0672c0b6fb3f7a86e9752a3222}{update}} (const float \&dt, const float \&elapsed\+Time)
+\begin{DoxyCompactList}\small\item\em Update loop, calls update on the tile\+Map, game\+Objects and the camera controller \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_platform_data_engine_1_1_game_world_ada0e07f4b5a0c22efbe9a9d1c20098ae}{physics\+Update}} (const float \&dt, const float \&elapsed\+Time)
+\begin{DoxyCompactList}\small\item\em Updates the physics simulation \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_platform_data_engine_1_1_game_world_a6fa52e8afbab2fd1905dd961ce84ca85}{draw}} (sf\+::\+Render\+Target \&target, sf\+::\+Render\+States states) const
+\begin{DoxyCompactList}\small\item\em Draw call, never call explicitly \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_platform_data_engine_1_1_game_world_ac7da22e196ce314e03a6b87f09a553f5}{register\+Game\+Object}} (std\+::string name, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_platform_data_engine_1_1_game_object}{Game\+Object}} $>$)
+\begin{DoxyCompactList}\small\item\em Registers a game object with a name (places it in the world\textquotesingle{}s game\+Objects map) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_platform_data_engine_1_1_game_world_a8e0eb2b2d5ad051811173d388176b6f5}{register\+Game\+Object\+Definition}} (std\+::string name, \mbox{\hyperlink{class_platform_data_engine_1_1_game_object}{Game\+Object}} \&)
+\begin{DoxyCompactList}\small\item\em Registers a game\+Object definition, similar to \mbox{\hyperlink{class_platform_data_engine_1_1_game_world_ac7da22e196ce314e03a6b87f09a553f5}{register\+Game\+Object()}} but it stores an actual game\+Object rather than a pointer \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_game_world_a50ac3c073f164b2cccdd9e308995eb65}\label{class_platform_data_engine_1_1_game_world_a50ac3c073f164b2cccdd9e308995eb65}} 
+std\+::shared\+\_\+ptr$<$ b2\+World $>$ {\bfseries get\+Phys\+World} () const
+\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_game_world_a543eb27272cac22c51ada5fa871fe1e6}\label{class_platform_data_engine_1_1_game_world_a543eb27272cac22c51ada5fa871fe1e6}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_platform_data_engine_1_1_tile_map}{Tile\+Map}} $>$ {\bfseries get\+Tile\+Map} () const
+\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_game_world_ab942b721cf7ed6d180a79d5fb2857b15}\label{class_platform_data_engine_1_1_game_world_ab942b721cf7ed6d180a79d5fb2857b15}} 
+sf\+::\+View {\bfseries get\+View} () const
+\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_game_world_a6be31ce84ca9fe0811ee724cc67a180c}\label{class_platform_data_engine_1_1_game_world_a6be31ce84ca9fe0811ee724cc67a180c}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_platform_data_engine_1_1_game_object}{Game\+Object}} $>$ {\bfseries get\+Game\+Object} (std\+::string search)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_platform_data_engine_1_1_game_world_a6fa52e8afbab2fd1905dd961ce84ca85}\label{class_platform_data_engine_1_1_game_world_a6fa52e8afbab2fd1905dd961ce84ca85}} 
+\index{PlatformDataEngine::GameWorld@{PlatformDataEngine::GameWorld}!draw@{draw}}
+\index{draw@{draw}!PlatformDataEngine::GameWorld@{PlatformDataEngine::GameWorld}}
+\doxysubsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily void Game\+World\+::draw (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Target \&}]{target,  }\item[{sf\+::\+Render\+States}]{states }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Draw call, never call explicitly 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & \\
+\hline
+{\em states} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_platform_data_engine_1_1_game_world_adebf4525972363b1af166612006480b8}\label{class_platform_data_engine_1_1_game_world_adebf4525972363b1af166612006480b8}} 
+\index{PlatformDataEngine::GameWorld@{PlatformDataEngine::GameWorld}!init@{init}}
+\index{init@{init}!PlatformDataEngine::GameWorld@{PlatformDataEngine::GameWorld}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Game\+World\+::init (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+Path,  }\item[{sf\+::\+View \&}]{view }\end{DoxyParamCaption})}
+
+
+
+Initializes the game world with a world.\+json definition file and a view as defined by the game wrapper 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & the path to the world definition file\\
+\hline
+{\em view} & a view that has been linked to a window\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_platform_data_engine_1_1_game_world_ada0e07f4b5a0c22efbe9a9d1c20098ae}\label{class_platform_data_engine_1_1_game_world_ada0e07f4b5a0c22efbe9a9d1c20098ae}} 
+\index{PlatformDataEngine::GameWorld@{PlatformDataEngine::GameWorld}!physicsUpdate@{physicsUpdate}}
+\index{physicsUpdate@{physicsUpdate}!PlatformDataEngine::GameWorld@{PlatformDataEngine::GameWorld}}
+\doxysubsubsection{\texorpdfstring{physicsUpdate()}{physicsUpdate()}}
+{\footnotesize\ttfamily void Game\+World\+::physics\+Update (\begin{DoxyParamCaption}\item[{const float \&}]{dt,  }\item[{const float \&}]{elapsed\+Time }\end{DoxyParamCaption})}
+
+
+
+Updates the physics simulation 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & delta time\\
+\hline
+{\em elapsed\+Time} & elapsed time (since game started)\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_platform_data_engine_1_1_game_world_ac7da22e196ce314e03a6b87f09a553f5}\label{class_platform_data_engine_1_1_game_world_ac7da22e196ce314e03a6b87f09a553f5}} 
+\index{PlatformDataEngine::GameWorld@{PlatformDataEngine::GameWorld}!registerGameObject@{registerGameObject}}
+\index{registerGameObject@{registerGameObject}!PlatformDataEngine::GameWorld@{PlatformDataEngine::GameWorld}}
+\doxysubsubsection{\texorpdfstring{registerGameObject()}{registerGameObject()}}
+{\footnotesize\ttfamily void Game\+World\+::register\+Game\+Object (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_platform_data_engine_1_1_game_object}{Game\+Object}} $>$}]{game\+Object }\end{DoxyParamCaption})}
+
+
+
+Registers a game object with a name (places it in the world\textquotesingle{}s game\+Objects map) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & a unique name for the game\+Object\\
+\hline
+{\em game\+Object} & a pointer to the game\+Object\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_platform_data_engine_1_1_game_world_a8e0eb2b2d5ad051811173d388176b6f5}\label{class_platform_data_engine_1_1_game_world_a8e0eb2b2d5ad051811173d388176b6f5}} 
+\index{PlatformDataEngine::GameWorld@{PlatformDataEngine::GameWorld}!registerGameObjectDefinition@{registerGameObjectDefinition}}
+\index{registerGameObjectDefinition@{registerGameObjectDefinition}!PlatformDataEngine::GameWorld@{PlatformDataEngine::GameWorld}}
+\doxysubsubsection{\texorpdfstring{registerGameObjectDefinition()}{registerGameObjectDefinition()}}
+{\footnotesize\ttfamily void Game\+World\+::register\+Game\+Object\+Definition (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{\mbox{\hyperlink{class_platform_data_engine_1_1_game_object}{Game\+Object}} \&}]{game\+Object }\end{DoxyParamCaption})}
+
+
+
+Registers a game\+Object definition, similar to \mbox{\hyperlink{class_platform_data_engine_1_1_game_world_ac7da22e196ce314e03a6b87f09a553f5}{register\+Game\+Object()}} but it stores an actual game\+Object rather than a pointer 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & a unique name for the game\+Object definition\\
+\hline
+{\em game\+Object} & the game\+Object \char`\"{}template\char`\"{} definition\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_platform_data_engine_1_1_game_world_a3aca4e0672c0b6fb3f7a86e9752a3222}\label{class_platform_data_engine_1_1_game_world_a3aca4e0672c0b6fb3f7a86e9752a3222}} 
+\index{PlatformDataEngine::GameWorld@{PlatformDataEngine::GameWorld}!update@{update}}
+\index{update@{update}!PlatformDataEngine::GameWorld@{PlatformDataEngine::GameWorld}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Game\+World\+::update (\begin{DoxyParamCaption}\item[{const float \&}]{dt,  }\item[{const float \&}]{elapsed\+Time }\end{DoxyParamCaption})}
+
+
+
+Update loop, calls update on the tile\+Map, game\+Objects and the camera controller 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & delta time\\
+\hline
+{\em elapsed\+Time} & elapsed time (since game started)\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Platform\+Data\+Engine/Game\+World.\+h\item 
+Platform\+Data\+Engine/Game\+World.\+cpp\end{DoxyCompactItemize}

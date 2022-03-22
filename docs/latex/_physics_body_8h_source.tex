@@ -1,0 +1,44 @@
+\hypertarget{_physics_body_8h_source}{}\doxysection{Physics\+Body.\+h}
+\label{_physics_body_8h_source}\index{PlatformDataEngine/PhysicsBody.h@{PlatformDataEngine/PhysicsBody.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <SFML/Graphics.hpp>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <box2d/box2d.h>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <nlohmann/json.hpp>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}Component.h"{}}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{namespace }PlatformDataEngine \{}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10     \textcolor{keyword}{class }\mbox{\hyperlink{class_platform_data_engine_1_1_physics_body}{PhysicsBody}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_platform_data_engine_1_1_component}{Component}}}
+\DoxyCodeLine{11     \{}
+\DoxyCodeLine{12     \textcolor{keyword}{public}:}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14         \mbox{\hyperlink{class_platform_data_engine_1_1_physics_body}{\string~PhysicsBody}}();}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16         \textcolor{keywordtype}{void} init();}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18         \textcolor{keywordtype}{void} update(\textcolor{keyword}{const} \textcolor{keywordtype}{float}\& dt, \textcolor{keyword}{const} \textcolor{keywordtype}{float}\& elapsedTime);}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20         \textcolor{keywordtype}{void} draw(sf::RenderTarget\& target, sf::RenderStates states) \textcolor{keyword}{const};}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22         \textcolor{keywordtype}{void} loadDefinition(nlohmann::json \textcolor{keywordtype}{object});}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24         \textcolor{keyword}{inline} b2Body* getBody() \{}
+\DoxyCodeLine{25             \textcolor{keywordflow}{return} this-\/>m\_body;}
+\DoxyCodeLine{26         \}}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28     \textcolor{keyword}{private}:}
+\DoxyCodeLine{29         b2Body* m\_body;}
+\DoxyCodeLine{30         b2BodyType m\_bodyType;}
+\DoxyCodeLine{31         std::shared\_ptr<b2PolygonShape> m\_bodyShape;}
+\DoxyCodeLine{32         std::shared\_ptr<b2FixtureDef> m\_bodyFixtureDef;}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34         sf::FloatRect m\_bounds;}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36     \};}
+\DoxyCodeLine{37 \}}
+\DoxyCodeLine{38 }
+
+\end{DoxyCode}

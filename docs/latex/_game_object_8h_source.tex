@@ -1,0 +1,60 @@
+\hypertarget{_game_object_8h_source}{}\doxysection{Game\+Object.\+h}
+\label{_game_object_8h_source}\index{PlatformDataEngine/GameObject.h@{PlatformDataEngine/GameObject.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <SFML/Graphics.hpp>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <nlohmann/json.hpp>}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}Utility.h"{}}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}Component.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}ComponentFactory.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }PlatformDataEngine \{}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15     \textcolor{keyword}{class }\mbox{\hyperlink{class_platform_data_engine_1_1_game_object}{GameObject}} : \textcolor{keyword}{public} sf::Transformable, \textcolor{keyword}{public} sf::Drawable}
+\DoxyCodeLine{16     \{}
+\DoxyCodeLine{17     \textcolor{keyword}{public}:}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19         \mbox{\hyperlink{class_platform_data_engine_1_1_game_object_a0348e3ee2e83d56eafca7a3547f432c4}{GameObject}}();}
+\DoxyCodeLine{20         \mbox{\hyperlink{class_platform_data_engine_1_1_game_object}{\string~GameObject}}();}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22         \textcolor{comment}{// copy constructor}}
+\DoxyCodeLine{23         \mbox{\hyperlink{class_platform_data_engine_1_1_game_object_a0348e3ee2e83d56eafca7a3547f432c4}{GameObject}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_platform_data_engine_1_1_game_object}{GameObject}}\& other);}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_platform_data_engine_1_1_game_object_a9b565e5ec63bef28e5c860f724d2de7c}{init}}();}
+\DoxyCodeLine{26         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_platform_data_engine_1_1_game_object_aa80462742b51fe06e9e44d59e178ec32}{update}}(\textcolor{keyword}{const} \textcolor{keywordtype}{float}\& dt, \textcolor{keyword}{const} \textcolor{keywordtype}{float}\& elapsedTime);}
+\DoxyCodeLine{27         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_platform_data_engine_1_1_game_object_aa6d7650a920e2dd79b0125560faf3807}{draw}}(sf::RenderTarget\& target, sf::RenderStates states) \textcolor{keyword}{const};}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_platform_data_engine_1_1_game_object_a608cd0d7c9a4be3cf7836019d610f5fe}{loadDefinition}}(std::string filename);}
+\DoxyCodeLine{30         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_platform_data_engine_1_1_game_object_ad401e96f38b4ffd0ba2ea65cb29899b1}{registerComponentHierarchy}}(std::shared\_ptr<GameObject> self);}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32         \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{33         \textcolor{keyword}{inline} std::shared\_ptr<T> findComponentOfType()}
+\DoxyCodeLine{34         \{}
+\DoxyCodeLine{35             \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& compPair : this-\/>m\_components)}
+\DoxyCodeLine{36             \{}
+\DoxyCodeLine{37                 \textcolor{comment}{// check if T is equal to the type of the component}}
+\DoxyCodeLine{38                 \textcolor{keywordflow}{if} (\textcolor{keyword}{typeid}(T) == \textcolor{keyword}{typeid}(*compPair.second))}
+\DoxyCodeLine{39                 \{}
+\DoxyCodeLine{40                     std::shared\_ptr<T> derived =}
+\DoxyCodeLine{41                         std::dynamic\_pointer\_cast<T> (compPair.second);}
+\DoxyCodeLine{42                     \textcolor{keywordflow}{return} derived;}
+\DoxyCodeLine{43                 \}}
+\DoxyCodeLine{44             \}}
+\DoxyCodeLine{45         \}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47     \textcolor{keyword}{private}:}
+\DoxyCodeLine{48         std::map<std::string, std::shared\_ptr<Component>> m\_components;}
+\DoxyCodeLine{49         std::string m\_id;}
+\DoxyCodeLine{50         std::string m\_name;}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52         std::map<std::string, nlohmann::json> m\_properties;}
+\DoxyCodeLine{53     \};}
+\DoxyCodeLine{54 \}}
+
+\end{DoxyCode}

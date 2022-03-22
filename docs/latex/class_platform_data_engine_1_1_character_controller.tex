@@ -1,0 +1,81 @@
+\hypertarget{class_platform_data_engine_1_1_character_controller}{}\doxysection{Platform\+Data\+Engine\+::Character\+Controller Class Reference}
+\label{class_platform_data_engine_1_1_character_controller}\index{PlatformDataEngine::CharacterController@{PlatformDataEngine::CharacterController}}
+
+
+A component that handles player input and animations (if enabled) Precondition\+: if animations are enabled, the game\+Object must have an animation controller component  
+
+
+
+
+{\ttfamily \#include $<$Character\+Controller.\+h$>$}
+
+Inheritance diagram for Platform\+Data\+Engine\+::Character\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_platform_data_engine_1_1_character_controller}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_platform_data_engine_1_1_character_controller_a04a4f59908193d8569718d60365aeea0}{init}} ()
+\item 
+void \mbox{\hyperlink{class_platform_data_engine_1_1_character_controller_a5756cce87df55c2e878451c61134cd31}{update}} (const float \&dt, const float \&elapsed\+Time)
+\item 
+void \mbox{\hyperlink{class_platform_data_engine_1_1_character_controller_aad8f3a6cbec9ab50eefcd06026b927bf}{draw}} (sf\+::\+Render\+Target \&target, sf\+::\+Render\+States states) const
+\item 
+void \mbox{\hyperlink{class_platform_data_engine_1_1_character_controller_a261a2dde0a686357f9556280e7b2e5a7}{load\+Definition}} (nlohmann\+::json object)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+A component that handles player input and animations (if enabled) Precondition\+: if animations are enabled, the game\+Object must have an animation controller component 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_platform_data_engine_1_1_character_controller_aad8f3a6cbec9ab50eefcd06026b927bf}\label{class_platform_data_engine_1_1_character_controller_aad8f3a6cbec9ab50eefcd06026b927bf}} 
+\index{PlatformDataEngine::CharacterController@{PlatformDataEngine::CharacterController}!draw@{draw}}
+\index{draw@{draw}!PlatformDataEngine::CharacterController@{PlatformDataEngine::CharacterController}}
+\doxysubsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily void Platform\+Data\+Engine\+::\+Character\+Controller\+::draw (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Target \&}]{target,  }\item[{sf\+::\+Render\+States}]{states }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_platform_data_engine_1_1_component}{Platform\+Data\+Engine\+::\+Component}}.
+
+\mbox{\Hypertarget{class_platform_data_engine_1_1_character_controller_a04a4f59908193d8569718d60365aeea0}\label{class_platform_data_engine_1_1_character_controller_a04a4f59908193d8569718d60365aeea0}} 
+\index{PlatformDataEngine::CharacterController@{PlatformDataEngine::CharacterController}!init@{init}}
+\index{init@{init}!PlatformDataEngine::CharacterController@{PlatformDataEngine::CharacterController}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Platform\+Data\+Engine\+::\+Character\+Controller\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_platform_data_engine_1_1_component}{Platform\+Data\+Engine\+::\+Component}}.
+
+\mbox{\Hypertarget{class_platform_data_engine_1_1_character_controller_a261a2dde0a686357f9556280e7b2e5a7}\label{class_platform_data_engine_1_1_character_controller_a261a2dde0a686357f9556280e7b2e5a7}} 
+\index{PlatformDataEngine::CharacterController@{PlatformDataEngine::CharacterController}!loadDefinition@{loadDefinition}}
+\index{loadDefinition@{loadDefinition}!PlatformDataEngine::CharacterController@{PlatformDataEngine::CharacterController}}
+\doxysubsubsection{\texorpdfstring{loadDefinition()}{loadDefinition()}}
+{\footnotesize\ttfamily void Platform\+Data\+Engine\+::\+Character\+Controller\+::load\+Definition (\begin{DoxyParamCaption}\item[{nlohmann\+::json}]{object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_platform_data_engine_1_1_component}{Platform\+Data\+Engine\+::\+Component}}.
+
+\mbox{\Hypertarget{class_platform_data_engine_1_1_character_controller_a5756cce87df55c2e878451c61134cd31}\label{class_platform_data_engine_1_1_character_controller_a5756cce87df55c2e878451c61134cd31}} 
+\index{PlatformDataEngine::CharacterController@{PlatformDataEngine::CharacterController}!update@{update}}
+\index{update@{update}!PlatformDataEngine::CharacterController@{PlatformDataEngine::CharacterController}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Platform\+Data\+Engine\+::\+Character\+Controller\+::update (\begin{DoxyParamCaption}\item[{const float \&}]{dt,  }\item[{const float \&}]{elapsed\+Time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_platform_data_engine_1_1_component}{Platform\+Data\+Engine\+::\+Component}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Platform\+Data\+Engine/Character\+Controller.\+h\item 
+Platform\+Data\+Engine/Character\+Controller.\+cpp\end{DoxyCompactItemize}

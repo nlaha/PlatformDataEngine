@@ -1,0 +1,46 @@
+\hypertarget{_tile_sprite_8h_source}{}\doxysection{Tile\+Sprite.\+h}
+\label{_tile_sprite_8h_source}\index{PlatformDataEngine/TileSprite.h@{PlatformDataEngine/TileSprite.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <box2d/box2d.h>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}Tileset.h"{}}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{namespace }PlatformDataEngine \{}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10     \textcolor{keyword}{class }Tileset;}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12     \textcolor{keyword}{class }\mbox{\hyperlink{class_platform_data_engine_1_1_tile_sprite}{TileSprite}} : \textcolor{keyword}{public} sf::Transformable}
+\DoxyCodeLine{13     \{}
+\DoxyCodeLine{14     \textcolor{keyword}{public}:}
+\DoxyCodeLine{15         \mbox{\hyperlink{class_platform_data_engine_1_1_tile_sprite_a86cda93cd19e27f47bad14a0d224c008}{TileSprite}}(std::shared\_ptr<Tileset> tileset, b2PolygonShape\& collisionShape, \textcolor{keywordtype}{int} tileIdx = 0, \textcolor{keywordtype}{bool} hasPhysics = \textcolor{keyword}{false});}
+\DoxyCodeLine{16         \mbox{\hyperlink{class_platform_data_engine_1_1_tile_sprite_a86cda93cd19e27f47bad14a0d224c008}{TileSprite}}(std::shared\_ptr<Tileset> tileset, b2PolygonShape\& collisionShape, \textcolor{keywordtype}{int} tileIdx = 0, \textcolor{keywordtype}{bool} hasPhysics = \textcolor{keyword}{false}, sf::Vector2f position = \{ 0, 0 \});}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18         \mbox{\hyperlink{class_platform_data_engine_1_1_tile_sprite}{\string~TileSprite}}();}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20         \textcolor{comment}{// copy constructor}}
+\DoxyCodeLine{21         \mbox{\hyperlink{class_platform_data_engine_1_1_tile_sprite_a86cda93cd19e27f47bad14a0d224c008}{TileSprite}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_platform_data_engine_1_1_tile_sprite}{TileSprite}}\& other);}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23         \textcolor{keyword}{inline} \textcolor{keywordtype}{int} getTileIdx()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} this-\/>m\_tileIdx; \};}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25         \textcolor{keyword}{inline} \textcolor{keywordtype}{void} preDraw() \{\};}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27     \textcolor{keyword}{private}:}
+\DoxyCodeLine{28         \textcolor{keywordtype}{void} registerSelf(sf::Vector2f pos = \{0.0, 0.0\});}
+\DoxyCodeLine{29         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} initTransform();}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31         std::shared\_ptr<Tileset> m\_tileset;}
+\DoxyCodeLine{32         \textcolor{keywordtype}{int} m\_tileIdx;}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34         b2Body* m\_body;}
+\DoxyCodeLine{35         std::shared\_ptr<b2PolygonShape> m\_bodyShape;}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37         \textcolor{keywordtype}{bool} m\_hasPhysics;}
+\DoxyCodeLine{38     \};}
+\DoxyCodeLine{39 \}}
+\DoxyCodeLine{40 }
+
+\end{DoxyCode}

@@ -1,0 +1,58 @@
+\hypertarget{_game_world_8h_source}{}\doxysection{Game\+World.\+h}
+\label{_game_world_8h_source}\index{PlatformDataEngine/GameWorld.h@{PlatformDataEngine/GameWorld.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <box2d/box2d.h>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}TileMap.h"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}GameObject.h"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}Utility.h"{}}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}CameraController.h"{}}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{namespace }PlatformDataEngine \{}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13     \textcolor{keyword}{class }\mbox{\hyperlink{class_platform_data_engine_1_1_game_world}{GameWorld}} : \textcolor{keyword}{public} sf::Drawable}
+\DoxyCodeLine{14     \{}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16         \textcolor{comment}{// NOTE: will contain a tile map, vector of game objects, etc}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18         \textcolor{comment}{// also contains physics world, has draw, update and physics update functions}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{keyword}{public}:}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22         \mbox{\hyperlink{class_platform_data_engine_1_1_game_world}{GameWorld}}();}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24         \textcolor{comment}{// game loops}}
+\DoxyCodeLine{25         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_platform_data_engine_1_1_game_world_adebf4525972363b1af166612006480b8}{init}}(std::string filePath, sf::View\& view);}
+\DoxyCodeLine{26         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_platform_data_engine_1_1_game_world_a3aca4e0672c0b6fb3f7a86e9752a3222}{update}}(\textcolor{keyword}{const} \textcolor{keywordtype}{float}\& dt, \textcolor{keyword}{const} \textcolor{keywordtype}{float}\& elapsedTime);}
+\DoxyCodeLine{27         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_platform_data_engine_1_1_game_world_ada0e07f4b5a0c22efbe9a9d1c20098ae}{physicsUpdate}}(\textcolor{keyword}{const} \textcolor{keywordtype}{float}\& dt, \textcolor{keyword}{const} \textcolor{keywordtype}{float}\& elapsedTime);}
+\DoxyCodeLine{28         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_platform_data_engine_1_1_game_world_a6fa52e8afbab2fd1905dd961ce84ca85}{draw}}(sf::RenderTarget\& target, sf::RenderStates states) \textcolor{keyword}{const};}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30         \textcolor{comment}{// helpers}}
+\DoxyCodeLine{31         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_platform_data_engine_1_1_game_world_ac7da22e196ce314e03a6b87f09a553f5}{registerGameObject}}(std::string name, std::shared\_ptr<GameObject>);}
+\DoxyCodeLine{32         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_platform_data_engine_1_1_game_world_a8e0eb2b2d5ad051811173d388176b6f5}{registerGameObjectDefinition}}(std::string name, \mbox{\hyperlink{class_platform_data_engine_1_1_game_object}{GameObject}}\&);}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34         \textcolor{comment}{// getters}}
+\DoxyCodeLine{35         \textcolor{keyword}{inline} std::shared\_ptr<b2World> getPhysWorld()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} this-\/>mp\_physicsWorld; \};}
+\DoxyCodeLine{36         \textcolor{keyword}{inline} std::shared\_ptr<TileMap> getTileMap()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} this-\/>mp\_tileMap; \};}
+\DoxyCodeLine{37         \textcolor{keyword}{inline} sf::View getView()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} *this-\/>mp\_view; \};}
+\DoxyCodeLine{38         \textcolor{keyword}{inline} std::shared\_ptr<GameObject> getGameObject(std::string search) \{}
+\DoxyCodeLine{39             \textcolor{keywordflow}{return} this-\/>mp\_gameObjects.find(search)-\/>second;}
+\DoxyCodeLine{40         \};}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42     \textcolor{keyword}{private}:}
+\DoxyCodeLine{43         std::shared\_ptr<b2World> mp\_physicsWorld;}
+\DoxyCodeLine{44         std::shared\_ptr<TileMap> mp\_tileMap;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46         std::shared\_ptr<sf::View> mp\_view;}
+\DoxyCodeLine{47         \mbox{\hyperlink{class_platform_data_engine_1_1_camera_controller}{CameraController}} m\_cameraControl;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49         std::map<std::string, std::shared\_ptr<GameObject>> mp\_gameObjects;}
+\DoxyCodeLine{50         std::map<std::string, GameObject> m\_gameObjectDefinitions;}
+\DoxyCodeLine{51     \};}
+\DoxyCodeLine{52 \}}
+
+\end{DoxyCode}

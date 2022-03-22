@@ -1,0 +1,121 @@
+\hypertarget{class_platform_data_engine_1_1_game_object}{}\doxysection{Platform\+Data\+Engine\+::Game\+Object Class Reference}
+\label{class_platform_data_engine_1_1_game_object}\index{PlatformDataEngine::GameObject@{PlatformDataEngine::GameObject}}
+Inheritance diagram for Platform\+Data\+Engine\+::Game\+Object\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_platform_data_engine_1_1_game_object}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_game_object_a0348e3ee2e83d56eafca7a3547f432c4}\label{class_platform_data_engine_1_1_game_object_a0348e3ee2e83d56eafca7a3547f432c4}} 
+{\bfseries Game\+Object} ()
+\begin{DoxyCompactList}\small\item\em Constructor, keep in mind this is called when creating a game\+Object definition as well as an instance. Definitions are loaded in memory as simple game\+Objects so they can be instantiated using the copy constructor and std\+::make\+\_\+shared() \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_platform_data_engine_1_1_game_object_ab13374d070cfe6a1459539d54c671eba}{Game\+Object}} (const \mbox{\hyperlink{class_platform_data_engine_1_1_game_object}{Game\+Object}} \&other)
+\begin{DoxyCompactList}\small\item\em Copy constructor \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_game_object_a9b565e5ec63bef28e5c860f724d2de7c}\label{class_platform_data_engine_1_1_game_object_a9b565e5ec63bef28e5c860f724d2de7c}} 
+void {\bfseries init} ()
+\begin{DoxyCompactList}\small\item\em Calls \mbox{\hyperlink{class_platform_data_engine_1_1_game_object_a9b565e5ec63bef28e5c860f724d2de7c}{init()}} for every component in this game\+Object and itself \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_platform_data_engine_1_1_game_object_aa80462742b51fe06e9e44d59e178ec32}{update}} (const float \&dt, const float \&elapsed\+Time)
+\begin{DoxyCompactList}\small\item\em Runs the update loop for every component in this game\+Object and itself \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_platform_data_engine_1_1_game_object_aa6d7650a920e2dd79b0125560faf3807}{draw}} (sf\+::\+Render\+Target \&target, sf\+::\+Render\+States states) const
+\begin{DoxyCompactList}\small\item\em Drawcall, never call explicitly \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_platform_data_engine_1_1_game_object_a608cd0d7c9a4be3cf7836019d610f5fe}{load\+Definition}} (std\+::string filename)
+\begin{DoxyCompactList}\small\item\em Loads a game\+Object definition from a json file \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_platform_data_engine_1_1_game_object_ad401e96f38b4ffd0ba2ea65cb29899b1}{register\+Component\+Hierarchy}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_platform_data_engine_1_1_game_object}{Game\+Object}} $>$ self)
+\begin{DoxyCompactList}\small\item\em Adds the game\+Object pointer as the parent for each component this object owns \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_game_object_aa19ddfb831822a734596b8279b1383ff}\label{class_platform_data_engine_1_1_game_object_aa19ddfb831822a734596b8279b1383ff}} 
+{\footnotesize template$<$typename T $>$ }\\std\+::shared\+\_\+ptr$<$ T $>$ {\bfseries find\+Component\+Of\+Type} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_platform_data_engine_1_1_game_object_ab13374d070cfe6a1459539d54c671eba}\label{class_platform_data_engine_1_1_game_object_ab13374d070cfe6a1459539d54c671eba}} 
+\index{PlatformDataEngine::GameObject@{PlatformDataEngine::GameObject}!GameObject@{GameObject}}
+\index{GameObject@{GameObject}!PlatformDataEngine::GameObject@{PlatformDataEngine::GameObject}}
+\doxysubsubsection{\texorpdfstring{GameObject()}{GameObject()}}
+{\footnotesize\ttfamily Game\+Object\+::\+Game\+Object (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_platform_data_engine_1_1_game_object}{Game\+Object}} \&}]{other }\end{DoxyParamCaption})}
+
+
+
+Copy constructor 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & other object\\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_platform_data_engine_1_1_game_object_aa6d7650a920e2dd79b0125560faf3807}\label{class_platform_data_engine_1_1_game_object_aa6d7650a920e2dd79b0125560faf3807}} 
+\index{PlatformDataEngine::GameObject@{PlatformDataEngine::GameObject}!draw@{draw}}
+\index{draw@{draw}!PlatformDataEngine::GameObject@{PlatformDataEngine::GameObject}}
+\doxysubsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily void Game\+Object\+::draw (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Target \&}]{target,  }\item[{sf\+::\+Render\+States}]{states }\end{DoxyParamCaption}) const}
+
+
+
+Drawcall, never call explicitly 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & \\
+\hline
+{\em states} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_platform_data_engine_1_1_game_object_a608cd0d7c9a4be3cf7836019d610f5fe}\label{class_platform_data_engine_1_1_game_object_a608cd0d7c9a4be3cf7836019d610f5fe}} 
+\index{PlatformDataEngine::GameObject@{PlatformDataEngine::GameObject}!loadDefinition@{loadDefinition}}
+\index{loadDefinition@{loadDefinition}!PlatformDataEngine::GameObject@{PlatformDataEngine::GameObject}}
+\doxysubsubsection{\texorpdfstring{loadDefinition()}{loadDefinition()}}
+{\footnotesize\ttfamily void Game\+Object\+::load\+Definition (\begin{DoxyParamCaption}\item[{std\+::string}]{filename }\end{DoxyParamCaption})}
+
+
+
+Loads a game\+Object definition from a json file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & game object definition .json filename\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_platform_data_engine_1_1_game_object_ad401e96f38b4ffd0ba2ea65cb29899b1}\label{class_platform_data_engine_1_1_game_object_ad401e96f38b4ffd0ba2ea65cb29899b1}} 
+\index{PlatformDataEngine::GameObject@{PlatformDataEngine::GameObject}!registerComponentHierarchy@{registerComponentHierarchy}}
+\index{registerComponentHierarchy@{registerComponentHierarchy}!PlatformDataEngine::GameObject@{PlatformDataEngine::GameObject}}
+\doxysubsubsection{\texorpdfstring{registerComponentHierarchy()}{registerComponentHierarchy()}}
+{\footnotesize\ttfamily void Platform\+Data\+Engine\+::\+Game\+Object\+::register\+Component\+Hierarchy (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_platform_data_engine_1_1_game_object}{Game\+Object}} $>$}]{self }\end{DoxyParamCaption})}
+
+
+
+Adds the game\+Object pointer as the parent for each component this object owns 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & a pointer to the new parent, usually \char`\"{}this\char`\"{} as a shared pointer\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_platform_data_engine_1_1_game_object_aa80462742b51fe06e9e44d59e178ec32}\label{class_platform_data_engine_1_1_game_object_aa80462742b51fe06e9e44d59e178ec32}} 
+\index{PlatformDataEngine::GameObject@{PlatformDataEngine::GameObject}!update@{update}}
+\index{update@{update}!PlatformDataEngine::GameObject@{PlatformDataEngine::GameObject}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Game\+Object\+::update (\begin{DoxyParamCaption}\item[{const float \&}]{dt,  }\item[{const float \&}]{elapsed\+Time }\end{DoxyParamCaption})}
+
+
+
+Runs the update loop for every component in this game\+Object and itself 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & delta time\\
+\hline
+{\em elapsed\+Time} & elapsed time (since game started)\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Platform\+Data\+Engine/Game\+Object.\+h\item 
+Platform\+Data\+Engine/Game\+Object.\+cpp\end{DoxyCompactItemize}

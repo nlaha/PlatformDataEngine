@@ -2,6 +2,11 @@
 
 using namespace PlatformDataEngine;
 
+/// <summary>
+/// Constructor
+/// </summary>
+/// <param name="lerpTime">higher values result in faster camera reaction time</param>
+/// <param name="view">a pointer to the world's view</param>
 CameraController::CameraController(float lerpTime, std::shared_ptr<sf::View> view)
 {
 	this->m_lerpTime = lerpTime;
@@ -9,6 +14,10 @@ CameraController::CameraController(float lerpTime, std::shared_ptr<sf::View> vie
 	this->m_view = view;
 }
 
+/// <summary>
+/// Sets the gameObject for which the camera controller should follow
+/// </summary>
+/// <param name="gameObject">the game object to target</param>
 void CameraController::setTarget(std::shared_ptr<GameObject> gameObject)
 {
 	this->m_gameObject = gameObject;

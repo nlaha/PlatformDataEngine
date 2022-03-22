@@ -7,6 +7,12 @@ GameWorld::GameWorld()
 
 }
 
+/// <summary>
+/// Initializes the game world with a world.json definition file
+/// and a view as defined by the game wrapper
+/// </summary>
+/// <param name="filePath">the path to the world definition file</param>
+/// <param name="view">a view that has been linked to a window</param>
 void GameWorld::init(std::string filePath, sf::View& view)
 {
 	// init physics world
@@ -67,6 +73,11 @@ void GameWorld::init(std::string filePath, sf::View& view)
 	}
 }
 
+/// <summary>
+/// Update loop, calls update on the tileMap, gameObjects and the camera controller
+/// </summary>
+/// <param name="dt">delta time</param>
+/// <param name="elapsedTime">elapsed time (since game started)</param>
 void GameWorld::update(const float& dt, const float& elapsedTime)
 {
 	// update tile objects
@@ -82,6 +93,11 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 	this->m_cameraControl.update(dt, elapsedTime);
 }
 
+/// <summary>
+/// Updates the physics simulation
+/// </summary>
+/// <param name="dt">delta time</param>
+/// <param name="elapsedTime">elapsed time (since game started)</param>
 void GameWorld::physicsUpdate(const float& dt, const float& elapsedTime)
 {
 	int velocityIterations = 6;
@@ -92,6 +108,11 @@ void GameWorld::physicsUpdate(const float& dt, const float& elapsedTime)
 	this->mp_physicsWorld->Step(timeStep, velocityIterations, positionIterations);
 }
 
+/// <summary>
+/// Draw call, never call explicitly
+/// </summary>
+/// <param name="target"></param>
+/// <param name="states"></param>
 void GameWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	// draw tile map
@@ -104,12 +125,23 @@ void GameWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	}
 }
 
+/// <summary>
+/// Registers a game object with a name 
+/// (places it in the world's gameObjects map)
+/// </summary>
+/// <param name="name">a unique name for the gameObject</param>
+/// <param name="gameObject">a pointer to the gameObject</param>
 void GameWorld::registerGameObject(std::string name, std::shared_ptr<GameObject> gameObject)
 {
 	this->mp_gameObjects.emplace(name, gameObject);
 }
 
-
+/// <summary>
+/// Registers a gameObject definition, similar to registerGameObject() 
+/// but it stores an actual gameObject rather than a pointer
+/// </summary>
+/// <param name="name">a unique name for the gameObject definition</param>
+/// <param name="gameObject">the gameObject "template" definition</param>
 void GameWorld::registerGameObjectDefinition(std::string name, GameObject& gameObject)
 {
 	this->m_gameObjectDefinitions.emplace(name, gameObject);

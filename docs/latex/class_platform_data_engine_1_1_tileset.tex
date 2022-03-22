@@ -1,0 +1,53 @@
+\hypertarget{class_platform_data_engine_1_1_tileset}{}\doxysection{Platform\+Data\+Engine\+::Tileset Class Reference}
+\label{class_platform_data_engine_1_1_tileset}\index{PlatformDataEngine::Tileset@{PlatformDataEngine::Tileset}}
+Inheritance diagram for Platform\+Data\+Engine\+::Tileset\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_platform_data_engine_1_1_tileset}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_tileset_abca768859a472a578c16b28f85434f78}\label{class_platform_data_engine_1_1_tileset_abca768859a472a578c16b28f85434f78}} 
+{\bfseries Tileset} (const std\+::string \&image\+Path, int tile\+Size, const std\+::string \&shader\+Path=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em Constructor \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{class_platform_data_engine_1_1_tile_texture}{Tile\+Texture}} \& \mbox{\hyperlink{class_platform_data_engine_1_1_tileset_afd086690de30aa5666a803b4b99aaf7c}{get\+Tile\+Texture}} (int tile\+Idx) const
+\begin{DoxyCompactList}\small\item\em Gets the tile texture. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_tileset_a084bb2647244664cd84438953ea98366}\label{class_platform_data_engine_1_1_tileset_a084bb2647244664cd84438953ea98366}} 
+void {\bfseries register\+Sprite} (\mbox{\hyperlink{class_platform_data_engine_1_1_tile_sprite}{Tile\+Sprite}} $\ast$sprite)
+\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_tileset_ac647b3ec5d0c013ba09f579585639d69}\label{class_platform_data_engine_1_1_tileset_ac647b3ec5d0c013ba09f579585639d69}} 
+void {\bfseries deregister\+Sprite} (\mbox{\hyperlink{class_platform_data_engine_1_1_tile_sprite}{Tile\+Sprite}} $\ast$sprite)
+\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_tileset_af0ce38c039f8110cb74596cb68735936}\label{class_platform_data_engine_1_1_tileset_af0ce38c039f8110cb74596cb68735936}} 
+virtual void {\bfseries draw} (sf\+::\+Render\+Target \&target, sf\+::\+Render\+States states) const
+\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_tileset_ac0e5f1f208a75cb413b11546ec6ced38}\label{class_platform_data_engine_1_1_tileset_ac0e5f1f208a75cb413b11546ec6ced38}} 
+void {\bfseries update} (const float \&dt, const float \&elapsed\+Time)
+\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_tileset_aec6444e145b9439e4e4084c9755b42a7}\label{class_platform_data_engine_1_1_tileset_aec6444e145b9439e4e4084c9755b42a7}} 
+int {\bfseries get\+Tile\+Size} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_platform_data_engine_1_1_tileset_afd086690de30aa5666a803b4b99aaf7c}\label{class_platform_data_engine_1_1_tileset_afd086690de30aa5666a803b4b99aaf7c}} 
+\index{PlatformDataEngine::Tileset@{PlatformDataEngine::Tileset}!getTileTexture@{getTileTexture}}
+\index{getTileTexture@{getTileTexture}!PlatformDataEngine::Tileset@{PlatformDataEngine::Tileset}}
+\doxysubsubsection{\texorpdfstring{getTileTexture()}{getTileTexture()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_platform_data_engine_1_1_tile_texture}{Tile\+Texture}} \& Tileset\+::get\+Tile\+Texture (\begin{DoxyParamCaption}\item[{int}]{tile\+Idx }\end{DoxyParamCaption}) const}
+
+
+
+Gets the tile texture. 
+
+\begin{DoxyReturn}{Returns}
+The tile texture.
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Platform\+Data\+Engine/Tileset.\+h\item 
+Platform\+Data\+Engine/Tileset.\+cpp\end{DoxyCompactItemize}

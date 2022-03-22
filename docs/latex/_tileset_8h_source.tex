@@ -1,0 +1,46 @@
+\hypertarget{_tileset_8h_source}{}\doxysection{Tileset.\+h}
+\label{_tileset_8h_source}\index{PlatformDataEngine/Tileset.h@{PlatformDataEngine/Tileset.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <algorithm>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <spdlog/spdlog.h>}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}TileTexture.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}TileSprite.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }PlatformDataEngine \{}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15     \textcolor{keyword}{class }TileSprite;}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17     \textcolor{keyword}{class }\mbox{\hyperlink{class_platform_data_engine_1_1_tileset}{Tileset}} : \textcolor{keyword}{public} sf::Drawable}
+\DoxyCodeLine{18     \{}
+\DoxyCodeLine{19     \textcolor{keyword}{public}:}
+\DoxyCodeLine{20         \mbox{\hyperlink{class_platform_data_engine_1_1_tileset_abca768859a472a578c16b28f85434f78}{Tileset}}(\textcolor{keyword}{const} std::string\& imagePath, \textcolor{keywordtype}{int} tileSize, \textcolor{keyword}{const} std::string\& shaderPath = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22         \textcolor{keyword}{const} \mbox{\hyperlink{class_platform_data_engine_1_1_tile_texture}{TileTexture}}\& \mbox{\hyperlink{class_platform_data_engine_1_1_tileset_afd086690de30aa5666a803b4b99aaf7c}{getTileTexture}}(\textcolor{keywordtype}{int} tileIdx) \textcolor{keyword}{const};}
+\DoxyCodeLine{23         \textcolor{keywordtype}{void} registerSprite(\mbox{\hyperlink{class_platform_data_engine_1_1_tile_sprite}{TileSprite}}* sprite);}
+\DoxyCodeLine{24         \textcolor{keywordtype}{void} deregisterSprite(\mbox{\hyperlink{class_platform_data_engine_1_1_tile_sprite}{TileSprite}}* sprite);}
+\DoxyCodeLine{25         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} draw(sf::RenderTarget\& target, sf::RenderStates states) \textcolor{keyword}{const};}
+\DoxyCodeLine{26         \textcolor{keywordtype}{void} update(\textcolor{keyword}{const} \textcolor{keywordtype}{float}\& dt, \textcolor{keyword}{const} \textcolor{keywordtype}{float}\& elapsedTime);}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28         \textcolor{keyword}{inline} \textcolor{keywordtype}{int} getTileSize()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} this-\/>m\_tileSize; \};}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30     \textcolor{keyword}{private}:}
+\DoxyCodeLine{31         \textcolor{keywordtype}{bool} loadTileset(\textcolor{keyword}{const} std::string\& imagePath, \textcolor{keyword}{const} std::string\& shaderPath);}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33         std::vector<TileTexture> m\_tileTextures;}
+\DoxyCodeLine{34         std::vector<TileSprite*> m\_tileSprites;}
+\DoxyCodeLine{35         std::unique\_ptr<sf::Texture> m\_texture;}
+\DoxyCodeLine{36         sf::Shader m\_shader;}
+\DoxyCodeLine{37         \textcolor{keywordtype}{int} m\_tileSize;}
+\DoxyCodeLine{38     \};}
+\DoxyCodeLine{39 \}}
+\DoxyCodeLine{40 }
+
+\end{DoxyCode}

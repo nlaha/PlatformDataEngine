@@ -1,0 +1,44 @@
+\hypertarget{class_platform_data_engine_1_1_component}{}\doxysection{Platform\+Data\+Engine\+::Component Class Reference}
+\label{class_platform_data_engine_1_1_component}\index{PlatformDataEngine::Component@{PlatformDataEngine::Component}}
+Inheritance diagram for Platform\+Data\+Engine\+::Component\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.680000cm]{class_platform_data_engine_1_1_component}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_component_a2bbfafe06f654747c7b1c23f42008846}\label{class_platform_data_engine_1_1_component_a2bbfafe06f654747c7b1c23f42008846}} 
+{\bfseries Component} (const \mbox{\hyperlink{class_platform_data_engine_1_1_component}{Component}} \&other)
+\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_component_aa00e641adc7f399bc664948f7ee4a071}\label{class_platform_data_engine_1_1_component_aa00e641adc7f399bc664948f7ee4a071}} 
+void {\bfseries register\+Hierarchy} (\mbox{\hyperlink{class_platform_data_engine_1_1_game_object}{Game\+Object}} $\ast$parent)
+\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_component_aa0bf4fb5f4bc0de25d3f7beef3a3ca45}\label{class_platform_data_engine_1_1_component_aa0bf4fb5f4bc0de25d3f7beef3a3ca45}} 
+virtual void {\bfseries init} ()
+\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_component_ab861ab0ffbcc0d40174f8aed30d1c7ba}\label{class_platform_data_engine_1_1_component_ab861ab0ffbcc0d40174f8aed30d1c7ba}} 
+virtual void {\bfseries update} (const float \&dt, const float \&elapsed\+Time)
+\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_component_a176b3c5d23903d8bfadba749dfe2a0cc}\label{class_platform_data_engine_1_1_component_a176b3c5d23903d8bfadba749dfe2a0cc}} 
+virtual void {\bfseries draw} (sf\+::\+Render\+Target \&target, sf\+::\+Render\+States states) const
+\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_component_ab24492634fe0e4640d88860676b1314f}\label{class_platform_data_engine_1_1_component_ab24492634fe0e4640d88860676b1314f}} 
+virtual void {\bfseries load\+Definition} (nlohmann\+::json object)=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_component_ac4187458cc5074e9d303d37f184a45ea}\label{class_platform_data_engine_1_1_component_ac4187458cc5074e9d303d37f184a45ea}} 
+std\+::map$<$ std\+::string, nlohmann\+::json $>$ {\bfseries m\+\_\+properties}
+\item 
+\mbox{\Hypertarget{class_platform_data_engine_1_1_component_a72a5df5a519a033713142fff76632338}\label{class_platform_data_engine_1_1_component_a72a5df5a519a033713142fff76632338}} 
+\mbox{\hyperlink{class_platform_data_engine_1_1_game_object}{Game\+Object}} $\ast$ {\bfseries m\+\_\+parent}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Platform\+Data\+Engine/Component.\+h\item 
+Platform\+Data\+Engine/Component.\+cpp\end{DoxyCompactItemize}

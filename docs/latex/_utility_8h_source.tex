@@ -1,0 +1,59 @@
+\hypertarget{_utility_8h_source}{}\doxysection{Utility.\+h}
+\label{_utility_8h_source}\index{PlatformDataEngine/Utility.h@{PlatformDataEngine/Utility.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <random>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <sstream>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <box2d/box2d.h>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <SFML/Graphics.hpp>}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{namespace }PlatformDataEngine \{}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9     \textcolor{keyword}{class }\mbox{\hyperlink{class_platform_data_engine_1_1_utility}{Utility}} \{}
+\DoxyCodeLine{10     \textcolor{keyword}{public}:}
+\DoxyCodeLine{11         \textcolor{keyword}{static} \textcolor{keyword}{inline} std::random\_device              rd;}
+\DoxyCodeLine{12         \textcolor{keyword}{static} \textcolor{keyword}{inline} std::mt19937                    gen = std::mt19937(Utility::rd());}
+\DoxyCodeLine{13         \textcolor{keyword}{static} \textcolor{keyword}{inline} std::uniform\_int\_distribution<> dis = std::uniform\_int\_distribution<>(0, 15);}
+\DoxyCodeLine{14         \textcolor{keyword}{static} \textcolor{keyword}{inline} std::uniform\_int\_distribution<> dis2 = std::uniform\_int\_distribution<>(8, 11);}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16         \textcolor{keyword}{static} std::string generate\_uuid\_v4() \{}
+\DoxyCodeLine{17             std::stringstream ss;}
+\DoxyCodeLine{18             \textcolor{keywordtype}{int} i;}
+\DoxyCodeLine{19             ss << std::hex;}
+\DoxyCodeLine{20             \textcolor{keywordflow}{for} (i = 0; i < 8; i++) \{}
+\DoxyCodeLine{21                 ss << Utility::dis(Utility::gen);}
+\DoxyCodeLine{22             \}}
+\DoxyCodeLine{23             ss << \textcolor{stringliteral}{"{}-\/"{}};}
+\DoxyCodeLine{24             \textcolor{keywordflow}{for} (i = 0; i < 4; i++) \{}
+\DoxyCodeLine{25                 ss << Utility::dis(Utility::gen);}
+\DoxyCodeLine{26             \}}
+\DoxyCodeLine{27             ss << \textcolor{stringliteral}{"{}-\/4"{}};}
+\DoxyCodeLine{28             \textcolor{keywordflow}{for} (i = 0; i < 3; i++) \{}
+\DoxyCodeLine{29                 ss << Utility::dis(Utility::gen);}
+\DoxyCodeLine{30             \}}
+\DoxyCodeLine{31             ss << \textcolor{stringliteral}{"{}-\/"{}};}
+\DoxyCodeLine{32             ss << Utility::dis2(Utility::gen);}
+\DoxyCodeLine{33             \textcolor{keywordflow}{for} (i = 0; i < 3; i++) \{}
+\DoxyCodeLine{34                 ss << Utility::dis(Utility::gen);}
+\DoxyCodeLine{35             \}}
+\DoxyCodeLine{36             ss << \textcolor{stringliteral}{"{}-\/"{}};}
+\DoxyCodeLine{37             \textcolor{keywordflow}{for} (i = 0; i < 12; i++) \{}
+\DoxyCodeLine{38                 ss << Utility::dis(Utility::gen);}
+\DoxyCodeLine{39             \};}
+\DoxyCodeLine{40             \textcolor{keywordflow}{return} ss.str();}
+\DoxyCodeLine{41         \}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43         \textcolor{comment}{// lerp vector2f}}
+\DoxyCodeLine{44         \textcolor{keyword}{static} sf::Vector2f lerp(sf::Vector2f a, sf::Vector2f b, \textcolor{keywordtype}{float} t) \{}
+\DoxyCodeLine{45             \textcolor{keywordflow}{return} sf::Vector2f(a.x + (b.x -\/ a.x) * t, a.y + (b.y -\/ a.y) * t);}
+\DoxyCodeLine{46         \}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48         \textcolor{comment}{// lerp b2Vec2}}
+\DoxyCodeLine{49         \textcolor{keyword}{static} b2Vec2 lerp(b2Vec2 a, b2Vec2 b, \textcolor{keywordtype}{float} t) \{}
+\DoxyCodeLine{50             \textcolor{keywordflow}{return} b2Vec2(a.x + (b.x -\/ a.x) * t, a.y + (b.y -\/ a.y) * t);}
+\DoxyCodeLine{51         \}}
+\DoxyCodeLine{52     \};}
+\DoxyCodeLine{53 \}}
+
+\end{DoxyCode}

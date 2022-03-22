@@ -1,0 +1,45 @@
+\hypertarget{_component_factory_8h_source}{}\doxysection{Component\+Factory.\+h}
+\label{_component_factory_8h_source}\index{PlatformDataEngine/ComponentFactory.h@{PlatformDataEngine/ComponentFactory.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}Component.h"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}AnimationController.h"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}CharacterController.h"{}}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}SpriteRenderer.h"{}}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}PhysicsBody.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }PlatformDataEngine \{}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14     \textcolor{comment}{/*}}
+\DoxyCodeLine{15 \textcolor{comment}{        COMPONENT FACTORY}}
+\DoxyCodeLine{16 \textcolor{comment}{        This is a class that is responsible for creating components}}
+\DoxyCodeLine{17 \textcolor{comment}{        of different types from a string representation of the type.}}
+\DoxyCodeLine{18 \textcolor{comment}{        For example, if the component with type "{}AnimationController"{}}}
+\DoxyCodeLine{19 \textcolor{comment}{        is added in the json file, we need a way to make an object of}}
+\DoxyCodeLine{20 \textcolor{comment}{        type AnimationController so we'd call the following:}}
+\DoxyCodeLine{21 \textcolor{comment}{        ComponentFactory::create("{}AnimationController"{})   }}
+\DoxyCodeLine{22 \textcolor{comment}{    */}}
+\DoxyCodeLine{23     \textcolor{keyword}{class }\mbox{\hyperlink{class_platform_data_engine_1_1_component_factory}{ComponentFactory}} \{}
+\DoxyCodeLine{24     \textcolor{keyword}{public}:}
+\DoxyCodeLine{25         \textcolor{keyword}{static} \textcolor{keyword}{inline} std::shared\_ptr<Component> create(\textcolor{keyword}{const} std::string\& type)}
+\DoxyCodeLine{26         \{}
+\DoxyCodeLine{27             \textcolor{keywordflow}{return} factoryMap.at(type);}
+\DoxyCodeLine{28         \}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30     \textcolor{keyword}{private}:}
+\DoxyCodeLine{31         \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keyword}{const} std::map<std::string, std::shared\_ptr<Component>> factoryMap = \{}
+\DoxyCodeLine{32             \{\textcolor{stringliteral}{"{}AnimationController"{}}, std::make\_shared<AnimationController>()\},}
+\DoxyCodeLine{33             \{\textcolor{stringliteral}{"{}CharacterController"{}}, std::make\_shared<CharacterController>()\},}
+\DoxyCodeLine{34             \{\textcolor{stringliteral}{"{}SpriteRenderer"{}}, std::make\_shared<SpriteRenderer>()\},}
+\DoxyCodeLine{35             \{\textcolor{stringliteral}{"{}PhysicsBody"{}}, std::make\_shared<PhysicsBody>()\}}
+\DoxyCodeLine{36         \};}
+\DoxyCodeLine{37     \};}
+\DoxyCodeLine{38 \}}
+\DoxyCodeLine{39 }
+
+\end{DoxyCode}

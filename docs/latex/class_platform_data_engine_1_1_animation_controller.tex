@@ -1,0 +1,81 @@
+\hypertarget{class_platform_data_engine_1_1_animation_controller}{}\doxysection{Platform\+Data\+Engine\+::Animation\+Controller Class Reference}
+\label{class_platform_data_engine_1_1_animation_controller}\index{PlatformDataEngine::AnimationController@{PlatformDataEngine::AnimationController}}
+
+
+A component that manages playing animations on a game\+Object. Precondition\+: the game object must have a sprite renderer component.  
+
+
+
+
+{\ttfamily \#include $<$Animation\+Controller.\+h$>$}
+
+Inheritance diagram for Platform\+Data\+Engine\+::Animation\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_platform_data_engine_1_1_animation_controller}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_platform_data_engine_1_1_animation_controller_ae40c2032604f044293d50c27da416f01}{init}} ()
+\item 
+void \mbox{\hyperlink{class_platform_data_engine_1_1_animation_controller_a3b720658ebfdc83da0163e2dae970014}{update}} (const float \&dt, const float \&elapsed\+Time)
+\item 
+void \mbox{\hyperlink{class_platform_data_engine_1_1_animation_controller_abc3f740142829e3f657e9b8793b31adc}{draw}} (sf\+::\+Render\+Target \&target, sf\+::\+Render\+States states) const
+\item 
+void \mbox{\hyperlink{class_platform_data_engine_1_1_animation_controller_a638e3a6172d48ebea065326ec1ff8338}{load\+Definition}} (nlohmann\+::json object)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+A component that manages playing animations on a game\+Object. Precondition\+: the game object must have a sprite renderer component. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_platform_data_engine_1_1_animation_controller_abc3f740142829e3f657e9b8793b31adc}\label{class_platform_data_engine_1_1_animation_controller_abc3f740142829e3f657e9b8793b31adc}} 
+\index{PlatformDataEngine::AnimationController@{PlatformDataEngine::AnimationController}!draw@{draw}}
+\index{draw@{draw}!PlatformDataEngine::AnimationController@{PlatformDataEngine::AnimationController}}
+\doxysubsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily void Animation\+Controller\+::draw (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Target \&}]{target,  }\item[{sf\+::\+Render\+States}]{states }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_platform_data_engine_1_1_component}{Platform\+Data\+Engine\+::\+Component}}.
+
+\mbox{\Hypertarget{class_platform_data_engine_1_1_animation_controller_ae40c2032604f044293d50c27da416f01}\label{class_platform_data_engine_1_1_animation_controller_ae40c2032604f044293d50c27da416f01}} 
+\index{PlatformDataEngine::AnimationController@{PlatformDataEngine::AnimationController}!init@{init}}
+\index{init@{init}!PlatformDataEngine::AnimationController@{PlatformDataEngine::AnimationController}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Animation\+Controller\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_platform_data_engine_1_1_component}{Platform\+Data\+Engine\+::\+Component}}.
+
+\mbox{\Hypertarget{class_platform_data_engine_1_1_animation_controller_a638e3a6172d48ebea065326ec1ff8338}\label{class_platform_data_engine_1_1_animation_controller_a638e3a6172d48ebea065326ec1ff8338}} 
+\index{PlatformDataEngine::AnimationController@{PlatformDataEngine::AnimationController}!loadDefinition@{loadDefinition}}
+\index{loadDefinition@{loadDefinition}!PlatformDataEngine::AnimationController@{PlatformDataEngine::AnimationController}}
+\doxysubsubsection{\texorpdfstring{loadDefinition()}{loadDefinition()}}
+{\footnotesize\ttfamily void Animation\+Controller\+::load\+Definition (\begin{DoxyParamCaption}\item[{nlohmann\+::json}]{object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_platform_data_engine_1_1_component}{Platform\+Data\+Engine\+::\+Component}}.
+
+\mbox{\Hypertarget{class_platform_data_engine_1_1_animation_controller_a3b720658ebfdc83da0163e2dae970014}\label{class_platform_data_engine_1_1_animation_controller_a3b720658ebfdc83da0163e2dae970014}} 
+\index{PlatformDataEngine::AnimationController@{PlatformDataEngine::AnimationController}!update@{update}}
+\index{update@{update}!PlatformDataEngine::AnimationController@{PlatformDataEngine::AnimationController}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Animation\+Controller\+::update (\begin{DoxyParamCaption}\item[{const float \&}]{dt,  }\item[{const float \&}]{elapsed\+Time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_platform_data_engine_1_1_component}{Platform\+Data\+Engine\+::\+Component}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Platform\+Data\+Engine/Animation\+Controller.\+h\item 
+Platform\+Data\+Engine/Animation\+Controller.\+cpp\end{DoxyCompactItemize}

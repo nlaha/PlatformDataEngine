@@ -14,6 +14,9 @@ namespace PlatformDataEngine {
     {
     }
 
+    /// <summary>
+    /// Runs the game (makes window and starts systems)
+    /// </summary>
     void PlatformDataEngineWrapper::run()
     {
         sf::ContextSettings contextSettings;

@@ -1,0 +1,31 @@
+\hypertarget{_camera_controller_8h_source}{}\doxysection{Camera\+Controller.\+h}
+\label{_camera_controller_8h_source}\index{PlatformDataEngine/CameraController.h@{PlatformDataEngine/CameraController.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <SFML/Graphics.hpp>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <spdlog/spdlog.h>}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}GameObject.h"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{namespace }PlatformDataEngine \{}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9     \textcolor{keyword}{class }\mbox{\hyperlink{class_platform_data_engine_1_1_camera_controller}{CameraController}}}
+\DoxyCodeLine{10     \{}
+\DoxyCodeLine{11     \textcolor{keyword}{public}:}
+\DoxyCodeLine{12         \mbox{\hyperlink{class_platform_data_engine_1_1_camera_controller_a435861b907d203bd4551b2ad94be4827}{CameraController}}(\textcolor{keywordtype}{float} lerpTime = 0.0f, std::shared\_ptr<sf::View> view = \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_platform_data_engine_1_1_camera_controller_a1955ebccae720a20c96f0110ee213e40}{setTarget}}(std::shared\_ptr<GameObject> gameObject);}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16         \textcolor{keywordtype}{void} update(\textcolor{keyword}{const} \textcolor{keywordtype}{float}\& dt, \textcolor{keyword}{const} \textcolor{keywordtype}{float}\& elapsedTime);}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     \textcolor{keyword}{private}:}
+\DoxyCodeLine{19         std::shared\_ptr<sf::View> m\_view;}
+\DoxyCodeLine{20         std::shared\_ptr<GameObject> m\_gameObject;}
+\DoxyCodeLine{21         \textcolor{keywordtype}{float} m\_lerpTime;}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23     \};}
+\DoxyCodeLine{24 \}}
+\DoxyCodeLine{25 }
+
+\end{DoxyCode}

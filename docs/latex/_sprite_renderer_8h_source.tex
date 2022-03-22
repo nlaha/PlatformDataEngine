@@ -1,0 +1,34 @@
+\hypertarget{_sprite_renderer_8h_source}{}\doxysection{Sprite\+Renderer.\+h}
+\label{_sprite_renderer_8h_source}\index{PlatformDataEngine/SpriteRenderer.h@{PlatformDataEngine/SpriteRenderer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <SFML/Graphics.hpp>}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}Component.h"{}}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{keyword}{namespace }PlatformDataEngine \{}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{11     \textcolor{keyword}{class }\mbox{\hyperlink{class_platform_data_engine_1_1_sprite_renderer}{SpriteRenderer}} :}
+\DoxyCodeLine{12         \textcolor{keyword}{public} \mbox{\hyperlink{class_platform_data_engine_1_1_component}{Component}}}
+\DoxyCodeLine{13     \{}
+\DoxyCodeLine{14     \textcolor{keyword}{public}:}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16         \textcolor{keywordtype}{void} init();}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18         \textcolor{keywordtype}{void} update(\textcolor{keyword}{const} \textcolor{keywordtype}{float}\& dt, \textcolor{keyword}{const} \textcolor{keywordtype}{float}\& elapsedTime);}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20         \textcolor{keywordtype}{void} draw(sf::RenderTarget\& target, sf::RenderStates states) \textcolor{keyword}{const};}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22         \textcolor{keywordtype}{void} loadDefinition(nlohmann::json \textcolor{keywordtype}{object});}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24     \textcolor{keyword}{private}:}
+\DoxyCodeLine{25         sf::Sprite m\_sprite;}
+\DoxyCodeLine{26         sf::Texture m\_texture;}
+\DoxyCodeLine{27         sf::IntRect m\_rect;}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29     \};}
+\DoxyCodeLine{30 \}}
+\DoxyCodeLine{31 }
+
+\end{DoxyCode}

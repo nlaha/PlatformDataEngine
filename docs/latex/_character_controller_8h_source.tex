@@ -1,0 +1,35 @@
+\hypertarget{_character_controller_8h_source}{}\doxysection{Character\+Controller.\+h}
+\label{_character_controller_8h_source}\index{PlatformDataEngine/CharacterController.h@{PlatformDataEngine/CharacterController.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <SFML/Graphics.hpp>}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}Component.h"{}}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{keyword}{namespace }PlatformDataEngine \{}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{13     \textcolor{keyword}{class }\mbox{\hyperlink{class_platform_data_engine_1_1_character_controller}{CharacterController}} :}
+\DoxyCodeLine{14         \textcolor{keyword}{public} \mbox{\hyperlink{class_platform_data_engine_1_1_component}{Component}}}
+\DoxyCodeLine{15     \{}
+\DoxyCodeLine{16     \textcolor{keyword}{public}:}
+\DoxyCodeLine{17         \textcolor{keywordtype}{void} init();}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19         \textcolor{keywordtype}{void} update(\textcolor{keyword}{const} \textcolor{keywordtype}{float}\& dt, \textcolor{keyword}{const} \textcolor{keywordtype}{float}\& elapsedTime);}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21         \textcolor{keywordtype}{void} draw(sf::RenderTarget\& target, sf::RenderStates states) \textcolor{keyword}{const};}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23         \textcolor{keywordtype}{void} loadDefinition(nlohmann::json \textcolor{keywordtype}{object});}
+\DoxyCodeLine{24         }
+\DoxyCodeLine{25     \textcolor{keyword}{private}:}
+\DoxyCodeLine{26         }
+\DoxyCodeLine{27         \textcolor{keywordtype}{float} m\_moveForce;}
+\DoxyCodeLine{28         \textcolor{keywordtype}{float} m\_jumpForce;}
+\DoxyCodeLine{29         \textcolor{keywordtype}{float} m\_maxVelocity;}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31         \textcolor{keywordtype}{bool} m\_prev\_key\_state;}
+\DoxyCodeLine{32     \};}
+\DoxyCodeLine{33 \}}
+\DoxyCodeLine{34 }
+
+\end{DoxyCode}

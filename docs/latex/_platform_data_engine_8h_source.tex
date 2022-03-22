@@ -1,0 +1,39 @@
+\hypertarget{_platform_data_engine_8h_source}{}\doxysection{Platform\+Data\+Engine.\+h}
+\label{_platform_data_engine_8h_source}\index{PlatformDataEngine/PlatformDataEngine.h@{PlatformDataEngine/PlatformDataEngine.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <SFML/Graphics.hpp>}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <filesystem>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <nlohmann/json.hpp>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <spdlog/spdlog.h>}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}Utility.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}GameWorld.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }PlatformDataEngine \{}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15     \textcolor{keyword}{class }\mbox{\hyperlink{class_platform_data_engine_1_1_platform_data_engine_wrapper}{PlatformDataEngineWrapper}}}
+\DoxyCodeLine{16     \{}
+\DoxyCodeLine{17     \textcolor{keyword}{public}:}
+\DoxyCodeLine{18         \mbox{\hyperlink{class_platform_data_engine_1_1_platform_data_engine_wrapper}{PlatformDataEngineWrapper}}();}
+\DoxyCodeLine{19         \mbox{\hyperlink{class_platform_data_engine_1_1_platform_data_engine_wrapper}{\string~PlatformDataEngineWrapper}}();}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21         \textcolor{keyword}{static} std::shared\_ptr<GameWorld> mp\_mainWorld;}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_platform_data_engine_1_1_platform_data_engine_wrapper_ab477f5679a02576b2d90ef1814710bd9}{run}}();}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25         \textcolor{keyword}{static} \textcolor{keyword}{inline} std::shared\_ptr<GameWorld> getWorld() \{}
+\DoxyCodeLine{26             \textcolor{keywordflow}{return} PlatformDataEngineWrapper::mp\_mainWorld;}
+\DoxyCodeLine{27         \}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29     \textcolor{keyword}{private}:}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31     \};}
+\DoxyCodeLine{32 \}}
+\DoxyCodeLine{33 }
+
+\end{DoxyCode}

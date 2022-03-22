@@ -28,7 +28,7 @@
             "type": "CharacterController",
             "properties": {
                 "moveForce": 4000.0,
-                "jumpForce": 2800.0,
+                "jumpForce": 3000.0,
                 "maxVelocity": 2800.0
             }
         },

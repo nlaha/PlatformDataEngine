@@ -33,18 +33,11 @@ void PlatformDataEngine::CharacterController::update(const float& dt, const floa
             pb->getBody()->ApplyLinearImpulseToCenter({ 0.f, -1.f * this->m_jumpForce }, true);
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-    {
-        // move down
-        if (pb->getBody()->GetLinearVelocity().Length() < this->m_maxVelocity)
-            pb->getBody()->ApplyForceToCenter({ 0.f, 1.f * this->m_moveForce }, true);
-    }
-
     this->m_prev_key_state = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
 
     // lerp velocity to zero
     b2Vec2 currentVelocity = pb->getBody()->GetLinearVelocity();
-    b2Vec2 newVelocity = Utility::lerp(currentVelocity, { 0.f, currentVelocity.y }, 2.0f * dt);
+    b2Vec2 newVelocity = Utility::lerp(currentVelocity, { 0.f, currentVelocity.y }, 4.0f * dt);
     pb->getBody()->SetLinearVelocity(newVelocity);
 }
 

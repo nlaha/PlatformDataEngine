@@ -18,3 +18,5 @@ Visual Studio should automatically use `vcpkg` to install the correct dependenci
 
 
 ![screenshot](./screenshots/sc1.jpg)
+
+![screenshot](./screenshots/ClassDiagram.drawio.png)

@@ -7,6 +7,10 @@ namespace PlatformDataEngine {
 
 	class GameObject;
 
+	/// <summary>
+	/// The base component class, when creating components to
+	/// add gameplay functionality, they should inherit from this class
+	/// </summary>
 	class Component : public sf::Drawable
 	{
 

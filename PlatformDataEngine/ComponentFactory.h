@@ -11,15 +11,15 @@
 
 namespace PlatformDataEngine {
 
-    /*
-        COMPONENT FACTORY
-        This is a class that is responsible for creating components
-        of different types from a string representation of the type.
-        For example, if the component with type "AnimationController"
-        is added in the json file, we need a way to make an object of
-        type AnimationController so we'd call the following:
-        ComponentFactory::create("AnimationController")   
-    */
+	/// <summary>
+	/// COMPONENT FACTORY
+    /// This is a class that is responsible for creating components
+    /// of different types from a string representation of the type.
+    /// For example, if the component with type "AnimationController"
+    /// is added in the json file, we need a way to make an object of
+    /// type AnimationController so we'd call the following:
+    /// ComponentFactory::create("AnimationController")
+	/// </summary>
 	class ComponentFactory {
     public:
         static inline std::shared_ptr<Component> create(const std::string& type)

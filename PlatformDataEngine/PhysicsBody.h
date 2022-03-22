@@ -7,6 +7,10 @@
 
 namespace PlatformDataEngine {
 
+    /// <summary>
+    /// A component that enables collision and rigidbody
+    /// for a gameObject
+    /// </summary>
     class PhysicsBody : public Component
     {
     public:

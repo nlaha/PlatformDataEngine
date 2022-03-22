@@ -6,6 +6,9 @@
 
 namespace PlatformDataEngine {
 
+    /// <summary>
+    /// Utility class for holding helper functions
+    /// </summary>
     class Utility {
     public:
         static inline std::random_device              rd;

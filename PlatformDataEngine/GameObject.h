@@ -12,6 +12,11 @@
 
 namespace PlatformDataEngine {
 
+	/// <summary>
+	/// The base container class for a gameplay related object, it's drawable, 
+	/// transformable and components can be added to modify the funcionality. 
+	/// These classes are defined by the user in a json file.
+	/// </summary>
 	class GameObject : public sf::Transformable, public sf::Drawable
 	{
 	public:

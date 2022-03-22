@@ -12,6 +12,9 @@
 
 namespace PlatformDataEngine {
 
+	/// <summary>
+	/// Game Wrapper
+	/// </summary>
 	class PlatformDataEngineWrapper
 	{
 	public:

@@ -10,6 +10,9 @@
 
 namespace PlatformDataEngine {
 
+	/// <summary>
+	/// Represents a game world with it's own tile map and gameObjects
+	/// </summary>
 	class GameWorld : public sf::Drawable
 	{
 

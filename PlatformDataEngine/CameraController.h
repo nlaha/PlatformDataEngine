@@ -6,6 +6,10 @@
 
 namespace PlatformDataEngine {
 
+	/// <summary>
+	/// Handles moving the camera and targetting
+	/// gameObjects
+	/// </summary>
 	class CameraController
 	{
 	public:

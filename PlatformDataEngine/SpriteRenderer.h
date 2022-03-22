@@ -1,0 +1,31 @@
+#pragma once
+#include <SFML/Graphics.hpp>
+
+#include "Component.h"
+
+namespace PlatformDataEngine {
+
+    /// <summary>
+    /// A component that simply holds an SFML sprite and renders it.
+    /// </summary>
+    class SpriteRenderer :
+        public Component
+    {
+    public:
+
+        void init();
+
+        void update(const float& dt, const float& elapsedTime);
+
+        void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+        void loadDefinition(nlohmann::json object);
+
+    private:
+        sf::Sprite m_sprite;
+        sf::Texture m_texture;
+        sf::IntRect m_rect;
+
+    };
+}
+

@@ -1,6 +1,10 @@
 # Prerequisites
 *.d
 
+vcpkg_installed
+vcpkg_installed/
+vcpkg_installed/*
+
 # Compiled Object files
 *.slo
 *.lo
@@ -30,3 +34,4 @@
 *.exe
 *.out
 *.app
+/.vs

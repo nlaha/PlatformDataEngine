@@ -1,0 +1,141 @@
+{ "frames": {
+   "Character (Walk) 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 8, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 16 },
+    "sourceSize": { "w": 8, "h": 16 },
+    "duration": 100
+   },
+   "Character (Walk) 1.aseprite": {
+    "frame": { "x": 8, "y": 0, "w": 8, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 16 },
+    "sourceSize": { "w": 8, "h": 16 },
+    "duration": 100
+   },
+   "Character (Walk) 2.aseprite": {
+    "frame": { "x": 16, "y": 0, "w": 8, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 16 },
+    "sourceSize": { "w": 8, "h": 16 },
+    "duration": 100
+   },
+   "Character (Idle) 0.aseprite": {
+    "frame": { "x": 0, "y": 16, "w": 8, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 16 },
+    "sourceSize": { "w": 8, "h": 16 },
+    "duration": 100
+   },
+   "Character (Idle) 1.aseprite": {
+    "frame": { "x": 8, "y": 16, "w": 8, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 16 },
+    "sourceSize": { "w": 8, "h": 16 },
+    "duration": 100
+   },
+   "Character (Idle) 2.aseprite": {
+    "frame": { "x": 16, "y": 16, "w": 8, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 16 },
+    "sourceSize": { "w": 8, "h": 16 },
+    "duration": 100
+   },
+   "Character (Jump) 0.aseprite": {
+    "frame": { "x": 0, "y": 32, "w": 8, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 16 },
+    "sourceSize": { "w": 8, "h": 16 },
+    "duration": 100
+   },
+   "Character (Jump) 1.aseprite": {
+    "frame": { "x": 8, "y": 32, "w": 8, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 16 },
+    "sourceSize": { "w": 8, "h": 16 },
+    "duration": 100
+   },
+   "Character (Jump) 2.aseprite": {
+    "frame": { "x": 16, "y": 32, "w": 8, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 16 },
+    "sourceSize": { "w": 8, "h": 16 },
+    "duration": 100
+   },
+   "Character (Jump) 3.aseprite": {
+    "frame": { "x": 24, "y": 32, "w": 8, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 16 },
+    "sourceSize": { "w": 8, "h": 16 },
+    "duration": 100
+   },
+   "Character (Jump) 4.aseprite": {
+    "frame": { "x": 32, "y": 32, "w": 8, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 16 },
+    "sourceSize": { "w": 8, "h": 16 },
+    "duration": 100
+   },
+   "Character (Jump) 5.aseprite": {
+    "frame": { "x": 40, "y": 32, "w": 8, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 16 },
+    "sourceSize": { "w": 8, "h": 16 },
+    "duration": 100
+   },
+   "Character (Shoot) 0.aseprite": {
+    "frame": { "x": 0, "y": 48, "w": 8, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 16 },
+    "sourceSize": { "w": 8, "h": 16 },
+    "duration": 100
+   },
+   "Character (Shoot) 1.aseprite": {
+    "frame": { "x": 8, "y": 48, "w": 8, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 16 },
+    "sourceSize": { "w": 8, "h": 16 },
+    "duration": 100
+   },
+   "Character (Shoot) 2.aseprite": {
+    "frame": { "x": 16, "y": 48, "w": 8, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 16 },
+    "sourceSize": { "w": 8, "h": 16 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.21-dev",
+  "image": "Character.png",
+  "format": "I8",
+  "size": { "w": 48, "h": 64 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Walk", "opacity": 255, "blendMode": "normal" },
+   { "name": "Idle", "opacity": 255, "blendMode": "normal" },
+   { "name": "Jump", "opacity": 255, "blendMode": "normal" },
+   { "name": "Shoot", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

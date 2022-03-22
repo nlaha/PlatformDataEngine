@@ -1,0 +1,45 @@
+{
+    "components": [
+        {
+            "type": "SpriteRenderer",
+            "properties": {
+                "texture": "assets/Character.png",
+                "rect": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 8,
+                    "height": 16
+                }
+            }
+        },
+        {
+            "type": "PhysicsBody",
+            "properties": {
+                "type": "dynamic",
+                "rect": {
+                    "x": 0,
+                    "y": 4,
+                    "width": 8,
+                    "height": 12
+                }
+            }  
+        },
+        {
+            "type": "CharacterController",
+            "properties": {
+                "moveForce": 4000.0,
+                "jumpForce": 2800.0,
+                "maxVelocity": 2800.0
+            }
+        },
+        {
+            "type": "AnimationController",
+            "properties": {
+                "aespriteFile": "assets/Character.json",
+                "animation": "idle",
+                "loop": true,
+                "speed": 1
+            }
+        }
+    ]
+}

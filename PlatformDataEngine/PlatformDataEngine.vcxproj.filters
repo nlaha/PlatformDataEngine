@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{ac23d3cb-ecb7-466b-8493-d9369f7921c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TileSystems">
+      <UniqueIdentifier>{d6906129-a835-42f8-8053-10880282e2b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{a9575c51-b1d8-4020-a5fc-371bcce754de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TileSystems">
+      <UniqueIdentifier>{f6c671cd-2749-469b-a917-e0787244ea8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObjects">
+      <UniqueIdentifier>{7b106c1b-3fb8-45dd-a08d-10498f68a63b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects">
+      <UniqueIdentifier>{8df7479b-a28a-4561-ba10-a035adffa635}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders">
+      <UniqueIdentifier>{bd5e0eff-d414-45c4-a5e0-1ac2717457dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Game">
+      <UniqueIdentifier>{3b1dc442-3b0c-4812-82ad-e1810b70b11a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Game\GameObjects">
+      <UniqueIdentifier>{a0a64b69-6871-498e-8141-e316cac98d8d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameWorld.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>Source Files\TileSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="Tileset.cpp">
+      <Filter>Source Files\TileSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="TileSprite.cpp">
+      <Filter>Source Files\TileSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="TileTexture.cpp">
+      <Filter>Source Files\TileSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformDataEngineWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationController.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterController.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsBody.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameWorld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TileTexture.h">
+      <Filter>Header Files\TileSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>Header Files\TileSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="Tileset.h">
+      <Filter>Header Files\TileSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="TileSprite.h">
+      <Filter>Header Files\TileSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformDataEngineWrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationController.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterController.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsBody.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\Main.tmx">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\SpaceTileset.tsx">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\Character.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\vcpkg.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\Plants.tsx">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\foliage.vert">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="game\world.json">
+      <Filter>Resource Files\Game</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\SpaceTileset.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Plants.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Character.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\VT323-Regular.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="shaders\foliage.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="game\gameObjects\PlayerCharacter.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </CopyFileToFolders>
+  </ItemGroup>
+</Project>

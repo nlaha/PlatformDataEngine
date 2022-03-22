@@ -15,3 +15,6 @@ Visual Studio should automatically use `vcpkg` to install the correct dependenci
 - nlohmann-json
 
 - spdlog
+
+
+![screenshot](./screenshots/sc1.jpg)

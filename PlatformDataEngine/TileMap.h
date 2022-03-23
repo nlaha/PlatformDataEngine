@@ -4,6 +4,7 @@
 #include <iostream>
 #include <memory>
 #include <vector>
+#include <execution>
 
 #include <tmxlite/Map.hpp>
 #include <tmxlite/TileLayer.hpp>

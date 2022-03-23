@@ -48,18 +48,20 @@ TileMap::TileMap(const std::string &tmxPath)
                 }
 
                 // loop through chunks
-                for (tmx::TileLayer::Chunk chunk : layer.getChunks())
+                // use parallel for_each
+                std::mutex mutex;
+                std::for_each(std::execution::par, layer.getChunks().begin(), layer.getChunks().end(), [&](tmx::TileLayer::Chunk chunk)
                 {
                     sf::Vector2f chunkOrigin(chunk.position.x * 8, chunk.position.y * 8);
                     for (size_t x = 0; x < chunk.size.x; x++)
                     {
                         for (size_t y = 0; y < chunk.size.y; y++)
                         {
-                            sf::Vector2f tilePos = {chunkOrigin.x + (float)x * tileSize, chunkOrigin.y + (float)y * tileSize};
+                            sf::Vector2f tilePos = { chunkOrigin.x + (float)x * tileSize, chunkOrigin.y + (float)y * tileSize };
                             int tileId = chunk.tiles[x + y * chunk.size.x].ID;
 
                             // find the tileset for this tile
-                            for (const auto &tilesetPair : this->m_tilesets)
+                            for (const auto& tilesetPair : this->m_tilesets)
                             {
                                 int tSize = tilesetPair.tmxTileset.getTileSize().x;
 
@@ -74,7 +76,7 @@ TileMap::TileMap(const std::string &tmxPath)
                                         std::vector<b2Vec2> pointArr;
                                         tmx::Vector2f oPos = obj.getPosition();
                                         for (tmx::Vector2f point : obj.getPoints()) {
-                                            pointArr.push_back({ (point.x + oPos.x), (point.y + oPos.y)});
+                                            pointArr.push_back({ (point.x + oPos.x), (point.y + oPos.y) });
                                         }
                                         //std::reverse(pointArr.begin(), pointArr.end());
 
@@ -83,8 +85,9 @@ TileMap::TileMap(const std::string &tmxPath)
                                     else {
                                         hasPhysics = false;
                                     }
-                                    
 
+
+                                    std::lock_guard<std::mutex> guard(mutex);
                                     // create a tile sprite
                                     std::unique_ptr<TileSprite> tileSprite = std::make_unique<TileSprite>(
                                         tilesetPair.tileset,
@@ -99,7 +102,7 @@ TileMap::TileMap(const std::string &tmxPath)
                             }
                         }
                     }
-                }
+                });
             }
             else
             {

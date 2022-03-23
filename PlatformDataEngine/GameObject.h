@@ -35,6 +35,8 @@ namespace PlatformDataEngine {
 		void registerComponentHierarchy(std::shared_ptr<GameObject> self);
 
 		inline std::string getName() const { return this->m_name; };
+		inline int getZlayer() const { return this->m_zLayer; };
+		inline void setZlayer(int zLayer) { this->m_zLayer = zLayer; };
 
 		template<typename T>
 		inline std::shared_ptr<T> findComponentOfType()
@@ -55,6 +57,7 @@ namespace PlatformDataEngine {
 		std::map<std::string, std::shared_ptr<Component>> m_components;
 		std::string m_id;
 		std::string m_name;
+		int m_zLayer;
 
 		std::map<std::string, nlohmann::json> m_properties;
 	};

@@ -31,8 +31,9 @@ void PlatformDataEngine::PhysicsBody::init()
 
 		this->m_bodyFixtureDef = std::make_shared<b2FixtureDef>();
 		this->m_bodyFixtureDef->shape = m_bodyShape.get();
-		this->m_bodyFixtureDef->density = 1.0f;
-		this->m_bodyFixtureDef->friction = 0.3f;
+		this->m_bodyFixtureDef->density = this->m_density;
+		this->m_bodyFixtureDef->friction = this->m_friction;
+		this->m_bodyFixtureDef->restitution = this->m_bouncy;
 
 		this->m_body->CreateFixture(this->m_bodyFixtureDef.get());
 	}
@@ -60,4 +61,9 @@ void PlatformDataEngine::PhysicsBody::loadDefinition(nlohmann::json object)
 	);
 
 	this->m_bodyType = object.at("type") == "dynamic" ? b2_dynamicBody : b2_staticBody;
+
+	this->m_density = object.at("density");
+	this->m_friction = object.at("friction");
+	this->m_bouncy = object.at("bouncy");
+
 }

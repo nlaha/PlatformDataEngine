@@ -19,11 +19,19 @@ void PlatformDataEngine::CharacterController::update(const float& dt, const floa
 {
     b2Vec2 vel = this->m_pBody->getBody()->GetLinearVelocity();
 
+    this->m_pBody->getBody()->SetAwake(true);
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
         // move left
         if (vel.LengthSquared() <= this->m_maxVelocity)
             this->m_pBody->getBody()->ApplyForceToCenter({ -1.f * this->m_moveForce, 0.f }, true);
+
+        // sticking to walls
+        if (!HasFlag(this->isAdjacentGround(), GroundTestMask::DOWN) &&
+             HasFlag(this->isAdjacentGround(), GroundTestMask::LEFT) && vel.LengthSquared() < 10) {
+            this->m_pBody->getBody()->SetAwake(false);
+        }
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
@@ -31,10 +39,20 @@ void PlatformDataEngine::CharacterController::update(const float& dt, const floa
         // move right
         if (vel.LengthSquared() <= this->m_maxVelocity)
             this->m_pBody->getBody()->ApplyForceToCenter({ 1.f * this->m_moveForce, 0.f }, true);
+
+        // sticking to walls
+        if (!HasFlag(this->isAdjacentGround(), GroundTestMask::DOWN) &&
+             HasFlag(this->isAdjacentGround(), GroundTestMask::RIGHT) && vel.LengthSquared() < 10) {
+            this->m_pBody->getBody()->SetAwake(false);
+        }
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !this->m_prev_key_state && this->isAdjacentGround())
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) &&
+        !this->m_prev_key_state && 
+        this->isAdjacentGround() != GroundTestMask::NONE)
     {
+        this->m_pBody->getBody()->SetAwake(true);
+
         // jump
         if (vel.LengthSquared() <= this->m_maxVelocity)
             this->m_pBody->getBody()->ApplyLinearImpulseToCenter({ 0.f, -1.f * this->m_jumpForce }, true);
@@ -64,7 +82,7 @@ void PlatformDataEngine::CharacterController::loadDefinition(nlohmann::json obje
 /// ground or some other solid object
 /// </summary>
 /// <returns></returns>
-bool PlatformDataEngine::CharacterController::isAdjacentGround() const
+int PlatformDataEngine::CharacterController::isAdjacentGround() const
 {
     // raycast output
     b2RayCastOutput castOutput = {};
@@ -82,29 +100,25 @@ bool PlatformDataEngine::CharacterController::isAdjacentGround() const
     b2Vec2 rightDownVec(this->m_pBody->getBounds().width, 
         this->m_pBody->getBounds().height);
 
-    std::array<b2Vec2, 6> directions = {
-        downVec,
-        leftVec,
-        leftDownVec,
-        rightVec,
-        rightDownVec,
-        b2Vec2(0.354, 0.354)
+    std::array<std::pair<int, b2Vec2>, 6> directions = {
+        std::pair{DOWN, downVec},
+        {LEFT, leftVec},
+        {DOWNLEFT, leftDownVec },
+        {RIGHT, rightVec},
+        {DOWNRIGHT, rightDownVec},
+        {NONE, b2Vec2(0.354, 0.354)}
     };
 
-    const auto out = std::find_if(std::execution::seq, directions.begin(), directions.end(), [&](const b2Vec2& dir) {
+    int flags = GroundTestMask::NONE;
+    std::find_if(std::execution::seq, directions.begin(), directions.end(), [&](const std::pair<int, b2Vec2>& dir) {
         RaycastCallback callback;
-        PlatformDataEngineWrapper::getWorld()->getPhysWorld()->RayCast(&callback, startVec, startVec + dir);
+        PlatformDataEngineWrapper::getWorld()->getPhysWorld()->RayCast(&callback, startVec, startVec + dir.second);
         if (callback.m_fixture != nullptr) {
-            return true;
+            flags = flags | dir.first;
         }
         return false;
     });
 
-    if (out == directions.end()) {
-        // not adjacent ground
-        return false;
-    }
-
-    return true;
+    return flags;
 
 }

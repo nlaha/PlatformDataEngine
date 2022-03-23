@@ -7,6 +7,15 @@
 
 namespace PlatformDataEngine {
 
+    enum GroundTestMask {
+        NONE,
+        LEFT,
+        RIGHT,
+        DOWN,
+        DOWNRIGHT,
+        DOWNLEFT,
+    };
+
     class PhysicsBody;
 
     /// <summary>
@@ -26,7 +35,12 @@ namespace PlatformDataEngine {
 
         void loadDefinition(nlohmann::json object);
         
-        bool isAdjacentGround() const;
+        int isAdjacentGround() const;
+
+        static bool HasFlag(int a, int b)
+        {
+            return (a & b) == b;
+        }
 
     private:
         std::shared_ptr<PhysicsBody> m_pBody;

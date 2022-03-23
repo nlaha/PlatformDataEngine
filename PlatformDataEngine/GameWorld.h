@@ -50,6 +50,7 @@ namespace PlatformDataEngine {
 		CameraController m_cameraControl;
 
 		std::map<std::string, std::shared_ptr<GameObject>> mp_gameObjects;
+
 		std::map<std::string, GameObject> m_gameObjectDefinitions;
 	};
 }

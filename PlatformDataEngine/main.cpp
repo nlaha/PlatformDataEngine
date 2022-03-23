@@ -3,7 +3,7 @@
 
 int main()
 {
-    spdlog::set_level(spdlog::level::info);
+    spdlog::set_level(spdlog::level::debug);
 
     PlatformDataEngine::PlatformDataEngineWrapper engine;
     engine.run();

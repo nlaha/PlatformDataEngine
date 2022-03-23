@@ -37,6 +37,10 @@ namespace PlatformDataEngine {
     private:
         b2Body* m_body;
         b2BodyType m_bodyType;
+        float m_density;
+        float m_bouncy;
+        float m_friction;
+
         std::shared_ptr<b2PolygonShape> m_bodyShape;
         std::shared_ptr<b2FixtureDef> m_bodyFixtureDef;
 

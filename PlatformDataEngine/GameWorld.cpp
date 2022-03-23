@@ -47,6 +47,9 @@ void GameWorld::init(std::string filePath, sf::View& view)
 			gameObject.at("transform").at("x"),
 			gameObject.at("transform").at("y")
 		);
+		p_gameObject->setZlayer(
+			gameObject.at("transform").at("z_layer")
+		);
 		p_gameObject->setRotation(
 			gameObject.at("transform").at("rotation")
 		);
@@ -118,10 +121,22 @@ void GameWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	// draw tile map
 	target.draw(*this->mp_tileMap, states);
 
-	// draw game objects
+	// sort game objects by z layer
+	// TODO: this could be done faster
+	std::vector<std::shared_ptr<GameObject>> gameObjects;
 	for (auto& gameObjectPair : this->mp_gameObjects)
 	{
-		target.draw(*gameObjectPair.second, states);
+		gameObjects.push_back(gameObjectPair.second);
+	}
+
+	std::sort(gameObjects.begin(), gameObjects.end(), [](std::shared_ptr<GameObject> a, std::shared_ptr<GameObject> b) {
+		return a->getZlayer() < b->getZlayer();
+	});
+
+	// draw game objects
+	for (auto& gameObjectPair : gameObjects)
+	{
+		target.draw(*gameObjectPair, states);
 	}
 }
 

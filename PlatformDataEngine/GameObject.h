@@ -34,6 +34,8 @@ namespace PlatformDataEngine {
 		void loadDefinition(std::string filename);
 		void registerComponentHierarchy(std::shared_ptr<GameObject> self);
 
+		inline std::string getName() const { return this->m_name; };
+
 		template<typename T>
 		inline std::shared_ptr<T> findComponentOfType()
 		{

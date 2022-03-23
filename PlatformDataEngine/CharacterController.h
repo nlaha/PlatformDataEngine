@@ -1,9 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <execution>
 
 #include "Component.h"
+#include "RaycastCallback.h"
 
 namespace PlatformDataEngine {
+
+    class PhysicsBody;
 
     /// <summary>
     /// A component that handles player input and animations (if enabled)
@@ -22,8 +26,11 @@ namespace PlatformDataEngine {
 
         void loadDefinition(nlohmann::json object);
         
+        bool isAdjacentGround() const;
+
     private:
-        
+        std::shared_ptr<PhysicsBody> m_pBody;
+
         float m_moveForce;
         float m_jumpForce;
         float m_maxVelocity;

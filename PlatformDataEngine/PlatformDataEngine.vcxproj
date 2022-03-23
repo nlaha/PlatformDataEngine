@@ -153,6 +153,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="PlatformDataEngineWrapper.cpp" />
+    <ClCompile Include="RaycastCallback.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Tileset.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="PlatformDataEngineWrapper.h" />
+    <ClInclude Include="RaycastCallback.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Tileset.h" />

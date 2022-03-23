@@ -40,6 +40,12 @@
     <Filter Include="Resource Files\Game\GameObjects">
       <UniqueIdentifier>{a0a64b69-6871-498e-8141-e316cac98d8d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Internal">
+      <UniqueIdentifier>{bd10a834-64c2-420d-8bd3-40a118cc2054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Internal">
+      <UniqueIdentifier>{4000aa40-d7fe-4521-ac7f-50f60e0d6b9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -83,6 +89,9 @@
     </ClCompile>
     <ClCompile Include="PhysicsBody.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="RaycastCallback.cpp">
+      <Filter>Source Files\Internal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="PhysicsBody.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RaycastCallback.h">
+      <Filter>Header Files\Internal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

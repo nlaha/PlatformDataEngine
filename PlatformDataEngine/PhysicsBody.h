@@ -29,6 +29,11 @@ namespace PlatformDataEngine {
             return this->m_body;
         }
 
+        inline sf::FloatRect getBounds()
+        {
+            return this->m_bounds;
+        }
+
     private:
         b2Body* m_body;
         b2BodyType m_bodyType;

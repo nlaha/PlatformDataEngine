@@ -29,7 +29,7 @@
             "properties": {
                 "moveForce": 4000.0,
                 "jumpForce": 3000.0,
-                "maxVelocity": 2800.0
+                "maxVelocity": 7000.0
             }
         },
         {

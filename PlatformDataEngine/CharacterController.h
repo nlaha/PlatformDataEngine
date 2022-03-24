@@ -17,6 +17,7 @@ namespace PlatformDataEngine {
     };
 
     class PhysicsBody;
+    class AnimationController;
 
     /// <summary>
     /// A component that handles player input and animations (if enabled)
@@ -43,7 +44,11 @@ namespace PlatformDataEngine {
         }
 
     private:
-        std::shared_ptr<PhysicsBody> m_pBody;
+        
+        void updateAnimation(b2Vec2 velocity);
+        
+        std::shared_ptr<PhysicsBody> m_PhysBody;
+        std::shared_ptr<AnimationController> m_AnimController;
 
         float m_moveForce;
         float m_jumpForce;

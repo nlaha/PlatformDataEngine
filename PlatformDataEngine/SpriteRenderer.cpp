@@ -11,7 +11,7 @@ void PlatformDataEngine::SpriteRenderer::update(const float& dt, const float& el
 
 void PlatformDataEngine::SpriteRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    target.draw(this->m_sprite, states);
+    target.draw(*this->m_sprite, states);
 }
 
 void PlatformDataEngine::SpriteRenderer::loadDefinition(nlohmann::json object)
@@ -35,6 +35,8 @@ void PlatformDataEngine::SpriteRenderer::loadDefinition(nlohmann::json object)
     );
 
     this->m_texture.loadFromFile(this->m_properties.at("texture"), this->m_rect);
-    this->m_sprite.setTexture(this->m_texture);
-    this->m_sprite.setColor(sf::Color(255, 255, 255));
+
+    this->m_sprite = std::make_shared<sf::Sprite>();
+    this->m_sprite->setTexture(this->m_texture);
+    this->m_sprite->setColor(sf::Color(255, 255, 255));
 }

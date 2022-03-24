@@ -21,8 +21,10 @@ namespace PlatformDataEngine {
 
         void loadDefinition(nlohmann::json object);
 
+        inline std::shared_ptr<sf::Sprite> getSprite() const { return this->m_sprite; };
+
     private:
-        sf::Sprite m_sprite;
+        std::shared_ptr<sf::Sprite> m_sprite;
         sf::Texture m_texture;
         sf::IntRect m_rect;
 

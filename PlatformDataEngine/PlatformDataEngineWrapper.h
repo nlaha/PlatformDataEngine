@@ -25,6 +25,9 @@ namespace PlatformDataEngine {
 
 		void run();
 
+		static inline float m_fps{ 0.0 };
+		static inline sf::Vector2f m_windowZero{ 0.0, 0.0 };
+
 		static inline std::shared_ptr<GameWorld> getWorld() {
 			return PlatformDataEngineWrapper::mp_mainWorld;
 		}

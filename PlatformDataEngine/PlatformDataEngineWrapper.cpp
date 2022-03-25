@@ -20,25 +20,19 @@ namespace PlatformDataEngine {
     void PlatformDataEngineWrapper::run()
     {
         sf::ContextSettings contextSettings;
-        contextSettings.antialiasingLevel = 0;
 
         // create window and viewport
-        sf::RenderWindow window(sf::VideoMode(1920, 1024), "PlatformData Engine", 7U, contextSettings);
+        sf::RenderWindow window(sf::VideoMode(1920, 1024), "PlatformData Engine", sf::Style::Default, contextSettings);
         sf::FloatRect visibleArea(0.f, 0.f, 256, 256);
         sf::View gameView(visibleArea);
         float xoffset = ((window.getSize().x - window.getSize().y) / 2.0f) / window.getSize().x;
-        gameView.setViewport(sf::FloatRect({ xoffset, 0 }, { (float)window.getSize().y / (float)window.getSize().x, 1.0f }));
+        sf::FloatRect viewPort = sf::FloatRect({ xoffset, 0 }, { (float)window.getSize().y / (float)window.getSize().x, 1.0f });
+        gameView.setViewport(viewPort);
         window.setView(gameView);
 
-        // load pixel font
-        sf::Font font;
-        if (!font.loadFromFile("assets/VT323-Regular.ttf"))
-        {
-            spdlog::error("Could not load font!");
-        }
+        bool isFullscreen = false;
 
-        // always top left of window (for GUI)
-        sf::Vector2f windowZero = window.mapPixelToCoords({ 0, 0 });
+        mp_mainWorld->initPhysics();
 
         // TODO: load game objects definitions from gameObjects/*.json
         // loop through all json files in game/gameObjects
@@ -63,7 +57,7 @@ namespace PlatformDataEngine {
         mp_mainWorld->init("game/world.json", gameView);
 
         // game loop
-        sf::Clock clock;
+        sf::Clock fpsClock;
         sf::Clock deltaClock;
         sf::Clock elapsedClock;
         sf::Time dt;
@@ -80,28 +74,37 @@ namespace PlatformDataEngine {
                 {
                     // update the view to the new size of the window
                     float xoffset = ((event.size.width - event.size.height) / 2.0f) / event.size.width;
-                    gameView.setViewport(sf::FloatRect({ xoffset, 0 }, { (float)event.size.height / (float)event.size.width, 1.0f }));
-                    window.setView(gameView);
+                    viewPort = sf::FloatRect({ xoffset, 0 }, { (float)event.size.height / (float)event.size.width, 1.0f });
                 }
 
-                // just for testing
-                // if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-                //{
-                //    sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
-                //    sf::Vector2f worldPos = window.mapPixelToCoords(pixelPos);
-
-                //    TileSprite* sprite1 = new TileSprite(worldTs, 45, worldPos);
-                //    sprite1->scale({ 1, 1 });
-                //    std::cout << "Created Sprite" << std::endl;
-                //}
+                if (event.type == sf::Event::KeyPressed) {
+                    if (event.key.code == sf::Keyboard::F11 || 
+                        event.key.alt && event.key.code == sf::Keyboard::Enter)
+                    {
+                        window.close();
+                        if (!isFullscreen) {
+                            window.create(sf::VideoMode::getDesktopMode(), "PlatformData Engine", sf::Style::None, contextSettings);
+                            isFullscreen = true;
+                        }
+                        else {
+                            window.create(sf::VideoMode(1920, 1024), "PlatformData Engine", sf::Style::Default, contextSettings);
+                            isFullscreen = false;
+                        }
+                    }
+                }
             }
+
+            // always top left of window (for GUI)
+            this->m_windowZero = window.mapPixelToCoords({ 0, 0 });
 
             mp_mainWorld->update(dt.asSeconds(), elapsedClock.getElapsedTime().asSeconds()); // update world
 
             mp_mainWorld->physicsUpdate(dt.asSeconds(), elapsedClock.getElapsedTime().asSeconds()); // update physics world
 
             // update view
-            window.setView(mp_mainWorld->getView());
+            sf::View view = mp_mainWorld->getView();
+            view.setViewport(viewPort);
+            window.setView(view);
 
             window.clear(sf::Color(0, 0, 0));
 
@@ -111,11 +114,11 @@ namespace PlatformDataEngine {
             dt = deltaClock.restart();
 
             // calculate fps
-            float fps = 1.f / clock.getElapsedTime().asSeconds();
-            clock.restart();
+            this->m_fps = 1.f / fpsClock.getElapsedTime().asSeconds();
+            fpsClock.restart();
 
             // print some stats
-            spdlog::debug("FPS: {0:.2f} --- DT: {1:.2f}", fps, dt.asSeconds());
+            spdlog::debug("FPS: {0:.2f} --- DT: {1:.2f}", this->m_fps, dt.asSeconds());
 
             window.display();
         }

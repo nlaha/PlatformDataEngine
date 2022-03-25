@@ -30,6 +30,8 @@ namespace PlatformDataEngine {
             std::shared_ptr<Tileset> tileset;
         };
 
+        std::vector<TilesetPair> getTilesets() const { return this->m_tilesets; };
+
     private:
         std::vector<TilesetPair> m_tilesets;
         std::vector<std::unique_ptr<TileSprite>> m_tileSprites;

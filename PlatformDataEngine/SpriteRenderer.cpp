@@ -7,6 +7,7 @@ void PlatformDataEngine::SpriteRenderer::init()
 
 void PlatformDataEngine::SpriteRenderer::update(const float& dt, const float& elapsedTime)
 {
+    this->m_sprite->setTextureRect(this->m_rect);
 }
 
 void PlatformDataEngine::SpriteRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -34,7 +35,14 @@ void PlatformDataEngine::SpriteRenderer::loadDefinition(nlohmann::json object)
         rectObj.at("height")
     );
 
-    this->m_texture.loadFromFile(this->m_properties.at("texture"), this->m_rect);
+    if (this->m_rect.width == -1 || this->m_rect.height == -1)
+    {
+        this->m_texture.loadFromFile(this->m_properties.at("texture"));
+    }
+    else {
+        this->m_texture.loadFromFile(this->m_properties.at("texture"), this->m_rect);
+    }
+
 
     this->m_sprite = std::make_shared<sf::Sprite>();
     this->m_sprite->setTexture(this->m_texture);

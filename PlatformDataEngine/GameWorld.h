@@ -24,8 +24,9 @@ namespace PlatformDataEngine {
 
 		GameWorld();
 
-		// game loops
+		// game functions and loops
 		void init(std::string filePath, sf::View& view);
+		void initPhysics();
 		void update(const float& dt, const float& elapsedTime);
 		void physicsUpdate(const float& dt, const float& elapsedTime);
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

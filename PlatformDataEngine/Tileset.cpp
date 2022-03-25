@@ -8,6 +8,7 @@ using namespace PlatformDataEngine;
 Tileset::Tileset(const std::string& imagePath, int tileSize, const std::string& shaderPath)
 {
 	this->m_tileSize = tileSize;
+	this->m_shader = std::make_shared<sf::Shader>();
 	loadTileset(imagePath, shaderPath);
 }
 
@@ -30,7 +31,7 @@ bool Tileset::loadTileset(const std::string& imagePath, const std::string& shade
 
 	// load shader if present
 	if (shaderPath != "") {
-		if (!this->m_shader.loadFromFile(shaderPath + ".vert", shaderPath + ".frag"))
+		if (!this->m_shader->loadFromFile(shaderPath + ".vert", shaderPath + ".frag"))
 		{
 			spdlog::error("Could not load shader: {}", shaderPath);
 			return false;
@@ -106,14 +107,14 @@ void Tileset::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	states.texture = this->m_texture.get();
 
-	states.shader = &this->m_shader;
+	states.shader = this->m_shader.get();
 
 	target.draw(quads, states);
 }
 
 void Tileset::update(const float& dt, const float& elapsedTime)
 {
-	this->m_shader.setUniform("time", elapsedTime);
+	this->m_shader->setUniform("time", elapsedTime);
 }
 
 

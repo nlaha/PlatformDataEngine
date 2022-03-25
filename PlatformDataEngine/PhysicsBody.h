@@ -41,9 +41,6 @@ namespace PlatformDataEngine {
         float m_bouncy;
         float m_friction;
 
-        std::shared_ptr<b2PolygonShape> m_bodyShape;
-        std::shared_ptr<b2FixtureDef> m_bodyFixtureDef;
-
         sf::FloatRect m_bounds;
 
     };

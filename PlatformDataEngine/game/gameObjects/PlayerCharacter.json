@@ -1,48 +1,70 @@
 {
-    "components": [
-        {
-            "type": "SpriteRenderer",
-            "properties": {
-                "texture": "assets/Character.png",
-                "rect": {
-                    "x": 0,
-                    "y": 0,
-                    "width": 8,
-                    "height": 16
-                }
-            }
-        },
-        {
-            "type": "PhysicsBody",
-            "properties": {
-                "type": "dynamic",
-                "density": 1,
-                "friction": 0.2,
-                "bouncy": 0.0,
-                "rect": {
-                    "x": 0,
-                    "y": 4,
-                    "width": 8,
-                    "height": 12
-                }
-            }  
-        },
-        {
-            "type": "CharacterController",
-            "properties": {
-                "moveForce": 4000.0,
-                "jumpForce": 3000.0,
-                "maxVelocity": 7000.0
-            }
-        },
-        {
-            "type": "AnimationController",
-            "properties": {
-                "aespriteFile": "assets/Character.json",
-                "animation": "idle",
-                "loop": true,
-                "speed": 1
-            }
+  "components": [
+    {
+      "type": "SpriteRenderer",
+      "properties": {
+        "texture": "assets/Character.png",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": -1,
+          "height": -1
         }
-    ]
+      }
+    },
+    {
+      "type": "PhysicsBody",
+      "properties": {
+        "type": "dynamic",
+        "density": 2.5,
+        "friction": 0.9,
+        "bouncy": 0.0,
+        "rect": {
+          "x": 0,
+          "y": 4,
+          "width": 8,
+          "height": 12
+        },
+        "fixtures": [
+          {
+            "shape": "circle",
+            "rect": {
+              "x": 4,
+              "y": 9,
+              "width": 5,
+              "height": 4
+            }
+          },
+          {
+            "shape": "circle",
+            "rect": {
+              "x": 4,
+              "y": 2,
+              "width": 5,
+              "height": 4
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "CharacterController",
+      "properties": {
+        "moveForce": 5000.0,
+        "jumpForce": 3000.0,
+        "maxVelocity": 8400.0,
+        "jumpCooldown": 200.0,
+        "dashCooldown": 1000.0
+      }
+    },
+    {
+      "type": "AnimationController",
+      "properties": {
+        "aespriteFile": "assets/Character.json",
+        "animation": "Idle",
+        "loop": true,
+        "speed": 1
+      }
+    }
+  ]
 }

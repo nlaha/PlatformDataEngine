@@ -148,6 +148,7 @@
     <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="CharacterController.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="EngineStatsText.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="main.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="PlatformDataEngineWrapper.cpp" />
     <ClCompile Include="RaycastCallback.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
+    <ClCompile Include="TextRenderer.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Tileset.cpp" />
     <ClCompile Include="TileSprite.cpp" />
@@ -166,12 +168,14 @@
     <ClInclude Include="CharacterController.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentFactory.h" />
+    <ClInclude Include="EngineStatsText.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="PlatformDataEngineWrapper.h" />
     <ClInclude Include="RaycastCallback.h" />
     <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="TextRenderer.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Tileset.h" />
     <ClInclude Include="TileSprite.h" />

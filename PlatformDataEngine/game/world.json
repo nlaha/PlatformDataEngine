@@ -1,20 +1,31 @@
 {
-    "tiledMapFile": "assets/Main.tmx",
-    "cameraController": {
-        "cameraLockObject": "MainPlayer",
-        "cameraLerpSpeed": 3
+  "tiledMapFile": "assets/Main.tmx",
+  "cameraController": {
+    "cameraLockObject": "MainPlayer",
+    "cameraLerpSpeed": 3
+  },
+  "gameObjects": [
+    {
+      "name": "MainPlayer",
+      "type": "PlayerCharacter",
+      "transform": {
+        "x": 0,
+        "y": 0,
+        "z_layer": 2,
+        "rotation": 0,
+        "scale": 1
+      }
     },
-    "gameObjects": [
-        {
-            "name": "MainPlayer",
-            "type": "PlayerCharacter",
-            "transform": {
-                "x": 0,
-                "y": 0,
-                "z_layer": 2,
-                "rotation": 0,
-                "scale": 1
-            }
-        }
-    ]
+    {
+      "name": "EngineStats",
+      "type": "EngineStats",
+      "transform": {
+        "x": 0,
+        "y": 100,
+        "z_layer": 100,
+        "rotation": 20,
+        "scale": 1
+      }
+    }
+  ]
 }

@@ -1,3 +1,5 @@
+uniform vec2 charPos;
+
 void main()
 {
     // transform the vertex position

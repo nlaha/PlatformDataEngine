@@ -10,33 +10,8 @@ PlatformDataEngine::PhysicsBody::~PhysicsBody()
 
 void PlatformDataEngine::PhysicsBody::init()
 {
-	b2BodyDef bodyDef;
-	bodyDef.fixedRotation = true;
-	bodyDef.type = this->m_bodyType;
-
 	sf::Vector2f initPos = this->m_parent->getPosition();
-	bodyDef.position.Set(initPos.x, initPos.y);
-
-	this->m_body = PlatformDataEngineWrapper::getWorld()->getPhysWorld()->CreateBody(&bodyDef);
-	if (this->m_body != nullptr) {
-
-		this->m_bodyShape = std::make_shared<b2PolygonShape>();
-		std::array<b2Vec2, 4> pointArr = {
-			b2Vec2(this->m_bounds.left, this->m_bounds.top),
-			b2Vec2(this->m_bounds.left + this->m_bounds.width, this->m_bounds.top),
-			b2Vec2(this->m_bounds.left + this->m_bounds.width, this->m_bounds.top + this->m_bounds.height),
-			b2Vec2(this->m_bounds.left, this->m_bounds.top + this->m_bounds.height),
-		};
-		this->m_bodyShape->Set(pointArr.data(), pointArr.size());
-
-		this->m_bodyFixtureDef = std::make_shared<b2FixtureDef>();
-		this->m_bodyFixtureDef->shape = m_bodyShape.get();
-		this->m_bodyFixtureDef->density = this->m_density;
-		this->m_bodyFixtureDef->friction = this->m_friction;
-		this->m_bodyFixtureDef->restitution = this->m_bouncy;
-
-		this->m_body->CreateFixture(this->m_bodyFixtureDef.get());
-	}
+	this->getBody()->SetTransform({initPos.x, initPos.y}, 0.0);
 }
 
 void PlatformDataEngine::PhysicsBody::update(const float& dt, const float& elapsedTime)
@@ -53,17 +28,60 @@ void PlatformDataEngine::PhysicsBody::draw(sf::RenderTarget& target, sf::RenderS
 
 void PlatformDataEngine::PhysicsBody::loadDefinition(nlohmann::json object)
 {
-	this->m_bounds = sf::FloatRect(
-		object.at("rect").at("x"),
-		object.at("rect").at("y"),
-		object.at("rect").at("width"),
-		object.at("rect").at("height")
-	);
-
 	this->m_bodyType = object.at("type") == "dynamic" ? b2_dynamicBody : b2_staticBody;
 
 	this->m_density = object.at("density");
 	this->m_friction = object.at("friction");
 	this->m_bouncy = object.at("bouncy");
 
+	b2BodyDef bodyDef;
+	bodyDef.fixedRotation = true;
+	bodyDef.type = this->m_bodyType;
+	bodyDef.position.Set(0, 0);
+
+	this->m_body = PlatformDataEngineWrapper::getWorld()->getPhysWorld()->CreateBody(&bodyDef);
+	if (this->m_body != nullptr) {
+		for (const nlohmann::json& fixture : object.at("fixtures"))
+		{
+			sf::FloatRect bounds = sf::FloatRect(
+				fixture.at("rect").at("x"),
+				fixture.at("rect").at("y"),
+				fixture.at("rect").at("width"),
+				fixture.at("rect").at("height")
+			);
+
+			std::shared_ptr<b2FixtureDef> bodyFixtureDef = std::make_shared<b2FixtureDef>();
+			bodyFixtureDef->density = this->m_density;
+			bodyFixtureDef->friction = this->m_friction;
+			bodyFixtureDef->restitution = this->m_bouncy;
+
+			if (fixture.at("shape") == "box") {
+				std::shared_ptr<b2PolygonShape> shape = std::make_shared<b2PolygonShape>();
+				std::array<b2Vec2, 4> pointArr = {
+					b2Vec2(bounds.left, bounds.top),
+					b2Vec2(bounds.left + bounds.width, bounds.top),
+					b2Vec2(bounds.left + bounds.width, bounds.top + bounds.height),
+					b2Vec2(bounds.left, bounds.top + bounds.height),
+				};
+
+				shape->Set(pointArr.data(), pointArr.size());
+				bodyFixtureDef->shape = shape.get();
+				this->m_body->CreateFixture(bodyFixtureDef.get());
+			}
+			else if (fixture.at("shape") == "circle") {
+				std::shared_ptr<b2CircleShape> shape = std::make_shared<b2CircleShape>();
+				shape->m_p.Set(bounds.left, bounds.top + bounds.height);
+				shape->m_radius = bounds.width / 2.0f;
+				bodyFixtureDef->shape = shape.get();
+				this->m_body->CreateFixture(bodyFixtureDef.get());
+			}
+		}
+
+		this->m_bounds = sf::FloatRect(
+			object.at("rect").at("x"),
+			object.at("rect").at("y"),
+			object.at("rect").at("width"),
+			object.at("rect").at("height")
+		);
+	}
 }

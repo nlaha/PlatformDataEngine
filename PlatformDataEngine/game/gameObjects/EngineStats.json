@@ -1,0 +1,14 @@
+{
+  "components": [
+    {
+      "type": "EngineStatsText",
+      "properties": {
+        "text": "",
+        "fontPath": "assets/VT323-Regular.ttf",
+        "fontSize": 20,
+        "renderSize": 0.5,
+        "fontBold": false
+      }
+    }
+  ]
+}

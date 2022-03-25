@@ -8,6 +8,8 @@
 #include "CharacterController.h"
 #include "SpriteRenderer.h"
 #include "PhysicsBody.h"
+#include "TextRenderer.h"
+#include "EngineStatsText.h"
 
 namespace PlatformDataEngine {
 
@@ -32,7 +34,9 @@ namespace PlatformDataEngine {
             {"AnimationController", std::make_shared<AnimationController>()},
             {"CharacterController", std::make_shared<CharacterController>()},
             {"SpriteRenderer", std::make_shared<SpriteRenderer>()},
-            {"PhysicsBody", std::make_shared<PhysicsBody>()}
+            {"PhysicsBody", std::make_shared<PhysicsBody>()},
+            {"TextRenderer", std::make_shared<TextRenderer>()},
+            {"EngineStatsText", std::make_shared<EngineStatsText>()}
         };
 	};
 }

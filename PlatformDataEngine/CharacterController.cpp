@@ -3,6 +3,7 @@
 #include "PhysicsBody.h"
 #include "AnimationController.h"
 #include "PlatformDataEngineWrapper.h"
+#include "TileMap.h"
 #include <spdlog/spdlog.h>
 
 void PlatformDataEngine::CharacterController::init()
@@ -44,12 +45,6 @@ void PlatformDataEngine::CharacterController::update(const float& dt, const floa
         // move left
         if (vel.LengthSquared() <= this->m_maxVelocity)
             this->m_PhysBody->getBody()->ApplyForceToCenter({ -1.f * this->m_moveForce, 0.f }, true);
-
-        // sticking to walls
-        if (!HasFlag(this->isAdjacentGround(), GroundTestMask::DOWN) &&
-             HasFlag(this->isAdjacentGround(), GroundTestMask::LEFT) && vel.LengthSquared() < 10) {
-            this->m_PhysBody->getBody()->SetAwake(false);
-        }
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || hAxis > 10.0f)
@@ -57,31 +52,45 @@ void PlatformDataEngine::CharacterController::update(const float& dt, const floa
         // move right
         if (vel.LengthSquared() <= this->m_maxVelocity)
             this->m_PhysBody->getBody()->ApplyForceToCenter({ 1.f * this->m_moveForce, 0.f }, true);
-
-        // sticking to walls
-        if (!HasFlag(this->isAdjacentGround(), GroundTestMask::DOWN) &&
-             HasFlag(this->isAdjacentGround(), GroundTestMask::RIGHT) && vel.LengthSquared() < 10) {
-            this->m_PhysBody->getBody()->SetAwake(false);
-        }
     }
 
-    if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Joystick::isButtonPressed(0, 0)) &&
-        !this->m_prev_key_state && 
-        this->isAdjacentGround() != GroundTestMask::NONE)
+    if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Joystick::isButtonPressed(0, 1)) &&
+        !this->m_prev_jump_state && 
+        this->fastGroundCheck() && this->m_jumpCooldownClock.getElapsedTime().asMilliseconds() > this->m_jumpCooldown)
     {
         this->m_PhysBody->getBody()->SetAwake(true);
 
         // jump
         if (vel.LengthSquared() <= this->m_maxVelocity)
             this->m_PhysBody->getBody()->ApplyLinearImpulseToCenter({ 0.f, -1.f * this->m_jumpForce }, true);
+        m_jumpCooldownClock.restart();
     }
 
-    this->m_prev_key_state = sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Joystick::isButtonPressed(0, 0);
+    this->m_prev_jump_state = sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Joystick::isButtonPressed(0, 1);
+
+    if ((sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) || sf::Joystick::isButtonPressed(0, 0)) &&
+        this->m_prev_dash_state &&
+        this->fastGroundCheck() && this->m_dashCooldownClock.getElapsedTime().asMilliseconds() > this->m_dashCooldown)
+    {
+        this->m_PhysBody->getBody()->SetAwake(true);
+
+        // dash
+        if (vel.LengthSquared() <= this->m_maxVelocity)
+            this->m_PhysBody->getBody()->ApplyLinearImpulseToCenter({ (vel.x > 0 ? 1 : -1) * this->m_jumpForce, 0.0 }, true);
+        m_dashCooldownClock.restart();
+    }
+
+    this->m_prev_dash_state = this->fastGroundCheck();
 
     // lerp velocity to zero
     b2Vec2 currentVelocity = this->m_PhysBody->getBody()->GetLinearVelocity();
     b2Vec2 newVelocity = Utility::lerp(currentVelocity, { 0.f, currentVelocity.y }, 4.0f * dt);
     this->m_PhysBody->getBody()->SetLinearVelocity(newVelocity);
+
+    for (TileMap::TilesetPair& ts : PlatformDataEngineWrapper::getWorld()->getTileMap()->getTilesets())
+    {
+        ts.tileset->getShader()->setUniform("charPos", this->m_parent->getPosition());
+    }
 }
 
 void PlatformDataEngine::CharacterController::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -93,7 +102,11 @@ void PlatformDataEngine::CharacterController::loadDefinition(nlohmann::json obje
     this->m_moveForce = object.at("moveForce");
     this->m_jumpForce = object.at("jumpForce");
     this->m_maxVelocity = object.at("maxVelocity");
+    this->m_jumpCooldown = object.at("jumpCooldown");
+    this->m_dashCooldown = object.at("dashCooldown");
 }
+
+
 
 /// <summary>
 /// Checks if the character is adjacent to the 
@@ -124,7 +137,7 @@ int PlatformDataEngine::CharacterController::isAdjacentGround() const
         {DOWNLEFT, leftDownVec },
         {RIGHT, rightVec},
         {DOWNRIGHT, rightDownVec},
-        {NONE, b2Vec2(0.354, 0.354)}
+        {NONE, b2Vec2(0.0, 0.0)}
     };
 
     int flags = GroundTestMask::NONE;
@@ -132,7 +145,10 @@ int PlatformDataEngine::CharacterController::isAdjacentGround() const
         RaycastCallback callback;
         PlatformDataEngineWrapper::getWorld()->getPhysWorld()->RayCast(&callback, startVec, startVec + dir.second);
         if (callback.m_fixture != nullptr) {
-            flags = flags | dir.first;
+            // disable self raycast collision
+            if (!callback.isBody(this->m_PhysBody->getBody())) {
+                flags = flags | dir.first;
+            }
         }
         return false;
     });
@@ -141,21 +157,43 @@ int PlatformDataEngine::CharacterController::isAdjacentGround() const
 
 }
 
+/// <summary>
+/// Use this if you don't need to know the direction the player
+/// is contacting the ground
+/// </summary>
+/// <returns></returns>
+bool PlatformDataEngine::CharacterController::fastGroundCheck() const
+{
+    for (b2ContactEdge* c = this->m_PhysBody->getBody()->GetContactList(); c; c = c->next)
+    {
+        return true;
+    }
+
+    return false;
+}
+
 void PlatformDataEngine::CharacterController::updateAnimation(b2Vec2 velocity)
 {
-    if (velocity.LengthSquared() < 1.0 || velocity.LengthSquared() > -1.0)
-    {
-        // idle
+    if (this->fastGroundCheck()) {
+        if (velocity.LengthSquared() < 1.0 || velocity.LengthSquared() > -1.0)
+        {
+            // idle
+            this->m_AnimController->setAnimation("Idle", 1.0f, true);
+        }
 
+        if (velocity.x > 0.1) {
+            // move right
+            this->m_AnimController->setFlipFlag(AnimationController::FlipFlags::NONE);
+            this->m_AnimController->setAnimation("Walk", 4.0f, true);
+        }
+        else if (velocity.x < -0.1) {
+            // move left
+            this->m_AnimController->setFlipFlag(AnimationController::FlipFlags::HORIZONTAL);
+            this->m_AnimController->setAnimation("Walk", 4.0f, true);
+        }
     }
-
-    if (velocity.x > 1.0) {
-        // move right
-        this->m_AnimController->setFlipFlag(AnimationController::FlipFlags::NONE);
-    }
-    else if (velocity.x < -1.0) {
-        // move left
-        this->m_AnimController->setFlipFlag(AnimationController::FlipFlags::HORIZONTAL);
+    else {
+        this->m_AnimController->setAnimation("InAir", 2.0f, true);
     }
 
     if (velocity.y > 1.0) {

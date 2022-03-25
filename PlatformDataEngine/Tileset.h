@@ -26,6 +26,7 @@ namespace PlatformDataEngine {
         void update(const float& dt, const float& elapsedTime);
 
         inline int getTileSize() const { return this->m_tileSize; };
+        inline std::shared_ptr<sf::Shader> getShader() const { return this->m_shader; };
 
     private:
         bool loadTileset(const std::string& imagePath, const std::string& shaderPath);
@@ -33,7 +34,7 @@ namespace PlatformDataEngine {
         std::vector<TileTexture> m_tileTextures;
         std::vector<TileSprite*> m_tileSprites;
         std::unique_ptr<sf::Texture> m_texture;
-        sf::Shader m_shader;
+        std::shared_ptr<sf::Shader> m_shader;
         int m_tileSize;
     };
 }

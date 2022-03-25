@@ -15,10 +15,6 @@ GameWorld::GameWorld()
 /// <param name="view">a view that has been linked to a window</param>
 void GameWorld::init(std::string filePath, sf::View& view)
 {
-	// init physics world
-	b2Vec2 gravity(0.0f, 25.0f);
-	this->mp_physicsWorld = std::make_shared<b2World>(gravity);
-
 	// load world json file
 	std::ifstream file(filePath);
 
@@ -76,6 +72,13 @@ void GameWorld::init(std::string filePath, sf::View& view)
 	}
 }
 
+void PlatformDataEngine::GameWorld::initPhysics()
+{
+	// init physics world
+	b2Vec2 gravity(0.0f, 25.0f);
+	this->mp_physicsWorld = std::make_shared<b2World>(gravity);
+}
+
 /// <summary>
 /// Update loop, calls update on the tileMap, gameObjects and the camera controller
 /// </summary>
@@ -103,8 +106,8 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 /// <param name="elapsedTime">elapsed time (since game started)</param>
 void GameWorld::physicsUpdate(const float& dt, const float& elapsedTime)
 {
-	int velocityIterations = 6;
-	int positionIterations = 2;
+	int velocityIterations = 8;
+	int positionIterations = 4;
 	float timeStep = dt * 3.0f;
 
 	// simulate physics

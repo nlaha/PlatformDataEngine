@@ -37,6 +37,7 @@ namespace PlatformDataEngine {
         void loadDefinition(nlohmann::json object);
         
         int isAdjacentGround() const;
+        bool fastGroundCheck() const;
 
         static bool HasFlag(int a, int b)
         {
@@ -54,7 +55,13 @@ namespace PlatformDataEngine {
         float m_jumpForce;
         float m_maxVelocity;
 
-        bool m_prev_key_state;
+        sf::Clock m_jumpCooldownClock;
+        sf::Clock m_dashCooldownClock;
+        float m_jumpCooldown;
+        float m_dashCooldown;
+
+        bool m_prev_jump_state;
+        bool m_prev_dash_state;
     };
 }
 

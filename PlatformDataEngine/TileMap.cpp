@@ -76,9 +76,10 @@ TileMap::TileMap(const std::string &tmxPath)
                                         std::vector<b2Vec2> pointArr;
                                         tmx::Vector2f oPos = obj.getPosition();
                                         for (tmx::Vector2f point : obj.getPoints()) {
+                                            point.x *= 1.0001;
+                                            point.y *= 1.0001;
                                             pointArr.push_back({ (point.x + oPos.x), (point.y + oPos.y) });
                                         }
-                                        //std::reverse(pointArr.begin(), pointArr.end());
 
                                         collisionShape.Set(pointArr.data(), pointArr.size());
                                     }

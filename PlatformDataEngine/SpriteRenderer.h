@@ -23,6 +23,8 @@ namespace PlatformDataEngine {
 
         inline std::shared_ptr<sf::Sprite> getSprite() const { return this->m_sprite; };
 
+        inline void setRect(sf::IntRect rect) { this->m_rect = rect; };
+
     private:
         std::shared_ptr<sf::Sprite> m_sprite;
         sf::Texture m_texture;

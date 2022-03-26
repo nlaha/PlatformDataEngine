@@ -111,15 +111,18 @@ $(document).ready(function(){initNavTree('_platform_data_engine_wrapper_8h_sourc
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_platform_data_engine_wrapper.html#ab477f5679a02576b2d90ef1814710bd9">run</a>();</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">static</span> <span class="keyword">inline</span> std::shared_ptr&lt;GameWorld&gt; getWorld() {</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <span class="keywordflow">return</span> PlatformDataEngineWrapper::mp_mainWorld;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        }</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    };</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">float</span> m_fps{ 0.0 };</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">static</span> <span class="keyword">inline</span> sf::Vector2f m_windowZero{ 0.0, 0.0 };</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keyword">static</span> <span class="keyword">inline</span> std::shared_ptr&lt;GameWorld&gt; getWorld() {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            <span class="keywordflow">return</span> PlatformDataEngineWrapper::mp_mainWorld;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        }</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    };</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_platform_data_engine_wrapper_html_ab477f5679a02576b2d90ef1814710bd9"><div class="ttname"><a href="class_platform_data_engine_1_1_platform_data_engine_wrapper.html#ab477f5679a02576b2d90ef1814710bd9">PlatformDataEngine::PlatformDataEngineWrapper::run</a></div><div class="ttdeci">void run()</div><div class="ttdoc">Runs the game (makes window and starts systems)</div><div class="ttdef"><b>Definition:</b> PlatformDataEngineWrapper.cpp:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

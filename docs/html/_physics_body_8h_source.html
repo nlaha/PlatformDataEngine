@@ -114,17 +114,23 @@ $(document).ready(function(){initNavTree('_physics_body_8h_source.html',''); ini
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <span class="keywordflow">return</span> this-&gt;m_body;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        }</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        b2Body* m_body;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        b2BodyType m_bodyType;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        std::shared_ptr&lt;b2PolygonShape&gt; m_bodyShape;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        std::shared_ptr&lt;b2FixtureDef&gt; m_bodyFixtureDef;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        sf::FloatRect m_bounds;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    };</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keyword">inline</span> sf::FloatRect getBounds()</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keywordflow">return</span> this-&gt;m_bounds;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        b2Body* m_body;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        b2BodyType m_bodyType;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordtype">float</span> m_density;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordtype">float</span> m_bouncy;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordtype">float</span> m_friction;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        sf::FloatRect m_bounds;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    };</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_component_html"><div class="ttname"><a href="class_platform_data_engine_1_1_component.html">PlatformDataEngine::Component</a></div><div class="ttdoc">The base component class, when creating components to add gameplay functionality, they should inherit...</div><div class="ttdef"><b>Definition:</b> Component.h:15</div></div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_physics_body_html"><div class="ttname"><a href="class_platform_data_engine_1_1_physics_body.html">PlatformDataEngine::PhysicsBody</a></div><div class="ttdoc">A component that enables collision and rigidbody for a gameObject</div><div class="ttdef"><b>Definition:</b> PhysicsBody.h:15</div></div>
 </div><!-- fragment --></div><!-- contents -->

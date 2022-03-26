@@ -85,6 +85,8 @@ $(document).ready(function(){initNavTree('class_platform_data_engine_1_1_animati
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="class_platform_data_engine_1_1_animation_controller-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">PlatformDataEngine::AnimationController Class Reference</div></div>
@@ -105,6 +107,21 @@ Inheritance diagram for PlatformDataEngine::AnimationController:</div>
   </map>
 </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_platform_data_engine_1_1_animation_controller_1_1_animation.html">Animation</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_platform_data_engine_1_1_animation_controller_1_1_animation_frame.html">AnimationFrame</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a4e2d033cf8765e823b75bf932e7ca8ec"><td class="memItemLeft" align="right" valign="top"><a id="a4e2d033cf8765e823b75bf932e7ca8ec" name="a4e2d033cf8765e823b75bf932e7ca8ec"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>FlipFlags</b> { <b>NONE</b>
+, <b>HORIZONTAL</b>
+, <b>VERTICAL</b>
+ }</td></tr>
+<tr class="separator:a4e2d033cf8765e823b75bf932e7ca8ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae40c2032604f044293d50c27da416f01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_animation_controller.html#ae40c2032604f044293d50c27da416f01">init</a> ()</td></tr>
@@ -115,6 +132,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:abc3f740142829e3f657e9b8793b31adc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a638e3a6172d48ebea065326ec1ff8338"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_animation_controller.html#a638e3a6172d48ebea065326ec1ff8338">loadDefinition</a> (nlohmann::json object)</td></tr>
 <tr class="separator:a638e3a6172d48ebea065326ec1ff8338"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a941f72ebe529cdc76aea271c7db18d3e"><td class="memItemLeft" align="right" valign="top"><a id="a941f72ebe529cdc76aea271c7db18d3e" name="a941f72ebe529cdc76aea271c7db18d3e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setFlipFlag</b> (AnimationController::FlipFlags flip)</td></tr>
+<tr class="separator:a941f72ebe529cdc76aea271c7db18d3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebb401dafc930dada54ba4ef8733ec34"><td class="memItemLeft" align="right" valign="top"><a id="aebb401dafc930dada54ba4ef8733ec34" name="aebb401dafc930dada54ba4ef8733ec34"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setAnimation</b> (std::string animName, float speed=1.0f, bool loop=true)</td></tr>
+<tr class="separator:aebb401dafc930dada54ba4ef8733ec34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_platform_data_engine_1_1_component"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_platform_data_engine_1_1_component')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_platform_data_engine_1_1_component.html">PlatformDataEngine::Component</a></td></tr>
 <tr class="memitem:a2bbfafe06f654747c7b1c23f42008846 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top"><a id="a2bbfafe06f654747c7b1c23f42008846" name="a2bbfafe06f654747c7b1c23f42008846"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Component</b> (const <a class="el" href="class_platform_data_engine_1_1_component.html">Component</a> &amp;other)</td></tr>

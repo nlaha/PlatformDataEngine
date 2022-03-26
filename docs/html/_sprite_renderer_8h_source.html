@@ -107,14 +107,18 @@ $(document).ready(function(){initNavTree('_sprite_renderer_8h_source.html',''); 
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordtype">void</span> loadDefinition(nlohmann::json <span class="keywordtype">object</span>);</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        sf::Sprite m_sprite;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        sf::Texture m_texture;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        sf::IntRect m_rect;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    };</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keyword">inline</span> std::shared_ptr&lt;sf::Sprite&gt; getSprite()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> this-&gt;m_sprite; };</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keyword">inline</span> <span class="keywordtype">void</span> setRect(sf::IntRect rect) { this-&gt;m_rect = rect; };</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        std::shared_ptr&lt;sf::Sprite&gt; m_sprite;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        sf::Texture m_texture;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        sf::IntRect m_rect;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    };</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_component_html"><div class="ttname"><a href="class_platform_data_engine_1_1_component.html">PlatformDataEngine::Component</a></div><div class="ttdoc">The base component class, when creating components to add gameplay functionality, they should inherit...</div><div class="ttdef"><b>Definition:</b> Component.h:15</div></div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_sprite_renderer_html"><div class="ttname"><a href="class_platform_data_engine_1_1_sprite_renderer.html">PlatformDataEngine::SpriteRenderer</a></div><div class="ttdoc">A component that simply holds an SFML sprite and renders it.</div><div class="ttdef"><b>Definition:</b> SpriteRenderer.h:13</div></div>
 </div><!-- fragment --></div><!-- contents -->

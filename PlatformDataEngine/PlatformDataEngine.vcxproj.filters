@@ -198,5 +198,8 @@
     <CopyFileToFolders Include="assets\SpaceTileset.tsx">
       <Filter>Resource Files</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="game\gameObjects\EngineStats.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

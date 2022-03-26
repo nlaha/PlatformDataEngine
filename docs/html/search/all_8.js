@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['settarget_0',['setTarget',['../class_platform_data_engine_1_1_camera_controller.html#a1955ebccae720a20c96f0110ee213e40',1,'PlatformDataEngine::CameraController']]],
-  ['spriterenderer_1',['SpriteRenderer',['../class_platform_data_engine_1_1_sprite_renderer.html',1,'PlatformDataEngine']]]
+  ['loaddefinition_0',['loadDefinition',['../class_platform_data_engine_1_1_game_object.html#a608cd0d7c9a4be3cf7836019d610f5fe',1,'PlatformDataEngine::GameObject']]]
 ];

@@ -118,29 +118,34 @@ $(document).ready(function(){initNavTree('_game_object_8h_source.html',''); init
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_game_object.html#a608cd0d7c9a4be3cf7836019d610f5fe">loadDefinition</a>(std::string filename);</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_game_object.html#ad401e96f38b4ffd0ba2ea65cb29899b1">registerComponentHierarchy</a>(std::shared_ptr&lt;GameObject&gt; self);</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keyword">inline</span> std::shared_ptr&lt;T&gt; findComponentOfType()</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; compPair : this-&gt;m_components)</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            {</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                <span class="comment">// check if T is equal to the type of the component</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                <span class="keywordflow">if</span> (<span class="keyword">typeid</span>(T) == <span class="keyword">typeid</span>(*compPair.second))</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                {</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                    std::shared_ptr&lt;T&gt; derived =</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                        std::dynamic_pointer_cast&lt;T&gt; (compPair.second);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                    <span class="keywordflow">return</span> derived;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                }</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            }</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        }</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        std::map&lt;std::string, std::shared_ptr&lt;Component&gt;&gt; m_components;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        std::string m_id;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        std::string m_name;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        std::map&lt;std::string, nlohmann::json&gt; m_properties;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    };</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keyword">inline</span> std::string getName()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> this-&gt;m_name; };</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keyword">inline</span> <span class="keywordtype">int</span> getZlayer()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> this-&gt;m_zLayer; };</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keyword">inline</span> <span class="keywordtype">void</span> setZlayer(<span class="keywordtype">int</span> zLayer) { this-&gt;m_zLayer = zLayer; };</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keyword">inline</span> std::shared_ptr&lt;T&gt; findComponentOfType()</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; compPair : this-&gt;m_components)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                <span class="comment">// check if T is equal to the type of the component</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                <span class="keywordflow">if</span> (<span class="keyword">typeid</span>(T) == <span class="keyword">typeid</span>(*compPair.second))</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                    std::shared_ptr&lt;T&gt; derived =</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                        std::dynamic_pointer_cast&lt;T&gt; (compPair.second);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                    <span class="keywordflow">return</span> derived;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            }</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        }</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        std::map&lt;std::string, std::shared_ptr&lt;Component&gt;&gt; m_components;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        std::string m_id;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        std::string m_name;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordtype">int</span> m_zLayer;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        std::map&lt;std::string, nlohmann::json&gt; m_properties;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    };</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_game_object_html"><div class="ttname"><a href="class_platform_data_engine_1_1_game_object.html">PlatformDataEngine::GameObject</a></div><div class="ttdoc">The base container class for a gameplay related object, it's drawable, transformable and components c...</div><div class="ttdef"><b>Definition:</b> GameObject.h:21</div></div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_game_object_html_a0348e3ee2e83d56eafca7a3547f432c4"><div class="ttname"><a href="class_platform_data_engine_1_1_game_object.html#a0348e3ee2e83d56eafca7a3547f432c4">PlatformDataEngine::GameObject::GameObject</a></div><div class="ttdeci">GameObject()</div><div class="ttdoc">Constructor, keep in mind this is called when creating a gameObject definition as well as an instance...</div><div class="ttdef"><b>Definition:</b> GameObject.cpp:10</div></div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_game_object_html_a608cd0d7c9a4be3cf7836019d610f5fe"><div class="ttname"><a href="class_platform_data_engine_1_1_game_object.html#a608cd0d7c9a4be3cf7836019d610f5fe">PlatformDataEngine::GameObject::loadDefinition</a></div><div class="ttdeci">void loadDefinition(std::string filename)</div><div class="ttdoc">Loads a gameObject definition from a json file</div><div class="ttdef"><b>Definition:</b> GameObject.cpp:79</div></div>

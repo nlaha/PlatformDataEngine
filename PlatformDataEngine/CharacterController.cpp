@@ -31,10 +31,9 @@ void PlatformDataEngine::CharacterController::update(const float& dt, const floa
 {
     b2Vec2 vel = this->m_PhysBody->getBody()->GetLinearVelocity();
 
-    // update animation state
-    this->updateAnimation(vel);
-
     this->m_PhysBody->getBody()->SetAwake(true);
+
+    this->m_AnimController->setAnimation("Idle", 1.0f, true);
 
     float axisModifier = 1.0f;
     if (m_pInputManager->getAxis("x").isNegative())
@@ -43,6 +42,9 @@ void PlatformDataEngine::CharacterController::update(const float& dt, const floa
         // move left
         if (vel.LengthSquared() <= this->m_maxVelocity)
             this->m_PhysBody->getBody()->ApplyForceToCenter({ -1.f * this->m_moveForce, 0.f }, true);
+
+        this->m_AnimController->setFlipFlag(AnimationController::FlipFlags::HORIZONTAL);
+        this->m_AnimController->setAnimation("Walk", 4.0f * axisModifier, true);
     }
 
     if (m_pInputManager->getAxis("x").isPositive())
@@ -52,6 +54,9 @@ void PlatformDataEngine::CharacterController::update(const float& dt, const floa
         if (vel.LengthSquared() <= this->m_maxVelocity)
             this->m_PhysBody->getBody()->ApplyForceToCenter(
                 { 1.f * this->m_moveForce * axisModifier, 0.f}, true);
+
+        this->m_AnimController->setFlipFlag(AnimationController::FlipFlags::NONE);
+        this->m_AnimController->setAnimation("Walk", 4.0f * axisModifier, true);
     }
 
     if (m_pInputManager->getButton("jump").getValue() &&
@@ -91,6 +96,9 @@ void PlatformDataEngine::CharacterController::update(const float& dt, const floa
     {
         ts.tileset->getShader()->setUniform("charPos", this->m_parent->getPosition());
     }
+
+    // update animation state
+    this->updateAnimation(vel);
 }
 
 void PlatformDataEngine::CharacterController::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -175,31 +183,9 @@ bool PlatformDataEngine::CharacterController::fastGroundCheck() const
 void PlatformDataEngine::CharacterController::updateAnimation(b2Vec2 velocity)
 {
     if (this->fastGroundCheck()) {
-        if (velocity.LengthSquared() < 1.0 || velocity.LengthSquared() > -1.0)
-        {
-            // idle
-            this->m_AnimController->setAnimation("Idle", 1.0f, true);
-        }
-
-        if (velocity.x > 0.1) {
-            // move right
-            this->m_AnimController->setFlipFlag(AnimationController::FlipFlags::NONE);
-            this->m_AnimController->setAnimation("Walk", 4.0f, true);
-        }
-        else if (velocity.x < -0.1) {
-            // move left
-            this->m_AnimController->setFlipFlag(AnimationController::FlipFlags::HORIZONTAL);
-            this->m_AnimController->setAnimation("Walk", 4.0f, true);
-        }
+        // on ground
     }
     else {
         this->m_AnimController->setAnimation("InAir", 2.0f, true);
-    }
-
-    if (velocity.y > 1.0) {
-        // jumping
-    }
-    else if (velocity.y < -1.0) {
-        // falling
     }
 }

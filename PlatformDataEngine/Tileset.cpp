@@ -28,6 +28,7 @@ bool Tileset::loadTileset(const std::string& imagePath, const std::string& shade
 	}
 	spdlog::info("Loaded image: {}", imagePath);
 	this->m_texture->setSmooth(false);
+	this->m_texture->setRepeated(true);
 
 	// load shader if present
 	if (shaderPath != "") {

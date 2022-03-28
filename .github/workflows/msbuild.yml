@@ -26,7 +26,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
       
     - name: Install VCPKG Dependencies
-      uses: lukka/run-vcpkg@v10.1
+      uses: lukka/run-vcpkg@v10fixes
       with:
         vcpkgDirectory: '${{ github.workspace }}/vcpkg'
       

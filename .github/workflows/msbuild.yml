@@ -28,10 +28,14 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
       
     - name: Install VCPKG Dependencies
+      id: runvcpkg
       uses: lukka/run-vcpkg@v10.2
       with:
         vcpkgDirectory: '${{ github.workspace }}/vcpkg'
         runVcpkgInstall: true
+        
+    - name: Integrate VCPKG
+      run: .\${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_ROOT_OUT }}/vcpkg.exe integrate install
       
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}

@@ -31,8 +31,6 @@ jobs:
 
     - name: run-vcpkg
       uses: lukka/run-vcpkg@v10.2
-      with:
-        vcpkgDirectory: .
       
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}

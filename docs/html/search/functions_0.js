@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['cameracontroller_0',['CameraController',['../class_platform_data_engine_1_1_camera_controller.html#a435861b907d203bd4551b2ad94be4827',1,'PlatformDataEngine::CameraController']]]
+  ['addtrigger_0',['addTrigger',['../class_platform_data_engine_1_1_player_input_manager_1_1_axis.html#a93e1f398820dd78f53681cc37849eaa0',1,'PlatformDataEngine::PlayerInputManager::Axis::addTrigger(sf::Joystick::Axis axis)'],['../class_platform_data_engine_1_1_player_input_manager_1_1_axis.html#a47fced3ef0188c22d22da60007375827',1,'PlatformDataEngine::PlayerInputManager::Axis::addTrigger(sf::Keyboard::Key key, bool direction)'],['../class_platform_data_engine_1_1_player_input_manager_1_1_button.html#af1294e95816e8787cac7927911e91397',1,'PlatformDataEngine::PlayerInputManager::Button::addTrigger(int button)'],['../class_platform_data_engine_1_1_player_input_manager_1_1_button.html#a1b6fc2cc7af4c5391f5871df8cfb5cfb',1,'PlatformDataEngine::PlayerInputManager::Button::addTrigger(sf::Keyboard::Key key)']]],
+  ['axis_1',['Axis',['../class_platform_data_engine_1_1_player_input_manager_1_1_axis.html#ac55e5e5832a9e7a72868027c29aa4f61',1,'PlatformDataEngine::PlayerInputManager::Axis']]]
 ];

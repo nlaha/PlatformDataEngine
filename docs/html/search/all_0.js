@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['animation_0',['Animation',['../struct_platform_data_engine_1_1_animation_controller_1_1_animation.html',1,'PlatformDataEngine::AnimationController']]],
-  ['animationcontroller_1',['AnimationController',['../class_platform_data_engine_1_1_animation_controller.html',1,'PlatformDataEngine']]],
-  ['animationframe_2',['AnimationFrame',['../struct_platform_data_engine_1_1_animation_controller_1_1_animation_frame.html',1,'PlatformDataEngine::AnimationController']]]
+  ['addtrigger_0',['addTrigger',['../class_platform_data_engine_1_1_player_input_manager_1_1_axis.html#a93e1f398820dd78f53681cc37849eaa0',1,'PlatformDataEngine::PlayerInputManager::Axis::addTrigger(sf::Joystick::Axis axis)'],['../class_platform_data_engine_1_1_player_input_manager_1_1_axis.html#a47fced3ef0188c22d22da60007375827',1,'PlatformDataEngine::PlayerInputManager::Axis::addTrigger(sf::Keyboard::Key key, bool direction)'],['../class_platform_data_engine_1_1_player_input_manager_1_1_button.html#af1294e95816e8787cac7927911e91397',1,'PlatformDataEngine::PlayerInputManager::Button::addTrigger(int button)'],['../class_platform_data_engine_1_1_player_input_manager_1_1_button.html#a1b6fc2cc7af4c5391f5871df8cfb5cfb',1,'PlatformDataEngine::PlayerInputManager::Button::addTrigger(sf::Keyboard::Key key)']]],
+  ['animation_1',['Animation',['../struct_platform_data_engine_1_1_animation_controller_1_1_animation.html',1,'PlatformDataEngine::AnimationController']]],
+  ['animationcontroller_2',['AnimationController',['../class_platform_data_engine_1_1_animation_controller.html',1,'PlatformDataEngine']]],
+  ['animationframe_3',['AnimationFrame',['../struct_platform_data_engine_1_1_animation_controller_1_1_animation_frame.html',1,'PlatformDataEngine::AnimationController']]],
+  ['axis_4',['Axis',['../class_platform_data_engine_1_1_player_input_manager_1_1_axis.html#ac55e5e5832a9e7a72868027c29aa4f61',1,'PlatformDataEngine::PlayerInputManager::Axis::Axis()'],['../class_platform_data_engine_1_1_input_manager_1_1_axis.html',1,'PlatformDataEngine::InputManager::Axis'],['../class_platform_data_engine_1_1_player_input_manager_1_1_axis.html',1,'PlatformDataEngine::PlayerInputManager::Axis']]]
 ];

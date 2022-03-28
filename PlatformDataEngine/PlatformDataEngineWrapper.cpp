@@ -5,6 +5,7 @@ namespace fs = std::filesystem;
 namespace PlatformDataEngine {
 
     std::shared_ptr<GameWorld> PlatformDataEngineWrapper::mp_mainWorld = std::make_shared<GameWorld>();
+    std::shared_ptr<PlayerInputManager> PlatformDataEngineWrapper::mp_playerInputManager = std::make_shared<PlayerInputManager>(0);
 
     PlatformDataEngineWrapper::PlatformDataEngineWrapper()
     {
@@ -32,6 +33,10 @@ namespace PlatformDataEngine {
 
         bool isFullscreen = false;
 
+        // init input
+        mp_playerInputManager->loadDefinition("./game/input.json");
+
+        // init physics
         mp_mainWorld->initPhysics();
 
         // TODO: load game objects definitions from gameObjects/*.json

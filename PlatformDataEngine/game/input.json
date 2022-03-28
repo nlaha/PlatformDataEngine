@@ -1,0 +1,27 @@
+{
+  "gamepadIndex": 0,
+  "axis": {
+    "x": {
+      "axis": [0, 6],
+      "positiveKeys": [3],
+      "negativeKeys": [0],
+      "deadZone": 5
+    },
+    "y": {
+      "axis": [1, 7],
+      "positiveKeys": [22],
+      "negativeKeys": [18],
+      "deadZone": 5
+    }
+  },
+  "buttons": {
+    "jump": {
+      "keys": [57],
+      "buttons": [1]
+    },
+    "dash": {
+      "keys": [38],
+      "buttons": [0]
+    }
+  }
+}

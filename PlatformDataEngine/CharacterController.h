@@ -4,6 +4,7 @@
 
 #include "Component.h"
 #include "RaycastCallback.h"
+#include "PlayerInputManager.h"
 
 namespace PlatformDataEngine {
 
@@ -45,6 +46,8 @@ namespace PlatformDataEngine {
         }
 
     private:
+
+        std::shared_ptr<PlayerInputManager> m_pInputManager;
         
         void updateAnimation(b2Vec2 velocity);
         

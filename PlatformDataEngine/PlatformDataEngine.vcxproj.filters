@@ -46,6 +46,12 @@
     <Filter Include="Header Files\Internal">
       <UniqueIdentifier>{4000aa40-d7fe-4521-ac7f-50f60e0d6b9d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Input">
+      <UniqueIdentifier>{6872aca0-bf8c-4be1-8163-84fa9d992872}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Input">
+      <UniqueIdentifier>{32935a15-8802-4f4f-a190-8fd7616bfd0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -98,6 +104,12 @@
     </ClCompile>
     <ClCompile Include="EngineStatsText.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerInputManager.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Source Files\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +167,12 @@
     <ClInclude Include="EngineStatsText.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerInputManager.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\vcpkg.json">
@@ -200,6 +218,9 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="game\gameObjects\EngineStats.json">
       <Filter>Resource Files\Game\GameObjects</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="game\input.json">
+      <Filter>Resource Files\Game</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

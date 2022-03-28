@@ -23,6 +23,8 @@ void PlatformDataEngine::CharacterController::init()
     else {
         spdlog::critical("GameObject {} has a CharacterController so it must also have a AnimationController", this->m_parent->getName());
     }
+
+    this->m_pInputManager = PlatformDataEngineWrapper::getPlayerInputManager();
 }
 
 void PlatformDataEngine::CharacterController::update(const float& dt, const float& elapsedTime)
@@ -34,27 +36,25 @@ void PlatformDataEngine::CharacterController::update(const float& dt, const floa
 
     this->m_PhysBody->getBody()->SetAwake(true);
 
-    // get horizontal gamepad axis
-    float hAxis = 0.0f;
-    if (sf::Joystick::isConnected) {
-         hAxis = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::X);
-    }
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || hAxis < -10.0f)
+    float axisModifier = 1.0f;
+    if (m_pInputManager->getAxis("x").isNegative())
     {
+        axisModifier = std::abs(m_pInputManager->getAxis("x").getValue() / 100.0f);
         // move left
         if (vel.LengthSquared() <= this->m_maxVelocity)
             this->m_PhysBody->getBody()->ApplyForceToCenter({ -1.f * this->m_moveForce, 0.f }, true);
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || hAxis > 10.0f)
+    if (m_pInputManager->getAxis("x").isPositive())
     {
+        axisModifier = std::abs(m_pInputManager->getAxis("x").getValue() / 100.0f);
         // move right
         if (vel.LengthSquared() <= this->m_maxVelocity)
-            this->m_PhysBody->getBody()->ApplyForceToCenter({ 1.f * this->m_moveForce, 0.f }, true);
+            this->m_PhysBody->getBody()->ApplyForceToCenter(
+                { 1.f * this->m_moveForce * axisModifier, 0.f}, true);
     }
 
-    if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Joystick::isButtonPressed(0, 1)) &&
+    if (m_pInputManager->getButton("jump").getValue() &&
         !this->m_prev_jump_state && 
         this->fastGroundCheck() && this->m_jumpCooldownClock.getElapsedTime().asMilliseconds() > this->m_jumpCooldown)
     {
@@ -68,7 +68,7 @@ void PlatformDataEngine::CharacterController::update(const float& dt, const floa
 
     this->m_prev_jump_state = sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Joystick::isButtonPressed(0, 1);
 
-    if ((sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) || sf::Joystick::isButtonPressed(0, 0)) &&
+    if (m_pInputManager->getButton("dash").getValue() &&
         this->m_prev_dash_state &&
         this->fastGroundCheck() && this->m_dashCooldownClock.getElapsedTime().asMilliseconds() > this->m_dashCooldown)
     {

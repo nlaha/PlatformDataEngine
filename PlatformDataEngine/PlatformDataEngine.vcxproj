@@ -151,6 +151,8 @@
     <ClCompile Include="EngineStatsText.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameWorld.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="PlayerInputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="PlatformDataEngineWrapper.cpp" />
@@ -171,6 +173,8 @@
     <ClInclude Include="EngineStatsText.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWorld.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="PlayerInputManager.h" />
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="PlatformDataEngineWrapper.h" />
     <ClInclude Include="RaycastCallback.h" />
@@ -228,6 +232,11 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/game/gameObjects</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="game\input.json">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>

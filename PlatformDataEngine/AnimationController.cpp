@@ -27,23 +27,6 @@ void AnimationController::init()
 void AnimationController::update(const float &dt, const float &elapsedTime)
 {
     sf::FloatRect bounds = this->m_spriteRenderer->getSprite()->getLocalBounds();
-    if (this->m_flip == AnimationController::FlipFlags::HORIZONTAL)
-    {
-        this->m_spriteRenderer->getSprite()->setScale({-1.0, 1.0});
-        this->m_spriteRenderer->getSprite()->setOrigin({bounds.width, 0.0});
-    }
-
-    if (this->m_flip == AnimationController::FlipFlags::VERTICAL)
-    {
-        this->m_spriteRenderer->getSprite()->setScale({1.0, -1.0});
-        this->m_spriteRenderer->getSprite()->setOrigin({0.0, bounds.height});
-    }
-
-    if (this->m_flip == AnimationController::FlipFlags::NONE)
-    {
-        this->m_spriteRenderer->getSprite()->setScale({1.0, 1.0});
-        this->m_spriteRenderer->getSprite()->setOrigin({0, 0.0});
-    }
 
     // play animation
     if (this->m_currentAnim != "")
@@ -78,11 +61,24 @@ void AnimationController::update(const float &dt, const float &elapsedTime)
 
 void AnimationController::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-    if (this->m_curFrame != nullptr)
+    // draw frame
+    sf::IntRect frameRect = this->m_curFrame->frame;
+    if (this->m_flip == AnimationController::FlipFlags::HORIZONTAL)
     {
-        // draw frame
-        this->m_spriteRenderer->setRect(this->m_curFrame->frame);
+        frameRect.width *= -1;
     }
+
+    if (this->m_flip == AnimationController::FlipFlags::VERTICAL)
+    {
+        frameRect.height *= -1;
+    }
+
+    if (this->m_flip == AnimationController::FlipFlags::NONE)
+    {
+        frameRect =  this->m_curFrame->frame;
+    }
+
+    this->m_spriteRenderer->setRect(frameRect);
 }
 
 void AnimationController::setAnimation(std::string animName, float speed, bool loop)

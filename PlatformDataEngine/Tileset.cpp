@@ -76,6 +76,11 @@ void Tileset::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		int tu = tex.getRect().left;
 		int tv = tex.getRect().top;
 
+		rect.left -= 0.1f;
+		rect.top -= 0.1f;
+		rect.height += 0.1f;
+		rect.width += 0.1f;
+
 		// define its 4 corners
 		quad[0].position = sf::Vector2f(rect.left, rect.top);
 		quad[1].position = sf::Vector2f(rect.left + rect.width, rect.top);

@@ -8,13 +8,12 @@
 
 namespace PlatformDataEngine {
 
-    enum GroundTestMask {
+    enum DirTestMask {
         NONE,
         LEFT,
         RIGHT,
+        UP,
         DOWN,
-        DOWNRIGHT,
-        DOWNLEFT,
     };
 
     class PhysicsBody;
@@ -37,7 +36,7 @@ namespace PlatformDataEngine {
 
         void loadDefinition(nlohmann::json object);
         
-        int isAdjacentGround() const;
+        DirTestMask isAdjacentWall() const;
         bool fastGroundCheck() const;
 
         static bool HasFlag(int a, int b)

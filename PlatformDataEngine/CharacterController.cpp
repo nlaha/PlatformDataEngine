@@ -64,18 +64,28 @@ void PlatformDataEngine::CharacterController::update(const float& dt, const floa
         this->fastGroundCheck() && this->m_jumpCooldownClock.getElapsedTime().asMilliseconds() > this->m_jumpCooldown)
     {
         this->m_PhysBody->getBody()->SetAwake(true);
+        
+        b2Vec2 wallJumpBoost = { 0.0f, 1.0f };
+        if (isAdjacentWall() == DirTestMask::LEFT)
+        {
+            wallJumpBoost = { 0.5f, 1.25f };
+
+        }
+        else if (isAdjacentWall() == DirTestMask::RIGHT)
+        {
+            wallJumpBoost = { 0.5f, 1.25f };
+        }
 
         // jump
         if (vel.LengthSquared() <= this->m_maxVelocity)
-            this->m_PhysBody->getBody()->ApplyLinearImpulseToCenter({ 0.f, -1.f * this->m_jumpForce }, true);
+            this->m_PhysBody->getBody()->ApplyLinearImpulseToCenter((b2Vec2{ wallJumpBoost.x * this->m_jumpForce , -1.f * this->m_jumpForce * wallJumpBoost.y }), true);
         m_jumpCooldownClock.restart();
     }
 
     this->m_prev_jump_state = sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Joystick::isButtonPressed(0, 1);
 
     if (m_pInputManager->getButton("dash").getValue() &&
-        this->m_prev_dash_state &&
-        this->fastGroundCheck() && this->m_dashCooldownClock.getElapsedTime().asMilliseconds() > this->m_dashCooldown)
+        this->m_prev_dash_state && this->m_dashCooldownClock.getElapsedTime().asMilliseconds() > this->m_dashCooldown)
     {
         this->m_PhysBody->getBody()->SetAwake(true);
 
@@ -85,7 +95,7 @@ void PlatformDataEngine::CharacterController::update(const float& dt, const floa
         m_dashCooldownClock.restart();
     }
 
-    this->m_prev_dash_state = this->fastGroundCheck();
+    this->m_prev_dash_state = !this->fastGroundCheck();
 
     // lerp velocity to zero
     b2Vec2 currentVelocity = this->m_PhysBody->getBody()->GetLinearVelocity();
@@ -121,48 +131,25 @@ void PlatformDataEngine::CharacterController::loadDefinition(nlohmann::json obje
 /// ground or some other solid object
 /// </summary>
 /// <returns></returns>
-int PlatformDataEngine::CharacterController::isAdjacentGround() const
+PlatformDataEngine::DirTestMask PlatformDataEngine::CharacterController::isAdjacentWall() const
 {
-    // raycast output
-    b2RayCastOutput castOutput = {};
+    DirTestMask flags = DirTestMask::NONE;
+    for (b2ContactEdge* c = this->m_PhysBody->getBody()->GetContactList(); c; c = c->next)
+    {
+        // find direction of contact
+        b2WorldManifold worldManifold;
+        c->contact->GetWorldManifold(&worldManifold); // this method calls b2WorldManifold::Initialize with the appropriate transforms and radii so you don't have to worry about that
+        b2Vec2 worldNormal = worldManifold.normal;
 
-    b2Vec2 startVec = this->m_PhysBody->getBody()->GetTransform().p;
-    startVec.x += this->m_PhysBody->getBounds().width / 2.0f;
-    startVec.y += this->m_PhysBody->getBounds().height / 2.0f;
-
-    b2Vec2 downVec(0, this->m_PhysBody->getBounds().height);
-    b2Vec2 leftVec(-this->m_PhysBody->getBounds().width, 0);
-    b2Vec2 leftDownVec(-this->m_PhysBody->getBounds().width, 
-        this->m_PhysBody->getBounds().height);
-
-    b2Vec2 rightVec(this->m_PhysBody->getBounds().width, 0);
-    b2Vec2 rightDownVec(this->m_PhysBody->getBounds().width, 
-        this->m_PhysBody->getBounds().height);
-
-    std::array<std::pair<int, b2Vec2>, 6> directions = {
-        std::pair{DOWN, downVec},
-        {LEFT, leftVec},
-        {DOWNLEFT, leftDownVec },
-        {RIGHT, rightVec},
-        {DOWNRIGHT, rightDownVec},
-        {NONE, b2Vec2(0.0, 0.0)}
-    };
-
-    int flags = GroundTestMask::NONE;
-    std::find_if(std::execution::seq, directions.begin(), directions.end(), [&](const std::pair<int, b2Vec2>& dir) {
-        RaycastCallback callback;
-        PlatformDataEngineWrapper::getWorld()->getPhysWorld()->RayCast(&callback, startVec, startVec + dir.second);
-        if (callback.m_fixture != nullptr) {
-            // disable self raycast collision
-            if (!callback.isBody(this->m_PhysBody->getBody())) {
-                flags = flags | dir.first;
-            }
+        if (worldNormal.x > 0 && worldNormal.y == 0) {
+            flags = DirTestMask::LEFT;
         }
-        return false;
-    });
+        else if (worldNormal.x < 0 && worldNormal.y == 0) {
+            flags = DirTestMask::RIGHT;
+        }
+    }
 
     return flags;
-
 }
 
 /// <summary>

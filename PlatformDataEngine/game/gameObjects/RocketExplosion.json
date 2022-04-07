@@ -1,0 +1,12 @@
+{
+  "components": [
+    {
+      "type": "ParticleSystem",
+      "properties": {
+        "numParticles": 50,
+        "velocity": 100,
+        "particle": "FireParticle"
+      }
+    }
+  ]
+}

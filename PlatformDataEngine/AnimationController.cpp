@@ -5,14 +5,20 @@
 
 using namespace PlatformDataEngine;
 
-PlatformDataEngine::AnimationController::AnimationController()
+AnimationController::AnimationController()
 {
     this->m_curFrame = nullptr;
     this->m_frameTimer = sf::Clock();
+    this->m_loop = false;
+    this->m_flip = AnimationController::FlipFlags::NONE;
+    this->m_speed = 1.0f;
+    this->m_animations.clear();
 }
 
 void AnimationController::init()
 {
+    Component::init();
+
     std::shared_ptr<SpriteRenderer> spriteRender = this->m_parent->findComponentOfType<SpriteRenderer>();
     if (spriteRender.get() != nullptr)
     {
@@ -22,12 +28,21 @@ void AnimationController::init()
     {
         spdlog::critical("GameObject {} has a AnimationController so it must also have a SpriteRenderer", this->m_parent->getName());
     }
+
+    // init to first frame of animation until we start updating
+    if (this->m_currentAnim != "")
+    {
+        Animation& anim = this->m_animations[this->m_currentAnim];
+        if (this->m_curFrame == nullptr)
+        {
+            // starting at beginning
+            this->m_curFrame = &anim.frames[0];
+        }
+    }
 }
 
 void AnimationController::update(const float &dt, const float &elapsedTime)
 {
-    sf::FloatRect bounds = this->m_spriteRenderer->getSprite()->getLocalBounds();
-
     // play animation
     if (this->m_currentAnim != "")
     {
@@ -41,18 +56,25 @@ void AnimationController::update(const float &dt, const float &elapsedTime)
             }
             else
             {
-                if (anim.frames.size() > this->m_curFrame->index)
-                {
-                    if (this->m_frameTimer.getElapsedTime().asMilliseconds() >= this->m_curFrame->duration / this->m_speed) {
+                if (this->m_frameTimer.getElapsedTime().asMilliseconds() >= this->m_curFrame->duration / this->m_speed) {
+
+                    if (this->m_curFrame->index < anim.frames.size() - 1)
+                    {
                         // increment frame
                         this->m_curFrame = &anim.frames[this->m_curFrame->index + 1];
-                        this->m_frameTimer.restart();
                     }
-                }
-                else
-                {
-                    // starting at beginning
-                    this->m_curFrame = &anim.frames[0];
+                    else
+                    {
+                        if (this->m_loop) {
+                            // starting at beginning
+                            this->m_curFrame = &anim.frames[0];
+                        }
+                        else {
+                            this->m_curFrame = &this->m_animations[this->m_lastAnim].frames[0];
+                            this->m_currentAnim = m_lastAnim;
+                        }
+                    }
+                    this->m_frameTimer.restart();
                 }
             }
         }
@@ -61,31 +83,42 @@ void AnimationController::update(const float &dt, const float &elapsedTime)
 
 void AnimationController::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-    // draw frame
-    sf::IntRect frameRect = this->m_curFrame->frame;
-    if (this->m_flip == AnimationController::FlipFlags::HORIZONTAL)
-    {
-        frameRect.width *= -1;
-    }
+    if (this->m_curFrame != nullptr) {
+        // draw frame
+        sf::IntRect frameRect = this->m_curFrame->frame;
+        if (this->m_flip == AnimationController::FlipFlags::HORIZONTAL)
+        {
+            frameRect.width *= -1;
+            frameRect.left -= frameRect.width;
+        }
 
-    if (this->m_flip == AnimationController::FlipFlags::VERTICAL)
-    {
-        frameRect.height *= -1;
-    }
+        if (this->m_flip == AnimationController::FlipFlags::VERTICAL)
+        {
+            frameRect.height *= -1;
+            frameRect.top -= frameRect.height;
+        }
 
-    if (this->m_flip == AnimationController::FlipFlags::NONE)
-    {
-        frameRect =  this->m_curFrame->frame;
+        this->m_spriteRenderer->setRect(frameRect);
     }
-
-    this->m_spriteRenderer->setRect(frameRect);
 }
 
-void AnimationController::setAnimation(std::string animName, float speed, bool loop)
+void AnimationController::copy(std::shared_ptr<Component> otherCompPtr)
 {
+    std::shared_ptr<AnimationController> other = std::dynamic_pointer_cast<AnimationController>(otherCompPtr);
+
+    *this = *other;
+}
+
+void AnimationController::setAnimation(const std::string animName, float speed, bool loop)
+{
+    this->m_lastAnim = this->m_currentAnim;
     this->m_currentAnim = animName;
     this->m_loop = loop;
     this->m_speed = speed;
+    if (!loop) {
+        Animation& anim = this->m_animations[this->m_currentAnim];
+        this->m_curFrame = &anim.frames[0];
+    }
 }
 
 void AnimationController::loadDefinition(nlohmann::json object)

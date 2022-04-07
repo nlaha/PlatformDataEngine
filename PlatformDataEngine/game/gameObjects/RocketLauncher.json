@@ -1,0 +1,32 @@
+{
+  "components": [
+    {
+      "type": "SpriteRenderer",
+      "properties": {
+        "texture": "assets/RocketLauncher.png",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": -1,
+          "height": -1
+        }
+      }
+    },
+    {
+      "type": "RocketLauncher",
+      "properties": {
+        "velocity": 600,
+        "cooldown": 800
+      }
+    },
+    {
+      "type": "AnimationController",
+      "properties": {
+        "aespriteFile": "assets/RocketLauncher.json",
+        "animation": "Idle",
+        "loop": true,
+        "speed": 1
+      }
+    }
+  ]
+}

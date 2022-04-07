@@ -5,9 +5,11 @@
 #include <fstream>
 #include <SFML/Graphics.hpp>
 #include <nlohmann/json.hpp>
+#include <typeinfo>
 
 #include "Utility.h"
 #include "Component.h"
+#include "Alive.h"
 #include "ComponentFactory.h"
 
 namespace PlatformDataEngine {
@@ -17,11 +19,11 @@ namespace PlatformDataEngine {
 	/// transformable and components can be added to modify the funcionality. 
 	/// These classes are defined by the user in a json file.
 	/// </summary>
-	class GameObject : public sf::Transformable, public sf::Drawable
+	class GameObject : public sf::Transformable, public sf::Drawable, public Alive
 	{
 	public:
 
-		GameObject();
+		GameObject(bool isDef = false);
 		~GameObject();
 
 		// copy constructor
@@ -35,8 +37,27 @@ namespace PlatformDataEngine {
 		void registerComponentHierarchy(std::shared_ptr<GameObject> self);
 
 		inline std::string getName() const { return this->m_name; };
+		inline bool isDefinition() const { return this->m_isDefinition; };
+		inline void setIsDefinition(bool isDef) { this->m_isDefinition = isDef; };
 		inline int getZlayer() const { return this->m_zLayer; };
 		inline void setZlayer(int zLayer) { this->m_zLayer = zLayer; };
+		inline void addChild(std::shared_ptr<GameObject> gameObject) { this->m_children.push_back(gameObject); };
+		inline void setParent(std::shared_ptr<GameObject> gameObject) { this->m_parent = gameObject; };
+		inline std::shared_ptr<GameObject> getParent() { return this->m_parent; };
+
+		inline void setName(std::string& name) { this->m_name = name; };
+		inline void destroySelf() {
+			this->m_destroyed = true;
+			for (std::shared_ptr<GameObject> child : this->m_children)
+			{
+				child->destroySelf();
+			}
+		};
+
+		inline bool getDestroyed() const { return this->m_destroyed; };
+		inline std::vector<std::shared_ptr<GameObject>> getChildren() const { return this->m_children; };
+
+		void sortChildZ();
 
 		template<typename T>
 		inline std::shared_ptr<T> findComponentOfType()
@@ -55,9 +76,15 @@ namespace PlatformDataEngine {
 
 	private:
 		std::map<std::string, std::shared_ptr<Component>> m_components;
+		std::vector<std::shared_ptr<GameObject>> m_children;
+		std::shared_ptr<GameObject> m_parent;
+		GameObject* m_self;
+
 		std::string m_id;
 		std::string m_name;
 		int m_zLayer;
+		bool m_destroyed;
+		bool m_isDefinition;
 
 		std::map<std::string, nlohmann::json> m_properties;
 	};

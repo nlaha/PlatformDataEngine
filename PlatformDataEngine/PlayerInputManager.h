@@ -46,10 +46,12 @@ namespace PlatformDataEngine {
 			bool getValue();
 			void addTrigger(int button);
 			void addTrigger(sf::Keyboard::Key key);
+			void addTrigger(sf::Mouse::Button button);
 
 		private:
 			std::vector <int> m_buttons;
 			std::vector <sf::Keyboard::Key> m_keys;
+			std::vector<sf::Mouse::Button> m_mouseBtns;
 			int m_gamepadIndex;
 		};
 

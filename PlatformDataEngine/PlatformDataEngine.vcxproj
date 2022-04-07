@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Alive.cpp" />
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="CharacterController.cpp" />
@@ -152,19 +153,25 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="PhysicsCallbacks.cpp" />
+    <ClCompile Include="PhysicsDebugDraw.cpp" />
     <ClCompile Include="PlayerInputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="PlatformDataEngineWrapper.cpp" />
-    <ClCompile Include="RaycastCallback.cpp" />
+    <ClCompile Include="RocketProjectile.cpp" />
+    <ClCompile Include="RocketLauncher.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="TextRenderer.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Tileset.cpp" />
     <ClCompile Include="TileSprite.cpp" />
     <ClCompile Include="TileTexture.cpp" />
+    <ClCompile Include="TimedDestroy.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Alive.h" />
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="CameraController.h" />
     <ClInclude Include="CharacterController.h" />
@@ -174,16 +181,21 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="PhysicsDebugDraw.h" />
     <ClInclude Include="PlayerInputManager.h" />
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="PlatformDataEngineWrapper.h" />
-    <ClInclude Include="RaycastCallback.h" />
+    <ClInclude Include="RocketProjectile.h" />
+    <ClInclude Include="PhysicsCallbacks.h" />
+    <ClInclude Include="RocketLauncher.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="TextRenderer.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Tileset.h" />
     <ClInclude Include="TileSprite.h" />
     <ClInclude Include="TileTexture.h" />
+    <ClInclude Include="TimedDestroy.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +253,35 @@
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)/game</DestinationFolders>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/game</DestinationFolders>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="game\gameObjects\RocketLauncher.json">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/game/gameObjects</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="game\gameObjects\FireParticle.json">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/game/gameObjects</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="game\gameObjects\RocketProjectile.json">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/game/gameObjects</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="game\gameObjects\RocketExplosion.json">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/game/gameObjects</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\FireParticle.json">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/assets</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/assets</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\RocketLauncher.json">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/assets</DestinationFolders>
+    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="assets\Character.png">
@@ -260,6 +301,19 @@
     <CopyFileToFolders Include="assets\VT323-Regular.ttf">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/assets</DestinationFolders>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="assets\FireParticle.png">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/assets</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\RocketLauncher.png">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/assets</DestinationFolders>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="assets\RocketProjectile.png">
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/assets</DestinationFolders>
     </CopyFileToFolders>
   </ItemGroup>

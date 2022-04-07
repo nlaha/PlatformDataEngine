@@ -22,6 +22,10 @@
     "dash": {
       "keys": [38],
       "buttons": [0]
+    },
+    "primary": {
+      "buttons": [ 2 ],
+      "mouseButtons":  [0]
     }
   }
 }

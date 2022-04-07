@@ -1,6 +1,8 @@
 #include "GameWorld.h"
+#include "PlatformDataEngineWrapper.h"
 
 using namespace PlatformDataEngine;
+using namespace std::chrono;
 
 GameWorld::GameWorld()
 {
@@ -37,11 +39,15 @@ void GameWorld::init(std::string filePath, sf::View& view)
 	for (auto& gameObject : gameObjects)
 	{
 		std::shared_ptr<GameObject> p_gameObject = std::make_shared<GameObject>(
-			this->m_gameObjectDefinitions.at(gameObject.at("type"))
+			*this->m_gameObjectDefinitions.at(gameObject.at("type"))
 		);
 		p_gameObject->setPosition(
 			gameObject.at("transform").at("x"),
 			gameObject.at("transform").at("y")
+		);
+		p_gameObject->setOrigin(
+			gameObject.at("transform").at("origin_x"),
+			gameObject.at("transform").at("origin_y")
 		);
 		p_gameObject->setZlayer(
 			gameObject.at("transform").at("z_layer")
@@ -54,7 +60,18 @@ void GameWorld::init(std::string filePath, sf::View& view)
 			gameObject.at("transform").at("scale")
 			});
 		p_gameObject->registerComponentHierarchy(p_gameObject);
+
 		this->registerGameObject(gameObject.at("name"), p_gameObject);
+	}
+
+	for (auto& gameObject : gameObjects)
+	{
+		for (std::string child : gameObject.at("children"))
+		{
+			std::shared_ptr<GameObject> childObj = this->getGameObject(child);
+			childObj->setParent(this->getGameObject(gameObject.at("name")));
+			this->getGameObject(gameObject.at("name"))->addChild(childObj);
+		}
 	}
 
 	// init camera controller
@@ -63,16 +80,20 @@ void GameWorld::init(std::string filePath, sf::View& view)
 	this->mp_view = std::make_shared<sf::View>(view);
 	CameraController cc(cameraControllerObj.at("cameraLerpSpeed"), this->mp_view);
 	this->m_cameraControl = cc;
-	this->m_cameraControl.setTarget(this->getGameObject(cameraControllerObj.at("cameraLockObject")));
 
 	// init game objects
 	for (auto& gameObjectPair : this->mp_gameObjects)
 	{
 		gameObjectPair.second->init();
 	}
+
+	this->m_cameraControl.setTarget(this->getGameObject(cameraControllerObj.at("cameraLockObject")));
+
+	// later change this to some system that multiplayer supports
+	this->mp_currentPlayer = this->getGameObject(cameraControllerObj.at("cameraLockObject"));
 }
 
-void PlatformDataEngine::GameWorld::initPhysics()
+void GameWorld::initPhysics()
 {
 	// init physics world
 	b2Vec2 gravity(0.0f, 25.0f);
@@ -90,9 +111,35 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 	this->mp_tileMap->update(dt, elapsedTime);
 
 	// update game objects
-	for (auto& gameObjectPair : this->mp_gameObjects)
+	for (auto gameObjectPair : this->mp_gameObjects)
 	{
 		gameObjectPair.second->update(dt, elapsedTime);
+	}
+
+	// remove deleted gameObjects
+	for (auto it = this->mp_gameObjects.cbegin(); it != this->mp_gameObjects.cend();)
+	{
+		if (it->second->getDestroyed())
+		{
+			this->mp_gameObjects.erase(it++);
+		}
+		else
+		{
+			++it;
+		}
+	}
+
+	// destroy physics bodies that are queued for destruction
+	b2Body* body = this->mp_physicsWorld->GetBodyList();
+	while (body->GetUserData().pointer != 0 && body->GetNext() != nullptr)
+	{
+		b2Body* next = body->GetNext();
+		if (reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer)->destroyed == true) {
+			delete reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer);
+			this->getPhysWorld()->DestroyBody(body);
+		}
+
+		body = next;
 	}
 
 	// update camera
@@ -107,11 +154,11 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 void GameWorld::physicsUpdate(const float& dt, const float& elapsedTime)
 {
 	int velocityIterations = 8;
-	int positionIterations = 4;
+	int positionIterations = 3;
 	float timeStep = dt * 3.0f;
 
 	// simulate physics
-	this->mp_physicsWorld->Step(timeStep, velocityIterations, positionIterations);
+	this->mp_physicsWorld->Step(std::min(timeStep, 0.15f), velocityIterations, positionIterations);
 }
 
 /// <summary>
@@ -137,9 +184,18 @@ void GameWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	});
 
 	// draw game objects
-	for (auto& gameObjectPair : gameObjects)
+	for (auto& gameObject : gameObjects)
 	{
-		target.draw(*gameObjectPair, states);
+		if (!gameObject->getDestroyed()) {
+			if (gameObject->getParent() == nullptr)
+			{
+				target.draw(*gameObject, states);
+			}
+		}
+	}
+
+	if (PlatformDataEngineWrapper::getIsDebugPhysics()) {
+		this->mp_physicsWorld->DebugDraw();
 	}
 }
 
@@ -160,7 +216,36 @@ void GameWorld::registerGameObject(std::string name, std::shared_ptr<GameObject>
 /// </summary>
 /// <param name="name">a unique name for the gameObject definition</param>
 /// <param name="gameObject">the gameObject "template" definition</param>
-void GameWorld::registerGameObjectDefinition(std::string name, GameObject& gameObject)
+void GameWorld::registerGameObjectDefinition(std::string name, std::shared_ptr<GameObject> gameObject)
 {
 	this->m_gameObjectDefinitions.emplace(name, gameObject);
+}
+
+std::shared_ptr<GameObject> GameWorld::spawnGameObject(std::string type, sf::Vector2f position)
+{
+	//sf::Clock timer;
+
+	std::shared_ptr<GameObject> p_gameObject = std::make_shared<GameObject>(
+		*this->getGameObjectDefs().at(type)
+	);
+
+	// since we're spawning something, it's not a definition
+	p_gameObject->setIsDefinition(false);
+
+	p_gameObject->setPosition(position);
+	p_gameObject->registerComponentHierarchy(p_gameObject);
+
+	std::string name = Utility::generate_uuid_v4() + "%id%RocketProjectile";
+
+	p_gameObject->setName(name);
+
+	this->registerGameObject(
+		name, p_gameObject
+	);
+
+	p_gameObject->init();
+
+	//spdlog::info("Spawning object {} took: {}uS", p_gameObject->getName(), timer.getElapsedTime().asMicroseconds());
+
+	return p_gameObject;
 }

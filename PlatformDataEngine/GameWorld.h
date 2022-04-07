@@ -1,11 +1,14 @@
 #pragma once
 #include <memory>
 #include <vector>
+#include <chrono>
 #include <map>
 #include <box2d/box2d.h>
+#include <spdlog/spdlog.h>
 #include "TileMap.h"
 #include "GameObject.h"
 #include "Utility.h"
+#include "PhysicsCallbacks.h"
 #include "CameraController.h"
 
 namespace PlatformDataEngine {
@@ -33,7 +36,9 @@ namespace PlatformDataEngine {
 
 		// helpers
 		void registerGameObject(std::string name, std::shared_ptr<GameObject>);
-		void registerGameObjectDefinition(std::string name, GameObject&);
+		void registerGameObjectDefinition(std::string name, std::shared_ptr<GameObject>);
+
+		std::shared_ptr<GameObject> spawnGameObject(std::string type, sf::Vector2f position);
 
 		// getters
 		inline std::shared_ptr<b2World> getPhysWorld() const { return this->mp_physicsWorld; };
@@ -42,16 +47,20 @@ namespace PlatformDataEngine {
 		inline std::shared_ptr<GameObject> getGameObject(std::string search) {
 			return this->mp_gameObjects.find(search)->second;
 		};
+		inline std::shared_ptr<GameObject> getPlayer() const { return this->mp_currentPlayer; };
+
+		inline std::map<std::string, std::shared_ptr<GameObject>>& getGameObjectDefs() { return this->m_gameObjectDefinitions; };
 
 	private:
 		std::shared_ptr<b2World> mp_physicsWorld;
 		std::shared_ptr<TileMap> mp_tileMap;
+		std::shared_ptr<GameObject> mp_currentPlayer;
 
 		std::shared_ptr<sf::View> mp_view;
 		CameraController m_cameraControl;
 
 		std::map<std::string, std::shared_ptr<GameObject>> mp_gameObjects;
 
-		std::map<std::string, GameObject> m_gameObjectDefinitions;
+		std::map<std::string, std::shared_ptr<GameObject>> m_gameObjectDefinitions;
 	};
 }

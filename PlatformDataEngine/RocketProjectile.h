@@ -1,0 +1,39 @@
+#pragma once
+#include <memory>
+#include <box2d/box2d.h>
+
+#include "Component.h"
+#include "Utility.h"
+
+namespace PlatformDataEngine {
+
+    class PhysicsBody;
+
+    class RocketProjectile :
+        public Component
+    {
+    public:
+        void init();
+
+        void update(const float& dt, const float& elapsedTime);
+
+        void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+        void copy(std::shared_ptr<Component> otherCompPtr);
+
+        void loadDefinition(nlohmann::json object);
+
+    private:
+
+        std::shared_ptr<PhysicsBody> m_PhysBody;
+        b2Fixture* m_explosionSensor;
+
+        std::string m_ParticleSystemName;
+        float m_explosionRadius;
+        float m_explosionForce;
+        float m_explosionDamage;
+
+        bool m_isExploding;
+    };
+}
+

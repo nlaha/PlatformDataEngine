@@ -3,6 +3,14 @@
 
 namespace PlatformDataEngine {
 
+    class GameObject;
+
+    struct PhysBodyUserData
+    {
+        bool destroyed;
+        GameObject* gameObjectOwner;
+    };
+
     class BoxQueryCallback : public b2QueryCallback
     {
     public:

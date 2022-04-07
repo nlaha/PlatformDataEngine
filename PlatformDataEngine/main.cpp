@@ -3,6 +3,8 @@
 
 int main()
 {
+    srand(time(NULL));
+
     spdlog::set_level(spdlog::level::info);
 
     PlatformDataEngine::PlatformDataEngineWrapper engine;

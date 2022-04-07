@@ -7,6 +7,5 @@ namespace PlatformDataEngine {
     {
     public:
         void update(const float& dt, const float& elapsedTime);
-
     };
 }

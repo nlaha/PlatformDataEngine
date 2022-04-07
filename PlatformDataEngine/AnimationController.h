@@ -42,11 +42,13 @@ namespace PlatformDataEngine
 
         void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
+        void copy(std::shared_ptr<Component> otherCompPtr);
+
         void loadDefinition(nlohmann::json object);
 
         inline void setFlipFlag(AnimationController::FlipFlags flip) { this->m_flip = flip; };
 
-        void setAnimation(std::string animName, float speed = 1.0f, bool loop = true);
+        void setAnimation(const std::string animName, float speed = 1.0f, bool loop = true);
 
     private:
         std::shared_ptr<SpriteRenderer> m_spriteRenderer;
@@ -55,6 +57,7 @@ namespace PlatformDataEngine
         AnimationFrame* m_curFrame;
 
         std::string m_currentAnim;
+        std::string m_lastAnim;
         sf::Clock m_frameTimer;
 
         bool m_loop;

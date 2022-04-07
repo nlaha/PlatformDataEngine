@@ -6,11 +6,31 @@
 #include "TileMap.h"
 #include <spdlog/spdlog.h>
 
-void PlatformDataEngine::CharacterController::init()
+using namespace PlatformDataEngine;
+
+void CharacterController::init()
 {
+    Component::init();
+
     std::shared_ptr<PhysicsBody> pb = this->m_parent->findComponentOfType<PhysicsBody>();
     if (pb.get() != nullptr) {
         this->m_PhysBody = pb;
+
+        b2Fixture* fix = this->m_PhysBody->getBody()->GetFixtureList();
+        while (fix != nullptr)
+        {
+
+            b2Filter filter;
+            filter.categoryBits = PlatformDataEngine::CHARACTER;
+            filter.maskBits = 
+                PlatformDataEngine::CHARACTER | 
+                PlatformDataEngine::WORLD_DYNAMIC | 
+                PlatformDataEngine::WORLD_STATIC |
+                PlatformDataEngine::PROJECTILE;
+            fix->SetFilterData(filter);
+
+            fix = fix->GetNext();
+        }
     }
     else {
         spdlog::critical("GameObject {} has a CharacterController so it must also have a PhysicsBody", this->m_parent->getName());
@@ -27,7 +47,7 @@ void PlatformDataEngine::CharacterController::init()
     this->m_pInputManager = PlatformDataEngineWrapper::getPlayerInputManager();
 }
 
-void PlatformDataEngine::CharacterController::update(const float& dt, const float& elapsedTime)
+void CharacterController::update(const float& dt, const float& elapsedTime)
 {
     b2Vec2 vel = this->m_PhysBody->getBody()->GetLinearVelocity();
 
@@ -44,7 +64,7 @@ void PlatformDataEngine::CharacterController::update(const float& dt, const floa
             this->m_PhysBody->getBody()->ApplyForceToCenter({ -1.f * this->m_moveForce, 0.f }, true);
 
         this->m_AnimController->setFlipFlag(AnimationController::FlipFlags::HORIZONTAL);
-        this->m_AnimController->setAnimation("Walk", 4.0f * axisModifier, true);
+        this->m_AnimController->setAnimation("Walk", 4.0f * std::fabsf(axisModifier), true);
     }
 
     if (m_pInputManager->getAxis("x").isPositive())
@@ -56,7 +76,7 @@ void PlatformDataEngine::CharacterController::update(const float& dt, const floa
                 { 1.f * this->m_moveForce * axisModifier, 0.f}, true);
 
         this->m_AnimController->setFlipFlag(AnimationController::FlipFlags::NONE);
-        this->m_AnimController->setAnimation("Walk", 4.0f * axisModifier, true);
+        this->m_AnimController->setAnimation("Walk", 4.0f * std::fabsf(axisModifier), true);
     }
 
     if (m_pInputManager->getButton("jump").getValue() &&
@@ -73,7 +93,7 @@ void PlatformDataEngine::CharacterController::update(const float& dt, const floa
         }
         else if (isAdjacentWall() == DirTestMask::RIGHT)
         {
-            wallJumpBoost = { 0.5f, 1.25f };
+            wallJumpBoost = { -0.5f, 1.25f };
         }
 
         // jump
@@ -111,11 +131,18 @@ void PlatformDataEngine::CharacterController::update(const float& dt, const floa
     this->updateAnimation(vel);
 }
 
-void PlatformDataEngine::CharacterController::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void CharacterController::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 }
 
-void PlatformDataEngine::CharacterController::loadDefinition(nlohmann::json object)
+void CharacterController::copy(std::shared_ptr<Component> otherCompPtr)
+{
+    std::shared_ptr<CharacterController> other = std::dynamic_pointer_cast<CharacterController>(otherCompPtr);
+
+    *this = *other;
+}
+
+void CharacterController::loadDefinition(nlohmann::json object)
 {
     this->m_moveForce = object.at("moveForce");
     this->m_jumpForce = object.at("jumpForce");
@@ -131,7 +158,7 @@ void PlatformDataEngine::CharacterController::loadDefinition(nlohmann::json obje
 /// ground or some other solid object
 /// </summary>
 /// <returns></returns>
-PlatformDataEngine::DirTestMask PlatformDataEngine::CharacterController::isAdjacentWall() const
+DirTestMask CharacterController::isAdjacentWall() const
 {
     DirTestMask flags = DirTestMask::NONE;
     for (b2ContactEdge* c = this->m_PhysBody->getBody()->GetContactList(); c; c = c->next)
@@ -157,7 +184,7 @@ PlatformDataEngine::DirTestMask PlatformDataEngine::CharacterController::isAdjac
 /// is contacting the ground
 /// </summary>
 /// <returns></returns>
-bool PlatformDataEngine::CharacterController::fastGroundCheck() const
+bool CharacterController::fastGroundCheck() const
 {
     for (b2ContactEdge* c = this->m_PhysBody->getBody()->GetContactList(); c; c = c->next)
     {
@@ -167,7 +194,7 @@ bool PlatformDataEngine::CharacterController::fastGroundCheck() const
     return false;
 }
 
-void PlatformDataEngine::CharacterController::updateAnimation(b2Vec2 velocity)
+void CharacterController::updateAnimation(b2Vec2 velocity)
 {
     if (this->fastGroundCheck()) {
         // on ground

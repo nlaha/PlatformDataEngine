@@ -19,15 +19,17 @@ namespace PlatformDataEngine {
 
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+        void copy(std::shared_ptr<Component> otherCompPtr);
+
         void loadDefinition(nlohmann::json object);
 
-        inline std::shared_ptr<sf::Sprite> getSprite() const { return this->m_sprite; };
+        inline sf::Sprite getSprite() const { return this->m_sprite; };
 
         inline void setRect(sf::IntRect rect) { this->m_rect = rect; };
 
     private:
-        std::shared_ptr<sf::Sprite> m_sprite;
-        sf::Texture m_texture;
+        sf::Sprite m_sprite;
+        std::shared_ptr<sf::Texture> m_texture;
         sf::IntRect m_rect;
 
     };

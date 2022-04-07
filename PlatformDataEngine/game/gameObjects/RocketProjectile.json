@@ -1,0 +1,53 @@
+{
+  "components": [
+    {
+      "type": "SpriteRenderer",
+      "properties": {
+        "texture": "assets/RocketProjectile.png",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 4,
+          "height": 4
+        }
+      }
+    },
+    {
+      "type": "RocketProjectile",
+      "properties": {
+        "explosionRadius": 20,
+        "explosionDamage": 10,
+        "explosionForce": 5000,
+        "particleSystemName":  "RocketExplosion"
+      }
+    },
+    {
+      "type": "PhysicsBody",
+      "properties": {
+        "type": "dynamic",
+        "doesRotate": true,
+        "continuous": true,
+        "density": 1.0,
+        "friction": 0.0,
+        "bouncy": 0.0,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        },
+        "fixtures": [
+          {
+            "shape": "box",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 2,
+              "height": 2
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

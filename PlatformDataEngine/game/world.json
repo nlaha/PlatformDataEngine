@@ -11,21 +11,41 @@
       "transform": {
         "x": 0,
         "y": 0,
+        "origin_x": 0,
+        "origin_y": 0,
         "z_layer": 2,
         "rotation": 0,
         "scale": 1
-      }
+      },
+      "children": ["PlayerRocketLauncher"]
+    },
+    {
+      "name": "PlayerRocketLauncher",
+      "type": "RocketLauncher",
+      "transform": {
+        "x": 4,
+        "y": 10,
+        "origin_x": 4,
+        "origin_y": 4,
+        "z_layer": 3,
+        "rotation": 0,
+        "scale": 1
+      },
+      "children": []
     },
     {
       "name": "EngineStats",
       "type": "EngineStats",
       "transform": {
         "x": 0,
-        "y": 100,
+        "y": 10,
+        "origin_x": 0,
+        "origin_y": 0,
         "z_layer": 100,
         "rotation": 20,
         "scale": 1
-      }
+      },
+      "children": []
     }
   ]
 }

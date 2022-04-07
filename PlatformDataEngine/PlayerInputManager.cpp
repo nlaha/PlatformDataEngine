@@ -6,7 +6,7 @@ using namespace PlatformDataEngine;
 /// Axis represents a range based input (-100 to 100)
 /// </summary>
 /// <param name="gamepadIndex"></param>
-PlatformDataEngine::PlayerInputManager::Axis::Axis(int gamepadIndex, float deadZone)
+PlayerInputManager::Axis::Axis(int gamepadIndex, float deadZone)
 {
 	this->m_gamepadIndex = gamepadIndex;
 	this->m_deadZone = deadZone;
@@ -16,7 +16,7 @@ PlatformDataEngine::PlayerInputManager::Axis::Axis(int gamepadIndex, float deadZ
 /// Adds a joystick axis as a trigger
 /// </summary>
 /// <param name="axis">the axis</param>
-void PlatformDataEngine::PlayerInputManager::Axis::addTrigger(sf::Joystick::Axis axis)
+void PlayerInputManager::Axis::addTrigger(sf::Joystick::Axis axis)
 {
 	this->m_joyAxis.push_back(axis);
 }
@@ -26,7 +26,7 @@ void PlatformDataEngine::PlayerInputManager::Axis::addTrigger(sf::Joystick::Axis
 /// </summary>
 /// <param name="key">the key to add</param>
 /// <param name="direction">true - positive, false - negative</param>
-void PlatformDataEngine::PlayerInputManager::Axis::addTrigger(sf::Keyboard::Key key, bool direction)
+void PlayerInputManager::Axis::addTrigger(sf::Keyboard::Key key, bool direction)
 {
 	if (direction)
 	{
@@ -42,7 +42,7 @@ void PlatformDataEngine::PlayerInputManager::Axis::addTrigger(sf::Keyboard::Key 
 /// Gets the value from the axis
 /// </summary>
 /// <returns>the value from -100 to 100</returns>
-float PlatformDataEngine::PlayerInputManager::Axis::getValue()
+float PlayerInputManager::Axis::getValue()
 {
 	float value = 0.0f;
 
@@ -77,7 +77,7 @@ float PlatformDataEngine::PlayerInputManager::Axis::getValue()
 /// Gets if the value is positive
 /// </summary>
 /// <returns>true if positive, false if negative</returns>
-bool PlatformDataEngine::PlayerInputManager::Axis::isPositive()
+bool PlayerInputManager::Axis::isPositive()
 {
 	if (getValue() > this->m_deadZone)
 	{
@@ -93,7 +93,7 @@ bool PlatformDataEngine::PlayerInputManager::Axis::isPositive()
 /// Gets if the value is negative
 /// </summary>
 /// <returns>true if positive, false if negative</returns>
-bool PlatformDataEngine::PlayerInputManager::Axis::isNegative()
+bool PlayerInputManager::Axis::isNegative()
 {
 	if (getValue() < -this->m_deadZone)
 	{
@@ -109,7 +109,7 @@ bool PlatformDataEngine::PlayerInputManager::Axis::isNegative()
 /// Button represents a true/false input
 /// </summary>
 /// <param name="gamepadIndex"></param>
-PlatformDataEngine::PlayerInputManager::Button::Button(int gamepadIndex)
+PlayerInputManager::Button::Button(int gamepadIndex)
 {
 	this->m_gamepadIndex = gamepadIndex;
 }
@@ -118,7 +118,7 @@ PlatformDataEngine::PlayerInputManager::Button::Button(int gamepadIndex)
 /// Adds a button gamepad trigger
 /// </summary>
 /// <param name="button">the button</param>
-void PlatformDataEngine::PlayerInputManager::Button::addTrigger(int button)
+void PlayerInputManager::Button::addTrigger(int button)
 {
 	this->m_buttons.push_back(button);
 }
@@ -127,18 +127,36 @@ void PlatformDataEngine::PlayerInputManager::Button::addTrigger(int button)
 /// Adds a button trigger key
 /// </summary>
 /// <param name="key">the key</param>
-void PlatformDataEngine::PlayerInputManager::Button::addTrigger(sf::Keyboard::Key key)
+void PlayerInputManager::Button::addTrigger(sf::Keyboard::Key key)
 {
 	this->m_keys.push_back(key);
+}
+
+/// <summary>
+/// Adds a mouse button trigger
+/// </summary>
+/// <param name="button">the mouse button</param>
+void PlayerInputManager::Button::addTrigger(sf::Mouse::Button button)
+{
+	this->m_mouseBtns.push_back(button);
 }
 
 /// <summary>
 /// Gets the value of the button
 /// </summary>
 /// <returns>true if pressed, false if not</returns>
-bool PlatformDataEngine::PlayerInputManager::Button::getValue()
+bool PlayerInputManager::Button::getValue()
 {
 	bool value = false;
+
+	// check mouse buttons
+	for (sf::Mouse::Button key : this->m_mouseBtns)
+	{
+		if (sf::Mouse::isButtonPressed(key))
+		{
+			value += true;
+		}
+	}
 
 	// check keys
 	for (sf::Keyboard::Key key : this->m_keys)
@@ -161,7 +179,7 @@ bool PlatformDataEngine::PlayerInputManager::Button::getValue()
 	return value;
 }
 
-PlatformDataEngine::PlayerInputManager::PlayerInputManager(int gamepadIndex)
+PlayerInputManager::PlayerInputManager(int gamepadIndex)
 {
 	this->m_gamepadIndex = gamepadIndex;
 }
@@ -171,7 +189,7 @@ PlatformDataEngine::PlayerInputManager::PlayerInputManager(int gamepadIndex)
 /// </summary>
 /// <param name="axisName">the axis name</param>
 /// <returns>the axis</returns>
-PlatformDataEngine::PlayerInputManager::Axis& PlatformDataEngine::PlayerInputManager::getAxis(std::string axisName)
+PlayerInputManager::Axis& PlayerInputManager::getAxis(std::string axisName)
 {
 	return this->m_axis.at(axisName);
 }
@@ -181,7 +199,7 @@ PlatformDataEngine::PlayerInputManager::Axis& PlatformDataEngine::PlayerInputMan
 /// </summary>
 /// <param name="button">the button name</param>
 /// <returns></returns>
-PlatformDataEngine::PlayerInputManager::Button& PlatformDataEngine::PlayerInputManager::getButton(std::string button)
+PlayerInputManager::Button& PlayerInputManager::getButton(std::string button)
 {
 	return this->m_buttons.at(button);
 }
@@ -190,7 +208,7 @@ PlatformDataEngine::PlayerInputManager::Button& PlatformDataEngine::PlayerInputM
 /// Loads input manager configuration from a json file
 /// </summary>
 /// <param name="inputManagerFile"></param>
-void PlatformDataEngine::PlayerInputManager::loadDefinition(std::string inputManagerFile)
+void PlayerInputManager::loadDefinition(std::string inputManagerFile)
 {
 	std::ifstream configFile(inputManagerFile);
 
@@ -237,15 +255,30 @@ void PlatformDataEngine::PlayerInputManager::loadDefinition(std::string inputMan
 		Button button(this->m_gamepadIndex);
 
 		// button keys
-		for (const int& buttonKey : buttonConfig.value().at("keys"))
+		if (buttonConfig.value().count("keys") > 0)
 		{
-			button.addTrigger(static_cast<sf::Keyboard::Key>(buttonKey));
+			for (const int& buttonKey : buttonConfig.value().at("keys"))
+			{
+				button.addTrigger(static_cast<sf::Keyboard::Key>(buttonKey));
+			}
 		}
 
 		// button buttons
-		for (const int& buttonButton : buttonConfig.value().at("buttons"))
+		if (buttonConfig.value().count("buttons") > 0)
 		{
-			button.addTrigger(buttonButton);
+			for (const int& buttonButton : buttonConfig.value().at("buttons"))
+			{
+				button.addTrigger(buttonButton);
+			}
+		}
+
+		if (buttonConfig.value().count("mouseButtons") > 0)
+		{
+			// button buttons
+			for (const int& mouseButtonButton : buttonConfig.value().at("mouseButtons"))
+			{
+				button.addTrigger(static_cast<sf::Mouse::Button>(mouseButtonButton));
+			}
 		}
 
 		this->m_buttons.emplace(buttonConfig.key(), button);

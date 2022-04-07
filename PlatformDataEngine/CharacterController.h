@@ -3,7 +3,7 @@
 #include <execution>
 
 #include "Component.h"
-#include "RaycastCallback.h"
+#include "PhysicsCallbacks.h"
 #include "PlayerInputManager.h"
 
 namespace PlatformDataEngine {
@@ -33,6 +33,8 @@ namespace PlatformDataEngine {
         void update(const float& dt, const float& elapsedTime);
 
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+        void copy(std::shared_ptr<Component> otherCompPtr);
 
         void loadDefinition(nlohmann::json object);
         

@@ -1,0 +1,62 @@
+{
+  "components": [
+    {
+      "type": "TimedDestroy",
+      "properties": {
+        "time": 1000,
+        "range": true,
+        "rangeLow": 100,
+        "rangeHigh": 1000
+      }
+    },
+    {
+      "type": "SpriteRenderer",
+      "properties": {
+        "texture": "assets/FireParticle.png",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": -1,
+          "height": -1
+        }
+      }
+    },
+    {
+      "type": "AnimationController",
+      "properties": {
+        "aespriteFile": "assets/FireParticle.json",
+        "animation": "Idle",
+        "loop": true,
+        "speed": 2
+      }
+    },
+    {
+      "type": "PhysicsBody",
+      "properties": {
+        "type": "dynamic",
+        "doesRotate": true,
+        "continuous": false,
+        "density": 2.0,
+        "friction": 0.25,
+        "bouncy": 0.25,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        },
+        "fixtures": [
+          {
+            "shape": "box",
+            "rect": {
+              "x": 1,
+              "y": 1,
+              "width": 1,
+              "height": 1
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

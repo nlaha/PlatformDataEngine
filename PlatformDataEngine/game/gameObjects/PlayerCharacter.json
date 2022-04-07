@@ -16,6 +16,8 @@
       "type": "PhysicsBody",
       "properties": {
         "type": "dynamic",
+        "doesRotate": false,
+        "continuous": false,
         "density": 2.5,
         "friction": 0.9,
         "bouncy": 0.0,

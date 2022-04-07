@@ -10,6 +10,10 @@
 #include "PhysicsBody.h"
 #include "TextRenderer.h"
 #include "EngineStatsText.h"
+#include "RocketLauncher.h"
+#include "ParticleSystem.h"
+#include "RocketProjectile.h"
+#include "TimedDestroy.h"
 
 namespace PlatformDataEngine {
 
@@ -23,20 +27,32 @@ namespace PlatformDataEngine {
     /// ComponentFactory::create("AnimationController")
 	/// </summary>
 	class ComponentFactory {
+
+        typedef std::map<std::string, std::shared_ptr<Component>(*)()> map_type;
+
     public:
         static inline std::shared_ptr<Component> create(const std::string& type)
         {
-            return factoryMap.at(type);
+            return factoryMap.at(type)();
         }
 
     private:
-        static inline const std::map<std::string, std::shared_ptr<Component>> factoryMap = {
-            {"AnimationController", std::make_shared<AnimationController>()},
-            {"CharacterController", std::make_shared<CharacterController>()},
-            {"SpriteRenderer", std::make_shared<SpriteRenderer>()},
-            {"PhysicsBody", std::make_shared<PhysicsBody>()},
-            {"TextRenderer", std::make_shared<TextRenderer>()},
-            {"EngineStatsText", std::make_shared<EngineStatsText>()}
+        template<typename T>
+        static inline std::shared_ptr<Component> construct() {
+            return std::make_shared<T>();
+        }
+
+        static inline const map_type factoryMap = {
+            {"AnimationController", &construct<AnimationController>},
+            {"CharacterController", &construct<CharacterController>},
+            {"SpriteRenderer", &construct<SpriteRenderer>},
+            {"PhysicsBody", &construct<PhysicsBody>},
+            {"TextRenderer", &construct<TextRenderer>},
+            {"EngineStatsText", &construct<EngineStatsText>},
+            {"RocketLauncher", &construct<RocketLauncher>},
+            {"ParticleSystem", &construct<ParticleSystem>},
+            {"RocketProjectile", &construct<RocketProjectile>},
+            {"TimedDestroy", &construct<TimedDestroy>}
         };
 	};
 }

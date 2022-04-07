@@ -6,6 +6,9 @@ namespace PlatformDataEngine {
 
     std::shared_ptr<GameWorld> PlatformDataEngineWrapper::mp_mainWorld = std::make_shared<GameWorld>();
     std::shared_ptr<PlayerInputManager> PlatformDataEngineWrapper::mp_playerInputManager = std::make_shared<PlayerInputManager>(0);
+    std::shared_ptr<sf::RenderWindow> PlatformDataEngineWrapper::mp_renderWindow = nullptr;
+    bool PlatformDataEngineWrapper::m_pausedGame = false;
+    bool PlatformDataEngineWrapper::m_debugPhysics = false;
 
     PlatformDataEngineWrapper::PlatformDataEngineWrapper()
     {
@@ -13,6 +16,21 @@ namespace PlatformDataEngine {
 
     PlatformDataEngineWrapper::~PlatformDataEngineWrapper()
     {
+    }
+
+    void renderingThread(std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<GameWorld> world)
+    {
+        while (window->isOpen())
+        {
+            // clear
+            window->clear(sf::Color(0, 0, 0));
+
+            // draw...
+            window->draw(*world);
+
+            // end the current frame
+            window->display();
+        }
     }
 
     /// <summary>
@@ -23,13 +41,13 @@ namespace PlatformDataEngine {
         sf::ContextSettings contextSettings;
 
         // create window and viewport
-        sf::RenderWindow window(sf::VideoMode(1920, 1024), "PlatformData Engine", sf::Style::Default, contextSettings);
+        mp_renderWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(1920, 1024), "PlatformData Engine", sf::Style::Default, contextSettings);
         sf::FloatRect visibleArea(0.f, 0.f, 256, 256);
         sf::View gameView(visibleArea);
-        float xoffset = ((window.getSize().x - window.getSize().y) / 2.0f) / window.getSize().x;
-        sf::FloatRect viewPort = sf::FloatRect({ xoffset, 0 }, { (float)window.getSize().y / (float)window.getSize().x, 1.0f });
+        float xoffset = ((mp_renderWindow->getSize().x - mp_renderWindow->getSize().y) / 2.0f) / mp_renderWindow->getSize().x;
+        sf::FloatRect viewPort = sf::FloatRect({ xoffset, 0 }, { (float)mp_renderWindow->getSize().y / (float)mp_renderWindow->getSize().x, 1.0f });
         gameView.setViewport(viewPort);
-        window.setView(gameView);
+        mp_renderWindow->setView(gameView);
 
         bool isFullscreen = false;
 
@@ -51,8 +69,8 @@ namespace PlatformDataEngine {
                 {
                     // we've found a gameObject definition
                     spdlog::info("Loading GameObject definition: {}", entry.path().string());
-                    GameObject gameObject;
-                    gameObject.loadDefinition(entry.path().string());
+                    std::shared_ptr<GameObject> gameObject = std::make_shared<GameObject>(true);
+                    gameObject->loadDefinition(entry.path().string());
                     mp_mainWorld->registerGameObjectDefinition(entry.path().filename().replace_extension("").string(), gameObject);
                 }
             }
@@ -66,13 +84,25 @@ namespace PlatformDataEngine {
         sf::Clock deltaClock;
         sf::Clock elapsedClock;
         sf::Time dt;
-        while (window.isOpen())
+
+        /* Initialize Debug Draw */
+        PhysicsDebugDraw debugDraw(*mp_renderWindow);
+
+        mp_mainWorld->getPhysWorld()->SetDebugDraw(&debugDraw);
+        debugDraw.SetFlags(b2Draw::e_shapeBit); //Only draw shapes
+
+        // deactivate its OpenGL context
+        mp_renderWindow->setActive(false);
+
+        std::thread renderThread(&renderingThread, mp_renderWindow, mp_mainWorld);
+
+        while (mp_renderWindow->isOpen())
         {
             sf::Event event;
-            while (window.pollEvent(event))
+            while (mp_renderWindow->pollEvent(event))
             {
                 if (event.type == sf::Event::Closed)
-                    window.close();
+                    mp_renderWindow->close();
 
                 // catch the resize events
                 if (event.type == sf::Event::Resized)
@@ -80,40 +110,51 @@ namespace PlatformDataEngine {
                     // update the view to the new size of the window
                     float xoffset = ((event.size.width - event.size.height) / 2.0f) / event.size.width;
                     viewPort = sf::FloatRect({ xoffset, 0 }, { (float)event.size.height / (float)event.size.width, 1.0f });
+                
                 }
 
                 if (event.type == sf::Event::KeyPressed) {
                     if (event.key.code == sf::Keyboard::F11 || 
                         event.key.alt && event.key.code == sf::Keyboard::Enter)
                     {
-                        window.close();
+                        mp_renderWindow->close();
+                        renderThread.join();
                         if (!isFullscreen) {
-                            window.create(sf::VideoMode::getDesktopMode(), "PlatformData Engine", sf::Style::None, contextSettings);
+                            mp_renderWindow->create(sf::VideoMode::getDesktopMode(), "PlatformData Engine", sf::Style::None, contextSettings);
                             isFullscreen = true;
                         }
                         else {
-                            window.create(sf::VideoMode(1920, 1024), "PlatformData Engine", sf::Style::Default, contextSettings);
+                            mp_renderWindow->create(sf::VideoMode(1920, 1024), "PlatformData Engine", sf::Style::Default, contextSettings);
                             isFullscreen = false;
                         }
+                        mp_renderWindow->setActive(false);
+                        renderThread = std::thread(&renderingThread, mp_renderWindow, mp_mainWorld);
+                    }
+                    else if (event.key.code == sf::Keyboard::Pause)
+                    {
+                        m_pausedGame = !m_pausedGame;
+                    }
+                    else if (event.key.code == sf::Keyboard::Home)
+                    {
+                        m_debugPhysics = !m_debugPhysics;
                     }
                 }
             }
 
             // always top left of window (for GUI)
-            this->m_windowZero = window.mapPixelToCoords({ 0, 0 });
+            this->m_windowZero = mp_renderWindow->mapPixelToCoords({ 0, 0 });
 
-            mp_mainWorld->update(dt.asSeconds(), elapsedClock.getElapsedTime().asSeconds()); // update world
-
-            mp_mainWorld->physicsUpdate(dt.asSeconds(), elapsedClock.getElapsedTime().asSeconds()); // update physics world
-
+            if (!m_pausedGame) {
+                mp_mainWorld->update(dt.asSeconds(), elapsedClock.getElapsedTime().asSeconds()); // update world
+                mp_mainWorld->physicsUpdate(dt.asSeconds(), elapsedClock.getElapsedTime().asSeconds()); // update physics world
+            }
+            
             // update view
             sf::View view = mp_mainWorld->getView();
             view.setViewport(viewPort);
-            window.setView(view);
+            mp_renderWindow->setView(view);
 
-            window.clear(sf::Color(0, 0, 0));
-
-            window.draw(*mp_mainWorld);
+            //mp_renderWindow->draw(*mp_mainWorld);
 
             // get delta time
             dt = deltaClock.restart();
@@ -125,7 +166,7 @@ namespace PlatformDataEngine {
             // print some stats
             spdlog::debug("FPS: {0:.2f} --- DT: {1:.2f}", this->m_fps, dt.asSeconds());
 
-            window.display();
         }
+        renderThread.join();
     }
 }

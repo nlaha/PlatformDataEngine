@@ -52,6 +52,12 @@
     <Filter Include="Source Files\Input">
       <UniqueIdentifier>{32935a15-8802-4f4f-a190-8fd7616bfd0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Components\Rocket Launcher">
+      <UniqueIdentifier>{10ab9f3a-c8a9-421d-9b9d-af6d128123ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\RocketLauncher">
+      <UniqueIdentifier>{a79633b1-18cb-4a5e-a0e8-fb58cd2f30a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -96,9 +102,6 @@
     <ClCompile Include="PhysicsBody.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="RaycastCallback.cpp">
-      <Filter>Source Files\Internal</Filter>
-    </ClCompile>
     <ClCompile Include="TextRenderer.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
@@ -110,6 +113,27 @@
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="RocketLauncher.cpp">
+      <Filter>Source Files\Components\Rocket Launcher</Filter>
+    </ClCompile>
+    <ClCompile Include="RocketProjectile.cpp">
+      <Filter>Source Files\Components\Rocket Launcher</Filter>
+    </ClCompile>
+    <ClCompile Include="TimedDestroy.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsDebugDraw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Alive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsCallbacks.cpp">
+      <Filter>Source Files\Internal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -158,7 +182,7 @@
     <ClInclude Include="PhysicsBody.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="RaycastCallback.h">
+    <ClInclude Include="PhysicsCallbacks.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
     <ClInclude Include="TextRenderer.h">
@@ -172,6 +196,24 @@
     </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RocketLauncher.h">
+      <Filter>Header Files\Components\RocketLauncher</Filter>
+    </ClInclude>
+    <ClInclude Include="RocketProjectile.h">
+      <Filter>Header Files\Components\RocketLauncher</Filter>
+    </ClInclude>
+    <ClInclude Include="TimedDestroy.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsDebugDraw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Alive.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +263,33 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="game\input.json">
       <Filter>Resource Files\Game</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="game\gameObjects\RocketLauncher.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="game\gameObjects\FireParticle.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="game\gameObjects\RocketProjectile.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="game\gameObjects\RocketExplosion.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\FireParticle.json">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\FireParticle.png">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\RocketLauncher.json">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\RocketLauncher.png">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\RocketProjectile.png">
+      <Filter>Resource Files</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

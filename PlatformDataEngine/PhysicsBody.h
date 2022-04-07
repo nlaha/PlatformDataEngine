@@ -4,8 +4,10 @@
 #include <nlohmann/json.hpp>
 
 #include "Component.h"
+#include "PhysicsCallbacks.h"
 
-namespace PlatformDataEngine {
+namespace PlatformDataEngine
+{
 
     /// <summary>
     /// A component that enables collision and rigidbody
@@ -15,17 +17,23 @@ namespace PlatformDataEngine {
     {
     public:
 
+        // constructor
+        PhysicsBody();
+
+        void copy(std::shared_ptr<Component> otherCompPtr);
+
         ~PhysicsBody();
 
         void init();
 
-        void update(const float& dt, const float& elapsedTime);
+        void update(const float &dt, const float &elapsedTime);
 
-        void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+        void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
         void loadDefinition(nlohmann::json object);
 
-        inline b2Body* getBody() {
+        inline b2Body *getBody()
+        {
             return this->m_body;
         }
 
@@ -35,14 +43,18 @@ namespace PlatformDataEngine {
         }
 
     private:
-        b2Body* m_body;
+        b2Body *m_body;
         b2BodyType m_bodyType;
         float m_density;
+        bool m_isContinuous;
         float m_bouncy;
         float m_friction;
+        bool m_doesRotate;
+        PhysBodyUserData *m_bodyUserData;
+
+        b2BodyDef m_bodyDef;
+        std::vector<b2FixtureDef> m_bodyFixtureDefs;
 
         sf::FloatRect m_bounds;
-
     };
 }
-

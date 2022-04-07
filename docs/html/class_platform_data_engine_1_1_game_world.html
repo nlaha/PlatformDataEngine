@@ -107,9 +107,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adebf4525972363b1af166612006480b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_world.html#adebf4525972363b1af166612006480b8">init</a> (std::string filePath, sf::View &amp;view)</td></tr>
 <tr class="memdesc:adebf4525972363b1af166612006480b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the game world with a world.json definition file and a view as defined by the game wrapper  <a href="class_platform_data_engine_1_1_game_world.html#adebf4525972363b1af166612006480b8">More...</a><br /></td></tr>
 <tr class="separator:adebf4525972363b1af166612006480b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad6b8779457e36f7578c855be6c245df"><td class="memItemLeft" align="right" valign="top"><a id="aad6b8779457e36f7578c855be6c245df" name="aad6b8779457e36f7578c855be6c245df"></a>
+<tr class="memitem:a8e714eedc47ddb9ccd3c620db726fb6d"><td class="memItemLeft" align="right" valign="top"><a id="a8e714eedc47ddb9ccd3c620db726fb6d" name="a8e714eedc47ddb9ccd3c620db726fb6d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>initPhysics</b> ()</td></tr>
-<tr class="separator:aad6b8779457e36f7578c855be6c245df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a8e714eedc47ddb9ccd3c620db726fb6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3aca4e0672c0b6fb3f7a86e9752a3222"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_world.html#a3aca4e0672c0b6fb3f7a86e9752a3222">update</a> (const float &amp;dt, const float &amp;elapsedTime)</td></tr>
 <tr class="memdesc:a3aca4e0672c0b6fb3f7a86e9752a3222"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update loop, calls update on the tileMap, gameObjects and the camera controller  <a href="class_platform_data_engine_1_1_game_world.html#a3aca4e0672c0b6fb3f7a86e9752a3222">More...</a><br /></td></tr>
 <tr class="separator:a3aca4e0672c0b6fb3f7a86e9752a3222"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,9 +122,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>initPhysics</b> ()</t
 <tr class="memitem:ac7da22e196ce314e03a6b87f09a553f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_world.html#ac7da22e196ce314e03a6b87f09a553f5">registerGameObject</a> (std::string name, std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt;)</td></tr>
 <tr class="memdesc:ac7da22e196ce314e03a6b87f09a553f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a game object with a name (places it in the world's gameObjects map)  <a href="class_platform_data_engine_1_1_game_world.html#ac7da22e196ce314e03a6b87f09a553f5">More...</a><br /></td></tr>
 <tr class="separator:ac7da22e196ce314e03a6b87f09a553f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e0eb2b2d5ad051811173d388176b6f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_world.html#a8e0eb2b2d5ad051811173d388176b6f5">registerGameObjectDefinition</a> (std::string name, <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &amp;)</td></tr>
-<tr class="memdesc:a8e0eb2b2d5ad051811173d388176b6f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a gameObject definition, similar to <a class="el" href="class_platform_data_engine_1_1_game_world.html#ac7da22e196ce314e03a6b87f09a553f5" title="Registers a game object with a name (places it in the world&#39;s gameObjects map)">registerGameObject()</a> but it stores an actual gameObject rather than a pointer  <a href="class_platform_data_engine_1_1_game_world.html#a8e0eb2b2d5ad051811173d388176b6f5">More...</a><br /></td></tr>
-<tr class="separator:a8e0eb2b2d5ad051811173d388176b6f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab44f6cd05dc5985342d55d5618be2f67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_world.html#ab44f6cd05dc5985342d55d5618be2f67">registerGameObjectDefinition</a> (std::string name, std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt;)</td></tr>
+<tr class="memdesc:ab44f6cd05dc5985342d55d5618be2f67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a gameObject definition, similar to <a class="el" href="class_platform_data_engine_1_1_game_world.html#ac7da22e196ce314e03a6b87f09a553f5" title="Registers a game object with a name (places it in the world&#39;s gameObjects map)">registerGameObject()</a> but it stores an actual gameObject rather than a pointer  <a href="class_platform_data_engine_1_1_game_world.html#ab44f6cd05dc5985342d55d5618be2f67">More...</a><br /></td></tr>
+<tr class="separator:ab44f6cd05dc5985342d55d5618be2f67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1288dde9bc9b1af2e15652fd6f25571"><td class="memItemLeft" align="right" valign="top"><a id="ab1288dde9bc9b1af2e15652fd6f25571" name="ab1288dde9bc9b1af2e15652fd6f25571"></a>
+std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>spawnGameObject</b> (std::string type, sf::Vector2f position)</td></tr>
+<tr class="separator:ab1288dde9bc9b1af2e15652fd6f25571"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50ac3c073f164b2cccdd9e308995eb65"><td class="memItemLeft" align="right" valign="top"><a id="a50ac3c073f164b2cccdd9e308995eb65" name="a50ac3c073f164b2cccdd9e308995eb65"></a>
 std::shared_ptr&lt; b2World &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getPhysWorld</b> () const</td></tr>
 <tr class="separator:a50ac3c073f164b2cccdd9e308995eb65"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -137,6 +140,12 @@ sf::View&#160;</td><td class="memItemRight" valign="bottom"><b>getView</b> () co
 <tr class="memitem:a6be31ce84ca9fe0811ee724cc67a180c"><td class="memItemLeft" align="right" valign="top"><a id="a6be31ce84ca9fe0811ee724cc67a180c" name="a6be31ce84ca9fe0811ee724cc67a180c"></a>
 std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getGameObject</b> (std::string search)</td></tr>
 <tr class="separator:a6be31ce84ca9fe0811ee724cc67a180c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac21f6649cfdcd3ab702bec86aae402bf"><td class="memItemLeft" align="right" valign="top"><a id="ac21f6649cfdcd3ab702bec86aae402bf" name="ac21f6649cfdcd3ab702bec86aae402bf"></a>
+std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getPlayer</b> () const</td></tr>
+<tr class="separator:ac21f6649cfdcd3ab702bec86aae402bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9decb24451f5506a3a1dddb52b00dbdc"><td class="memItemLeft" align="right" valign="top"><a id="a9decb24451f5506a3a1dddb52b00dbdc" name="a9decb24451f5506a3a1dddb52b00dbdc"></a>
+std::map&lt; std::string, std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getGameObjectDefs</b> ()</td></tr>
+<tr class="separator:a9decb24451f5506a3a1dddb52b00dbdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Represents a game world with it's own tile map and gameObjects </p>
@@ -297,8 +306,8 @@ std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_obje
 
 </div>
 </div>
-<a id="a8e0eb2b2d5ad051811173d388176b6f5" name="a8e0eb2b2d5ad051811173d388176b6f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e0eb2b2d5ad051811173d388176b6f5">&#9670;&nbsp;</a></span>registerGameObjectDefinition()</h2>
+<a id="ab44f6cd05dc5985342d55d5618be2f67" name="ab44f6cd05dc5985342d55d5618be2f67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab44f6cd05dc5985342d55d5618be2f67">&#9670;&nbsp;</a></span>registerGameObjectDefinition()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -312,7 +321,7 @@ std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_obje
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &amp;&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt;&#160;</td>
           <td class="paramname"><em>gameObject</em>&#160;</td>
         </tr>
         <tr>

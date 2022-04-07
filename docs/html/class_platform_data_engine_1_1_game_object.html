@@ -99,15 +99,18 @@ $(document).ready(function(){initNavTree('class_platform_data_engine_1_1_game_ob
 Inheritance diagram for PlatformDataEngine::GameObject:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="class_platform_data_engine_1_1_game_object.png" alt=""/>
- </div></div>
+  <img src="class_platform_data_engine_1_1_game_object.png" usemap="#PlatformDataEngine::GameObject_map" alt=""/>
+  <map id="PlatformDataEngine::GameObject_map" name="PlatformDataEngine::GameObject_map">
+<area href="class_platform_data_engine_1_1_alive.html" alt="PlatformDataEngine::Alive" shape="rect" coords="416,0,614,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0348e3ee2e83d56eafca7a3547f432c4"><td class="memItemLeft" align="right" valign="top"><a id="a0348e3ee2e83d56eafca7a3547f432c4" name="a0348e3ee2e83d56eafca7a3547f432c4"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>GameObject</b> ()</td></tr>
-<tr class="memdesc:a0348e3ee2e83d56eafca7a3547f432c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor, keep in mind this is called when creating a gameObject definition as well as an instance. Definitions are loaded in memory as simple gameObjects so they can be instantiated using the copy constructor and std::make_shared() <br /></td></tr>
-<tr class="separator:a0348e3ee2e83d56eafca7a3547f432c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e6eda29aa9007903755f687875018b5"><td class="memItemLeft" align="right" valign="top"><a id="a4e6eda29aa9007903755f687875018b5" name="a4e6eda29aa9007903755f687875018b5"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>GameObject</b> (bool isDef=false)</td></tr>
+<tr class="memdesc:a4e6eda29aa9007903755f687875018b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor, keep in mind this is called when creating a gameObject definition as well as an instance. Definitions are loaded in memory as simple gameObjects so they can be instantiated using the copy constructor and std::make_shared() <br /></td></tr>
+<tr class="separator:a4e6eda29aa9007903755f687875018b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab13374d070cfe6a1459539d54c671eba"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_object.html#ab13374d070cfe6a1459539d54c671eba">GameObject</a> (const <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &amp;other)</td></tr>
 <tr class="memdesc:ab13374d070cfe6a1459539d54c671eba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor  <a href="class_platform_data_engine_1_1_game_object.html#ab13374d070cfe6a1459539d54c671eba">More...</a><br /></td></tr>
 <tr class="separator:ab13374d070cfe6a1459539d54c671eba"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,22 +127,66 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> ()</td></tr>
 <tr class="memitem:a608cd0d7c9a4be3cf7836019d610f5fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_object.html#a608cd0d7c9a4be3cf7836019d610f5fe">loadDefinition</a> (std::string filename)</td></tr>
 <tr class="memdesc:a608cd0d7c9a4be3cf7836019d610f5fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a gameObject definition from a json file  <a href="class_platform_data_engine_1_1_game_object.html#a608cd0d7c9a4be3cf7836019d610f5fe">More...</a><br /></td></tr>
 <tr class="separator:a608cd0d7c9a4be3cf7836019d610f5fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad401e96f38b4ffd0ba2ea65cb29899b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_object.html#ad401e96f38b4ffd0ba2ea65cb29899b1">registerComponentHierarchy</a> (std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt; self)</td></tr>
-<tr class="memdesc:ad401e96f38b4ffd0ba2ea65cb29899b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the gameObject pointer as the parent for each component this object owns  <a href="class_platform_data_engine_1_1_game_object.html#ad401e96f38b4ffd0ba2ea65cb29899b1">More...</a><br /></td></tr>
-<tr class="separator:ad401e96f38b4ffd0ba2ea65cb29899b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a614e0dfd2fa659c8e1a715a9a417eb5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_object.html#a614e0dfd2fa659c8e1a715a9a417eb5a">registerComponentHierarchy</a> (std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt; self)</td></tr>
+<tr class="memdesc:a614e0dfd2fa659c8e1a715a9a417eb5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the gameObject pointer as the parent for each component this object owns  <a href="class_platform_data_engine_1_1_game_object.html#a614e0dfd2fa659c8e1a715a9a417eb5a">More...</a><br /></td></tr>
+<tr class="separator:a614e0dfd2fa659c8e1a715a9a417eb5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7293357172b38532e80213a66621d61e"><td class="memItemLeft" align="right" valign="top"><a id="a7293357172b38532e80213a66621d61e" name="a7293357172b38532e80213a66621d61e"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getName</b> () const</td></tr>
 <tr class="separator:a7293357172b38532e80213a66621d61e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7396d70c83743cad7f10f0ea75dd34db"><td class="memItemLeft" align="right" valign="top"><a id="a7396d70c83743cad7f10f0ea75dd34db" name="a7396d70c83743cad7f10f0ea75dd34db"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isDefinition</b> () const</td></tr>
+<tr class="separator:a7396d70c83743cad7f10f0ea75dd34db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a720789d12d3945f899e3203f9dcc44f0"><td class="memItemLeft" align="right" valign="top"><a id="a720789d12d3945f899e3203f9dcc44f0" name="a720789d12d3945f899e3203f9dcc44f0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setIsDefinition</b> (bool isDef)</td></tr>
+<tr class="separator:a720789d12d3945f899e3203f9dcc44f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af00276938b9c1b01a98d475dbf6b7373"><td class="memItemLeft" align="right" valign="top"><a id="af00276938b9c1b01a98d475dbf6b7373" name="af00276938b9c1b01a98d475dbf6b7373"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>getZlayer</b> () const</td></tr>
 <tr class="separator:af00276938b9c1b01a98d475dbf6b7373"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad294556a459e55bba813e1225645f300"><td class="memItemLeft" align="right" valign="top"><a id="ad294556a459e55bba813e1225645f300" name="ad294556a459e55bba813e1225645f300"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setZlayer</b> (int zLayer)</td></tr>
 <tr class="separator:ad294556a459e55bba813e1225645f300"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e67c7dc92af6e593c6ef823b056864d"><td class="memItemLeft" align="right" valign="top"><a id="a5e67c7dc92af6e593c6ef823b056864d" name="a5e67c7dc92af6e593c6ef823b056864d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addChild</b> (std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt; gameObject)</td></tr>
+<tr class="separator:a5e67c7dc92af6e593c6ef823b056864d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d4481c49ca65b3f62ada7692f6196b7"><td class="memItemLeft" align="right" valign="top"><a id="a5d4481c49ca65b3f62ada7692f6196b7" name="a5d4481c49ca65b3f62ada7692f6196b7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setParent</b> (std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt; gameObject)</td></tr>
+<tr class="separator:a5d4481c49ca65b3f62ada7692f6196b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2ebc8870f8a0a63d29cd4ed153a28a8"><td class="memItemLeft" align="right" valign="top"><a id="ab2ebc8870f8a0a63d29cd4ed153a28a8" name="ab2ebc8870f8a0a63d29cd4ed153a28a8"></a>
+std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getParent</b> ()</td></tr>
+<tr class="separator:ab2ebc8870f8a0a63d29cd4ed153a28a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adddc3051bd14c666444e71266fc3b724"><td class="memItemLeft" align="right" valign="top"><a id="adddc3051bd14c666444e71266fc3b724" name="adddc3051bd14c666444e71266fc3b724"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setName</b> (std::string &amp;name)</td></tr>
+<tr class="separator:adddc3051bd14c666444e71266fc3b724"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36e76922956a4df2febd28f191b74fa0"><td class="memItemLeft" align="right" valign="top"><a id="a36e76922956a4df2febd28f191b74fa0" name="a36e76922956a4df2febd28f191b74fa0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>destroySelf</b> ()</td></tr>
+<tr class="separator:a36e76922956a4df2febd28f191b74fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc579ab4ec1674fb7ce22b6994d139f0"><td class="memItemLeft" align="right" valign="top"><a id="acc579ab4ec1674fb7ce22b6994d139f0" name="acc579ab4ec1674fb7ce22b6994d139f0"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>getDestroyed</b> () const</td></tr>
+<tr class="separator:acc579ab4ec1674fb7ce22b6994d139f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa07207a7be61671ff2d386cd1330568"><td class="memItemLeft" align="right" valign="top"><a id="afa07207a7be61671ff2d386cd1330568" name="afa07207a7be61671ff2d386cd1330568"></a>
+std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getChildren</b> () const</td></tr>
+<tr class="separator:afa07207a7be61671ff2d386cd1330568"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89ac3d19f582e348cd463f06e2b4dcf3"><td class="memItemLeft" align="right" valign="top"><a id="a89ac3d19f582e348cd463f06e2b4dcf3" name="a89ac3d19f582e348cd463f06e2b4dcf3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>sortChildZ</b> ()</td></tr>
+<tr class="separator:a89ac3d19f582e348cd463f06e2b4dcf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa19ddfb831822a734596b8279b1383ff"><td class="memTemplParams" colspan="2"><a id="aa19ddfb831822a734596b8279b1383ff" name="aa19ddfb831822a734596b8279b1383ff"></a>
 template&lt;typename T &gt; </td></tr>
 <tr class="memitem:aa19ddfb831822a734596b8279b1383ff"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>findComponentOfType</b> ()</td></tr>
 <tr class="separator:aa19ddfb831822a734596b8279b1383ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_platform_data_engine_1_1_alive"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_platform_data_engine_1_1_alive')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_platform_data_engine_1_1_alive.html">PlatformDataEngine::Alive</a></td></tr>
+<tr class="memitem:aa5b4f643a3ef2a9f4dc5f0c2c1d4b851 inherit pub_methods_class_platform_data_engine_1_1_alive"><td class="memItemLeft" align="right" valign="top"><a id="aa5b4f643a3ef2a9f4dc5f0c2c1d4b851" name="aa5b4f643a3ef2a9f4dc5f0c2c1d4b851"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>damage</b> (float damageAmount)</td></tr>
+<tr class="separator:aa5b4f643a3ef2a9f4dc5f0c2c1d4b851 inherit pub_methods_class_platform_data_engine_1_1_alive"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_class_platform_data_engine_1_1_alive"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_platform_data_engine_1_1_alive')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_platform_data_engine_1_1_alive.html">PlatformDataEngine::Alive</a></td></tr>
+<tr class="memitem:a711998cddf04d7d2ab3e8bcb4d3c29b5 inherit pro_methods_class_platform_data_engine_1_1_alive"><td class="memItemLeft" align="right" valign="top"><a id="a711998cddf04d7d2ab3e8bcb4d3c29b5" name="a711998cddf04d7d2ab3e8bcb4d3c29b5"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>onDeath</b> ()</td></tr>
+<tr class="separator:a711998cddf04d7d2ab3e8bcb4d3c29b5 inherit pro_methods_class_platform_data_engine_1_1_alive"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a502d41044ea9e845068c029239f39eb6 inherit pro_methods_class_platform_data_engine_1_1_alive"><td class="memItemLeft" align="right" valign="top"><a id="a502d41044ea9e845068c029239f39eb6" name="a502d41044ea9e845068c029239f39eb6"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>onDamage</b> (float currentHP)</td></tr>
+<tr class="separator:a502d41044ea9e845068c029239f39eb6 inherit pro_methods_class_platform_data_engine_1_1_alive"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >The base container class for a gameplay related object, it's drawable, transformable and components can be added to modify the funcionality. These classes are defined by the user in a json file. </p>
@@ -234,14 +281,14 @@ template&lt;typename T &gt; </td></tr>
 
 </div>
 </div>
-<a id="ad401e96f38b4ffd0ba2ea65cb29899b1" name="ad401e96f38b4ffd0ba2ea65cb29899b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad401e96f38b4ffd0ba2ea65cb29899b1">&#9670;&nbsp;</a></span>registerComponentHierarchy()</h2>
+<a id="a614e0dfd2fa659c8e1a715a9a417eb5a" name="a614e0dfd2fa659c8e1a715a9a417eb5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a614e0dfd2fa659c8e1a715a9a417eb5a">&#9670;&nbsp;</a></span>registerComponentHierarchy()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void PlatformDataEngine::GameObject::registerComponentHierarchy </td>
+          <td class="memname">void GameObject::registerComponentHierarchy </td>
           <td>(</td>
           <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt;&#160;</td>
           <td class="paramname"><em>self</em></td><td>)</td>

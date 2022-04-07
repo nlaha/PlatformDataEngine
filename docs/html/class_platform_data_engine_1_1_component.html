@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('class_platform_data_engine_1_1_compone
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="class_platform_data_engine_1_1_component-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">PlatformDataEngine::Component Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+  <div class="headertitle"><div class="title">PlatformDataEngine::Component Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -102,23 +102,26 @@ Inheritance diagram for PlatformDataEngine::Component:</div>
  <div class="center">
   <img src="class_platform_data_engine_1_1_component.png" usemap="#PlatformDataEngine::Component_map" alt=""/>
   <map id="PlatformDataEngine::Component_map" name="PlatformDataEngine::Component_map">
-<area href="class_platform_data_engine_1_1_animation_controller.html" title="A component that manages playing animations on a gameObject. Precondition: the game object must have ..." alt="PlatformDataEngine::AnimationController" shape="rect" coords="0,112,242,136"/>
-<area href="class_platform_data_engine_1_1_character_controller.html" title="A component that handles player input and animations (if enabled) Precondition: if animations are ena..." alt="PlatformDataEngine::CharacterController" shape="rect" coords="252,112,494,136"/>
-<area href="class_platform_data_engine_1_1_physics_body.html" title="A component that enables collision and rigidbody for a gameObject" alt="PlatformDataEngine::PhysicsBody" shape="rect" coords="504,112,746,136"/>
-<area href="class_platform_data_engine_1_1_sprite_renderer.html" title="A component that simply holds an SFML sprite and renders it." alt="PlatformDataEngine::SpriteRenderer" shape="rect" coords="756,112,998,136"/>
-<area href="class_platform_data_engine_1_1_text_renderer.html" alt="PlatformDataEngine::TextRenderer" shape="rect" coords="1008,112,1250,136"/>
-<area href="class_platform_data_engine_1_1_engine_stats_text.html" alt="PlatformDataEngine::EngineStatsText" shape="rect" coords="1008,168,1250,192"/>
+<area href="class_platform_data_engine_1_1_animation_controller.html" title="A component that manages playing animations on a gameObject. Precondition: the game object must have ..." alt="PlatformDataEngine::AnimationController" shape="rect" coords="252,112,494,136"/>
+<area href="class_platform_data_engine_1_1_character_controller.html" title="A component that handles player input and animations (if enabled) Precondition: if animations are ena..." alt="PlatformDataEngine::CharacterController" shape="rect" coords="252,168,494,192"/>
+<area href="class_platform_data_engine_1_1_particle_system.html" alt="PlatformDataEngine::ParticleSystem" shape="rect" coords="252,224,494,248"/>
+<area href="class_platform_data_engine_1_1_physics_body.html" title="A component that enables collision and rigidbody for a gameObject" alt="PlatformDataEngine::PhysicsBody" shape="rect" coords="252,280,494,304"/>
+<area href="class_platform_data_engine_1_1_rocket_launcher.html" alt="PlatformDataEngine::RocketLauncher" shape="rect" coords="252,336,494,360"/>
+<area href="class_platform_data_engine_1_1_rocket_projectile.html" alt="PlatformDataEngine::RocketProjectile" shape="rect" coords="252,392,494,416"/>
+<area href="class_platform_data_engine_1_1_sprite_renderer.html" title="A component that simply holds an SFML sprite and renders it." alt="PlatformDataEngine::SpriteRenderer" shape="rect" coords="252,448,494,472"/>
+<area href="class_platform_data_engine_1_1_text_renderer.html" alt="PlatformDataEngine::TextRenderer" shape="rect" coords="252,504,494,528"/>
+<area href="class_platform_data_engine_1_1_timed_destroy.html" alt="PlatformDataEngine::TimedDestroy" shape="rect" coords="252,560,494,584"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2bbfafe06f654747c7b1c23f42008846"><td class="memItemLeft" align="right" valign="top"><a id="a2bbfafe06f654747c7b1c23f42008846" name="a2bbfafe06f654747c7b1c23f42008846"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Component</b> (const <a class="el" href="class_platform_data_engine_1_1_component.html">Component</a> &amp;other)</td></tr>
-<tr class="separator:a2bbfafe06f654747c7b1c23f42008846"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa00e641adc7f399bc664948f7ee4a071"><td class="memItemLeft" align="right" valign="top"><a id="aa00e641adc7f399bc664948f7ee4a071" name="aa00e641adc7f399bc664948f7ee4a071"></a>
+<tr class="memitem:af8dcce5864ea8313f923bc3159784b78"><td class="memItemLeft" align="right" valign="top"><a id="af8dcce5864ea8313f923bc3159784b78" name="af8dcce5864ea8313f923bc3159784b78"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>copy</b> (std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_component.html">Component</a> &gt; otherCompPtr)</td></tr>
+<tr class="separator:af8dcce5864ea8313f923bc3159784b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d6da365336de0f9eeb49b8188c60cc8"><td class="memItemLeft" align="right" valign="top"><a id="a7d6da365336de0f9eeb49b8188c60cc8" name="a7d6da365336de0f9eeb49b8188c60cc8"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>registerHierarchy</b> (<a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> *parent)</td></tr>
-<tr class="separator:aa00e641adc7f399bc664948f7ee4a071"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a7d6da365336de0f9eeb49b8188c60cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0bf4fb5f4bc0de25d3f7beef3a3ca45"><td class="memItemLeft" align="right" valign="top"><a id="aa0bf4fb5f4bc0de25d3f7beef3a3ca45" name="aa0bf4fb5f4bc0de25d3f7beef3a3ca45"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> ()</td></tr>
 <tr class="separator:aa0bf4fb5f4bc0de25d3f7beef3a3ca45"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,9 +131,24 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (c
 <tr class="memitem:a176b3c5d23903d8bfadba749dfe2a0cc"><td class="memItemLeft" align="right" valign="top"><a id="a176b3c5d23903d8bfadba749dfe2a0cc" name="a176b3c5d23903d8bfadba749dfe2a0cc"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>draw</b> (sf::RenderTarget &amp;target, sf::RenderStates states) const</td></tr>
 <tr class="separator:a176b3c5d23903d8bfadba749dfe2a0cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab24492634fe0e4640d88860676b1314f"><td class="memItemLeft" align="right" valign="top"><a id="ab24492634fe0e4640d88860676b1314f" name="ab24492634fe0e4640d88860676b1314f"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>loadDefinition</b> (nlohmann::json object)=0</td></tr>
-<tr class="separator:ab24492634fe0e4640d88860676b1314f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dd42f6dbcc9ce41117e26784220e47f"><td class="memItemLeft" align="right" valign="top"><a id="a9dd42f6dbcc9ce41117e26784220e47f" name="a9dd42f6dbcc9ce41117e26784220e47f"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>loadDefinition</b> (nlohmann::json object)</td></tr>
+<tr class="separator:a9dd42f6dbcc9ce41117e26784220e47f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0a9aeb60d8395d292b45e5634901a2a"><td class="memItemLeft" align="right" valign="top"><a id="ac0a9aeb60d8395d292b45e5634901a2a" name="ac0a9aeb60d8395d292b45e5634901a2a"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getType</b> () const</td></tr>
+<tr class="separator:ac0a9aeb60d8395d292b45e5634901a2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8de87ca9d1f827ff5c2fb1ae30b8484e"><td class="memItemLeft" align="right" valign="top"><a id="a8de87ca9d1f827ff5c2fb1ae30b8484e" name="a8de87ca9d1f827ff5c2fb1ae30b8484e"></a>
+nlohmann::json&#160;</td><td class="memItemRight" valign="bottom"><b>getProps</b> () const</td></tr>
+<tr class="separator:a8de87ca9d1f827ff5c2fb1ae30b8484e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55ded99926ccf4fa1e506476135b320e"><td class="memItemLeft" align="right" valign="top"><a id="a55ded99926ccf4fa1e506476135b320e" name="a55ded99926ccf4fa1e506476135b320e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setType</b> (std::string type)</td></tr>
+<tr class="separator:a55ded99926ccf4fa1e506476135b320e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f0a51f636bd5f885243a274891f3275"><td class="memItemLeft" align="right" valign="top"><a id="a0f0a51f636bd5f885243a274891f3275" name="a0f0a51f636bd5f885243a274891f3275"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setProps</b> (nlohmann::json &amp;props)</td></tr>
+<tr class="separator:a0f0a51f636bd5f885243a274891f3275"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af40f330417be4fc49576252d439723b1"><td class="memItemLeft" align="right" valign="top"><a id="af40f330417be4fc49576252d439723b1" name="af40f330417be4fc49576252d439723b1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setIsDefinition</b> (bool isDef)</td></tr>
+<tr class="separator:af40f330417be4fc49576252d439723b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -140,6 +158,15 @@ std::map&lt; std::string, nlohmann::json &gt;&#160;</td><td class="memItemRight"
 <tr class="memitem:a72a5df5a519a033713142fff76632338"><td class="memItemLeft" align="right" valign="top"><a id="a72a5df5a519a033713142fff76632338" name="a72a5df5a519a033713142fff76632338"></a>
 <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_parent</b></td></tr>
 <tr class="separator:a72a5df5a519a033713142fff76632338"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa4cbb0a655411019e1a9cfb64e23ebe"><td class="memItemLeft" align="right" valign="top"><a id="aaa4cbb0a655411019e1a9cfb64e23ebe" name="aaa4cbb0a655411019e1a9cfb64e23ebe"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_isDefinition</b></td></tr>
+<tr class="separator:aaa4cbb0a655411019e1a9cfb64e23ebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa197af9640c18c89d555d1d156d03bdc"><td class="memItemLeft" align="right" valign="top"><a id="aa197af9640c18c89d555d1d156d03bdc" name="aa197af9640c18c89d555d1d156d03bdc"></a>
+nlohmann::json&#160;</td><td class="memItemRight" valign="bottom"><b>m_all_props</b></td></tr>
+<tr class="separator:aa197af9640c18c89d555d1d156d03bdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adeb2377fb6c656326f2731576c4f2a63"><td class="memItemLeft" align="right" valign="top"><a id="adeb2377fb6c656326f2731576c4f2a63" name="adeb2377fb6c656326f2731576c4f2a63"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_type</b></td></tr>
+<tr class="separator:adeb2377fb6c656326f2731576c4f2a63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >The base component class, when creating components to add gameplay functionality, they should inherit from this class </p>

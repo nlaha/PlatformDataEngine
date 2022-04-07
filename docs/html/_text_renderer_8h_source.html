@@ -101,20 +101,22 @@ $(document).ready(function(){initNavTree('_text_renderer_8h_source.html',''); in
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <span class="keywordtype">void</span> draw(sf::RenderTarget&amp; target, sf::RenderStates states) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keywordtype">void</span> loadDefinition(nlohmann::json <span class="keywordtype">object</span>);</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keywordtype">void</span> copy(std::shared_ptr&lt;Component&gt; otherCompPtr);</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keyword">inline</span> <span class="keywordtype">void</span> setText(std::string text) { this-&gt;m_text = text; };</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keyword">inline</span> std::string getText()<span class="keyword"> const </span>{ this-&gt;m_text; };</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        std::shared_ptr&lt;sf::Font&gt; m_font;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordtype">int</span> m_fontSize;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordtype">bool</span> m_fontBold;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordtype">float</span> m_renderSize;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        std::string m_text;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    };</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
-<div class="ttc" id="aclass_platform_data_engine_1_1_component_html"><div class="ttname"><a href="class_platform_data_engine_1_1_component.html">PlatformDataEngine::Component</a></div><div class="ttdoc">The base component class, when creating components to add gameplay functionality, they should inherit...</div><div class="ttdef"><b>Definition:</b> Component.h:15</div></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keywordtype">void</span> loadDefinition(nlohmann::json <span class="keywordtype">object</span>);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keyword">inline</span> <span class="keywordtype">void</span> setText(std::string text) { this-&gt;m_text = text; };</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keyword">inline</span> std::string getText()<span class="keyword"> const </span>{ this-&gt;m_text; };</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        sf::Font m_font;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordtype">int</span> m_fontSize;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordtype">bool</span> m_fontBold;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordtype">float</span> m_renderSize;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        std::string m_text;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    };</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_component_html"><div class="ttname"><a href="class_platform_data_engine_1_1_component.html">PlatformDataEngine::Component</a></div><div class="ttdoc">The base component class, when creating components to add gameplay functionality, they should inherit...</div><div class="ttdef"><b>Definition:</b> Component.h:16</div></div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_text_renderer_html"><div class="ttname"><a href="class_platform_data_engine_1_1_text_renderer.html">PlatformDataEngine::TextRenderer</a></div><div class="ttdef"><b>Definition:</b> TextRenderer.h:7</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

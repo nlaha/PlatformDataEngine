@@ -93,31 +93,36 @@ $(document).ready(function(){initNavTree('_rocket_launcher_8h_source.html',''); 
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>PlatformDataEngine {</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="class_platform_data_engine_1_1_rocket_launcher.html">    7</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_platform_data_engine_1_1_rocket_launcher.html">RocketLauncher</a> :</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>        <span class="keyword">public</span> <a class="code hl_class" href="class_platform_data_engine_1_1_component.html">Component</a></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        <span class="keywordtype">void</span> init();</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <span class="keywordtype">void</span> update(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; dt, <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; elapsedTime);</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keywordtype">void</span> draw(sf::RenderTarget&amp; target, sf::RenderStates states) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="class_platform_data_engine_1_1_rocket_launcher.html">   11</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_platform_data_engine_1_1_rocket_launcher.html">RocketLauncher</a> :</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        <span class="keyword">public</span> <a class="code hl_class" href="class_platform_data_engine_1_1_component.html">Component</a></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_rocket_launcher.html#a5c12e7ef9f56bd947017dc7655262557">init</a>();</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keywordtype">void</span> copy(std::shared_ptr&lt;Component&gt; otherCompPtr);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_rocket_launcher.html#a6e05267b1dc9f40319031661bcd979a1">update</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; dt, <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; elapsedTime);</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordtype">void</span> loadDefinition(nlohmann::json <span class="keywordtype">object</span>);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_rocket_launcher.html#af067256eb7f8cbf50f958793cd81cff7">draw</a>(sf::RenderTarget&amp; target, sf::RenderStates states) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        std::shared_ptr&lt;PlayerInputManager&gt; m_pInputManager;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        sf::Clock m_rocketClock;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordtype">float</span> m_rocketCooldown;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordtype">float</span> m_velocity;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    };</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_rocket_launcher.html#a084778bba9bfe83fbfd2f0cbdeaf0a5f">copy</a>(std::shared_ptr&lt;Component&gt; otherCompPtr);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_rocket_launcher.html#a9d765159766ba277d1ce97a291353403">loadDefinition</a>(nlohmann::json <span class="keywordtype">object</span>);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        std::shared_ptr&lt;PlayerInputManager&gt; m_pInputManager;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        sf::Clock m_rocketClock;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordtype">float</span> m_rocketCooldown;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordtype">float</span> m_velocity;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    };</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_component_html"><div class="ttname"><a href="class_platform_data_engine_1_1_component.html">PlatformDataEngine::Component</a></div><div class="ttdoc">The base component class, when creating components to add gameplay functionality, they should inherit...</div><div class="ttdef"><b>Definition:</b> Component.h:16</div></div>
-<div class="ttc" id="aclass_platform_data_engine_1_1_rocket_launcher_html"><div class="ttname"><a href="class_platform_data_engine_1_1_rocket_launcher.html">PlatformDataEngine::RocketLauncher</a></div><div class="ttdef"><b>Definition:</b> RocketLauncher.h:9</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_rocket_launcher_html"><div class="ttname"><a href="class_platform_data_engine_1_1_rocket_launcher.html">PlatformDataEngine::RocketLauncher</a></div><div class="ttdoc">The rocket launcher component TODO: make this into a more generic &quot;weapon&quot; class</div><div class="ttdef"><b>Definition:</b> RocketLauncher.h:13</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_rocket_launcher_html_a084778bba9bfe83fbfd2f0cbdeaf0a5f"><div class="ttname"><a href="class_platform_data_engine_1_1_rocket_launcher.html#a084778bba9bfe83fbfd2f0cbdeaf0a5f">PlatformDataEngine::RocketLauncher::copy</a></div><div class="ttdeci">void copy(std::shared_ptr&lt; Component &gt; otherCompPtr)</div><div class="ttdoc">Essentially a copy constructor except the generic shared pointer must be converted to the derived typ...</div><div class="ttdef"><b>Definition:</b> RocketLauncher.cpp:59</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_rocket_launcher_html_a5c12e7ef9f56bd947017dc7655262557"><div class="ttname"><a href="class_platform_data_engine_1_1_rocket_launcher.html#a5c12e7ef9f56bd947017dc7655262557">PlatformDataEngine::RocketLauncher::init</a></div><div class="ttdeci">void init()</div><div class="ttdoc">Called once on startup</div><div class="ttdef"><b>Definition:</b> RocketLauncher.cpp:8</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_rocket_launcher_html_a6e05267b1dc9f40319031661bcd979a1"><div class="ttname"><a href="class_platform_data_engine_1_1_rocket_launcher.html#a6e05267b1dc9f40319031661bcd979a1">PlatformDataEngine::RocketLauncher::update</a></div><div class="ttdeci">void update(const float &amp;dt, const float &amp;elapsedTime)</div><div class="ttdoc">Called every update cycle</div><div class="ttdef"><b>Definition:</b> RocketLauncher.cpp:15</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_rocket_launcher_html_a9d765159766ba277d1ce97a291353403"><div class="ttname"><a href="class_platform_data_engine_1_1_rocket_launcher.html#a9d765159766ba277d1ce97a291353403">PlatformDataEngine::RocketLauncher::loadDefinition</a></div><div class="ttdeci">void loadDefinition(nlohmann::json object)</div><div class="ttdoc">Called when game object definitions are loaded</div><div class="ttdef"><b>Definition:</b> RocketLauncher.cpp:66</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_rocket_launcher_html_af067256eb7f8cbf50f958793cd81cff7"><div class="ttname"><a href="class_platform_data_engine_1_1_rocket_launcher.html#af067256eb7f8cbf50f958793cd81cff7">PlatformDataEngine::RocketLauncher::draw</a></div><div class="ttdeci">void draw(sf::RenderTarget &amp;target, sf::RenderStates states) const</div><div class="ttdoc">Called every draw cycle</div><div class="ttdef"><b>Definition:</b> RocketLauncher.cpp:55</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

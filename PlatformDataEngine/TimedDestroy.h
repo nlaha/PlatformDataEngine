@@ -3,6 +3,10 @@
 
 namespace PlatformDataEngine {
 
+    /// <summary>
+    /// Destroys the game object after a certain time
+    /// useful for particles
+    /// </summary>
     class TimedDestroy :
         public Component
     {

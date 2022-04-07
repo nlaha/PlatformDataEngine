@@ -3,6 +3,9 @@
 
 namespace PlatformDataEngine {
 
+	/// <summary>
+	/// A very basic text rendering component
+	/// </summary>
 	class TextRenderer : public Component
 	{
 	public:

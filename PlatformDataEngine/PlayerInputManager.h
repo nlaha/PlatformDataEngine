@@ -12,8 +12,8 @@
 namespace PlatformDataEngine {
 
 	/// <summary>
-	/// Every component that requires input will contain one of these.
-	/// A player character controller for example might contain a player input manager
+	/// A basic input manager for keyboard, mouse and gamepad input
+	/// from a player
 	/// </summary>
 	class PlayerInputManager : public InputManager
 	{

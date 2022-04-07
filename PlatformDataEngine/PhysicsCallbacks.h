@@ -5,12 +5,19 @@ namespace PlatformDataEngine {
 
     class GameObject;
 
+    /// <summary>
+    /// Data stored in physics bodies that
+    /// are attached to a game object
+    /// </summary>
     struct PhysBodyUserData
     {
         bool destroyed;
         GameObject* gameObjectOwner;
     };
 
+    /// <summary>
+    /// Not used
+    /// </summary>
     class BoxQueryCallback : public b2QueryCallback
     {
     public:
@@ -23,6 +30,9 @@ namespace PlatformDataEngine {
         }
     };
 
+	/// <summary>
+	/// Used when Box2d does a raycast
+	/// </summary>
 	class RaycastCallback : public b2RayCastCallback
 	{
         public:

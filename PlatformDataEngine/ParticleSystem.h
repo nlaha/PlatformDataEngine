@@ -7,6 +7,10 @@ namespace PlatformDataEngine {
 
     class GameObject;
 
+    /// <summary>
+    /// The particle system component spawns a number
+    /// of other game objects and applies a velocity to them
+    /// </summary>
     class ParticleSystem :
         public Component
     {

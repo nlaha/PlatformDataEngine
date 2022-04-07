@@ -91,13 +91,18 @@ $(document).ready(function(){initNavTree('class_platform_data_engine_1_1_input_m
   <div class="headertitle"><div class="title">PlatformDataEngine::InputManager Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>The base class for an input manager, other classes can inherit this to feed input to the game. For example, if you had some hardware like a motion controller, midi keyboard or other weird device, you could make an input manager for it.  
+ <a href="class_platform_data_engine_1_1_input_manager.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_input_manager_8h_source.html">InputManager.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for PlatformDataEngine::InputManager:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="class_platform_data_engine_1_1_input_manager.png" usemap="#PlatformDataEngine::InputManager_map" alt=""/>
   <map id="PlatformDataEngine::InputManager_map" name="PlatformDataEngine::InputManager_map">
-<area href="class_platform_data_engine_1_1_player_input_manager.html" title="Every component that requires input will contain one of these. A player character controller for exam..." alt="PlatformDataEngine::PlayerInputManager" shape="rect" coords="0,56,244,80"/>
+<area href="class_platform_data_engine_1_1_player_input_manager.html" title="A basic input manager for keyboard, mouse and gamepad input from a player" alt="PlatformDataEngine::PlayerInputManager" shape="rect" coords="0,56,244,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -115,7 +120,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa3337cc79b3aae0acba7c214818080a9"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_platform_data_engine_1_1_input_manager_1_1_button.html">Button</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_input_manager.html#aa3337cc79b3aae0acba7c214818080a9">getButton</a> (std::string button)=0</td></tr>
 <tr class="separator:aa3337cc79b3aae0acba7c214818080a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >The base class for an input manager, other classes can inherit this to feed input to the game. For example, if you had some hardware like a motion controller, midi keyboard or other weird device, you could make an input manager for it. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a259df415939f3324129459dc5c02acef" name="a259df415939f3324129459dc5c02acef"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a259df415939f3324129459dc5c02acef">&#9670;&nbsp;</a></span>getAxis()</h2>
 

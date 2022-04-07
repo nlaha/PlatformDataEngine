@@ -104,35 +104,35 @@ Inheritance diagram for PlatformDataEngine::Component:</div>
   <map id="PlatformDataEngine::Component_map" name="PlatformDataEngine::Component_map">
 <area href="class_platform_data_engine_1_1_animation_controller.html" title="A component that manages playing animations on a gameObject. Precondition: the game object must have ..." alt="PlatformDataEngine::AnimationController" shape="rect" coords="252,112,494,136"/>
 <area href="class_platform_data_engine_1_1_character_controller.html" title="A component that handles player input and animations (if enabled) Precondition: if animations are ena..." alt="PlatformDataEngine::CharacterController" shape="rect" coords="252,168,494,192"/>
-<area href="class_platform_data_engine_1_1_particle_system.html" alt="PlatformDataEngine::ParticleSystem" shape="rect" coords="252,224,494,248"/>
+<area href="class_platform_data_engine_1_1_particle_system.html" title="The particle system component spawns a number of other game objects and applies a velocity to them" alt="PlatformDataEngine::ParticleSystem" shape="rect" coords="252,224,494,248"/>
 <area href="class_platform_data_engine_1_1_physics_body.html" title="A component that enables collision and rigidbody for a gameObject" alt="PlatformDataEngine::PhysicsBody" shape="rect" coords="252,280,494,304"/>
-<area href="class_platform_data_engine_1_1_rocket_launcher.html" alt="PlatformDataEngine::RocketLauncher" shape="rect" coords="252,336,494,360"/>
-<area href="class_platform_data_engine_1_1_rocket_projectile.html" alt="PlatformDataEngine::RocketProjectile" shape="rect" coords="252,392,494,416"/>
+<area href="class_platform_data_engine_1_1_rocket_launcher.html" title="The rocket launcher component TODO: make this into a more generic &quot;weapon&quot; class" alt="PlatformDataEngine::RocketLauncher" shape="rect" coords="252,336,494,360"/>
+<area href="class_platform_data_engine_1_1_rocket_projectile.html" title="The rocket launcher rocket projectile TODO: make this into a more generic &quot;projectile&quot; class with,..." alt="PlatformDataEngine::RocketProjectile" shape="rect" coords="252,392,494,416"/>
 <area href="class_platform_data_engine_1_1_sprite_renderer.html" title="A component that simply holds an SFML sprite and renders it." alt="PlatformDataEngine::SpriteRenderer" shape="rect" coords="252,448,494,472"/>
-<area href="class_platform_data_engine_1_1_text_renderer.html" alt="PlatformDataEngine::TextRenderer" shape="rect" coords="252,504,494,528"/>
-<area href="class_platform_data_engine_1_1_timed_destroy.html" alt="PlatformDataEngine::TimedDestroy" shape="rect" coords="252,560,494,584"/>
+<area href="class_platform_data_engine_1_1_text_renderer.html" title="A very basic text rendering component" alt="PlatformDataEngine::TextRenderer" shape="rect" coords="252,504,494,528"/>
+<area href="class_platform_data_engine_1_1_timed_destroy.html" title="Destroys the game object after a certain time useful for particles" alt="PlatformDataEngine::TimedDestroy" shape="rect" coords="252,560,494,584"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af8dcce5864ea8313f923bc3159784b78"><td class="memItemLeft" align="right" valign="top"><a id="af8dcce5864ea8313f923bc3159784b78" name="af8dcce5864ea8313f923bc3159784b78"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>copy</b> (std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_component.html">Component</a> &gt; otherCompPtr)</td></tr>
+<tr class="memitem:af8dcce5864ea8313f923bc3159784b78"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_component.html#af8dcce5864ea8313f923bc3159784b78">copy</a> (std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_component.html">Component</a> &gt; otherCompPtr)</td></tr>
+<tr class="memdesc:af8dcce5864ea8313f923bc3159784b78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Essentially a copy constructor except the generic shared pointer must be converted to the derived type using std::dynamic_pointer_cast  <a href="class_platform_data_engine_1_1_component.html#af8dcce5864ea8313f923bc3159784b78">More...</a><br /></td></tr>
 <tr class="separator:af8dcce5864ea8313f923bc3159784b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d6da365336de0f9eeb49b8188c60cc8"><td class="memItemLeft" align="right" valign="top"><a id="a7d6da365336de0f9eeb49b8188c60cc8" name="a7d6da365336de0f9eeb49b8188c60cc8"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>registerHierarchy</b> (<a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> *parent)</td></tr>
 <tr class="separator:a7d6da365336de0f9eeb49b8188c60cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0bf4fb5f4bc0de25d3f7beef3a3ca45"><td class="memItemLeft" align="right" valign="top"><a id="aa0bf4fb5f4bc0de25d3f7beef3a3ca45" name="aa0bf4fb5f4bc0de25d3f7beef3a3ca45"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> ()</td></tr>
+<tr class="memitem:aa0bf4fb5f4bc0de25d3f7beef3a3ca45"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_component.html#aa0bf4fb5f4bc0de25d3f7beef3a3ca45">init</a> ()</td></tr>
+<tr class="memdesc:aa0bf4fb5f4bc0de25d3f7beef3a3ca45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once on startup  <a href="class_platform_data_engine_1_1_component.html#aa0bf4fb5f4bc0de25d3f7beef3a3ca45">More...</a><br /></td></tr>
 <tr class="separator:aa0bf4fb5f4bc0de25d3f7beef3a3ca45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab861ab0ffbcc0d40174f8aed30d1c7ba"><td class="memItemLeft" align="right" valign="top"><a id="ab861ab0ffbcc0d40174f8aed30d1c7ba" name="ab861ab0ffbcc0d40174f8aed30d1c7ba"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (const float &amp;dt, const float &amp;elapsedTime)</td></tr>
+<tr class="memitem:ab861ab0ffbcc0d40174f8aed30d1c7ba"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_component.html#ab861ab0ffbcc0d40174f8aed30d1c7ba">update</a> (const float &amp;dt, const float &amp;elapsedTime)</td></tr>
+<tr class="memdesc:ab861ab0ffbcc0d40174f8aed30d1c7ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called every update cycle  <a href="class_platform_data_engine_1_1_component.html#ab861ab0ffbcc0d40174f8aed30d1c7ba">More...</a><br /></td></tr>
 <tr class="separator:ab861ab0ffbcc0d40174f8aed30d1c7ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a176b3c5d23903d8bfadba749dfe2a0cc"><td class="memItemLeft" align="right" valign="top"><a id="a176b3c5d23903d8bfadba749dfe2a0cc" name="a176b3c5d23903d8bfadba749dfe2a0cc"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>draw</b> (sf::RenderTarget &amp;target, sf::RenderStates states) const</td></tr>
+<tr class="memitem:a176b3c5d23903d8bfadba749dfe2a0cc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_component.html#a176b3c5d23903d8bfadba749dfe2a0cc">draw</a> (sf::RenderTarget &amp;target, sf::RenderStates states) const</td></tr>
+<tr class="memdesc:a176b3c5d23903d8bfadba749dfe2a0cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called every draw cycle  <a href="class_platform_data_engine_1_1_component.html#a176b3c5d23903d8bfadba749dfe2a0cc">More...</a><br /></td></tr>
 <tr class="separator:a176b3c5d23903d8bfadba749dfe2a0cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9dd42f6dbcc9ce41117e26784220e47f"><td class="memItemLeft" align="right" valign="top"><a id="a9dd42f6dbcc9ce41117e26784220e47f" name="a9dd42f6dbcc9ce41117e26784220e47f"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>loadDefinition</b> (nlohmann::json object)</td></tr>
+<tr class="memitem:a9dd42f6dbcc9ce41117e26784220e47f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_component.html#a9dd42f6dbcc9ce41117e26784220e47f">loadDefinition</a> (nlohmann::json object)</td></tr>
+<tr class="memdesc:a9dd42f6dbcc9ce41117e26784220e47f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when game object definitions are loaded  <a href="class_platform_data_engine_1_1_component.html#a9dd42f6dbcc9ce41117e26784220e47f">More...</a><br /></td></tr>
 <tr class="separator:a9dd42f6dbcc9ce41117e26784220e47f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0a9aeb60d8395d292b45e5634901a2a"><td class="memItemLeft" align="right" valign="top"><a id="ac0a9aeb60d8395d292b45e5634901a2a" name="ac0a9aeb60d8395d292b45e5634901a2a"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getType</b> () const</td></tr>
@@ -170,7 +170,203 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_type</b></td
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >The base component class, when creating components to add gameplay functionality, they should inherit from this class </p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="af8dcce5864ea8313f923bc3159784b78" name="af8dcce5864ea8313f923bc3159784b78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8dcce5864ea8313f923bc3159784b78">&#9670;&nbsp;</a></span>copy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Component::copy </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_component.html">Component</a> &gt;&#160;</td>
+          <td class="paramname"><em>otherCompPtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Essentially a copy constructor except the generic shared pointer must be converted to the derived type using std::dynamic_pointer_cast </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">otherCompPtr</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="class_platform_data_engine_1_1_animation_controller.html#af7e9ac42f261d4a2d05438c2fa42fc6b">PlatformDataEngine::AnimationController</a>, <a class="el" href="class_platform_data_engine_1_1_character_controller.html#a9eeb4f269d5091ef28171519b013394f">PlatformDataEngine::CharacterController</a>, <a class="el" href="class_platform_data_engine_1_1_particle_system.html#af7e10dbc48b1b2f27824b33c463a4787">PlatformDataEngine::ParticleSystem</a>, <a class="el" href="class_platform_data_engine_1_1_physics_body.html#a1c68835c0f8795da2114414aa2d47b6e">PlatformDataEngine::PhysicsBody</a>, <a class="el" href="class_platform_data_engine_1_1_rocket_launcher.html#a084778bba9bfe83fbfd2f0cbdeaf0a5f">PlatformDataEngine::RocketLauncher</a>, <a class="el" href="class_platform_data_engine_1_1_rocket_projectile.html#aad5b3ac2eb487aafa84cf0b712363661">PlatformDataEngine::RocketProjectile</a>, <a class="el" href="class_platform_data_engine_1_1_sprite_renderer.html#a1142f92ad2b8c00d4892f5f6585596c2">PlatformDataEngine::SpriteRenderer</a>, <a class="el" href="class_platform_data_engine_1_1_text_renderer.html#aab26555867c56ba99f10cd4ceb4c1b0a">PlatformDataEngine::TextRenderer</a>, and <a class="el" href="class_platform_data_engine_1_1_timed_destroy.html#a0a281af5f25b37c890eaa29a9c0e7baa">PlatformDataEngine::TimedDestroy</a>.</p>
+
+</div>
+</div>
+<a id="a176b3c5d23903d8bfadba749dfe2a0cc" name="a176b3c5d23903d8bfadba749dfe2a0cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a176b3c5d23903d8bfadba749dfe2a0cc">&#9670;&nbsp;</a></span>draw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Component::draw </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::RenderStates&#160;</td>
+          <td class="paramname"><em>states</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called every draw cycle </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">target</td><td></td></tr>
+    <tr><td class="paramname">states</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="class_platform_data_engine_1_1_animation_controller.html#abc3f740142829e3f657e9b8793b31adc">PlatformDataEngine::AnimationController</a>, <a class="el" href="class_platform_data_engine_1_1_character_controller.html#abb973158d6485a09b26677b60e781ee6">PlatformDataEngine::CharacterController</a>, <a class="el" href="class_platform_data_engine_1_1_particle_system.html#aae99e6864b2dec1343ad6e01d33dd5a1">PlatformDataEngine::ParticleSystem</a>, <a class="el" href="class_platform_data_engine_1_1_physics_body.html#a49b0670e9be352e5b2df61ce2fa2675a">PlatformDataEngine::PhysicsBody</a>, <a class="el" href="class_platform_data_engine_1_1_rocket_launcher.html#af067256eb7f8cbf50f958793cd81cff7">PlatformDataEngine::RocketLauncher</a>, <a class="el" href="class_platform_data_engine_1_1_rocket_projectile.html#a8dae8fc6da63e877a47a277e34ae3925">PlatformDataEngine::RocketProjectile</a>, <a class="el" href="class_platform_data_engine_1_1_sprite_renderer.html#a70286f55989f0c2d2563222eb17f9b33">PlatformDataEngine::SpriteRenderer</a>, <a class="el" href="class_platform_data_engine_1_1_text_renderer.html#a4d5541ffa833974a2e6417aeb7778b10">PlatformDataEngine::TextRenderer</a>, and <a class="el" href="class_platform_data_engine_1_1_timed_destroy.html#a3b35130a52cc7aaf881aa05721743bc5">PlatformDataEngine::TimedDestroy</a>.</p>
+
+</div>
+</div>
+<a id="aa0bf4fb5f4bc0de25d3f7beef3a3ca45" name="aa0bf4fb5f4bc0de25d3f7beef3a3ca45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0bf4fb5f4bc0de25d3f7beef3a3ca45">&#9670;&nbsp;</a></span>init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Component::init </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called once on startup </p>
+
+<p>Reimplemented in <a class="el" href="class_platform_data_engine_1_1_animation_controller.html#ae40c2032604f044293d50c27da416f01">PlatformDataEngine::AnimationController</a>, <a class="el" href="class_platform_data_engine_1_1_character_controller.html#ac58344a8708cf856dbb9b0fb4b74ff92">PlatformDataEngine::CharacterController</a>, <a class="el" href="class_platform_data_engine_1_1_particle_system.html#a05ecf3c330285190603fb13f6731cfd3">PlatformDataEngine::ParticleSystem</a>, <a class="el" href="class_platform_data_engine_1_1_physics_body.html#aa8e8571527c8030ccf4f5ccedf7fdc12">PlatformDataEngine::PhysicsBody</a>, <a class="el" href="class_platform_data_engine_1_1_rocket_launcher.html#a5c12e7ef9f56bd947017dc7655262557">PlatformDataEngine::RocketLauncher</a>, <a class="el" href="class_platform_data_engine_1_1_rocket_projectile.html#ae89c47eac66e238891b3ea9dfeb48cdf">PlatformDataEngine::RocketProjectile</a>, <a class="el" href="class_platform_data_engine_1_1_sprite_renderer.html#a0146299e14eaa92df8b46264e246f294">PlatformDataEngine::SpriteRenderer</a>, <a class="el" href="class_platform_data_engine_1_1_text_renderer.html#a5c233e2821e3010247c3f4d9ba0b4b26">PlatformDataEngine::TextRenderer</a>, and <a class="el" href="class_platform_data_engine_1_1_timed_destroy.html#a0ba966310ba850ad6027f965012693f2">PlatformDataEngine::TimedDestroy</a>.</p>
+
+</div>
+</div>
+<a id="a9dd42f6dbcc9ce41117e26784220e47f" name="a9dd42f6dbcc9ce41117e26784220e47f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9dd42f6dbcc9ce41117e26784220e47f">&#9670;&nbsp;</a></span>loadDefinition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Component::loadDefinition </td>
+          <td>(</td>
+          <td class="paramtype">nlohmann::json&#160;</td>
+          <td class="paramname"><em>object</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when game object definitions are loaded </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">object</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="class_platform_data_engine_1_1_animation_controller.html#a638e3a6172d48ebea065326ec1ff8338">PlatformDataEngine::AnimationController</a>, <a class="el" href="class_platform_data_engine_1_1_character_controller.html#ae83a1c1c300a0e3cf4aefed274f4031c">PlatformDataEngine::CharacterController</a>, <a class="el" href="class_platform_data_engine_1_1_particle_system.html#aecc178f117d07257f73d2359ab890483">PlatformDataEngine::ParticleSystem</a>, <a class="el" href="class_platform_data_engine_1_1_physics_body.html#a146dab71aa09531b552e49df02e16598">PlatformDataEngine::PhysicsBody</a>, <a class="el" href="class_platform_data_engine_1_1_rocket_launcher.html#a9d765159766ba277d1ce97a291353403">PlatformDataEngine::RocketLauncher</a>, <a class="el" href="class_platform_data_engine_1_1_rocket_projectile.html#a765be0d832f862f2ac5f2c67e689e66d">PlatformDataEngine::RocketProjectile</a>, <a class="el" href="class_platform_data_engine_1_1_sprite_renderer.html#a1e9ea756f1f116a7785380d830d0a8f7">PlatformDataEngine::SpriteRenderer</a>, <a class="el" href="class_platform_data_engine_1_1_text_renderer.html#aab4cc7a1cf8cacb44ac052740d449143">PlatformDataEngine::TextRenderer</a>, and <a class="el" href="class_platform_data_engine_1_1_timed_destroy.html#adedf8ef42dc9ddc06b8eca753ccf5b21">PlatformDataEngine::TimedDestroy</a>.</p>
+
+</div>
+</div>
+<a id="ab861ab0ffbcc0d40174f8aed30d1c7ba" name="ab861ab0ffbcc0d40174f8aed30d1c7ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab861ab0ffbcc0d40174f8aed30d1c7ba">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Component::update </td>
+          <td>(</td>
+          <td class="paramtype">const float &amp;&#160;</td>
+          <td class="paramname"><em>dt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float &amp;&#160;</td>
+          <td class="paramname"><em>elapsedTime</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called every update cycle </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>delta time</td></tr>
+    <tr><td class="paramname">elapsedTime</td><td>elapsed time</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="class_platform_data_engine_1_1_animation_controller.html#a3b720658ebfdc83da0163e2dae970014">PlatformDataEngine::AnimationController</a>, <a class="el" href="class_platform_data_engine_1_1_character_controller.html#ae40647512077c5b6f390a2a804ec97af">PlatformDataEngine::CharacterController</a>, <a class="el" href="class_platform_data_engine_1_1_engine_stats_text.html#a897ebe8de9cddd95884ff6b34ef21b5d">PlatformDataEngine::EngineStatsText</a>, <a class="el" href="class_platform_data_engine_1_1_particle_system.html#a984680c1bcb2f4c0fb992e2a6ca8f35a">PlatformDataEngine::ParticleSystem</a>, <a class="el" href="class_platform_data_engine_1_1_physics_body.html#ae8c28b05a597666ce1134d2589bf0558">PlatformDataEngine::PhysicsBody</a>, <a class="el" href="class_platform_data_engine_1_1_rocket_launcher.html#a6e05267b1dc9f40319031661bcd979a1">PlatformDataEngine::RocketLauncher</a>, <a class="el" href="class_platform_data_engine_1_1_rocket_projectile.html#a7db3b6321e610c2ba827c7595911ccb6">PlatformDataEngine::RocketProjectile</a>, <a class="el" href="class_platform_data_engine_1_1_sprite_renderer.html#af9c069d7b3da6c8e4709cf231a668279">PlatformDataEngine::SpriteRenderer</a>, <a class="el" href="class_platform_data_engine_1_1_text_renderer.html#a8c4537158daa1c952122150337f0f710">PlatformDataEngine::TextRenderer</a>, and <a class="el" href="class_platform_data_engine_1_1_timed_destroy.html#ad61dc3d5d18f548feedc9e158fda182b">PlatformDataEngine::TimedDestroy</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>PlatformDataEngine/<a class="el" href="_component_8h_source.html">Component.h</a></li>
 <li>PlatformDataEngine/Component.cpp</li>
 </ul>

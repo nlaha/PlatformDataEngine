@@ -3,6 +3,12 @@
 
 namespace PlatformDataEngine {
 
+	/// <summary>
+	/// The base class for an input manager, other classes 
+	/// can inherit this to feed input to the game. For example,
+	/// if you had some hardware like a motion controller, midi keyboard
+	/// or other weird device, you could make an input manager for it.
+	/// </summary>
 	class InputManager
 	{
 	public:

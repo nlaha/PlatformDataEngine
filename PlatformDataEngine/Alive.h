@@ -2,6 +2,10 @@
 
 namespace PlatformDataEngine {
 
+	/// <summary>
+	/// Class that defines an "alive" object, ie. an object 
+	/// that can take damage and die
+	/// </summary>
 	class Alive
 	{
 	public:

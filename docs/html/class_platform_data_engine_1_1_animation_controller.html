@@ -125,14 +125,19 @@ Public Types</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae40c2032604f044293d50c27da416f01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_animation_controller.html#ae40c2032604f044293d50c27da416f01">init</a> ()</td></tr>
+<tr class="memdesc:ae40c2032604f044293d50c27da416f01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once on startup  <a href="class_platform_data_engine_1_1_animation_controller.html#ae40c2032604f044293d50c27da416f01">More...</a><br /></td></tr>
 <tr class="separator:ae40c2032604f044293d50c27da416f01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b720658ebfdc83da0163e2dae970014"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_animation_controller.html#a3b720658ebfdc83da0163e2dae970014">update</a> (const float &amp;dt, const float &amp;elapsedTime)</td></tr>
+<tr class="memdesc:a3b720658ebfdc83da0163e2dae970014"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called every update cycle  <a href="class_platform_data_engine_1_1_animation_controller.html#a3b720658ebfdc83da0163e2dae970014">More...</a><br /></td></tr>
 <tr class="separator:a3b720658ebfdc83da0163e2dae970014"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc3f740142829e3f657e9b8793b31adc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_animation_controller.html#abc3f740142829e3f657e9b8793b31adc">draw</a> (sf::RenderTarget &amp;target, sf::RenderStates states) const</td></tr>
+<tr class="memdesc:abc3f740142829e3f657e9b8793b31adc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called every draw cycle  <a href="class_platform_data_engine_1_1_animation_controller.html#abc3f740142829e3f657e9b8793b31adc">More...</a><br /></td></tr>
 <tr class="separator:abc3f740142829e3f657e9b8793b31adc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7e9ac42f261d4a2d05438c2fa42fc6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_animation_controller.html#af7e9ac42f261d4a2d05438c2fa42fc6b">copy</a> (std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_component.html">Component</a> &gt; otherCompPtr)</td></tr>
+<tr class="memdesc:af7e9ac42f261d4a2d05438c2fa42fc6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Essentially a copy constructor except the generic shared pointer must be converted to the derived type using std::dynamic_pointer_cast  <a href="class_platform_data_engine_1_1_animation_controller.html#af7e9ac42f261d4a2d05438c2fa42fc6b">More...</a><br /></td></tr>
 <tr class="separator:af7e9ac42f261d4a2d05438c2fa42fc6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a638e3a6172d48ebea065326ec1ff8338"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_animation_controller.html#a638e3a6172d48ebea065326ec1ff8338">loadDefinition</a> (nlohmann::json object)</td></tr>
+<tr class="memdesc:a638e3a6172d48ebea065326ec1ff8338"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when game object definitions are loaded  <a href="class_platform_data_engine_1_1_animation_controller.html#a638e3a6172d48ebea065326ec1ff8338">More...</a><br /></td></tr>
 <tr class="separator:a638e3a6172d48ebea065326ec1ff8338"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a941f72ebe529cdc76aea271c7db18d3e"><td class="memItemLeft" align="right" valign="top"><a id="a941f72ebe529cdc76aea271c7db18d3e" name="a941f72ebe529cdc76aea271c7db18d3e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setFlipFlag</b> (AnimationController::FlipFlags flip)</td></tr>
@@ -141,23 +146,23 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setFlipFlag</b> (Anim
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setAnimation</b> (const std::string animName, float speed=1.0f, bool loop=true)</td></tr>
 <tr class="separator:a8a5a17f8d51b4cf5d4612b3a62b4ca10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_platform_data_engine_1_1_component"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_platform_data_engine_1_1_component')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_platform_data_engine_1_1_component.html">PlatformDataEngine::Component</a></td></tr>
-<tr class="memitem:af8dcce5864ea8313f923bc3159784b78 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top"><a id="af8dcce5864ea8313f923bc3159784b78" name="af8dcce5864ea8313f923bc3159784b78"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>copy</b> (std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_component.html">Component</a> &gt; otherCompPtr)</td></tr>
+<tr class="memitem:af8dcce5864ea8313f923bc3159784b78 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_component.html#af8dcce5864ea8313f923bc3159784b78">copy</a> (std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_component.html">Component</a> &gt; otherCompPtr)</td></tr>
+<tr class="memdesc:af8dcce5864ea8313f923bc3159784b78 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Essentially a copy constructor except the generic shared pointer must be converted to the derived type using std::dynamic_pointer_cast  <a href="class_platform_data_engine_1_1_component.html#af8dcce5864ea8313f923bc3159784b78">More...</a><br /></td></tr>
 <tr class="separator:af8dcce5864ea8313f923bc3159784b78 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d6da365336de0f9eeb49b8188c60cc8 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top"><a id="a7d6da365336de0f9eeb49b8188c60cc8" name="a7d6da365336de0f9eeb49b8188c60cc8"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>registerHierarchy</b> (<a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> *parent)</td></tr>
 <tr class="separator:a7d6da365336de0f9eeb49b8188c60cc8 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0bf4fb5f4bc0de25d3f7beef3a3ca45 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top"><a id="aa0bf4fb5f4bc0de25d3f7beef3a3ca45" name="aa0bf4fb5f4bc0de25d3f7beef3a3ca45"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> ()</td></tr>
+<tr class="memitem:aa0bf4fb5f4bc0de25d3f7beef3a3ca45 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_component.html#aa0bf4fb5f4bc0de25d3f7beef3a3ca45">init</a> ()</td></tr>
+<tr class="memdesc:aa0bf4fb5f4bc0de25d3f7beef3a3ca45 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once on startup  <a href="class_platform_data_engine_1_1_component.html#aa0bf4fb5f4bc0de25d3f7beef3a3ca45">More...</a><br /></td></tr>
 <tr class="separator:aa0bf4fb5f4bc0de25d3f7beef3a3ca45 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab861ab0ffbcc0d40174f8aed30d1c7ba inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top"><a id="ab861ab0ffbcc0d40174f8aed30d1c7ba" name="ab861ab0ffbcc0d40174f8aed30d1c7ba"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (const float &amp;dt, const float &amp;elapsedTime)</td></tr>
+<tr class="memitem:ab861ab0ffbcc0d40174f8aed30d1c7ba inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_component.html#ab861ab0ffbcc0d40174f8aed30d1c7ba">update</a> (const float &amp;dt, const float &amp;elapsedTime)</td></tr>
+<tr class="memdesc:ab861ab0ffbcc0d40174f8aed30d1c7ba inherit pub_methods_class_platform_data_engine_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called every update cycle  <a href="class_platform_data_engine_1_1_component.html#ab861ab0ffbcc0d40174f8aed30d1c7ba">More...</a><br /></td></tr>
 <tr class="separator:ab861ab0ffbcc0d40174f8aed30d1c7ba inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a176b3c5d23903d8bfadba749dfe2a0cc inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top"><a id="a176b3c5d23903d8bfadba749dfe2a0cc" name="a176b3c5d23903d8bfadba749dfe2a0cc"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>draw</b> (sf::RenderTarget &amp;target, sf::RenderStates states) const</td></tr>
+<tr class="memitem:a176b3c5d23903d8bfadba749dfe2a0cc inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_component.html#a176b3c5d23903d8bfadba749dfe2a0cc">draw</a> (sf::RenderTarget &amp;target, sf::RenderStates states) const</td></tr>
+<tr class="memdesc:a176b3c5d23903d8bfadba749dfe2a0cc inherit pub_methods_class_platform_data_engine_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called every draw cycle  <a href="class_platform_data_engine_1_1_component.html#a176b3c5d23903d8bfadba749dfe2a0cc">More...</a><br /></td></tr>
 <tr class="separator:a176b3c5d23903d8bfadba749dfe2a0cc inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9dd42f6dbcc9ce41117e26784220e47f inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top"><a id="a9dd42f6dbcc9ce41117e26784220e47f" name="a9dd42f6dbcc9ce41117e26784220e47f"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>loadDefinition</b> (nlohmann::json object)</td></tr>
+<tr class="memitem:a9dd42f6dbcc9ce41117e26784220e47f inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_component.html#a9dd42f6dbcc9ce41117e26784220e47f">loadDefinition</a> (nlohmann::json object)</td></tr>
+<tr class="memdesc:a9dd42f6dbcc9ce41117e26784220e47f inherit pub_methods_class_platform_data_engine_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when game object definitions are loaded  <a href="class_platform_data_engine_1_1_component.html#a9dd42f6dbcc9ce41117e26784220e47f">More...</a><br /></td></tr>
 <tr class="separator:a9dd42f6dbcc9ce41117e26784220e47f inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0a9aeb60d8395d292b45e5634901a2a inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top"><a id="ac0a9aeb60d8395d292b45e5634901a2a" name="ac0a9aeb60d8395d292b45e5634901a2a"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getType</b> () const</td></tr>
@@ -221,7 +226,15 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_type</b></td
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented from <a class="el" href="class_platform_data_engine_1_1_component.html">PlatformDataEngine::Component</a>.</p>
+<p>Essentially a copy constructor except the generic shared pointer must be converted to the derived type using std::dynamic_pointer_cast </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">otherCompPtr</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="class_platform_data_engine_1_1_component.html#af8dcce5864ea8313f923bc3159784b78">PlatformDataEngine::Component</a>.</p>
 
 </div>
 </div>
@@ -259,7 +272,16 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_type</b></td
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented from <a class="el" href="class_platform_data_engine_1_1_component.html">PlatformDataEngine::Component</a>.</p>
+<p>Called every draw cycle </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">target</td><td></td></tr>
+    <tr><td class="paramname">states</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="class_platform_data_engine_1_1_component.html#a176b3c5d23903d8bfadba749dfe2a0cc">PlatformDataEngine::Component</a>.</p>
 
 </div>
 </div>
@@ -286,7 +308,9 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_type</b></td
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented from <a class="el" href="class_platform_data_engine_1_1_component.html">PlatformDataEngine::Component</a>.</p>
+<p>Called once on startup </p>
+
+<p>Reimplemented from <a class="el" href="class_platform_data_engine_1_1_component.html#aa0bf4fb5f4bc0de25d3f7beef3a3ca45">PlatformDataEngine::Component</a>.</p>
 
 </div>
 </div>
@@ -314,7 +338,15 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_type</b></td
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented from <a class="el" href="class_platform_data_engine_1_1_component.html">PlatformDataEngine::Component</a>.</p>
+<p>Called when game object definitions are loaded </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">object</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="class_platform_data_engine_1_1_component.html#a9dd42f6dbcc9ce41117e26784220e47f">PlatformDataEngine::Component</a>.</p>
 
 </div>
 </div>
@@ -352,7 +384,16 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_type</b></td
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented from <a class="el" href="class_platform_data_engine_1_1_component.html">PlatformDataEngine::Component</a>.</p>
+<p>Called every update cycle </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>delta time</td></tr>
+    <tr><td class="paramname">elapsedTime</td><td>elapsed time</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="class_platform_data_engine_1_1_component.html#ab861ab0ffbcc0d40174f8aed30d1c7ba">PlatformDataEngine::Component</a>.</p>
 
 </div>
 </div>

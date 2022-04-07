@@ -138,6 +138,10 @@ void GameObject::registerComponentHierarchy(std::shared_ptr<GameObject> self)
 	}
 }
 
+
+/// <summary>
+/// Makes sure children are in the correct Z order for drawing
+/// </summary>
 void GameObject::sortChildZ()
 {
 	// z order sorting

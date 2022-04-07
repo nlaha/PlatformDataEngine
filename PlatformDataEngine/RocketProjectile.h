@@ -9,6 +9,11 @@ namespace PlatformDataEngine {
 
     class PhysicsBody;
 
+    /// <summary>
+    /// The rocket launcher rocket projectile
+    /// TODO: make this into a more generic "projectile" class
+    /// with, rocket, grenade, bullet, beam, etc. subclasses
+    /// </summary>
     class RocketProjectile :
         public Component
     {

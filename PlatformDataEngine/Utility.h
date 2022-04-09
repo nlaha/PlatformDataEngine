@@ -63,6 +63,12 @@ namespace PlatformDataEngine
             return b2Vec2(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t);
         }
 
+        // lerp float
+        static float lerp(float a, float b, float t)
+        {
+            return a + (b - a) * t;
+        }
+
         // 2d LookAt
         static float lookAt(sf::Vector2f objPos, sf::Vector2f targetPos)
         {

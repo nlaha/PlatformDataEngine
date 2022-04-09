@@ -1,4 +1,5 @@
 #include "TileMap.h"
+#include "PlatformDataEngineWrapper.h"
 
 using namespace PlatformDataEngine;
 
@@ -108,6 +109,21 @@ TileMap::TileMap(const std::string &tmxPath)
             else
             {
                 spdlog::info("Not a valid orthogonal layer, nothing will be drawn.");
+            }
+        }
+        else if (layerRef->getType() == tmx::Layer::Type::Object)
+        {
+            const auto& objectLayer = layerRef->getLayerAs<tmx::ObjectGroup>();
+            const auto& objects = objectLayer.getObjects();
+            for (const auto& object : objects)
+            {
+                if (object.getType() == "PlayerSpawn")
+                {
+                    GameWorld::PlayerSpawn spawn = {
+                        sf::Vector2f(object.getPosition().x, object.getPosition().y)
+                    };
+                    PlatformDataEngineWrapper::getWorld()->addPlayerSpawn(spawn);
+                }
             }
         }
     }

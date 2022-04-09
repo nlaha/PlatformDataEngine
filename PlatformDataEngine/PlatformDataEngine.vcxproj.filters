@@ -135,6 +135,9 @@
     <ClCompile Include="PhysicsCallbacks.cpp">
       <Filter>Source Files\Internal</Filter>
     </ClCompile>
+    <ClCompile Include="StatsPanel.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameWorld.h">
@@ -215,6 +218,9 @@
     <ClInclude Include="Alive.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StatsPanel.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\vcpkg.json">
@@ -290,6 +296,9 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="assets\RocketProjectile.png">
       <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="game\gameObjects\StatsPanel.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

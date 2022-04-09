@@ -17,6 +17,7 @@ GameWorld::GameWorld()
 /// <param name="view">a view that has been linked to a window</param>
 void GameWorld::init(std::string filePath, sf::View& view)
 {
+
 	// load world json file
 	std::ifstream file(filePath);
 
@@ -59,6 +60,13 @@ void GameWorld::init(std::string filePath, sf::View& view)
 			gameObject.at("transform").at("scale"),
 			gameObject.at("transform").at("scale")
 			});
+
+		if (gameObject.count("isUI") > 0) {
+			p_gameObject->setIsUI(gameObject.at("isUI"));
+		}
+		else {
+			p_gameObject->setIsUI(false);
+		}
 		p_gameObject->registerComponentHierarchy(p_gameObject);
 
 		this->registerGameObject(gameObject.at("name"), p_gameObject);
@@ -77,6 +85,13 @@ void GameWorld::init(std::string filePath, sf::View& view)
 	// init camera controller
 	nlohmann::json cameraControllerObj = world.at("cameraController");
 
+	// later change this to some system that multiplayer supports
+	this->mp_currentPlayer = this->getGameObject(world.at("playerObject"));
+
+	if (this->mp_playerSpawns.size() > 0) {
+		this->mp_currentPlayer->setPosition(this->mp_playerSpawns[0].position);
+	}
+
 	this->mp_view = std::make_shared<sf::View>(view);
 	CameraController cc(cameraControllerObj.at("cameraLerpSpeed"), this->mp_view);
 	this->m_cameraControl = cc;
@@ -88,9 +103,6 @@ void GameWorld::init(std::string filePath, sf::View& view)
 	}
 
 	this->m_cameraControl.setTarget(this->getGameObject(cameraControllerObj.at("cameraLockObject")));
-
-	// later change this to some system that multiplayer supports
-	this->mp_currentPlayer = this->getGameObject(cameraControllerObj.at("cameraLockObject"));
 }
 
 void GameWorld::initPhysics()
@@ -238,6 +250,7 @@ std::shared_ptr<GameObject> GameWorld::spawnGameObject(std::string type, sf::Vec
 	std::string name = Utility::generate_uuid_v4() + "%id%RocketProjectile";
 
 	p_gameObject->setName(name);
+	p_gameObject->setIsUI(false);
 
 	this->registerGameObject(
 		name, p_gameObject

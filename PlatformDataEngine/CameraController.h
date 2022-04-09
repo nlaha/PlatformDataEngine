@@ -19,6 +19,8 @@ namespace PlatformDataEngine {
 
 		void update(const float& dt, const float& elapsedTime);
 
+		sf::Vector2f getUIOffset() const;
+
 	private:
 		std::shared_ptr<sf::View> m_view;
 		std::shared_ptr<GameObject> m_gameObject;

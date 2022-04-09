@@ -107,6 +107,7 @@ void AnimationController::copy(std::shared_ptr<Component> otherCompPtr)
     std::shared_ptr<AnimationController> other = std::dynamic_pointer_cast<AnimationController>(otherCompPtr);
 
     *this = *other;
+
 }
 
 void AnimationController::setAnimation(const std::string animName, float speed, bool loop)
@@ -207,5 +208,5 @@ void AnimationController::loadDefinition(nlohmann::json object)
     this->m_currentAnim = object.at("animation");
     this->m_loop = object.at("loop");
     this->m_speed = object.at("speed");
-    this->m_flip = AnimationController::FlipFlags::HORIZONTAL;
+    this->m_flip = AnimationController::FlipFlags::NONE;
 }

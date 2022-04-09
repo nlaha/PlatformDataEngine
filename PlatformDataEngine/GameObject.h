@@ -43,6 +43,8 @@ namespace PlatformDataEngine {
 		inline void setZlayer(int zLayer) { this->m_zLayer = zLayer; };
 		inline void addChild(std::shared_ptr<GameObject> gameObject) { this->m_children.push_back(gameObject); };
 		inline void setParent(std::shared_ptr<GameObject> gameObject) { this->m_parent = gameObject; };
+		inline void setIsUI(bool isUI) { this->m_isUI = isUI; };
+		inline bool getIsUI() const { return this->m_isUI; };
 		inline std::shared_ptr<GameObject> getParent() { return this->m_parent; };
 
 		inline void setName(std::string& name) { this->m_name = name; };
@@ -85,6 +87,7 @@ namespace PlatformDataEngine {
 		int m_zLayer;
 		bool m_destroyed;
 		bool m_isDefinition;
+		bool m_isUI;
 
 		std::map<std::string, nlohmann::json> m_properties;
 	};

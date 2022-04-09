@@ -14,6 +14,7 @@
 #include "ParticleSystem.h"
 #include "RocketProjectile.h"
 #include "TimedDestroy.h"
+#include "StatsPanel.h"
 
 namespace PlatformDataEngine {
 
@@ -52,7 +53,8 @@ namespace PlatformDataEngine {
             {"RocketLauncher", &construct<RocketLauncher>},
             {"ParticleSystem", &construct<ParticleSystem>},
             {"RocketProjectile", &construct<RocketProjectile>},
-            {"TimedDestroy", &construct<TimedDestroy>}
+            {"TimedDestroy", &construct<TimedDestroy>},
+            {"StatsPanel", &construct<StatsPanel>}
         };
 	};
 }

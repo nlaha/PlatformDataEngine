@@ -135,6 +135,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -163,6 +164,7 @@
     <ClCompile Include="RocketProjectile.cpp" />
     <ClCompile Include="RocketLauncher.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
+    <ClCompile Include="StatsPanel.cpp" />
     <ClCompile Include="TextRenderer.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Tileset.cpp" />
@@ -190,6 +192,7 @@
     <ClInclude Include="PhysicsCallbacks.h" />
     <ClInclude Include="RocketLauncher.h" />
     <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="StatsPanel.h" />
     <ClInclude Include="TextRenderer.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Tileset.h" />
@@ -281,6 +284,11 @@
       </ExcludedFromBuild>
       <FileType>Document</FileType>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/assets</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="game\gameObjects\StatsPanel.json">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/game/gameObjects</DestinationFolders>
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>

@@ -20,6 +20,7 @@ namespace PlatformDataEngine {
 
     void renderingThread(std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<GameWorld> world)
     {
+        sf::Clock fpsClock;
         while (window->isOpen())
         {
             // clear
@@ -30,6 +31,14 @@ namespace PlatformDataEngine {
 
             // end the current frame
             window->display();
+
+
+            // calculate fps
+            PlatformDataEngineWrapper::m_fps = 1.f / fpsClock.getElapsedTime().asSeconds();
+            fpsClock.restart();
+
+            // print some stats
+            spdlog::debug("FPS: {0:.2f}", PlatformDataEngineWrapper::m_fps);
         }
     }
 
@@ -80,7 +89,6 @@ namespace PlatformDataEngine {
         mp_mainWorld->init("game/world.json", gameView);
 
         // game loop
-        sf::Clock fpsClock;
         sf::Clock deltaClock;
         sf::Clock elapsedClock;
         sf::Time dt;
@@ -158,13 +166,6 @@ namespace PlatformDataEngine {
 
             // get delta time
             dt = deltaClock.restart();
-
-            // calculate fps
-            this->m_fps = 1.f / fpsClock.getElapsedTime().asSeconds();
-            fpsClock.restart();
-
-            // print some stats
-            spdlog::debug("FPS: {0:.2f} --- DT: {1:.2f}", this->m_fps, dt.asSeconds());
 
         }
         renderThread.join();

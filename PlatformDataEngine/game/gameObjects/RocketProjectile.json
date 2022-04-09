@@ -15,9 +15,9 @@
     {
       "type": "RocketProjectile",
       "properties": {
-        "explosionRadius": 20,
+        "explosionRadius": 40,
         "explosionDamage": 10,
-        "explosionForce": 5000,
+        "explosionForce": 6000,
         "particleSystemName":  "RocketExplosion"
       }
     },

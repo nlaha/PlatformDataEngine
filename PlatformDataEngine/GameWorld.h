@@ -25,6 +25,10 @@ namespace PlatformDataEngine {
 
 	public:
 
+		struct PlayerSpawn {
+			sf::Vector2f position;
+		};
+
 		GameWorld();
 
 		// game functions and loops
@@ -43,6 +47,7 @@ namespace PlatformDataEngine {
 		// getters
 		inline std::shared_ptr<b2World> getPhysWorld() const { return this->mp_physicsWorld; };
 		inline std::shared_ptr<TileMap> getTileMap() const { return this->mp_tileMap; };
+		inline const CameraController& getCameraController() const { return this->m_cameraControl; };
 		inline sf::View getView() const { return *this->mp_view; };
 		inline std::shared_ptr<GameObject> getGameObject(std::string search) {
 			return this->mp_gameObjects.find(search)->second;
@@ -51,12 +56,19 @@ namespace PlatformDataEngine {
 
 		inline std::map<std::string, std::shared_ptr<GameObject>>& getGameObjectDefs() { return this->m_gameObjectDefinitions; };
 
+		// setters
+		inline void addPlayerSpawn(PlayerSpawn& spawn) {
+			this->mp_playerSpawns.push_back(spawn);
+		}
+
 	private:
 		std::shared_ptr<b2World> mp_physicsWorld;
 		std::shared_ptr<TileMap> mp_tileMap;
 		std::shared_ptr<GameObject> mp_currentPlayer;
+		std::vector<PlayerSpawn> mp_playerSpawns;
 
 		std::shared_ptr<sf::View> mp_view;
+
 		CameraController m_cameraControl;
 
 		std::map<std::string, std::shared_ptr<GameObject>> mp_gameObjects;

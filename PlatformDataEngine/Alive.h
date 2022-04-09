@@ -1,9 +1,10 @@
 #pragma once
 
-namespace PlatformDataEngine {
+namespace PlatformDataEngine
+{
 
 	/// <summary>
-	/// Class that defines an "alive" object, ie. an object 
+	/// Class that defines an "alive" object, ie. an object
 	/// that can take damage and die
 	/// </summary>
 	class Alive
@@ -13,9 +14,11 @@ namespace PlatformDataEngine {
 
 		void damage(float damageAmount);
 
+		inline float getHealth() const { return m_HP; }
+
 	protected:
-		virtual inline void onDeath() {};
-		virtual inline void onDamage(float currentHP) {};
+		virtual inline void onDeath();
+		virtual inline void onDamage(float currentHP);
 
 	private:
 		float m_HP;

@@ -36,3 +36,8 @@ void CameraController::update(const float& dt, const float& elapsedTime)
 		this->m_view->setCenter(newPosition);
 	}
 }
+
+sf::Vector2f PlatformDataEngine::CameraController::getUIOffset() const
+{
+	return this->m_view->getCenter() - (this->m_view->getSize() / 2.0f);
+}

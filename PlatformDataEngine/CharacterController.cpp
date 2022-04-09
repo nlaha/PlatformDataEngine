@@ -121,6 +121,7 @@ void CharacterController::update(const float& dt, const float& elapsedTime)
     b2Vec2 currentVelocity = this->m_PhysBody->getBody()->GetLinearVelocity();
     b2Vec2 newVelocity = Utility::lerp(currentVelocity, { 0.f, currentVelocity.y }, 4.0f * dt);
     this->m_PhysBody->getBody()->SetLinearVelocity(newVelocity);
+    this->m_PhysBody->getBody()->SetLinearDamping(0.25f);
 
     for (TileMap::TilesetPair& ts : PlatformDataEngineWrapper::getWorld()->getTileMap()->getTilesets())
     {

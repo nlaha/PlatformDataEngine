@@ -1,0 +1,39 @@
+{
+  "components": [
+    {
+      "type": "SpriteRenderer",
+      "properties": {
+        "texture": "assets/StatsPanel.png",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": -1,
+          "height": -1
+        }
+      }
+    },
+    {
+      "type": "AnimationController",
+      "properties": {
+        "aespriteFile": "assets/StatsPanel.json",
+        "animation": "IdleRocketReady",
+        "loop": true,
+        "speed": 1
+      }
+    },
+    {
+      "type": "StatsPanel",
+      "properties": {
+        "healthBar": {
+          "healthBarSpeed": 4.5,
+          "transform": {
+            "x": 2,
+            "y": 6,
+            "width": 89,
+            "height": 2
+          }
+        }
+      }
+    }
+  ]
+}

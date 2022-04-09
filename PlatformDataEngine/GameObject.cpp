@@ -15,6 +15,8 @@ GameObject::GameObject(bool isDef)
 	this->m_destroyed = false;
 	this->m_zLayer = 0;
 	this->m_isDefinition = isDef;
+	this->m_isUI = false;
+	this->m_self = nullptr;
 }
 
 /// <summary>
@@ -85,7 +87,12 @@ GameObject::~GameObject()
 void GameObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	// apply transform
-	states.transform *= this->getTransform();
+	sf::Transform ourTransform = this->getTransform();
+	if (this->m_isUI) {
+		sf::Vector2f uiOffset = PlatformDataEngineWrapper::getWorld()->getCameraController().getUIOffset();
+		ourTransform.translate(uiOffset);
+	}
+	states.transform *= ourTransform;
 
 	if (this->m_components.size() > 0)
 	{
@@ -111,7 +118,9 @@ void GameObject::loadDefinition(std::string filename) {
 	// parse json file
 	nlohmann::json object;
 	file >> object;
-	
+
+	this->m_isUI = false;
+
 	// load components
 	for (auto& comp : object["components"])
 	{

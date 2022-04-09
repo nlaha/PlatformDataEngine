@@ -23,7 +23,7 @@ void RocketLauncher::update(const float& dt, const float& elapsedTime)
 	float rot = Utility::lookAt(
 		parent->getPosition(),
 		worldPos
-	) + 180;
+	);
 
 	this->m_parent->setRotation(rot);
 

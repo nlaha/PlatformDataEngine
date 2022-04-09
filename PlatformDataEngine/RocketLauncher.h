@@ -22,6 +22,10 @@ namespace PlatformDataEngine {
 
         void loadDefinition(nlohmann::json object);
 
+        inline bool isCoolingDown() const {
+            return m_rocketClock.getElapsedTime().asMilliseconds() < m_rocketCooldown;
+        }
+
     private:
         std::shared_ptr<PlayerInputManager> m_pInputManager;
 

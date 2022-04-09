@@ -1,5 +1,6 @@
 {
-  "tiledMapFile": "assets/Main.tmx",
+  "tiledMapFile": "assets/Arena.tmx",
+  "playerObject":  "MainPlayer",
   "cameraController": {
     "cameraLockObject": "MainPlayer",
     "cameraLerpSpeed": 3
@@ -36,13 +37,29 @@
     {
       "name": "EngineStats",
       "type": "EngineStats",
+      "isUI": true,
       "transform": {
-        "x": 0,
+        "x": 140,
         "y": 10,
         "origin_x": 0,
         "origin_y": 0,
         "z_layer": 100,
-        "rotation": 20,
+        "rotation": 0,
+        "scale": 1
+      },
+      "children": []
+    },
+    {
+      "name": "PlayerStatsPanel",
+      "type": "StatsPanel",
+      "isUI": true,
+      "transform": {
+        "x": 0,
+        "y": 0,
+        "origin_x": 0,
+        "origin_y": 0,
+        "z_layer": 100,
+        "rotation": 0,
         "scale": 1
       },
       "children": []

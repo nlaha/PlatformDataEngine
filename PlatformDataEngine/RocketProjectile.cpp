@@ -5,6 +5,8 @@
 
 using namespace PlatformDataEngine;
 
+
+
 void RocketProjectile::init()
 {
     Component::init();
@@ -29,6 +31,9 @@ void RocketProjectile::init()
     b2FixtureDef sensorDef;
     sensorDef.shape = &circleShape;
     sensorDef.isSensor = true;
+    b2Filter filterSensor;
+    filterSensor.categoryBits = PlatformDataEngine::WORLD_DYNAMIC;
+    sensorDef.filter = filterSensor;
     this->m_explosionSensor = this->m_PhysBody->getBody()->CreateFixture(&sensorDef);
 
     this->m_isExploding = false;
@@ -75,8 +80,12 @@ void RocketProjectile::update(const float& dt, const float& elapsedTime)
                     (bodyCenter.x - ourPos.x),
                     (bodyCenter.y - ourPos.y)
                 ));
-                impulseVec.x *= this->m_explosionForce;
-                impulseVec.y *= this->m_explosionForce;
+
+                float distFrac = std::fmaxf(0.0f, 1.10f - Utility::distance(bodyCenter, Utility::fromSf(ourPos)) / this->m_explosionRadius);
+                float velocityFalloff = std::sqrtf(distFrac);
+
+                impulseVec.x *= this->m_explosionForce * velocityFalloff;
+                impulseVec.y *= this->m_explosionForce * velocityFalloff;
 
                 // damage body
                 if (body->GetUserData().pointer != 0 &&
@@ -84,16 +93,14 @@ void RocketProjectile::update(const float& dt, const float& elapsedTime)
                         body->GetUserData().pointer)->gameObjectOwner != nullptr)
                 {
                     reinterpret_cast<PhysBodyUserData*>(
-                        body->GetUserData().pointer)->gameObjectOwner->damage(this->m_explosionDamage);
+                        body->GetUserData().pointer)->gameObjectOwner->damage(this->m_explosionDamage * velocityFalloff);
                 }
 
-                // only apply impulses if we're not quite in the center of the blast
-                spdlog::info("Distance: {}", Utility::distance(bodyCenter, Utility::fromSf(ourPos)));
-                if (Utility::distance(bodyCenter, Utility::fromSf(ourPos)) > this->m_explosionRadius / 10.0f)
-                {
-                    body->ApplyLinearImpulseToCenter(impulseVec, true);
-                    break;
-                }
+                b2Vec2 velocity = body->GetLinearVelocity();
+                velocity.x *= 0.50f;
+                velocity.y *= 0.50f;
+                body->SetLinearVelocity(velocity);
+                body->ApplyLinearImpulseToCenter(impulseVec, true);
             }
         }
 

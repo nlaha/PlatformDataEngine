@@ -136,6 +136,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,13 +151,17 @@
     <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="CharacterController.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="DeathHandler.cpp" />
     <ClCompile Include="EngineStatsText.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PhysicsCallbacks.cpp" />
     <ClCompile Include="PhysicsDebugDraw.cpp" />
+    <ClCompile Include="PlayerDamageHandler.cpp" />
+    <ClCompile Include="PlayerDeathScene.cpp" />
     <ClCompile Include="PlayerInputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
@@ -164,6 +169,7 @@
     <ClCompile Include="RocketProjectile.cpp" />
     <ClCompile Include="RocketLauncher.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
+    <ClCompile Include="StatsBar.cpp" />
     <ClCompile Include="StatsPanel.cpp" />
     <ClCompile Include="TextRenderer.cpp" />
     <ClCompile Include="TileMap.cpp" />
@@ -179,12 +185,16 @@
     <ClInclude Include="CharacterController.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentFactory.h" />
+    <ClInclude Include="DamageHandler.h" />
     <ClInclude Include="EngineStatsText.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PhysicsDebugDraw.h" />
+    <ClInclude Include="PlayerDamageHandler.h" />
+    <ClInclude Include="PlayerDeathScene.h" />
     <ClInclude Include="PlayerInputManager.h" />
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="PlatformDataEngineWrapper.h" />
@@ -192,6 +202,7 @@
     <ClInclude Include="PhysicsCallbacks.h" />
     <ClInclude Include="RocketLauncher.h" />
     <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="StatsBar.h" />
     <ClInclude Include="StatsPanel.h" />
     <ClInclude Include="TextRenderer.h" />
     <ClInclude Include="TileMap.h" />
@@ -290,6 +301,15 @@
       <FileType>Document</FileType>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/game/gameObjects</DestinationFolders>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\StatsPanel.json">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/assets</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\Arena.tmx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/assets</DestinationFolders>
+    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="assets\Character.png">
@@ -322,6 +342,11 @@
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="assets\RocketProjectile.png">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/assets</DestinationFolders>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="assets\StatsPanel.png">
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/assets</DestinationFolders>
     </CopyFileToFolders>
   </ItemGroup>

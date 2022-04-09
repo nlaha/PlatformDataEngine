@@ -58,6 +58,18 @@
     <Filter Include="Header Files\Components\RocketLauncher">
       <UniqueIdentifier>{a79633b1-18cb-4a5e-a0e8-fb58cd2f30a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Components\DamageHandler">
+      <UniqueIdentifier>{c97859e4-1d32-468d-b80c-be2840c1a3c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\DamageHandler">
+      <UniqueIdentifier>{9bc446ff-0d3a-4025-8a6c-9398a5ca5be9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameScenes">
+      <UniqueIdentifier>{382fb005-b711-4ef0-8d16-943e5fb919ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameScenes">
+      <UniqueIdentifier>{867b2680-addf-4801-9408-8f1b7f04f021}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -137,6 +149,21 @@
     </ClCompile>
     <ClCompile Include="StatsPanel.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="StatsBar.cpp">
+      <Filter>Source Files\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="DeathHandler.cpp">
+      <Filter>Source Files\Components\DamageHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDamageHandler.cpp">
+      <Filter>Source Files\Components\DamageHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Source Files\GameScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDeathScene.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +248,21 @@
     <ClInclude Include="StatsPanel.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="StatsBar.h">
+      <Filter>Header Files\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageHandler.h">
+      <Filter>Header Files\Components\DamageHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDamageHandler.h">
+      <Filter>Header Files\Components\DamageHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Header Files\GameScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDeathScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\vcpkg.json">
@@ -299,6 +341,15 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="game\gameObjects\StatsPanel.json">
       <Filter>Resource Files\Game\GameObjects</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\StatsPanel.json">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\StatsPanel.png">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\Arena.tmx">
+      <Filter>Resource Files</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

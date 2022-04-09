@@ -3,6 +3,8 @@
 
 using namespace PlatformDataEngine;
 
+std::mutex mutex;
+
 /// <summary>
 /// Constructor
 /// </summary>

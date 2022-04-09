@@ -2,5 +2,12 @@
   "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
   "name": "platformer-engine",
   "version": "0.0.1",
-  "dependencies": [ "tmxlite", "sfml", "box2d", "nlohmann-json", "spdlog" ]
+  "dependencies": [
+    "tmxlite",
+    { "name": "sfml", "version>=": "2.5.1#12" },
+    "box2d",
+    "nlohmann-json",
+    "spdlog"
+  ],
+  "builtin-baseline": "bd1ef2df46303989eeb048eb7aa9b816aa46365e"
 }

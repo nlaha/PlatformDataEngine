@@ -1,4 +1,5 @@
 #include "Tileset.h"
+#include "PlatformDataEngineWrapper.h"
 
 using namespace PlatformDataEngine;
 
@@ -62,11 +63,19 @@ bool Tileset::loadTileset(const std::string& imagePath, const std::string& shade
 
 void Tileset::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	sf::Vector2i viewCenter(target.getView().getCenter());
+	sf::Vector2i viewSize(target.getView().getSize());
+	sf::FloatRect currentViewRect
+	(viewCenter.x - viewSize.x / 2, // left
+		viewCenter.y - viewSize.y / 2, // top
+		viewSize.x,
+		viewSize.y);
+
 	// loop through tile sprites and draw each one using a vertex array
 	sf::VertexArray quads(sf::Quads);
 
 	sf::Vector2u texSize = this->m_texture->getSize();
-	auto lambdaAddQuad = [&quads, &texSize](const TileTexture tex, const sf::Transform& transform, const int tileSize) {
+	auto lambdaAddQuad = [&quads, &texSize, &currentViewRect](const TileTexture tex, const sf::Transform& transform, const int tileSize) {
 		sf::Vertex quad[4];
 
 		sf::FloatRect rect = { {0, 0}, {(float)tileSize, (float)tileSize} };
@@ -81,35 +90,42 @@ void Tileset::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		rect.height += 0.1f;
 		rect.width += 0.1f;
 
-		// define its 4 corners
-		quad[0].position = sf::Vector2f(rect.left, rect.top);
-		quad[1].position = sf::Vector2f(rect.left + rect.width, rect.top);
-		quad[2].position = sf::Vector2f(rect.left + rect.width, rect.top + rect.height);
-		quad[3].position = sf::Vector2f(rect.left, rect.top + rect.height);
+		if (rect.intersects(currentViewRect))
+		{
+			// define its 4 corners
+			quad[0].position = sf::Vector2f(rect.left, rect.top);
+			quad[1].position = sf::Vector2f(rect.left + rect.width, rect.top);
+			quad[2].position = sf::Vector2f(rect.left + rect.width, rect.top + rect.height);
+			quad[3].position = sf::Vector2f(rect.left, rect.top + rect.height);
 
-		// define its 4 texture coordinates
-		quad[0].texCoords = sf::Vector2f(tu * tileSize, tv * tileSize);
-		quad[1].texCoords = sf::Vector2f((tu + 1) * tileSize, tv * tileSize);
-		quad[2].texCoords = sf::Vector2f((tu + 1) * tileSize, (tv + 1) * tileSize);
-		quad[3].texCoords = sf::Vector2f(tu * tileSize, (tv + 1) * tileSize);
+			// define its 4 texture coordinates
+			quad[0].texCoords = sf::Vector2f(tu * tileSize, tv * tileSize);
+			quad[1].texCoords = sf::Vector2f((tu + 1) * tileSize, tv * tileSize);
+			quad[2].texCoords = sf::Vector2f((tu + 1) * tileSize, (tv + 1) * tileSize);
+			quad[3].texCoords = sf::Vector2f(tu * tileSize, (tv + 1) * tileSize);
 
-		quads.append(quad[0]);
-		quads.append(quad[1]);
-		quads.append(quad[2]);
-		quads.append(quad[3]);
+			quads.append(quad[0]);
+			quads.append(quad[1]);
+			quads.append(quad[2]);
+			quads.append(quad[3]);
+		}
 	};
 
-	for (TileSprite* sprite : this->m_tileSprites)
-	{
-		sprite->preDraw();
+	std::for_each(
+		std::execution::seq,
+		this->m_tileSprites.begin(),
+		this->m_tileSprites.end(),
+		[&](TileSprite* sprite)
+		{
+			sprite->preDraw();
 
-		// add the sprite as a quad to be rendered
-		lambdaAddQuad(
-			this->getTileTexture(sprite->getTileIdx()), 
-			sprite->getTransform(),
-			this->m_tileSize
-		);
-	}
+			// add the sprite as a quad to be rendered
+			lambdaAddQuad(
+				this->getTileTexture(sprite->getTileIdx()),
+				sprite->getTransform(),
+				this->m_tileSize
+			);
+		});
 
 	states.texture = this->m_texture.get();
 

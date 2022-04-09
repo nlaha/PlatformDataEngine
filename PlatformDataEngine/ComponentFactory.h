@@ -16,6 +16,8 @@
 #include "TimedDestroy.h"
 #include "StatsPanel.h"
 
+#include "PlayerDamageHandler.h"
+
 namespace PlatformDataEngine {
 
 	/// <summary>
@@ -54,7 +56,10 @@ namespace PlatformDataEngine {
             {"ParticleSystem", &construct<ParticleSystem>},
             {"RocketProjectile", &construct<RocketProjectile>},
             {"TimedDestroy", &construct<TimedDestroy>},
-            {"StatsPanel", &construct<StatsPanel>}
+            {"StatsPanel", &construct<StatsPanel>},
+
+            // damage handlers
+            {"PlayerDamageHandler", &construct<PlayerDamageHandler>}
         };
 	};
 }

@@ -11,6 +11,7 @@
 #include "Component.h"
 #include "Alive.h"
 #include "ComponentFactory.h"
+#include "StatsBar.h"
 
 namespace PlatformDataEngine {
 
@@ -67,7 +68,7 @@ namespace PlatformDataEngine {
 			for (auto& compPair : this->m_components)
 			{
 				// check if T is equal to the type of the component
-				if (typeid(T) == typeid(*compPair.second))
+				if (std::dynamic_pointer_cast<T>(compPair.second))
 				{
 					std::shared_ptr<T> derived =
 						std::dynamic_pointer_cast<T> (compPair.second);
@@ -75,6 +76,9 @@ namespace PlatformDataEngine {
 				}
 			}
 		}
+
+		void onDeath();
+		void onDamage(float currentHP);
 
 	private:
 		std::map<std::string, std::shared_ptr<Component>> m_components;
@@ -88,6 +92,9 @@ namespace PlatformDataEngine {
 		bool m_destroyed;
 		bool m_isDefinition;
 		bool m_isUI;
+
+		bool m_hasHealthBar;
+		std::shared_ptr<StatsBar> m_healthBar;
 
 		std::map<std::string, nlohmann::json> m_properties;
 	};

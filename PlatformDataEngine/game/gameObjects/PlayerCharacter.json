@@ -1,5 +1,19 @@
 {
+  "hasHealthBar": true,
+  "healthBar": {
+    "healthBarSpeed": 4.5,
+    "transform": {
+      "x": -4,
+      "y": 0,
+      "width": 16,
+      "height": 1
+    }
+  },
   "components": [
+    {
+      "type": "PlayerDamageHandler",
+      "properties": {}
+    },
     {
       "type": "SpriteRenderer",
       "properties": {

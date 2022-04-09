@@ -87,13 +87,19 @@ void RocketProjectile::update(const float& dt, const float& elapsedTime)
                 impulseVec.x *= this->m_explosionForce * velocityFalloff;
                 impulseVec.y *= this->m_explosionForce * velocityFalloff;
 
+                float friendlyFireMultiplier = 1.0f;
+                if (this->m_owningGameObject == PlatformDataEngineWrapper::getWorld()->getPlayer())
+                {
+                    friendlyFireMultiplier = 0.1f;
+                }
+
                 // damage body
                 if (body->GetUserData().pointer != 0 &&
                     reinterpret_cast<PhysBodyUserData*>(
                         body->GetUserData().pointer)->gameObjectOwner != nullptr)
                 {
                     reinterpret_cast<PhysBodyUserData*>(
-                        body->GetUserData().pointer)->gameObjectOwner->damage(this->m_explosionDamage * velocityFalloff);
+                        body->GetUserData().pointer)->gameObjectOwner->damage(this->m_explosionDamage * velocityFalloff * friendlyFireMultiplier);
                 }
 
                 b2Vec2 velocity = body->GetLinearVelocity();

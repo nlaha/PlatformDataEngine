@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 
 namespace PlatformDataEngine
 {
@@ -17,10 +18,9 @@ namespace PlatformDataEngine
 		inline float getHealth() const { return m_HP; }
 
 	protected:
-		virtual inline void onDeath();
-		virtual inline void onDamage(float currentHP);
+		virtual void onDeath() = 0;
+		virtual void onDamage(float currentHP) = 0;
 
-	private:
 		float m_HP;
 	};
 }

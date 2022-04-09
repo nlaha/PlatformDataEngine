@@ -29,7 +29,11 @@ namespace PlatformDataEngine {
 
         void loadDefinition(nlohmann::json object);
 
+        inline void setOwner(std::shared_ptr<GameObject> owner) { this->m_owningGameObject = owner; };
+
     private:
+
+        std::shared_ptr<GameObject> m_owningGameObject;
 
         std::shared_ptr<PhysicsBody> m_PhysBody;
         b2Fixture* m_explosionSensor;

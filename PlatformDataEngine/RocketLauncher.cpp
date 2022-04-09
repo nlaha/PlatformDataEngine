@@ -48,6 +48,9 @@ void RocketLauncher::update(const float& dt, const float& elapsedTime)
 		std::shared_ptr<AnimationController> animControl = this->m_parent->findComponentOfType<AnimationController>();
 		animControl->setAnimation("Shoot", 1.0, false);
 
+		std::shared_ptr<RocketProjectile> projectile = p_gameObject->findComponentOfType<RocketProjectile>();
+		projectile->setOwner(this->m_parent->getParent());
+
 		this->m_rocketClock.restart();
 	}
 }

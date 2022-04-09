@@ -1,9 +1,11 @@
 #include "Alive.h"
 
+using namespace PlatformDataEngine;
+
 /// <summary>
 /// Constructor
 /// </summary>
-PlatformDataEngine::Alive::Alive()
+Alive::Alive()
 {
 	this->m_HP = 100.0;
 }
@@ -12,7 +14,7 @@ PlatformDataEngine::Alive::Alive()
 /// Deals damage and checks for death
 /// </summary>
 /// <param name="damageAmount">amount of damage to deal in % where an object at full health is 100%</param>
-void PlatformDataEngine::Alive::damage(float damageAmount)
+void Alive::damage(float damageAmount)
 {
 	if (this->m_HP - damageAmount <= 0) {
 		this->m_HP = 0;
@@ -22,14 +24,4 @@ void PlatformDataEngine::Alive::damage(float damageAmount)
 		this->m_HP -= damageAmount;
 		onDamage(this->m_HP);
 	}
-}
-
-inline void PlatformDataEngine::Alive::onDeath()
-{
-	// todo: get "death handler" component if it exists and call onDeath()
-}
-
-inline void PlatformDataEngine::Alive::onDamage(float currentHP)
-{
-	// todo: get "damage handler" component if it exists and call onDamage()
 }

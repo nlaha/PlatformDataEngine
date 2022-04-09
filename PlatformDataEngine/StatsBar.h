@@ -1,0 +1,32 @@
+#pragma once
+#include <sfml/Graphics.hpp>
+#include <nlohmann/json.hpp>
+
+#include "Utility.h"
+
+namespace PlatformDataEngine {
+	
+	class StatsBar : public sf::Drawable
+	{
+	public:
+		void init();
+
+		void update(const float& dt, const float& elapsedTime, float hp);
+
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+		void loadDefinition(nlohmann::json object);
+
+	private:
+		sf::RectangleShape m_healthBar;
+		sf::RectangleShape m_healthBarDelayed;
+		sf::RectangleShape m_healthBarBackground;
+
+		float m_health;
+		float m_targetHealth;
+		float m_healthBarSpeed;
+
+		sf::Vector2f m_healthBarSize;
+	};
+}
+

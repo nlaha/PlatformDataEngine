@@ -122,9 +122,56 @@ TileMap::TileMap(const std::string &tmxPath)
                 if (object.getType() == "PlayerSpawn")
                 {
                     GameWorld::PlayerSpawn spawn = {
-                        sf::Vector2f(object.getPosition().x, object.getPosition().y)
+                        sf::Vector2f(object.getPosition().x, object.getPosition().y - 16)
                     };
                     PlatformDataEngineWrapper::getWorld()->addPlayerSpawn(spawn);
+                }
+                else if (object.getType() == "Prop")
+                {
+                    int tileId = object.getTileID();
+
+                    // find the tileset for this tile
+                    for (const auto& tilesetPair : this->m_tilesets)
+                    {
+                        int tSize = tilesetPair.tmxTileset.getTileSize().x;
+
+                        if (tileId >= tilesetPair.tmxTileset.getFirstGID() && tileId <= tilesetPair.tmxTileset.getLastGID())
+                        {
+                            tmx::Vector2u pos = tilesetPair.tmxTileset.getTile(tileId)->imagePosition;
+                            tmx::ObjectGroup collision = tilesetPair.tmxTileset.getTile(tileId)->objectGroup;
+
+                            std::shared_ptr<GameObject> prop = PlatformDataEngineWrapper::getWorld()->spawnGameObject("Prop",
+                                sf::Vector2f(object.getPosition().x, object.getPosition().y - tSize));
+
+                            prop->findComponentOfType<SpriteRenderer>()->setRect(sf::IntRect(
+                                sf::Vector2i(pos.x, pos.y),
+                                sf::Vector2i(tSize, tSize)
+                            ));
+
+                            std::shared_ptr<PhysicsBody> pBody = prop->findComponentOfType<PhysicsBody>();
+                            if (collision.getObjects().size() > 0) {
+                                tmx::Object obj = collision.getObjects().front();
+                                std::vector<b2Vec2> pointArr;
+                                tmx::Vector2f oPos = obj.getPosition();
+                                for (tmx::Vector2f point : obj.getPoints()) {
+                                    point.x *= 1.0001;
+                                    point.y *= 1.0001;
+                                    pointArr.push_back({ (point.x + oPos.x), (point.y + oPos.y) });
+                                }
+
+                                b2PolygonShape poly;
+                                poly.Set(pointArr.data(), pointArr.size());
+
+                                b2FixtureDef bodyFixtureDef;
+                                bodyFixtureDef.density = pBody->getDensity();
+                                bodyFixtureDef.friction = pBody->getFriction();
+                                bodyFixtureDef.restitution = pBody->getBouncy();
+                                bodyFixtureDef.shape = &poly;
+
+                                pBody->getBody()->CreateFixture(&bodyFixtureDef);
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -16,7 +16,6 @@ namespace PlatformDataEngine
     class PhysicsBody : public Component
     {
     public:
-
         // constructor
         PhysicsBody();
 
@@ -42,7 +41,14 @@ namespace PlatformDataEngine
             return this->m_bounds;
         }
 
-    private:
+        inline float getDensity() const { return this->m_density; };
+        inline bool getIsContinuous() const { return this->m_isContinuous; };
+        inline float getBouncy() const { return this->m_bouncy; };
+        inline float getFriction() const { return this->m_friction; };
+        inline bool getDoesRotate() const { return this->m_doesRotate; };
+
+    private: 
+        
         b2Body *m_body;
         b2BodyType m_bodyType;
         float m_density;

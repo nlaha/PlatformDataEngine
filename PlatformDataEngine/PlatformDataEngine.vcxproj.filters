@@ -351,5 +351,14 @@
     <CopyFileToFolders Include="assets\Arena.tmx">
       <Filter>Resource Files</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="game\gameObjects\Prop.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\Props.png">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\Props.tsx">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

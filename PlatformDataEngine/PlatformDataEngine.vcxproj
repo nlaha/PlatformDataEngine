@@ -310,6 +310,14 @@
       <FileType>Document</FileType>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/assets</DestinationFolders>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="game\gameObjects\Prop.json">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/game/gameObjects</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\Props.tsx">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/assets</DestinationFolders>
+    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="assets\Character.png">
@@ -347,6 +355,11 @@
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="assets\StatsPanel.png">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/assets</DestinationFolders>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="assets\Props.png">
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/assets</DestinationFolders>
     </CopyFileToFolders>
   </ItemGroup>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="8" tileheight="8" infinite="1" nextlayerid="10" nextobjectid="7">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="8" tileheight="8" infinite="1" nextlayerid="11" nextobjectid="16">
  <tileset firstgid="1" source="SpaceTileset.tsx"/>
  <tileset firstgid="65" source="Plants.tsx"/>
- <layer id="2" name="Background" width="100" height="100" offsetx="5.5" offsety="-97.5">
+ <tileset firstgid="71" source="Props.tsx"/>
+ <layer id="2" name="Background" width="100" height="100">
   <data encoding="csv">
    <chunk x="-64" y="-96" width="16" height="16">
 16,32,31,31,31,32,16,31,32,32,31,31,31,16,31,16,
@@ -1986,7 +1987,7 @@
 </chunk>
   </data>
  </layer>
- <layer id="9" name="TerrainNoCollision" width="100" height="100" offsetx="7.5" offsety="-56">
+ <layer id="9" name="TerrainNoCollision" width="100" height="100">
   <data encoding="csv">
    <chunk x="-64" y="-32" width="16" height="16">
 56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,
@@ -2476,7 +2477,7 @@
 </chunk>
   </data>
  </layer>
- <layer id="7" name="Terrain" width="100" height="100" offsetx="7.5" offsety="-56">
+ <layer id="7" name="Terrain" width="100" height="100">
   <properties>
    <property name="hasPhysics" type="bool" value="true"/>
   </properties>
@@ -2951,7 +2952,7 @@
 </chunk>
   </data>
  </layer>
- <layer id="3" name="Plants" width="100" height="100" offsetx="7.5" offsety="-56">
+ <layer id="3" name="Plants" width="100" height="100">
   <data encoding="csv">
    <chunk x="-16" y="-16" width="16" height="16">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -3262,8 +3263,14 @@
   </data>
  </layer>
  <objectgroup id="8" name="Spawns">
-  <object id="6" name="Player Spawn" type="PlayerSpawn" x="2.5" y="199.25">
+  <object id="6" name="Player Spawn" type="PlayerSpawn" x="-2.5" y="264.583">
    <point/>
   </object>
+ </objectgroup>
+ <objectgroup id="10" name="Props">
+  <object id="8" name="Crate" type="Prop" gid="71" x="-69.4167" y="154.333" width="16" height="16"/>
+  <object id="9" name="Crate" type="Prop" gid="72" x="82.5" y="81.6667" width="16" height="16"/>
+  <object id="10" name="Crate" type="Prop" gid="72" x="-174.333" y="250.333" width="16" height="16"/>
+  <object id="11" name="Crate" type="Prop" gid="71" x="-18.75" y="-54" width="16" height="16"/>
  </objectgroup>
 </map>

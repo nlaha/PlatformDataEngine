@@ -88,7 +88,8 @@ void RocketProjectile::update(const float& dt, const float& elapsedTime)
                 impulseVec.y *= this->m_explosionForce * velocityFalloff;
 
                 float friendlyFireMultiplier = 1.0f;
-                if (this->m_owningGameObject == PlatformDataEngineWrapper::getWorld()->getPlayer())
+                if (reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer)->gameObjectOwner == 
+                    PlatformDataEngineWrapper::getWorld()->getPlayer().get())
                 {
                     friendlyFireMultiplier = 0.1f;
                 }

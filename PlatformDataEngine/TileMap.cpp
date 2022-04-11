@@ -1,6 +1,8 @@
 #include "TileMap.h"
 #include "PlatformDataEngineWrapper.h"
 
+#include "Globals.h"
+
 using namespace PlatformDataEngine;
 
 std::mutex mutex;
@@ -81,7 +83,9 @@ TileMap::TileMap(const std::string &tmxPath)
                                         for (tmx::Vector2f point : obj.getPoints()) {
                                             point.x *= 1.0001;
                                             point.y *= 1.0001;
-                                            pointArr.push_back({ (point.x + oPos.x), (point.y + oPos.y) });
+                                            pointArr.push_back({ 
+                                                (point.x + oPos.x) / Constants::PHYS_SCALE, 
+                                                (point.y + oPos.y) / Constants::PHYS_SCALE });
                                         }
 
                                         collisionShape.Set(pointArr.data(), pointArr.size());
@@ -156,7 +160,9 @@ TileMap::TileMap(const std::string &tmxPath)
                                 for (tmx::Vector2f point : obj.getPoints()) {
                                     point.x *= 1.0001;
                                     point.y *= 1.0001;
-                                    pointArr.push_back({ (point.x + oPos.x), (point.y + oPos.y) });
+                                    pointArr.push_back({ 
+                                        (point.x + oPos.x) / Constants::PHYS_SCALE, 
+                                        (point.y + oPos.y) / Constants::PHYS_SCALE });
                                 }
 
                                 b2PolygonShape poly;

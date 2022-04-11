@@ -17,7 +17,7 @@
       "properties": {
         "explosionRadius": 40,
         "explosionDamage": 10,
-        "explosionForce": 6000,
+        "explosionForce": 17,
         "particleSystemName":  "RocketExplosion"
       }
     },

@@ -26,15 +26,15 @@
       "properties": {
         "type": "dynamic",
         "doesRotate": true,
-        "continuous": false,
-        "density": 2.0,
+        "continuous": true,
+        "density": 1.0,
         "friction": 0.25,
         "bouncy": 0.25,
         "rect": {
           "x": 0,
           "y": 0,
-          "width": 1,
-          "height": 1
+          "width": 16,
+          "height": 16
         },
         "fixtures": []
       }

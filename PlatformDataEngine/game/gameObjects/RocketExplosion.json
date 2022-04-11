@@ -4,7 +4,7 @@
       "type": "ParticleSystem",
       "properties": {
         "numParticles": 50,
-        "velocity": 100,
+        "velocity": 1,
         "particle": "FireParticle"
       }
     }

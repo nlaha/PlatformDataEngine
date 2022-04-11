@@ -55,8 +55,8 @@ void ParticleSystem::spawnParticles()
 			rand() % 100 + (-100),
 			rand() % 100 + (-100)
 		));
-		dir.x *= this->m_velocity;
-		dir.y *= this->m_velocity;
+		dir.x *= this->m_velocity / Constants::PHYS_SCALE;
+		dir.y *= this->m_velocity / Constants::PHYS_SCALE;
 
 		bd->ApplyLinearImpulseToCenter(dir, true);
 	}

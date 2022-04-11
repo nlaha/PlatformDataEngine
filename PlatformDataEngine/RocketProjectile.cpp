@@ -31,7 +31,7 @@ void RocketProjectile::init()
     this->m_PhysBody->getBody()->SetGravityScale(0.0f);
 
     b2CircleShape circleShape;
-    circleShape.m_radius = this->m_explosionRadius;
+    circleShape.m_radius = this->m_explosionRadius / Constants::PHYS_SCALE;
     b2FixtureDef sensorDef;
     sensorDef.shape = &circleShape;
     sensorDef.isSensor = true;
@@ -81,8 +81,8 @@ void RocketProjectile::update(const float& dt, const float& elapsedTime)
 
                 b2Vec2 bodyCenter = body->GetPosition();
                 b2Vec2 impulseVec = Utility::normalize(b2Vec2(
-                    (bodyCenter.x - ourPos.x),
-                    (bodyCenter.y - ourPos.y)
+                    (bodyCenter.x - (ourPos.x / Constants::PHYS_SCALE)),
+                    (bodyCenter.y - (ourPos.y / Constants::PHYS_SCALE))
                 ));
 
                 float distFrac = std::fmaxf(0.0f, 1.10f - Utility::distance(bodyCenter, Utility::fromSf(ourPos)) / this->m_explosionRadius);

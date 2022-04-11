@@ -59,7 +59,10 @@ void PhysicsBody::init()
 	Component::init();
 
 	sf::Vector2f initPos = this->m_parent->getPosition();
-	this->getBody()->SetTransform({initPos.x, initPos.y}, 0.0);
+	this->getBody()->SetTransform({
+		initPos.x / Constants::PHYS_SCALE, 
+		initPos.y / Constants::PHYS_SCALE 
+	}, 0.0);
 
 	m_bodyUserData->gameObjectOwner = this->m_parent;
 }
@@ -67,8 +70,8 @@ void PhysicsBody::init()
 void PhysicsBody::update(const float& dt, const float& elapsedTime)
 {
 	this->m_parent->setPosition(
-		this->m_body->GetTransform().p.x,
-		this->m_body->GetTransform().p.y
+		this->m_body->GetTransform().p.x * Constants::PHYS_SCALE,
+		this->m_body->GetTransform().p.y * Constants::PHYS_SCALE
 	);
 
 	if (this->m_doesRotate) {
@@ -100,10 +103,10 @@ void PhysicsBody::loadDefinition(nlohmann::json object)
 	for (const nlohmann::json& fixture : object.at("fixtures"))
 	{
 		sf::FloatRect bounds = sf::FloatRect(
-			fixture.at("rect").at("x"),
-			fixture.at("rect").at("y"),
-			fixture.at("rect").at("width"),
-			fixture.at("rect").at("height")
+			fixture.at("rect").at("x") / Constants::PHYS_SCALE,
+			fixture.at("rect").at("y") / Constants::PHYS_SCALE,
+			fixture.at("rect").at("width") / Constants::PHYS_SCALE,
+			fixture.at("rect").at("height") / Constants::PHYS_SCALE
 		);
 
 		b2FixtureDef bodyFixtureDef;

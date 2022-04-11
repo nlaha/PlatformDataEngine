@@ -67,7 +67,7 @@ void TileSprite::registerSelf(sf::Vector2f pos)
 		b2BodyDef bodyDef;
 		bodyDef.type = b2_staticBody;
 
-		bodyDef.position.Set(pos.x, pos.y);
+		bodyDef.position.Set(pos.x / Constants::PHYS_SCALE, pos.y / Constants::PHYS_SCALE);
 
 		this->m_body = PlatformDataEngineWrapper::getWorld()->getPhysWorld()->CreateBody(&bodyDef);
 

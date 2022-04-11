@@ -4,6 +4,8 @@
 #include <box2d/box2d.h>
 #include <SFML/Graphics.hpp>
 
+#include "Globals.h"
+
 namespace PlatformDataEngine
 {
 
@@ -125,12 +127,12 @@ namespace PlatformDataEngine
 
         static b2Vec2 fromSf(sf::Vector2f in)
         {
-            return b2Vec2(in.x, in.y);
+            return b2Vec2(in.x / Constants::PHYS_SCALE, in.y / Constants::PHYS_SCALE);
         }
 
         static sf::Vector2f fromB2(b2Vec2 in)
         {
-            return sf::Vector2f(in.x, in.y);
+            return sf::Vector2f(in.x, in.y) * 8.0f;
         }
     };
 }

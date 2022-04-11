@@ -27,7 +27,7 @@ void PropDamageHandler::loadDefinition(nlohmann::json object)
 
 void PropDamageHandler::onDeath()
 {
-	GlobalEffects::explode(*this->m_parent->findComponentOfType<SpriteRenderer>(), this->m_parent->getPosition());
+	GlobalEffects::explode(*this->m_parent->findComponentOfType<SpriteRenderer>(), this->m_parent->getPosition(), 2);
 
 	this->m_parent->destroySelf();
 }

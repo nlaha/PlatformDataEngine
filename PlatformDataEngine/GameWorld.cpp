@@ -108,7 +108,7 @@ void GameWorld::init(std::string filePath, sf::View& view)
 void GameWorld::initPhysics()
 {
 	// init physics world
-	b2Vec2 gravity(0.0f, 25.0f);
+	b2Vec2 gravity(0.0f, 9.0f);
 	this->mp_physicsWorld = std::make_shared<b2World>(gravity);
 }
 
@@ -175,9 +175,9 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 /// <param name="elapsedTime">elapsed time (since game started)</param>
 void GameWorld::physicsUpdate(const float& dt, const float& elapsedTime)
 {
-	int velocityIterations = 8;
-	int positionIterations = 3;
-	float timeStep = dt * 3.0f;
+	int velocityIterations = 12;
+	int positionIterations = 8;
+	float timeStep = dt * 2.0f;
 
 	// simulate physics
 	this->mp_physicsWorld->Step(std::min(timeStep, 0.15f), velocityIterations, positionIterations);

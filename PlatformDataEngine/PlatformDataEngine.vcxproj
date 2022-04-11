@@ -158,6 +158,7 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="GlobalEffects.cpp" />
+    <ClCompile Include="Globals.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PhysicsCallbacks.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="GlobalEffects.h" />
+    <ClInclude Include="Globals.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PhysicsDebugDraw.h" />

@@ -11,7 +11,7 @@ namespace PlatformDataEngine {
 	{
 	public:
 
-		static void explode(SpriteRenderer sprite, sf::Vector2f pos);
+		static void explode(SpriteRenderer sprite, sf::Vector2f pos, int slices = 8);
 	};
 }
 

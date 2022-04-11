@@ -5,6 +5,7 @@
 
 #include "Component.h"
 #include "PhysicsCallbacks.h"
+#include "Globals.h"
 
 namespace PlatformDataEngine
 {

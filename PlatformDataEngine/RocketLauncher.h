@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "PlayerInputManager.h"
+#include "Globals.h"
 
 namespace PlatformDataEngine {
 

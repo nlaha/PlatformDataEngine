@@ -4,10 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 
-namespace sfdd
-{
-	const float SCALE = 1.f;
-}
+#include "Globals.h"
+
 namespace PlatformDataEngine {
 
     class PhysicsDebugDraw : public b2Draw
@@ -28,7 +26,7 @@ namespace PlatformDataEngine {
 		/// Convert Box2D's vector to SFML vector [Default - scales the vector up by SCALE constants amount]
 		static sf::Vector2f B2VecToSFVec(const b2Vec2& vector, bool scaleToPixels = true)
 		{
-			return sf::Vector2f(vector.x * (scaleToPixels ? sfdd::SCALE : 1.f), vector.y * (scaleToPixels ? sfdd::SCALE : 1.f));
+			return sf::Vector2f(vector.x * (scaleToPixels ? Constants::PHYS_SCALE : 1.f), vector.y * (scaleToPixels ? Constants::PHYS_SCALE : 1.f));
 		}
 
 		/// Draw a closed polygon provided in CCW order.

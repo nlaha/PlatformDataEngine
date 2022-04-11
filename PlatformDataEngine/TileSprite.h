@@ -4,6 +4,7 @@
 #include <box2d/box2d.h>
 
 #include "Tileset.h"
+#include "Globals.h"
 
 namespace PlatformDataEngine {
 

@@ -43,8 +43,8 @@ void PhysicsDebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCoun
 }
 void PhysicsDebugDraw::DrawCircle(const b2Vec2& center, float radius, const b2Color& color)
 {
-	sf::CircleShape circle(radius * sfdd::SCALE);
-	circle.setOrigin(radius * sfdd::SCALE, radius * sfdd::SCALE);
+	sf::CircleShape circle(radius * Constants::PHYS_SCALE);
+	circle.setOrigin(radius * Constants::PHYS_SCALE, radius * Constants::PHYS_SCALE);
 	circle.setPosition(PhysicsDebugDraw::B2VecToSFVec(center));
 	circle.setFillColor(sf::Color::Transparent);
 	circle.setOutlineThickness(-1.f);
@@ -54,8 +54,8 @@ void PhysicsDebugDraw::DrawCircle(const b2Vec2& center, float radius, const b2Co
 }
 void PhysicsDebugDraw::DrawSolidCircle(const b2Vec2& center, float radius, const b2Vec2& axis, const b2Color& color)
 {
-	sf::CircleShape circle(radius * sfdd::SCALE);
-	circle.setOrigin(radius * sfdd::SCALE, radius * sfdd::SCALE);
+	sf::CircleShape circle(radius * Constants::PHYS_SCALE);
+	circle.setOrigin(radius * Constants::PHYS_SCALE, radius * Constants::PHYS_SCALE);
 	circle.setPosition(PhysicsDebugDraw::B2VecToSFVec(center));
 	circle.setFillColor(PhysicsDebugDraw::GLColorToSFML(color, 60));
 	circle.setOutlineThickness(1.f);
@@ -109,8 +109,8 @@ void PhysicsDebugDraw::DrawTransform(const b2Transform& xf)
 
 void PhysicsDebugDraw::DrawPoint(const b2Vec2& p, float size, const b2Color& color)
 {
-	sf::CircleShape circle(size * sfdd::SCALE);
-	circle.setOrigin(size * sfdd::SCALE, size * sfdd::SCALE);
+	sf::CircleShape circle(size * Constants::PHYS_SCALE);
+	circle.setOrigin(size * Constants::PHYS_SCALE, size * Constants::PHYS_SCALE);
 	circle.setPosition(PhysicsDebugDraw::B2VecToSFVec(p));
 	circle.setFillColor(sf::Color::Transparent);
 	circle.setOutlineThickness(-1.f);

@@ -171,8 +171,8 @@
     <ClCompile Include="PlayerDeathScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Client.cpp">
-      <Filter>Source Files\Networking</Filter>
+    <ClCompile Include="GlobalEffects.cpp">
+      <Filter>Source Files\Internal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -272,12 +272,6 @@
     <ClInclude Include="PlayerDeathScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Server.h">
-      <Filter>Header Files\Networking</Filter>
-    </ClInclude>
-    <ClInclude Include="Client.h">
-      <Filter>Header Files\Networking</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\vcpkg.json">
@@ -365,6 +359,18 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="assets\Arena.tmx">
       <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="game\gameObjects\Prop.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\Props.png">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="assets\Props.tsx">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="game\gameObjects\ExplodeChunkParticle.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

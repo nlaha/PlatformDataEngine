@@ -6,8 +6,8 @@
 
 void PlatformDataEngine::StatsPanel::init()
 {
-    std::shared_ptr<AnimationController> ac = this->m_parent->findComponentOfType<AnimationController>();
-    if (ac.get() != nullptr)
+    AnimationController* ac = this->m_parent->findComponentOfType<AnimationController>().get();
+    if (ac != nullptr)
     {
         this->m_animController = ac;
     }
@@ -17,7 +17,7 @@ void PlatformDataEngine::StatsPanel::init()
     }
 
     this->m_player = PlatformDataEngineWrapper::getWorld()->getPlayer();
-    this->m_playerRocketLauncher = this->m_player->getChildren()[0]->findComponentOfType<RocketLauncher>();
+    this->m_playerRocketLauncher = this->m_player->getChildren()[0]->findComponentOfType<RocketLauncher>().get();
 
     this->m_healthBar.setSize(sf::Vector2f(this->m_healthBarSize.x, this->m_healthBarSize.y));
     this->m_healthBar.setFillColor(sf::Color::Red);

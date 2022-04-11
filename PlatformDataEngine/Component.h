@@ -18,7 +18,6 @@ namespace PlatformDataEngine {
 	public:
 
 		Component();
-		virtual ~Component();
 
 		virtual void copy(std::shared_ptr<Component> otherCompPtr);
 

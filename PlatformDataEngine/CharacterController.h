@@ -52,8 +52,8 @@ namespace PlatformDataEngine {
         
         void updateAnimation(b2Vec2 velocity);
         
-        std::shared_ptr<PhysicsBody> m_PhysBody;
-        std::shared_ptr<AnimationController> m_AnimController;
+        PhysicsBody* m_PhysBody;
+        AnimationController* m_AnimController;
 
         float m_moveForce;
         float m_jumpForce;

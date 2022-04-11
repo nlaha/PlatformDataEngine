@@ -12,8 +12,8 @@ void CharacterController::init()
 {
     Component::init();
 
-    std::shared_ptr<PhysicsBody> pb = this->m_parent->findComponentOfType<PhysicsBody>();
-    if (pb.get() != nullptr) {
+    PhysicsBody* pb = this->m_parent->findComponentOfType<PhysicsBody>().get();
+    if (pb != nullptr) {
         this->m_PhysBody = pb;
 
         b2Fixture* fix = this->m_PhysBody->getBody()->GetFixtureList();
@@ -36,8 +36,8 @@ void CharacterController::init()
         spdlog::critical("GameObject {} has a CharacterController so it must also have a PhysicsBody", this->m_parent->getName());
     }
 
-    std::shared_ptr<AnimationController> animController = this->m_parent->findComponentOfType<AnimationController>();
-    if (animController.get() != nullptr) {
+    AnimationController* animController = this->m_parent->findComponentOfType<AnimationController>().get();
+    if (animController != nullptr) {
         this->m_AnimController = animController;
     }
     else {

@@ -63,7 +63,7 @@ namespace PlatformDataEngine {
 		void sortChildZ();
 
 		template<typename T>
-		inline std::shared_ptr<T> findComponentOfType()
+		inline std::shared_ptr<T> findComponentOfType() const
 		{
 			for (auto& compPair : this->m_components)
 			{
@@ -75,6 +75,7 @@ namespace PlatformDataEngine {
 					return derived;
 				}
 			}
+			return nullptr;
 		}
 
 		void onDeath();

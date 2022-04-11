@@ -1,0 +1,43 @@
+{
+  "components": [
+    {
+      "type": "TimedDestroy",
+      "properties": {
+        "time": 4000,
+        "range": true,
+        "rangeLow": 4000,
+        "rangeHigh": 8000
+      }
+    },
+    {
+      "type": "SpriteRenderer",
+      "properties": {
+        "texture": "assets/FireParticle.png",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": -1,
+          "height": -1
+        }
+      }
+    },
+    {
+      "type": "PhysicsBody",
+      "properties": {
+        "type": "dynamic",
+        "doesRotate": true,
+        "continuous": false,
+        "density": 2.0,
+        "friction": 0.25,
+        "bouncy": 0.25,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        },
+        "fixtures": []
+      }
+    }
+  ]
+}

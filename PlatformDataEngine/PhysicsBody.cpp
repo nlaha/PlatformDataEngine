@@ -11,7 +11,7 @@ PhysicsBody::PhysicsBody() : Component()
 
 void PhysicsBody::copy(std::shared_ptr<Component> otherCompPtr)
 {
-	std::shared_ptr<PhysicsBody> other = std::dynamic_pointer_cast<PhysicsBody>(otherCompPtr);
+	PhysicsBody* other = std::dynamic_pointer_cast<PhysicsBody>(otherCompPtr).get();
 
 	this->m_bodyType = other->m_bodyType;
 

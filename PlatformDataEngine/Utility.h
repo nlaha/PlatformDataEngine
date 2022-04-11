@@ -127,5 +127,10 @@ namespace PlatformDataEngine
         {
             return b2Vec2(in.x, in.y);
         }
+
+        static sf::Vector2f fromB2(b2Vec2 in)
+        {
+            return sf::Vector2f(in.x, in.y);
+        }
     };
 }

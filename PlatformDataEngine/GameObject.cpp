@@ -19,6 +19,7 @@ GameObject::GameObject(bool isDef)
 	this->m_self = nullptr;
 	this->m_hasHealthBar = false;
 	this->m_healthBar = nullptr;
+	this->m_name = "";
 }
 
 /// <summary>
@@ -42,7 +43,7 @@ GameObject::GameObject(const GameObject& other)
 	this->m_destroyed = other.m_destroyed;
 	this->m_zLayer = other.m_zLayer;
 	this->m_parent = other.m_parent;
-	this->m_self = other.m_self;
+	this->m_self = nullptr;
 	this->m_name = other.m_name;
 	this->m_id = other.m_id;
 	this->m_properties = other.m_properties;
@@ -125,6 +126,7 @@ void GameObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	// draw health bar if we have that enabled
 	if (this->m_hasHealthBar && this->m_healthBar != nullptr)
 	{
+		this->m_healthBar->setPosition(Utility::fromB2(this->findComponentOfType<PhysicsBody>()->getBody()->GetWorldCenter()));
 		target.draw(*this->m_healthBar, states);
 	}
 }
@@ -170,6 +172,7 @@ void GameObject::loadDefinition(std::string filename) {
 /// <param name="self">a pointer to the new parent, usually "this" as a shared pointer</param>
 void GameObject::registerComponentHierarchy(std::shared_ptr<GameObject> self)
 {
+	this->m_self = self.get();
 	for (auto& compPair : this->m_components)
 	{
 		compPair.second->registerHierarchy(self.get());

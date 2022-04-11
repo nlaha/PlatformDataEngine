@@ -7,12 +7,16 @@ using namespace PlatformDataEngine;
 
 
 
+RocketProjectile::~RocketProjectile()
+{
+}
+
 void RocketProjectile::init()
 {
     Component::init();
 
-    std::shared_ptr<PhysicsBody> pb = this->m_parent->findComponentOfType<PhysicsBody>();
-    if (pb.get() != nullptr) {
+    PhysicsBody* pb = this->m_parent->findComponentOfType<PhysicsBody>().get();
+    if (pb != nullptr) {
         this->m_PhysBody = pb;
 
         b2Fixture* fix = this->m_PhysBody->getBody()->GetFixtureList();
@@ -88,9 +92,10 @@ void RocketProjectile::update(const float& dt, const float& elapsedTime)
                 impulseVec.y *= this->m_explosionForce * velocityFalloff;
 
                 float friendlyFireMultiplier = 1.0f;
-                if (this->m_owningGameObject == PlatformDataEngineWrapper::getWorld()->getPlayer())
+                if (reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer)->gameObjectOwner == 
+                    PlatformDataEngineWrapper::getWorld()->getPlayer())
                 {
-                    friendlyFireMultiplier = 0.1f;
+                    friendlyFireMultiplier = 1.1f;
                 }
 
                 // damage body

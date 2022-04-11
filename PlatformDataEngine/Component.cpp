@@ -8,10 +8,6 @@ Component::Component()
 	this->m_isDefinition = false;
 }
 
-Component::~Component()
-{
-}
-
 /// <summary>
 /// Essentially a copy constructor except the generic shared pointer
 /// must be converted to the derived type using std::dynamic_pointer_cast

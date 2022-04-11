@@ -86,7 +86,7 @@ void GameWorld::init(std::string filePath, sf::View& view)
 	nlohmann::json cameraControllerObj = world.at("cameraController");
 
 	// later change this to some system that multiplayer supports
-	this->mp_currentPlayer = this->getGameObject(world.at("playerObject"));
+	this->mp_currentPlayer = this->getGameObject(world.at("playerObject")).get();
 
 	if (this->mp_playerSpawns.size() > 0) {
 		this->mp_currentPlayer->setPosition(this->mp_playerSpawns[0].position);
@@ -133,6 +133,16 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 	{
 		if (it->second->getDestroyed())
 		{
+			if (it->second.get() == this->mp_currentPlayer) {
+				this->setPlayer(nullptr);
+			}
+
+			// no idea why I need to explicitly call the destructor here, clearly
+			// something still has ownership idk
+			if (it->second->findComponentOfType<PhysicsBody>().get() != nullptr) {
+				it->second->findComponentOfType<PhysicsBody>()->~PhysicsBody();
+			}
+
 			this->mp_gameObjects.erase(it++);
 		}
 		else
@@ -235,7 +245,7 @@ void GameWorld::registerGameObjectDefinition(std::string name, std::shared_ptr<G
 
 std::shared_ptr<GameObject> GameWorld::spawnGameObject(std::string type, sf::Vector2f position)
 {
-	//sf::Clock timer;
+	sf::Clock timer;
 
 	std::shared_ptr<GameObject> p_gameObject = std::make_shared<GameObject>(
 		*this->getGameObjectDefs().at(type)
@@ -247,7 +257,7 @@ std::shared_ptr<GameObject> GameWorld::spawnGameObject(std::string type, sf::Vec
 	p_gameObject->setPosition(position);
 	p_gameObject->registerComponentHierarchy(p_gameObject);
 
-	std::string name = Utility::generate_uuid_v4() + "%id%RocketProjectile";
+	std::string name = Utility::generate_uuid_v4() + "%id%" + p_gameObject->getName();
 
 	p_gameObject->setName(name);
 	p_gameObject->setIsUI(false);
@@ -258,7 +268,7 @@ std::shared_ptr<GameObject> GameWorld::spawnGameObject(std::string type, sf::Vec
 
 	p_gameObject->init();
 
-	//spdlog::info("Spawning object {} took: {}uS", p_gameObject->getName(), timer.getElapsedTime().asMicroseconds());
+	spdlog::info("Spawning object {} took: {}uS at position {}, {}", p_gameObject->getName(), timer.getElapsedTime().asMicroseconds(), position.x, position.y);
 
 	return p_gameObject;
 }

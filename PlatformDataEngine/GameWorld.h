@@ -3,6 +3,7 @@
 #include <vector>
 #include <chrono>
 #include <map>
+#include <thread>
 #include <box2d/box2d.h>
 #include <spdlog/spdlog.h>
 #include "TileMap.h"
@@ -12,6 +13,8 @@
 #include "CameraController.h"
 
 namespace PlatformDataEngine {
+
+	void physicsThreadFn(std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<b2World> world);
 
 	/// <summary>
 	/// Represents a game world with it's own tile map and gameObjects
@@ -39,8 +42,8 @@ namespace PlatformDataEngine {
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 		// helpers
-		void registerGameObject(std::string name, std::shared_ptr<GameObject>);
-		void registerGameObjectDefinition(std::string name, std::shared_ptr<GameObject>);
+		void registerGameObject(std::string name, std::shared_ptr<GameObject> gameObject);
+		void registerGameObjectDefinition(std::string name, std::shared_ptr<GameObject> gameObjectDef);
 
 		std::shared_ptr<GameObject> spawnGameObject(std::string type, sf::Vector2f position);
 
@@ -52,7 +55,8 @@ namespace PlatformDataEngine {
 		inline std::shared_ptr<GameObject> getGameObject(std::string search) {
 			return this->mp_gameObjects.find(search)->second;
 		};
-		inline std::shared_ptr<GameObject> getPlayer() const { return this->mp_currentPlayer; };
+		inline GameObject* getPlayer() const { return this->mp_currentPlayer; };
+		inline void setPlayer(GameObject* player) { this->mp_currentPlayer = player; }
 
 		inline std::map<std::string, std::shared_ptr<GameObject>>& getGameObjectDefs() { return this->m_gameObjectDefinitions; };
 
@@ -64,7 +68,7 @@ namespace PlatformDataEngine {
 	private:
 		std::shared_ptr<b2World> mp_physicsWorld;
 		std::shared_ptr<TileMap> mp_tileMap;
-		std::shared_ptr<GameObject> mp_currentPlayer;
+		GameObject* mp_currentPlayer;
 		std::vector<PlayerSpawn> mp_playerSpawns;
 
 		std::shared_ptr<sf::View> mp_view;

@@ -32,10 +32,10 @@ void RocketLauncher::update(const float& dt, const float& elapsedTime)
 		this->m_rocketClock.getElapsedTime().asMilliseconds() >
 		this->m_rocketCooldown) {
 		sf::Vector2f directionVec = Utility::directionVec(parent->getPosition(), worldPos);
-		std::shared_ptr<GameObject> p_gameObject = PlatformDataEngineWrapper::getWorld()->spawnGameObject(
+		GameObject* p_gameObject = PlatformDataEngineWrapper::getWorld()->spawnGameObject(
 			"RocketProjectile", 
 			(parent->getPosition() + this->m_parent->getPosition())
-		);
+		).get();
 		p_gameObject->setZlayer(40);
 		p_gameObject->setRotation(rot);
 	
@@ -45,10 +45,10 @@ void RocketLauncher::update(const float& dt, const float& elapsedTime)
 		pBody->ApplyLinearImpulseToCenter(
 			Utility::fromSf(directionVec * -this->m_velocity), true);
 
-		std::shared_ptr<AnimationController> animControl = this->m_parent->findComponentOfType<AnimationController>();
+		AnimationController* animControl = this->m_parent->findComponentOfType<AnimationController>().get();
 		animControl->setAnimation("Shoot", 1.0, false);
 
-		std::shared_ptr<RocketProjectile> projectile = p_gameObject->findComponentOfType<RocketProjectile>();
+		RocketProjectile* projectile = p_gameObject->findComponentOfType<RocketProjectile>().get();
 		projectile->setOwner(this->m_parent->getParent());
 
 		this->m_rocketClock.restart();

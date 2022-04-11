@@ -150,6 +150,7 @@
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="CharacterController.cpp" />
+    <ClCompile Include="Client.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DeathHandler.cpp" />
     <ClCompile Include="EngineStatsText.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="CameraController.h" />
     <ClInclude Include="CharacterController.h" />
+    <ClInclude Include="Client.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="DamageHandler.h" />
@@ -201,6 +203,7 @@
     <ClInclude Include="RocketProjectile.h" />
     <ClInclude Include="PhysicsCallbacks.h" />
     <ClInclude Include="RocketLauncher.h" />
+    <ClInclude Include="Server.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="StatsBar.h" />
     <ClInclude Include="StatsPanel.h" />

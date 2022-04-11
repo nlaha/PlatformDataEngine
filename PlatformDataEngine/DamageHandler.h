@@ -7,6 +7,8 @@ namespace PlatformDataEngine {
         public Component
     {
     public:
+        DamageHandler();
+
         virtual void init() = 0;
 
         virtual void update(const float& dt, const float& elapsedTime) = 0;
@@ -20,6 +22,9 @@ namespace PlatformDataEngine {
         virtual void onDeath() = 0;
 
         virtual void onDamage(float currentHP) = 0;
+
+    protected:
+        bool m_died;
     };
 
 }

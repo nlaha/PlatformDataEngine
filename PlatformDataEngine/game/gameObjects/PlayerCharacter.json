@@ -67,7 +67,7 @@
       "type": "CharacterController",
       "properties": {
         "moveForce": 37.0,
-        "jumpForce": 7.0,
+        "jumpForce": 5.0,
         "maxVelocity": 600.0,
         "jumpCooldown": 200.0,
         "dashCooldown": 1000.0

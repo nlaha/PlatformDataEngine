@@ -70,12 +70,6 @@
     <Filter Include="Header Files\GameScenes">
       <UniqueIdentifier>{867b2680-addf-4801-9408-8f1b7f04f021}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Networking">
-      <UniqueIdentifier>{3b13130c-10e3-421e-b482-c7716a5deee3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Networking">
-      <UniqueIdentifier>{774d8a5e-18fa-4bbf-b3c8-4c8996c4386d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -271,6 +265,9 @@
     </ClInclude>
     <ClInclude Include="PlayerDeathScene.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalEffects.h">
+      <Filter>Header Files\Internal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

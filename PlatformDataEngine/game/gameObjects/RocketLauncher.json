@@ -15,7 +15,7 @@
     {
       "type": "RocketLauncher",
       "properties": {
-        "velocity": 40,
+        "velocity": 10,
         "cooldown": 800
       }
     },

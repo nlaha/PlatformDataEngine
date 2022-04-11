@@ -7,7 +7,7 @@
 
 using namespace PlatformDataEngine;
 
-void GlobalEffects::explode(SpriteRenderer sprite, sf::Vector2f pos, int slices)
+void GlobalEffects::explode(SpriteRenderer& sprite, sf::Vector2f pos, int slices)
 {
 	sf::IntRect fullRect = sprite.getRect();
 	std::vector<sf::IntRect> particleRects;
@@ -28,9 +28,8 @@ void GlobalEffects::explode(SpriteRenderer sprite, sf::Vector2f pos, int slices)
 	{
 		std::shared_ptr<GameObject> particle = PlatformDataEngineWrapper::getWorld()->spawnGameObject("ExplodeChunkParticle", pos + sf::Vector2f(pRect.left, pRect.top));
 		particle->setZlayer(40);
-		particle->setScale({ 0.9f, 0.9f });
 
-		std::shared_ptr<SpriteRenderer> pSprite = particle->findComponentOfType<SpriteRenderer>();
+		SpriteRenderer* pSprite = particle->findComponentOfType<SpriteRenderer>().get();
 		pSprite->setTexture(tex);
 		pSprite->setRect(pRect);
 		pSprite->getSprite().setPosition(-(pRect.width / 2.0f), -(pRect.height / 2.0f));
@@ -51,7 +50,6 @@ void GlobalEffects::explode(SpriteRenderer sprite, sf::Vector2f pos, int slices)
 		fd.filter.categoryBits = PlatformDataEngine::PARTICLE;
 		fd.filter.maskBits = PlatformDataEngine::WORLD_STATIC | PlatformDataEngine::WORLD_DYNAMIC;
 		pBody->getBody()->CreateFixture(&fd);
-		pBody->getBody()->SetBullet(true);
 
 	}
 }

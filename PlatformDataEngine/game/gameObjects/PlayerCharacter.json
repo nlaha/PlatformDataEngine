@@ -68,7 +68,7 @@
       "properties": {
         "moveForce": 37.0,
         "jumpForce": 7.0,
-        "maxVelocity": 8000.0,
+        "maxVelocity": 600.0,
         "jumpCooldown": 200.0,
         "dashCooldown": 1000.0
       }

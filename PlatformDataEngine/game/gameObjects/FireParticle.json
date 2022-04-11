@@ -36,7 +36,7 @@
         "type": "dynamic",
         "doesRotate": true,
         "continuous": false,
-        "density": 2.0,
+        "density": 3.0,
         "friction": 0.25,
         "bouncy": 0.25,
         "rect": {

@@ -26,8 +26,8 @@
       "properties": {
         "type": "dynamic",
         "doesRotate": true,
-        "continuous": true,
-        "density": 1.0,
+        "continuous": false,
+        "density": 2.0,
         "friction": 0.25,
         "bouncy": 0.25,
         "rect": {

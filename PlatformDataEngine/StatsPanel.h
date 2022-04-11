@@ -26,9 +26,9 @@ namespace PlatformDataEngine
         void loadDefinition(nlohmann::json object);
 
     private:
-        std::shared_ptr<AnimationController> m_animController;
-        std::shared_ptr<GameObject> m_player;
-        std::shared_ptr<RocketLauncher> m_playerRocketLauncher;
+        AnimationController* m_animController;
+        GameObject* m_player;
+        RocketLauncher* m_playerRocketLauncher;
 
         sf::RectangleShape m_healthBar;
         sf::RectangleShape m_healthBarDelayed;

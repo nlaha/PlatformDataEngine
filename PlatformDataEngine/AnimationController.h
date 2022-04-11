@@ -51,7 +51,7 @@ namespace PlatformDataEngine
         void setAnimation(const std::string animName, float speed = 1.0f, bool loop = true);
 
     private:
-        std::shared_ptr<SpriteRenderer> m_spriteRenderer;
+        SpriteRenderer* m_spriteRenderer;
 
         std::map<std::string, Animation> m_animations;
         AnimationFrame* m_curFrame;

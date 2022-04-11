@@ -17,6 +17,8 @@ namespace PlatformDataEngine {
 
 		void loadDefinition(nlohmann::json object);
 
+		void setPosition(sf::Vector2f pos);
+
 	private:
 		sf::RectangleShape m_healthBar;
 		sf::RectangleShape m_healthBarDelayed;
@@ -27,6 +29,8 @@ namespace PlatformDataEngine {
 		float m_healthBarSpeed;
 
 		sf::Vector2f m_healthBarSize;
+
+		sf::Vector2f m_position;
 	};
 }
 

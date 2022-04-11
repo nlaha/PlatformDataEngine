@@ -151,22 +151,19 @@ namespace PlatformDataEngine {
 
             // always top left of window (for GUI)
             this->m_windowZero = mp_renderWindow->mapPixelToCoords({ 0, 0 });
-
-            if (!m_pausedGame) {
-                mp_mainWorld->update(dt.asSeconds(), elapsedClock.getElapsedTime().asSeconds()); // update world
-                mp_mainWorld->physicsUpdate(dt.asSeconds(), elapsedClock.getElapsedTime().asSeconds()); // update physics world
-            }
             
             // update view
             sf::View view = mp_mainWorld->getView();
             view.setViewport(viewPort);
             mp_renderWindow->setView(view);
 
-            //mp_renderWindow->draw(*mp_mainWorld);
+            if (!m_pausedGame) {
+                mp_mainWorld->update(dt.asSeconds(), elapsedClock.getElapsedTime().asSeconds()); // update world
+                mp_mainWorld->physicsUpdate(dt.asSeconds(), elapsedClock.getElapsedTime().asSeconds()); // update physics world
 
-            // get delta time
-            dt = deltaClock.restart();
-
+                // get delta time
+                dt = deltaClock.restart();
+            }
         }
         renderThread.join();
     }

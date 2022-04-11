@@ -32,9 +32,13 @@ void StatsBar::update(const float& dt, const float& elapsedTime, float hp)
 
 void StatsBar::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    target.draw(this->m_healthBarBackground, states);
-    target.draw(this->m_healthBarDelayed, states);
-    target.draw(this->m_healthBar, states);
+    sf::RenderStates statesNoRot = states;
+    statesNoRot.transform = sf::Transform::Identity;
+    statesNoRot.transform.translate(this->m_position + this->m_healthBar.getPosition());
+
+    target.draw(this->m_healthBarBackground, statesNoRot);
+    target.draw(this->m_healthBarDelayed, statesNoRot);
+    target.draw(this->m_healthBar, statesNoRot);
 }
 
 void StatsBar::loadDefinition(nlohmann::json object)
@@ -49,4 +53,9 @@ void StatsBar::loadDefinition(nlohmann::json object)
         object.at("transform").at("width"),
         object.at("transform").at("height")
     );
+}
+
+void StatsBar::setPosition(sf::Vector2f pos)
+{
+    this->m_position = pos;
 }

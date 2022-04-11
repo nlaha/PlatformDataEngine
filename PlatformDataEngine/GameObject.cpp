@@ -19,6 +19,7 @@ GameObject::GameObject(bool isDef)
 	this->m_self = nullptr;
 	this->m_hasHealthBar = false;
 	this->m_healthBar = nullptr;
+	this->m_name = "";
 }
 
 /// <summary>
@@ -125,6 +126,7 @@ void GameObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	// draw health bar if we have that enabled
 	if (this->m_hasHealthBar && this->m_healthBar != nullptr)
 	{
+		this->m_healthBar->setPosition(Utility::fromB2(this->findComponentOfType<PhysicsBody>()->getBody()->GetWorldCenter()));
 		target.draw(*this->m_healthBar, states);
 	}
 }

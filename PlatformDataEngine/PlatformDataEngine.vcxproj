@@ -120,6 +120,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,6 +157,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameWorld.cpp" />
+    <ClCompile Include="GlobalEffects.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PhysicsCallbacks.cpp" />
@@ -190,6 +192,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GameWorld.h" />
+    <ClInclude Include="GlobalEffects.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PhysicsDebugDraw.h" />
@@ -317,6 +320,10 @@
     <CopyFileToFolders Include="assets\Props.tsx">
       <FileType>Document</FileType>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/assets</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="game\gameObjects\ExplodeChunkParticle.json">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/game/gameObjects</DestinationFolders>
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>

@@ -19,6 +19,8 @@ namespace PlatformDataEngine {
     {
     public:
 
+        ~RocketProjectile();
+
         void init();
 
         void update(const float& dt, const float& elapsedTime);
@@ -35,7 +37,7 @@ namespace PlatformDataEngine {
 
         std::shared_ptr<GameObject> m_owningGameObject;
 
-        std::shared_ptr<PhysicsBody> m_PhysBody;
+        PhysicsBody* m_PhysBody;
         b2Fixture* m_explosionSensor;
 
         std::string m_ParticleSystemName;

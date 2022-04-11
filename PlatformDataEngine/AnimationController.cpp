@@ -19,8 +19,8 @@ void AnimationController::init()
 {
     Component::init();
 
-    std::shared_ptr<SpriteRenderer> spriteRender = this->m_parent->findComponentOfType<SpriteRenderer>();
-    if (spriteRender.get() != nullptr)
+    SpriteRenderer* spriteRender = this->m_parent->findComponentOfType<SpriteRenderer>().get();
+    if (spriteRender != nullptr)
     {
         this->m_spriteRenderer = spriteRender;
     }

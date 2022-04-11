@@ -60,4 +60,6 @@ void ParticleSystem::spawnParticles()
 
 		bd->ApplyLinearImpulseToCenter(dir, true);
 	}
+
+	this->m_parent->destroySelf();
 }

@@ -152,7 +152,7 @@
     <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="CharacterController.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="DeathHandler.cpp" />
+    <ClCompile Include="DamageHandler.cpp" />
     <ClCompile Include="EngineStatsText.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameScene.cpp" />
@@ -168,6 +168,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="PlatformDataEngineWrapper.cpp" />
+    <ClCompile Include="PropDamageHandler.cpp" />
     <ClCompile Include="RocketProjectile.cpp" />
     <ClCompile Include="RocketLauncher.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="PlayerInputManager.h" />
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="PlatformDataEngineWrapper.h" />
+    <ClInclude Include="PropDamageHandler.h" />
     <ClInclude Include="RocketProjectile.h" />
     <ClInclude Include="PhysicsCallbacks.h" />
     <ClInclude Include="RocketLauncher.h" />

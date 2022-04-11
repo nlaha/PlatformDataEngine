@@ -11,6 +11,10 @@
   },
   "components": [
     {
+      "type": "PropDamageHandler",
+      "properties": {}
+    },
+    {
       "type": "SpriteRenderer",
       "properties": {
         "texture": "assets/Props.png",

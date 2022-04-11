@@ -230,14 +230,18 @@ void PlayerInputManager::loadDefinition(std::string inputManagerFile)
 		Axis axis(this->m_gamepadIndex, axisConfig.value().at("deadZone"));
 
 		// axis keys
-		for (const auto& axisKey : axisConfig.value().at("positiveKeys"))
-		{
-			axis.addTrigger(static_cast<sf::Keyboard::Key>(axisKey), 1);
+		if (axisConfig.value().count("positiveKeys") > 0) {
+			for (const auto& axisKey : axisConfig.value().at("positiveKeys"))
+			{
+				axis.addTrigger(static_cast<sf::Keyboard::Key>(axisKey), 1);
+			}
 		}
 
-		for (const auto& axisKey : axisConfig.value().at("negativeKeys"))
-		{
-			axis.addTrigger(static_cast<sf::Keyboard::Key>(axisKey), 0);
+		if (axisConfig.value().count("negativeKeys") > 0) {
+			for (const auto& axisKey : axisConfig.value().at("negativeKeys"))
+			{
+				axis.addTrigger(static_cast<sf::Keyboard::Key>(axisKey), 0);
+			}
 		}
 
 		// axis gamepad axis

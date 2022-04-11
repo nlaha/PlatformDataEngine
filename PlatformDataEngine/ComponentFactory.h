@@ -17,6 +17,7 @@
 #include "StatsPanel.h"
 
 #include "PlayerDamageHandler.h"
+#include "PropDamageHandler.h"
 
 namespace PlatformDataEngine {
 
@@ -59,7 +60,8 @@ namespace PlatformDataEngine {
             {"StatsPanel", &construct<StatsPanel>},
 
             // damage handlers
-            {"PlayerDamageHandler", &construct<PlayerDamageHandler>}
+            {"PlayerDamageHandler", &construct<PlayerDamageHandler>},
+            {"PropDamageHandler", &construct<PropDamageHandler>}
         };
 	};
 }

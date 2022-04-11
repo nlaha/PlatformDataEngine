@@ -61,7 +61,7 @@ void CharacterController::update(const float& dt, const float& elapsedTime)
         axisModifier = std::abs(m_pInputManager->getAxis("x").getValue() / 100.0f);
         // move left
         if (vel.LengthSquared() <= this->m_maxVelocity)
-            this->m_PhysBody->getBody()->ApplyForceToCenter({ -1.f * this->m_moveForce, 0.f }, true);
+            this->m_PhysBody->getBody()->ApplyForceToCenter({ -1.f * this->m_moveForce * axisModifier, 0.f }, true);
 
         this->m_AnimController->setFlipFlag(AnimationController::FlipFlags::HORIZONTAL);
         this->m_AnimController->setAnimation("Walk", 4.0f * std::fabsf(axisModifier), true);

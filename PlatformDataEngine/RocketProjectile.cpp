@@ -95,7 +95,7 @@ void RocketProjectile::update(const float& dt, const float& elapsedTime)
                 if (reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer)->gameObjectOwner == 
                     PlatformDataEngineWrapper::getWorld()->getPlayer())
                 {
-                    friendlyFireMultiplier = 1.1f;
+                    friendlyFireMultiplier = 0.1f;
                 }
 
                 // damage body

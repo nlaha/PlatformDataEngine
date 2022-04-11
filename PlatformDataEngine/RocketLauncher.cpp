@@ -15,10 +15,20 @@ void RocketLauncher::init()
 void RocketLauncher::update(const float& dt, const float& elapsedTime)
 {
 	sf::Vector2i pixelPos = sf::Mouse::getPosition(*PlatformDataEngineWrapper::getWindow());
+
 	sf::Vector2f worldPos = PlatformDataEngineWrapper::getWindow()->mapPixelToCoords(pixelPos);
 
 	std::shared_ptr<GameObject> parent = this->m_parent->getParent();
-	
+
+	if (this->m_pInputManager->getAxis("x_right").isNegative() || this->m_pInputManager->getAxis("x_right").isPositive()
+		|| this->m_pInputManager->getAxis("y_right").isNegative() || this->m_pInputManager->getAxis("y_right").isNegative())
+	{
+		sf::Vector2f axisIn(this->m_pInputManager->getAxis("x_right").getValue(), this->m_pInputManager->getAxis("y_right").getValue());
+		
+		worldPos = parent->getPosition();
+		worldPos.x += axisIn.x;
+		worldPos.y += axisIn.y;
+	}	
 
 	float rot = Utility::lookAt(
 		parent->getPosition(),

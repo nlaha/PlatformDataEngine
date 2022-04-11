@@ -32,6 +32,9 @@ namespace PlatformDataEngine {
         sf::Clock m_rocketClock;
         float m_rocketCooldown;
         float m_velocity;
+
+        sf::Vector2i m_oldPixelPos;
+        sf::Vector2f m_worldPos;
     };
 }
 

@@ -2,15 +2,23 @@
   "gamepadIndex": 0,
   "axis": {
     "x": {
-      "axis": [0, 6],
-      "positiveKeys": [3],
-      "negativeKeys": [0],
+      "axis": [ 0, 6 ],
+      "positiveKeys": [ 3 ],
+      "negativeKeys": [ 0 ],
       "deadZone": 5
     },
     "y": {
-      "axis": [1, 7],
-      "positiveKeys": [22],
-      "negativeKeys": [18],
+      "axis": [ 1, 7 ],
+      "positiveKeys": [ 22 ],
+      "negativeKeys": [ 18 ],
+      "deadZone": 5
+    },
+    "x_right": {
+      "axis": [ 2 ],
+      "deadZone": 5
+    },
+    "y_right": {
+      "axis": [ 3 ],
       "deadZone": 5
     }
   },
@@ -24,7 +32,7 @@
       "buttons": [0]
     },
     "primary": {
-      "buttons": [ 2 ],
+      "buttons": [ 5 ],
       "mouseButtons":  [0]
     }
   }

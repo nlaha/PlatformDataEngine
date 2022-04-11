@@ -38,7 +38,7 @@ namespace PlatformDataEngine {
             fpsClock.restart();
 
             // print some stats
-            spdlog::debug("FPS: {0:.2f}", PlatformDataEngineWrapper::m_fps);
+            //spdlog::debug("FPS: {0:.2f}", PlatformDataEngineWrapper::m_fps);
         }
     }
 
@@ -147,6 +147,11 @@ namespace PlatformDataEngine {
                         m_debugPhysics = !m_debugPhysics;
                     }
                 }
+
+                if (event.type == sf::Event::JoystickMoved)
+                {
+
+                }
             }
 
             // always top left of window (for GUI)
@@ -156,7 +161,6 @@ namespace PlatformDataEngine {
             sf::View view = mp_mainWorld->getView();
             view.setViewport(viewPort);
             mp_renderWindow->setView(view);
-
             if (!m_pausedGame) {
                 mp_mainWorld->update(dt.asSeconds(), elapsedClock.getElapsedTime().asSeconds()); // update world
                 mp_mainWorld->physicsUpdate(dt.asSeconds(), elapsedClock.getElapsedTime().asSeconds()); // update physics world

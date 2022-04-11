@@ -13,13 +13,13 @@ void GlobalEffects::explode(SpriteRenderer sprite, sf::Vector2f pos)
 	std::vector<sf::IntRect> particleRects;
 
 	// get a bunch of sub-rects int the current sprite rect
-	int width = fullRect.width / 4;
-	int height = fullRect.width / 4;
-	for (int i = 0; i < fullRect.width / width; i++)
+	int width = std::abs(fullRect.width) / 8;
+	int height = std::abs(fullRect.height) / 8;
+	for (int i = 0; i < std::abs(fullRect.width); i += width)
 	{
-		for (int j = 0; j < fullRect.height / height; j++)
+		for (int j = 0; j < std::abs(fullRect.height); j += height)
 		{
-			particleRects.push_back(sf::IntRect(i * width, j * height, width, height));
+			particleRects.push_back(sf::IntRect(i, j, width, height));
 		}
 	}
 

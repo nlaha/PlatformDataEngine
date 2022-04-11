@@ -36,17 +36,7 @@
           "width": 1,
           "height": 1
         },
-        "fixtures": [
-          {
-            "shape": "box",
-            "rect": {
-              "x": 1,
-              "y": 1,
-              "width": 1,
-              "height": 1
-            }
-          }
-        ]
+        "fixtures": []
       }
     }
   ]

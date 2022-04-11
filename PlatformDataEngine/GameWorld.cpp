@@ -245,7 +245,7 @@ void GameWorld::registerGameObjectDefinition(std::string name, std::shared_ptr<G
 
 std::shared_ptr<GameObject> GameWorld::spawnGameObject(std::string type, sf::Vector2f position)
 {
-	//sf::Clock timer;
+	sf::Clock timer;
 
 	std::shared_ptr<GameObject> p_gameObject = std::make_shared<GameObject>(
 		*this->getGameObjectDefs().at(type)
@@ -268,7 +268,7 @@ std::shared_ptr<GameObject> GameWorld::spawnGameObject(std::string type, sf::Vec
 
 	p_gameObject->init();
 
-	//spdlog::info("Spawning object {} took: {}uS", p_gameObject->getName(), timer.getElapsedTime().asMicroseconds());
+	spdlog::info("Spawning object {} took: {}uS at position {}, {}", p_gameObject->getName(), timer.getElapsedTime().asMicroseconds(), position.x, position.y);
 
 	return p_gameObject;
 }

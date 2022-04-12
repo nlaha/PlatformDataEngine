@@ -14,6 +14,8 @@
 #include "GameWorld.h"
 #include "PlayerInputManager.h"
 #include "PhysicsDebugDraw.h"
+#include "Server.h"
+#include "Client.h"
 
 namespace PlatformDataEngine {
 
@@ -37,7 +39,7 @@ namespace PlatformDataEngine {
 		PlatformDataEngineWrapper();
 		~PlatformDataEngineWrapper();
 
-		void run();
+		void run(bool isClient);
 
 		static inline float m_fps{ 0.0 };
 		static inline sf::Vector2f m_windowZero{ 0.0, 0.0 };
@@ -55,14 +57,24 @@ namespace PlatformDataEngine {
 		static inline bool getIsDebugPhysics() {
 			return PlatformDataEngineWrapper::m_debugPhysics;
 		}
+
+		static inline NetworkHandler* getNetworkHandler() {
+			return PlatformDataEngineWrapper::m_netHandler.get();
+		}
+
+		static inline bool getIsClient() {
+			return PlatformDataEngineWrapper::m_isClient;
+		}
 	
 	private:
 		static std::shared_ptr<GameWorld> mp_mainWorld;
 		static std::shared_ptr<PlayerInputManager> mp_playerInputManager;
 		static std::shared_ptr<sf::RenderWindow> mp_renderWindow;
+		static std::shared_ptr<NetworkHandler> m_netHandler;
 
 		static bool m_pausedGame;
 		static bool m_debugPhysics;
+		static bool m_isClient;
 
 		std::mutex mutex;
 	};

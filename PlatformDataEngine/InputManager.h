@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <SFML/Graphics.hpp>
 
 namespace PlatformDataEngine {
 
@@ -12,6 +13,8 @@ namespace PlatformDataEngine {
 	class InputManager
 	{
 	public:
+
+		virtual sf::Vector2i getMouse() = 0;
 
 		class Axis {
 		public:

@@ -5,6 +5,7 @@
 #include "Component.h"
 #include "PhysicsCallbacks.h"
 #include "PlayerInputManager.h"
+#include "NetworkInputManager.h"
 
 namespace PlatformDataEngine {
 
@@ -48,7 +49,7 @@ namespace PlatformDataEngine {
 
     private:
 
-        std::shared_ptr<PlayerInputManager> m_pInputManager;
+        std::shared_ptr<InputManager> m_pInputManager;
         
         void updateAnimation(b2Vec2 velocity);
         

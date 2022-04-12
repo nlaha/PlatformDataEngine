@@ -36,6 +36,7 @@ namespace PlatformDataEngine {
 
 		// game functions and loops
 		void init(std::string filePath, sf::View& view);
+		void initClient(std::string filePath, sf::View& view);
 		void initPhysics();
 		void update(const float& dt, const float& elapsedTime);
 		void physicsUpdate(const float& dt, const float& elapsedTime);
@@ -60,6 +61,8 @@ namespace PlatformDataEngine {
 
 		inline std::map<std::string, std::shared_ptr<GameObject>>& getGameObjectDefs() { return this->m_gameObjectDefinitions; };
 
+		std::string spawnPlayer(std::string ip);
+
 		// setters
 		inline void addPlayerSpawn(PlayerSpawn& spawn) {
 			this->mp_playerSpawns.push_back(spawn);
@@ -76,7 +79,11 @@ namespace PlatformDataEngine {
 		CameraController m_cameraControl;
 
 		std::map<std::string, std::shared_ptr<GameObject>> mp_gameObjects;
+		std::map<std::string, GameObject*> m_players;
+		nlohmann::json m_playerDef;
 
 		std::map<std::string, std::shared_ptr<GameObject>> m_gameObjectDefinitions;
+
+		std::shared_ptr<GameObject> spawnDefinedGameObject(nlohmann::json gameObject);
 	};
 }

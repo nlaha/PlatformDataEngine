@@ -1,4 +1,5 @@
 #include "PlayerInputManager.h"
+#include "PlatformDataEngineWrapper.h"
 
 using namespace PlatformDataEngine;
 
@@ -177,6 +178,11 @@ bool PlayerInputManager::Button::getValue()
 	}
 
 	return value;
+}
+
+sf::Vector2i PlatformDataEngine::PlayerInputManager::getMouse()
+{
+	return sf::Mouse::getPosition(*PlatformDataEngineWrapper::getWindow());
 }
 
 PlayerInputManager::PlayerInputManager(int gamepadIndex)

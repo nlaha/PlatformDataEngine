@@ -5,8 +5,8 @@
       "properties": {
         "text": "",
         "fontPath": "assets/VT323-Regular.ttf",
-        "fontSize": 20,
-        "renderSize": 0.5,
+        "fontSize": 70,
+        "renderSize": 0.1,
         "fontBold": false
       }
     }

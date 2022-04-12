@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "PlayerInputManager.h"
+#include "NetworkInputManager.h"
 #include "Globals.h"
 
 namespace PlatformDataEngine {
@@ -28,7 +29,7 @@ namespace PlatformDataEngine {
         }
 
     private:
-        std::shared_ptr<PlayerInputManager> m_pInputManager;
+        std::shared_ptr<InputManager> m_pInputManager;
 
         sf::Clock m_rocketClock;
         float m_rocketCooldown;

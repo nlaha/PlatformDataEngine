@@ -9,6 +9,8 @@ namespace PlatformDataEngine {
 	class TextRenderer : public Component
 	{
 	public:
+		TextRenderer();
+
 		void init();
 
 		void update(const float& dt, const float& elapsedTime);

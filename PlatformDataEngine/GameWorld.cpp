@@ -36,60 +36,35 @@ void GameWorld::init(std::string filePath, sf::View& view)
 	// construct game object instances
 	nlohmann::json gameObjects = world.at("gameObjects");
 
+	nlohmann::json player;
+
 	// loop through all game objects
 	for (auto& gameObject : gameObjects)
 	{
-		std::shared_ptr<GameObject> p_gameObject = std::make_shared<GameObject>(
-			*this->m_gameObjectDefinitions.at(gameObject.at("type"))
-		);
-		p_gameObject->setPosition(
-			gameObject.at("transform").at("x"),
-			gameObject.at("transform").at("y")
-		);
-		p_gameObject->setOrigin(
-			gameObject.at("transform").at("origin_x"),
-			gameObject.at("transform").at("origin_y")
-		);
-		p_gameObject->setZlayer(
-			gameObject.at("transform").at("z_layer")
-		);
-		p_gameObject->setRotation(
-			gameObject.at("transform").at("rotation")
-		);
-		p_gameObject->setScale({
-			gameObject.at("transform").at("scale"),
-			gameObject.at("transform").at("scale")
-			});
-
-		if (gameObject.count("isUI") > 0) {
-			p_gameObject->setIsUI(gameObject.at("isUI"));
+		if (gameObject.count("isPlayer") <= 0 || !gameObject.at("isPlayer")) {
+			spawnDefinedGameObject(gameObject);
 		}
 		else {
-			p_gameObject->setIsUI(false);
-		}
-		p_gameObject->registerComponentHierarchy(p_gameObject);
-
-		this->registerGameObject(gameObject.at("name"), p_gameObject);
-	}
-
-	for (auto& gameObject : gameObjects)
-	{
-		for (std::string child : gameObject.at("children"))
-		{
-			std::shared_ptr<GameObject> childObj = this->getGameObject(child);
-			childObj->setParent(this->getGameObject(gameObject.at("name")));
-			this->getGameObject(gameObject.at("name"))->addChild(childObj);
+			this->m_playerDef = gameObject;
 		}
 	}
 
 	// init camera controller
 	nlohmann::json cameraControllerObj = world.at("cameraController");
 
-	// later change this to some system that multiplayer supports
-	this->mp_currentPlayer = this->getGameObject(world.at("playerObject")).get();
+	// spawn host player
+	auto hostPlayer = spawnDefinedGameObject(this->m_playerDef);
 
-	if (this->mp_playerSpawns.size() > 0) {
-		this->mp_currentPlayer->setPosition(this->mp_playerSpawns[0].position);
+	this->m_players.emplace("localhost", hostPlayer.get());
+	this->mp_currentPlayer = hostPlayer.get();
+
+	int spawnIdx = 0;
+	for (auto& playerPair : this->m_players)
+	{
+		if (spawnIdx < this->mp_playerSpawns.size()) {
+			playerPair.second->setPosition(this->mp_playerSpawns[spawnIdx].position);
+			spawnIdx++;
+		}
 	}
 
 	this->mp_view = std::make_shared<sf::View>(view);
@@ -102,7 +77,33 @@ void GameWorld::init(std::string filePath, sf::View& view)
 		gameObjectPair.second->init();
 	}
 
-	this->m_cameraControl.setTarget(this->getGameObject(cameraControllerObj.at("cameraLockObject")));
+	this->m_cameraControl.setTarget(hostPlayer);
+}
+
+void GameWorld::initClient(std::string filePath, sf::View& view)
+{
+
+	// load world json file
+	std::ifstream file(filePath);
+
+	if (!file.is_open())
+	{
+		spdlog::error("Failed to open world file: {}", filePath);
+		return;
+	}
+	spdlog::info("Loading world file: {}", filePath);
+
+	nlohmann::json world;
+	file >> world;
+
+	this->mp_tileMap = std::make_shared<TileMap>(world.at("tiledMapFile"));
+
+	// init camera controller
+	nlohmann::json cameraControllerObj = world.at("cameraController");
+
+	this->mp_view = std::make_shared<sf::View>(view);
+	CameraController cc(cameraControllerObj.at("cameraLerpSpeed"), this->mp_view);
+	this->m_cameraControl = cc;
 }
 
 void GameWorld::initPhysics()
@@ -119,6 +120,9 @@ void GameWorld::initPhysics()
 /// <param name="elapsedTime">elapsed time (since game started)</param>
 void GameWorld::update(const float& dt, const float& elapsedTime)
 {
+	// network update
+	PlatformDataEngineWrapper::getNetworkHandler()->process(this);
+
 	// update tile objects
 	this->mp_tileMap->update(dt, elapsedTime);
 
@@ -245,7 +249,7 @@ void GameWorld::registerGameObjectDefinition(std::string name, std::shared_ptr<G
 
 std::shared_ptr<GameObject> GameWorld::spawnGameObject(std::string type, sf::Vector2f position)
 {
-	sf::Clock timer;
+	//sf::Clock timer;
 
 	std::shared_ptr<GameObject> p_gameObject = std::make_shared<GameObject>(
 		*this->getGameObjectDefs().at(type)
@@ -257,7 +261,7 @@ std::shared_ptr<GameObject> GameWorld::spawnGameObject(std::string type, sf::Vec
 	p_gameObject->setPosition(position);
 	p_gameObject->registerComponentHierarchy(p_gameObject);
 
-	std::string name = Utility::generate_uuid_v4() + "%id%" + p_gameObject->getName();
+	std::string name = Utility::generate_uuid_v4();
 
 	p_gameObject->setName(name);
 	p_gameObject->setIsUI(false);
@@ -268,7 +272,69 @@ std::shared_ptr<GameObject> GameWorld::spawnGameObject(std::string type, sf::Vec
 
 	p_gameObject->init();
 
-	spdlog::info("Spawning object {} took: {}uS at position {}, {}", p_gameObject->getName(), timer.getElapsedTime().asMicroseconds(), position.x, position.y);
+	//spdlog::info("Spawning object {} took: {}uS at position {}, {}", p_gameObject->getName(), timer.getElapsedTime().asMicroseconds(), position.x, position.y);
+
+	return p_gameObject;
+}
+
+std::string GameWorld::spawnPlayer(std::string ip)
+{
+	std::shared_ptr<GameObject> player = this->spawnDefinedGameObject(this->m_playerDef);
+	this->m_players.emplace(ip, player.get());
+
+	player->init();
+
+	for (std::shared_ptr<GameObject> child : player->getChildren())
+	{
+		child->init();
+	}
+
+	return player->getName();
+}
+
+std::shared_ptr<GameObject> GameWorld::spawnDefinedGameObject(nlohmann::json gameObject)
+{
+	std::shared_ptr<GameObject> p_gameObject = std::make_shared<GameObject>(
+		*this->m_gameObjectDefinitions.at(gameObject.at("type"))
+		);
+	p_gameObject->setPosition(
+		gameObject.at("transform").at("x"),
+		gameObject.at("transform").at("y")
+	);
+	p_gameObject->setOrigin(
+		gameObject.at("transform").at("origin_x"),
+		gameObject.at("transform").at("origin_y")
+	);
+	p_gameObject->setZlayer(
+		gameObject.at("transform").at("z_layer")
+	);
+	p_gameObject->setRotation(
+		gameObject.at("transform").at("rotation")
+	);
+	p_gameObject->setScale({
+		gameObject.at("transform").at("scale"),
+		gameObject.at("transform").at("scale")
+		});
+
+	if (gameObject.count("isUI") > 0) {
+		p_gameObject->setIsUI(gameObject.at("isUI"));
+	}
+	else {
+		p_gameObject->setIsUI(false);
+	}
+	p_gameObject->registerComponentHierarchy(p_gameObject);
+
+	std::string name = Utility::generate_uuid_v4();
+	p_gameObject->setName(name);
+	this->registerGameObject(name, p_gameObject);
+
+	// spawn children
+	for (nlohmann::json child : gameObject.at("children"))
+	{
+		std::shared_ptr<GameObject> childObj = spawnDefinedGameObject(child);
+		childObj->setParent(p_gameObject);
+		p_gameObject->addChild(childObj);
+	}
 
 	return p_gameObject;
 }

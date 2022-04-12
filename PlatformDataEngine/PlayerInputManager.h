@@ -19,6 +19,8 @@ namespace PlatformDataEngine {
 	{
 	public:
 
+		sf::Vector2i getMouse();
+
 		PlayerInputManager(int gamepadIndex);
 
 		class Axis : public InputManager::Axis {

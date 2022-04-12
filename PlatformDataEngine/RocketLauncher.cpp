@@ -9,12 +9,19 @@ void RocketLauncher::init()
 {
 	Component::init();
 
-	this->m_pInputManager = PlatformDataEngineWrapper::getPlayerInputManager();
+	if (this->m_parent->getParent().get() == PlatformDataEngineWrapper::getWorld()->getPlayer()) {
+		this->m_pInputManager = PlatformDataEngineWrapper::getPlayerInputManager();
+	}
+	else {
+		this->m_pInputManager = std::make_shared<NetworkInputManager>();
+		std::shared_ptr<NetworkInputManager> netIn = std::dynamic_pointer_cast<NetworkInputManager>(this->m_pInputManager);
+		netIn->loadDefinition("./game/input.json");
+	}
 }
 
 void RocketLauncher::update(const float& dt, const float& elapsedTime)
 {
-	sf::Vector2i pixelPos = sf::Mouse::getPosition(*PlatformDataEngineWrapper::getWindow());
+	sf::Vector2i pixelPos = this->m_pInputManager->getMouse();
 
 	sf::Vector2f worldPos = PlatformDataEngineWrapper::getWindow()->mapPixelToCoords(pixelPos);
 

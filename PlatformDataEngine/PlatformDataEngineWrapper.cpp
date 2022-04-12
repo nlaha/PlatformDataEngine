@@ -9,6 +9,9 @@ namespace PlatformDataEngine {
     std::shared_ptr<sf::RenderWindow> PlatformDataEngineWrapper::mp_renderWindow = nullptr;
     bool PlatformDataEngineWrapper::m_pausedGame = false;
     bool PlatformDataEngineWrapper::m_debugPhysics = false;
+    bool PlatformDataEngineWrapper::m_isClient = false;
+
+    std::shared_ptr <NetworkHandler> PlatformDataEngineWrapper::m_netHandler = nullptr;
 
     PlatformDataEngineWrapper::PlatformDataEngineWrapper()
     {
@@ -45,12 +48,23 @@ namespace PlatformDataEngine {
     /// <summary>
     /// Runs the game (makes window and starts systems)
     /// </summary>
-    void PlatformDataEngineWrapper::run()
+    void PlatformDataEngineWrapper::run(bool isClient)
     {
+        m_isClient = isClient;
+
+        // NETWORKING
+        if (isClient) {
+            m_netHandler = std::make_shared<Client>();
+        }
+        else {
+            m_netHandler = std::make_shared<Server>();
+        }
+        m_netHandler->start();
+
         sf::ContextSettings contextSettings;
 
         // create window and viewport
-        mp_renderWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(1920, 1024), "PlatformData Engine", sf::Style::Default, contextSettings);
+        mp_renderWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(640, 480), "PlatformData Engine", sf::Style::Default, contextSettings);
         sf::FloatRect visibleArea(0.f, 0.f, 256, 256);
         sf::View gameView(visibleArea);
         float xoffset = ((mp_renderWindow->getSize().x - mp_renderWindow->getSize().y) / 2.0f) / mp_renderWindow->getSize().x;
@@ -86,7 +100,11 @@ namespace PlatformDataEngine {
         }
 
         // init main world
-        mp_mainWorld->init("game/world.json", gameView);
+        if (isClient) {
+            mp_mainWorld->initClient("game/world.json", gameView);
+        } else {
+            mp_mainWorld->init("game/world.json", gameView);
+        }
 
         // game loop
         sf::Clock deltaClock;

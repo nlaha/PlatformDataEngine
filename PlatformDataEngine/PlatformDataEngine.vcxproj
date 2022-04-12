@@ -151,6 +151,7 @@
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="CharacterController.cpp" />
+    <ClCompile Include="Client.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DamageHandler.cpp" />
     <ClCompile Include="EngineStatsText.cpp" />
@@ -160,6 +161,10 @@
     <ClCompile Include="GlobalEffects.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Message.cpp" />
+    <ClCompile Include="NetworkHandler.cpp" />
+    <ClCompile Include="NetworkInputManager.cpp" />
+    <ClCompile Include="Packet.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PhysicsCallbacks.cpp" />
     <ClCompile Include="PhysicsDebugDraw.cpp" />
@@ -172,6 +177,7 @@
     <ClCompile Include="PropDamageHandler.cpp" />
     <ClCompile Include="RocketProjectile.cpp" />
     <ClCompile Include="RocketLauncher.cpp" />
+    <ClCompile Include="Server.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="StatsBar.cpp" />
     <ClCompile Include="StatsPanel.cpp" />
@@ -187,6 +193,7 @@
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="CameraController.h" />
     <ClInclude Include="CharacterController.h" />
+    <ClInclude Include="Client.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="DamageHandler.h" />
@@ -197,6 +204,11 @@
     <ClInclude Include="GlobalEffects.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Message.h" />
+    <ClInclude Include="NetworkHandler.h" />
+    <ClInclude Include="NetworkInputManager.h" />
+    <ClInclude Include="Packet.h" />
+    <ClInclude Include="MessageTypes.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PhysicsDebugDraw.h" />
     <ClInclude Include="PlayerDamageHandler.h" />
@@ -208,6 +220,7 @@
     <ClInclude Include="RocketProjectile.h" />
     <ClInclude Include="PhysicsCallbacks.h" />
     <ClInclude Include="RocketLauncher.h" />
+    <ClInclude Include="Server.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="StatsBar.h" />
     <ClInclude Include="StatsPanel.h" />

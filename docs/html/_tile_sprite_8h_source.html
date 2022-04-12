@@ -93,41 +93,42 @@ $(document).ready(function(){initNavTree('_tile_sprite_8h_source.html',''); init
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;box2d/box2d.h&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;Tileset.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>PlatformDataEngine {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">class </span>Tileset;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="class_platform_data_engine_1_1_tile_sprite.html">   12</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_platform_data_engine_1_1_tile_sprite.html">TileSprite</a> : <span class="keyword">public</span> sf::Transformable</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <a class="code hl_function" href="class_platform_data_engine_1_1_tile_sprite.html#a86cda93cd19e27f47bad14a0d224c008">TileSprite</a>(std::shared_ptr&lt;Tileset&gt; tileset, b2PolygonShape&amp; collisionShape, <span class="keywordtype">int</span> tileIdx = 0, <span class="keywordtype">bool</span> hasPhysics = <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <a class="code hl_function" href="class_platform_data_engine_1_1_tile_sprite.html#a86cda93cd19e27f47bad14a0d224c008">TileSprite</a>(std::shared_ptr&lt;Tileset&gt; tileset, b2PolygonShape&amp; collisionShape, <span class="keywordtype">int</span> tileIdx = 0, <span class="keywordtype">bool</span> hasPhysics = <span class="keyword">false</span>, sf::Vector2f position = { 0, 0 });</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <a class="code hl_class" href="class_platform_data_engine_1_1_tile_sprite.html">~TileSprite</a>();</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="comment">// copy constructor</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <a class="code hl_function" href="class_platform_data_engine_1_1_tile_sprite.html#a86cda93cd19e27f47bad14a0d224c008">TileSprite</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_platform_data_engine_1_1_tile_sprite.html">TileSprite</a>&amp; other);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keyword">inline</span> <span class="keywordtype">int</span> getTileIdx()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> this-&gt;m_tileIdx; };</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keyword">inline</span> <span class="keywordtype">void</span> preDraw() {};</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordtype">void</span> registerSelf(sf::Vector2f pos = {0.0, 0.0});</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> initTransform();</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        std::shared_ptr&lt;Tileset&gt; m_tileset;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordtype">int</span> m_tileIdx;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        b2Body* m_body;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        std::shared_ptr&lt;b2PolygonShape&gt; m_bodyShape;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordtype">bool</span> m_hasPhysics;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    };</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="ttc" id="aclass_platform_data_engine_1_1_tile_sprite_html"><div class="ttname"><a href="class_platform_data_engine_1_1_tile_sprite.html">PlatformDataEngine::TileSprite</a></div><div class="ttdef"><b>Definition:</b> TileSprite.h:13</div></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;Globals.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>PlatformDataEngine {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">class </span>Tileset;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="class_platform_data_engine_1_1_tile_sprite.html">   13</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_platform_data_engine_1_1_tile_sprite.html">TileSprite</a> : <span class="keyword">public</span> sf::Transformable</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <a class="code hl_function" href="class_platform_data_engine_1_1_tile_sprite.html#a86cda93cd19e27f47bad14a0d224c008">TileSprite</a>(std::shared_ptr&lt;Tileset&gt; tileset, b2PolygonShape&amp; collisionShape, <span class="keywordtype">int</span> tileIdx = 0, <span class="keywordtype">bool</span> hasPhysics = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <a class="code hl_function" href="class_platform_data_engine_1_1_tile_sprite.html#a86cda93cd19e27f47bad14a0d224c008">TileSprite</a>(std::shared_ptr&lt;Tileset&gt; tileset, b2PolygonShape&amp; collisionShape, <span class="keywordtype">int</span> tileIdx = 0, <span class="keywordtype">bool</span> hasPhysics = <span class="keyword">false</span>, sf::Vector2f position = { 0, 0 });</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <a class="code hl_class" href="class_platform_data_engine_1_1_tile_sprite.html">~TileSprite</a>();</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="comment">// copy constructor</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <a class="code hl_function" href="class_platform_data_engine_1_1_tile_sprite.html#a86cda93cd19e27f47bad14a0d224c008">TileSprite</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_platform_data_engine_1_1_tile_sprite.html">TileSprite</a>&amp; other);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keyword">inline</span> <span class="keywordtype">int</span> getTileIdx()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> this-&gt;m_tileIdx; };</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keyword">inline</span> <span class="keywordtype">void</span> preDraw() {};</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordtype">void</span> registerSelf(sf::Vector2f pos = {0.0, 0.0});</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> initTransform();</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        std::shared_ptr&lt;Tileset&gt; m_tileset;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordtype">int</span> m_tileIdx;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        b2Body* m_body;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        std::shared_ptr&lt;b2PolygonShape&gt; m_bodyShape;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordtype">bool</span> m_hasPhysics;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    };</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_tile_sprite_html"><div class="ttname"><a href="class_platform_data_engine_1_1_tile_sprite.html">PlatformDataEngine::TileSprite</a></div><div class="ttdef"><b>Definition:</b> TileSprite.h:14</div></div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_tile_sprite_html_a86cda93cd19e27f47bad14a0d224c008"><div class="ttname"><a href="class_platform_data_engine_1_1_tile_sprite.html#a86cda93cd19e27f47bad14a0d224c008">PlatformDataEngine::TileSprite::TileSprite</a></div><div class="ttdeci">TileSprite(std::shared_ptr&lt; Tileset &gt; tileset, b2PolygonShape &amp;collisionShape, int tileIdx=0, bool hasPhysics=false)</div><div class="ttdoc">Constructor</div><div class="ttdef"><b>Definition:</b> TileSprite.cpp:9</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

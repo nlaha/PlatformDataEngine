@@ -2573,7 +2573,7 @@ Component.h
 /home/jaxon/Projects/WSU/CPTS_122/PA9/PlatformDataEngine/PlatformDataEngine/Component.h
 
 /home/jaxon/Projects/WSU/CPTS_122/PA9/PlatformDataEngine/PlatformDataEngine/StatsBar.h
-sfml/Graphics.hpp
+SFML/Graphics.hpp
 -
 nlohmann/json.hpp
 -

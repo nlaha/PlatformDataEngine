@@ -1,5 +1,5 @@
 #pragma once
-#include <sfml/Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include <nlohmann/json.hpp>
 
 #include "Utility.h"

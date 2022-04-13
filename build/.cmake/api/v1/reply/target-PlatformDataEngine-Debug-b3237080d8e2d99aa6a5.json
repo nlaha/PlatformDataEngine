@@ -11,7 +11,8 @@
 		"commands" : 
 		[
 			"add_executable",
-			"target_link_libraries"
+			"target_link_libraries",
+			"target_include_directories"
 		],
 		"files" : 
 		[
@@ -25,7 +26,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 7,
+				"line" : 5,
 				"parent" : 0
 			},
 			{
@@ -50,6 +51,12 @@
 				"command" : 1,
 				"file" : 0,
 				"line" : 14,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 22,
 				"parent" : 0
 			}
 		]
@@ -95,6 +102,14 @@
 			],
 			"includes" : 
 			[
+				{
+					"backtrace" : 6,
+					"path" : "/home/jaxon/Projects/WSU/CPTS_122/PA9/PlatformDataEngine/build"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "/home/jaxon/Projects/WSU/CPTS_122/PA9/PlatformDataEngine/vcpkg_installed/x64-linux/include/include"
+				},
 				{
 					"backtrace" : 2,
 					"isSystem" : true,

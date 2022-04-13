@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(PlatformDataEngine VERSION 0.1.0)
 set(CMAKE_CXX_STANDARD 17)
-include(CTest)
-enable_testing()
 
 add_executable(PlatformDataEngine "PlatformDataEngine/main.cpp")
-set(CMAKE_PREFIX_PATH "vcpkg_installed/x64-linux/")
+
+set(CMAKE_PREFIX_PATH "vcpkg_installed/x64-linux/include/")
+
 find_package(box2d CONFIG REQUIRED)
 target_link_libraries(PlatformDataEngine PRIVATE box2d::box2d)
 
@@ -19,9 +19,11 @@ target_link_libraries(PlatformDataEngine PRIVATE sfml-system sfml-network sfml-g
 find_package(spdlog CONFIG REQUIRED)
 target_link_libraries(PlatformDataEngine PRIVATE spdlog::spdlog spdlog::spdlog_header_only)
 
-set(CPACK_PROJECT_NAME ${PROJECT_NAME})
-set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
-include(CPack)
+target_include_directories(PlatformDataEngine
+    PRIVATE
+    "${PROJECT_BINARY_DIR}"
+    "${CMAKE_PREFIX_PATH}/include"
+)
 
 add_custom_target(run
     COMMAND ${PROJECT_NAME}

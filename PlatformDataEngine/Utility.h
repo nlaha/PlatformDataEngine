@@ -103,26 +103,26 @@ namespace PlatformDataEngine
         static sf::Vector2f normalize(const sf::Vector2f source)
         {
             // normalize the input vector and return it
-            float length = sqrtf(source.x * source.x + source.y * source.y);
+            float length = sqrt(source.x * source.x + source.y * source.y);
             return sf::Vector2f(source.x / length, source.y / length);
         }
 
         static b2Vec2 normalize(const b2Vec2 source)
         {
             // normalize the input vector and return it
-            float length = sqrtf(source.x * source.x + source.y * source.y);
+            float length = sqrt(source.x * source.x + source.y * source.y);
             return b2Vec2(source.x / length, source.y / length);
         }
 
         // distance
         static float distance(sf::Vector2f point1, sf::Vector2f point2)
         {
-            return std::sqrtf(powf(point1.x - point2.x, 2) + powf(point1.y - point2.y, 2));
+            return std::sqrt(powf(point1.x - point2.x, 2) + powf(point1.y - point2.y, 2));
         }
 
         static float distance(b2Vec2 point1, b2Vec2 point2)
         {
-            return std::sqrtf(powf(point1.x - point2.x, 2) + powf(point1.y - point2.y, 2));
+            return std::sqrt(powf(point1.x - point2.x, 2) + powf(point1.y - point2.y, 2));
         }
 
         static b2Vec2 fromSf(sf::Vector2f in)

@@ -12,6 +12,7 @@
 #include "Alive.h"
 #include "ComponentFactory.h"
 #include "StatsBar.h"
+#include "Packet.h"
 
 namespace PlatformDataEngine {
 
@@ -32,6 +33,9 @@ namespace PlatformDataEngine {
 
 		void init();
 		void update(const float& dt, const float& elapsedTime);
+		void networkSerialize(PDEPacket& output);
+		void networkDeserialize(PDEPacket& input);
+
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 		void loadDefinition(std::string filename);
@@ -46,6 +50,8 @@ namespace PlatformDataEngine {
 		inline void setParent(std::shared_ptr<GameObject> gameObject) { this->m_parent = gameObject; };
 		inline void setIsUI(bool isUI) { this->m_isUI = isUI; };
 		inline bool getIsUI() const { return this->m_isUI; };
+		inline void setConnection(std::shared_ptr<Connection> conn) { this->m_owningConnection = conn; };
+		inline std::shared_ptr<Connection> getConnection() const { return this->m_owningConnection; };
 		inline std::shared_ptr<GameObject> getParent() { return this->m_parent; };
 
 		inline void setName(std::string& name) { this->m_name = name; };
@@ -57,6 +63,8 @@ namespace PlatformDataEngine {
 			}
 		};
 
+		inline std::string getType() const { return this->m_type; };
+		inline void setType(std::string type) { this->m_type = type; };
 		inline bool getDestroyed() const { return this->m_destroyed; };
 		inline std::vector<std::shared_ptr<GameObject>> getChildren() const { return this->m_children; };
 
@@ -87,12 +95,15 @@ namespace PlatformDataEngine {
 		std::shared_ptr<GameObject> m_parent;
 		GameObject* m_self;
 
+		std::shared_ptr<Connection> m_owningConnection;
+
 		std::string m_id;
 		std::string m_name;
 		int m_zLayer;
 		bool m_destroyed;
 		bool m_isDefinition;
 		bool m_isUI;
+		std::string m_type;
 
 		bool m_hasHealthBar;
 		std::shared_ptr<StatsBar> m_healthBar;

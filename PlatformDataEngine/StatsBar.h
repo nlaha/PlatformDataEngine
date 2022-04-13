@@ -3,6 +3,7 @@
 #include <nlohmann/json.hpp>
 
 #include "Utility.h"
+#include "Packet.h"
 
 namespace PlatformDataEngine {
 	
@@ -18,6 +19,9 @@ namespace PlatformDataEngine {
 		void loadDefinition(nlohmann::json object);
 
 		void setPosition(sf::Vector2f pos);
+
+		void networkSerialize(PDEPacket& output);
+		void networkDeserialize(PDEPacket& input);
 
 	private:
 		sf::RectangleShape m_healthBar;

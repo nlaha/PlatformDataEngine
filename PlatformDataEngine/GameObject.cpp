@@ -20,6 +20,8 @@ GameObject::GameObject(bool isDef)
 	this->m_hasHealthBar = false;
 	this->m_healthBar = nullptr;
 	this->m_name = "";
+	this->m_owningConnection = nullptr;
+	this->m_type = "";
 }
 
 /// <summary>
@@ -45,6 +47,7 @@ GameObject::GameObject(const GameObject& other)
 	this->m_parent = other.m_parent;
 	this->m_self = nullptr;
 	this->m_name = other.m_name;
+	this->m_type = other.m_type;
 	this->m_id = other.m_id;
 	this->m_properties = other.m_properties;
 
@@ -79,12 +82,40 @@ void GameObject::update(const float& dt, const float& elapsedTime)
 {
 	if (this->m_hasHealthBar && this->m_healthBar != nullptr)
 	{
+		this->m_healthBar->setPosition(Utility::fromB2(this->findComponentOfType<PhysicsBody>()->getBody()->GetWorldCenter()));
 		this->m_healthBar->update(dt, elapsedTime, this->m_HP);
 	}
 
 	for (auto& compPair : this->m_components)
 	{
 		compPair.second->update(dt, elapsedTime);
+	}
+}
+
+void GameObject::networkSerialize(PDEPacket& output)
+{
+	//output << this->getPosition().x << this->getPosition().y << this->getRotation();
+
+	output << this->m_destroyed << this->m_HP;
+
+	for (auto& compPair : this->m_components)
+	{
+		compPair.second->networkSerialize(output);
+	}
+}
+
+void GameObject::networkDeserialize(PDEPacket& input)
+{
+	//float x = 0.0f, y = 0.0f, angle = 0.0f;
+	//input >> x >> y >> angle;
+	//this->setPosition(x, y);
+	//this->setRotation(angle);
+
+	input >> this->m_destroyed >> this->m_HP;
+
+	for (auto& compPair : this->m_components)
+	{
+		compPair.second->networkDeserialize(input);
 	}
 }
 
@@ -126,7 +157,6 @@ void GameObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	// draw health bar if we have that enabled
 	if (this->m_hasHealthBar && this->m_healthBar != nullptr)
 	{
-		this->m_healthBar->setPosition(Utility::fromB2(this->findComponentOfType<PhysicsBody>()->getBody()->GetWorldCenter()));
 		target.draw(*this->m_healthBar, states);
 	}
 }

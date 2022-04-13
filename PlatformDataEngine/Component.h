@@ -3,6 +3,7 @@
 #include <nlohmann/json.hpp>
 #include <memory>
 #include <nlohmann/json.hpp>
+#include "Packet.h"
 
 namespace PlatformDataEngine {
 
@@ -28,6 +29,9 @@ namespace PlatformDataEngine {
 		virtual void update(const float& dt, const float& elapsedTime);
 
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+		virtual void networkSerialize(PDEPacket& output);
+		virtual void networkDeserialize(PDEPacket& input);
 
 		// must implement in any components so they can be loaded during gameObject
 		// definition loading and parsing

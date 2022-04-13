@@ -59,3 +59,22 @@ void StatsBar::setPosition(sf::Vector2f pos)
 {
     this->m_position = pos;
 }
+
+void StatsBar::networkSerialize(PDEPacket& output)
+{
+    output << this->m_position.x << this->m_position.y;
+    output << this->m_targetHealth;
+    output << this->m_health;
+}
+
+void StatsBar::networkDeserialize(PDEPacket& input)
+{
+    input >> this->m_position.x >> this->m_position.y;
+    input >> this->m_targetHealth;
+    input >> this->m_health;
+
+    this->m_healthBar.setSize(sf::Vector2f(
+        this->m_healthBarSize.x * (this->m_targetHealth / 100.0f), this->m_healthBarSize.y));
+    this->m_healthBarDelayed.setSize(sf::Vector2f(
+        this->m_healthBarSize.x * (this->m_health / 100.0f), this->m_healthBarSize.y));
+}

@@ -110,6 +110,25 @@ void AnimationController::copy(std::shared_ptr<Component> otherCompPtr)
 
 }
 
+void AnimationController::networkSerialize(PDEPacket& output)
+{
+    output << this->m_curFrame->index << this->m_currentAnim << static_cast<sf::Uint8>(this->m_flip);
+}
+
+void AnimationController::networkDeserialize(PDEPacket& input)
+{
+    int index = 0;
+    std::string animName = "";
+    sf::Uint8 flip;
+    input >> index >> animName >> flip;
+    this->m_flip = static_cast<FlipFlags>(flip);
+
+    if (animName != "") {
+        Animation& anim = this->m_animations[animName];
+        this->m_curFrame = &anim.frames[index];
+    }
+}
+
 void AnimationController::setAnimation(const std::string animName, float speed, bool loop)
 {
     this->m_lastAnim = this->m_currentAnim;

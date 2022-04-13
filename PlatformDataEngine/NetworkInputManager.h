@@ -2,6 +2,7 @@
 #include <string>
 #include <map>
 #include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
 #include <fstream>
 #include <vector>
 #include <spdlog/spdlog.h>
@@ -14,13 +15,14 @@ namespace PlatformDataEngine {
 	{
 	public:
 
-		inline sf::Vector2i getMouse() { return sf::Vector2i(0.0, 0.0); };
+		inline sf::Vector2f getMouse() { return this->m_mouse; };
 
 		class Axis : public InputManager::Axis {
 		public:
-			float getValue();
-			bool isPositive();
-			bool isNegative();
+			float getValue() const;
+			bool isPositive() const;
+			bool isNegative() const;
+			inline void setValue(float value) { this->value = value; };
 
 		private:
 			float value;
@@ -28,7 +30,8 @@ namespace PlatformDataEngine {
 
 		class Button : public InputManager::Button {
 		public:
-			bool getValue();
+			bool getValue() const;
+			inline void setValue(bool value) { this->value = value; };
 
 		private:
 			bool value;
@@ -39,9 +42,22 @@ namespace PlatformDataEngine {
 
 		void loadDefinition(std::string inputManagerFile);
 
+		void setAxis(std::string axisName, float value);
+		void setAxis(sf::Uint8 idx, float value);
+
+		void setButton(std::string buttonName, bool value);
+		void setButton(sf::Uint8 idx, bool value);
+
+		void setMouse(sf::Vector2f pos);
+
 	private:
-		std::map<std::string, Axis> m_axis;
-		std::map<std::string, Button> m_buttons;
+		std::map<std::string, std::shared_ptr<Axis>> m_axis;
+		std::map<std::string, std::shared_ptr<Button>> m_buttons;
+
+		std::vector<std::shared_ptr<Axis>> m_axisIdx;
+		std::vector<std::shared_ptr<Button>> m_buttonIdx;
+
+		sf::Vector2f m_mouse;
 	};
 
 }

@@ -6,6 +6,7 @@
 #include <vector>
 #include <spdlog/spdlog.h>
 #include <nlohmann/json.hpp>
+#include "Packet.h"
 
 #include "InputManager.h"
 
@@ -19,7 +20,7 @@ namespace PlatformDataEngine {
 	{
 	public:
 
-		sf::Vector2i getMouse();
+		sf::Vector2f getMouse();
 
 		PlayerInputManager(int gamepadIndex);
 
@@ -27,9 +28,9 @@ namespace PlatformDataEngine {
 		public:
 
 			Axis(int gamepadIndex, float deadZone);
-			float getValue();
-			bool isPositive();
-			bool isNegative();
+			float getValue() const;
+			bool isPositive() const;
+			bool isNegative() const;
 			void addTrigger(sf::Joystick::Axis axis);
 			void addTrigger(sf::Keyboard::Key key, bool direction);
 
@@ -45,7 +46,7 @@ namespace PlatformDataEngine {
 		public:
 
 			Button(int gamepadIndex);
-			bool getValue();
+			bool getValue() const;
 			void addTrigger(int button);
 			void addTrigger(sf::Keyboard::Key key);
 			void addTrigger(sf::Mouse::Button button);
@@ -62,9 +63,14 @@ namespace PlatformDataEngine {
 
 		virtual void loadDefinition(std::string inputManagerFile);
 
+		void serializeInputs(PDEPacket& packet);
+
 	private:
-		std::map<std::string, Axis> m_axis;
-		std::map<std::string, Button> m_buttons;
+		std::map<std::string, std::shared_ptr<Axis>> m_axis;
+		std::map<std::string, std::shared_ptr<Button>> m_buttons;
+
+		std::vector<std::shared_ptr<Axis>> m_axisIdx;
+		std::vector<std::shared_ptr<Button>> m_buttonIdx;
 		int m_gamepadIndex;
 
 	};

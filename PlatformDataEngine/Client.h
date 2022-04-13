@@ -20,7 +20,14 @@ namespace PlatformDataEngine {
 
 		void process(GameWorld* world);
 
+		void recieve(GameWorld* world);
+
+		inline std::shared_ptr<Connection> getConnection() { return this->m_clientConnection; };
+
 	private:
+
+		std::shared_ptr<Connection> m_clientConnection;
+
 		unsigned short m_serverPort;
 		sf::IpAddress m_serverIp;
 		sf::UdpSocket m_socket;

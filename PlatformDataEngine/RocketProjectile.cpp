@@ -86,14 +86,14 @@ void RocketProjectile::update(const float& dt, const float& elapsedTime)
                 ));
 
                 float distFrac = std::fmaxf(0.0f, 1.10f - Utility::distance(bodyCenter, Utility::fromSf(ourPos)) / this->m_explosionRadius);
-                float velocityFalloff = std::sqrtf(distFrac);
+                float velocityFalloff = std::sqrt(distFrac);
 
                 impulseVec.x *= this->m_explosionForce * velocityFalloff;
                 impulseVec.y *= this->m_explosionForce * velocityFalloff;
 
                 float friendlyFireMultiplier = 1.0f;
-                if (reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer)->gameObjectOwner == 
-                    PlatformDataEngineWrapper::getWorld()->getPlayer())
+                if (reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer)->gameObjectOwner ==
+                    this->m_owningGameObject.get())
                 {
                     friendlyFireMultiplier = 0.1f;
                 }

@@ -38,3 +38,13 @@ void TimedDestroy::loadDefinition(nlohmann::json object)
 	this->m_timeLow = object.at("rangeLow");
 	this->m_timeHigh = object.at("rangeHigh");
 }
+
+void TimedDestroy::networkSerialize(PDEPacket& output)
+{
+
+}
+
+void TimedDestroy::networkDeserialize(PDEPacket& input)
+{
+
+}

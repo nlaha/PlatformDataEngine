@@ -38,6 +38,14 @@ void SpriteRenderer::copy(std::shared_ptr<Component> otherCompPtr)
     this->m_sprite = other->m_sprite;
 }
 
+void SpriteRenderer::networkSerialize(PDEPacket& output)
+{
+}
+
+void SpriteRenderer::networkDeserialize(PDEPacket& input)
+{
+}
+
 void SpriteRenderer::loadDefinition(nlohmann::json object)
 {
     // loop through each key in the json object

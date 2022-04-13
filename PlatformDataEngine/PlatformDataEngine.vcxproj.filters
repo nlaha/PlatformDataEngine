@@ -331,100 +331,102 @@
     <None Include="..\vcpkg.json">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="game\gameObjects\EngineStats.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </None>
+    <None Include="game\gameObjects\ExplodeChunkParticle.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </None>
+    <None Include="game\gameObjects\FireParticle.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </None>
+    <None Include="game\gameObjects\PlayerCharacter.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </None>
+    <None Include="game\gameObjects\RocketExplosion.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </None>
+    <None Include="game\gameObjects\Prop.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </None>
+    <None Include="game\gameObjects\RocketLauncher.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </None>
+    <None Include="game\gameObjects\RocketProjectile.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </None>
+    <None Include="game\gameObjects\StatsPanel.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </None>
+    <None Include="game\input.json">
+      <Filter>Resource Files\Game</Filter>
+    </None>
+    <None Include="game\world.json">
+      <Filter>Resource Files\Game</Filter>
+    </None>
+    <None Include="shaders\foliage.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="shaders\foliage.vert">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="assets\Arena.tmx">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\Character.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\FireParticle.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\Main.tmx">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\Plants.tsx">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\Props.tsx">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\RocketLauncher.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\StatsPanel.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\SpaceTileset.tsx">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="shaders\foliage.frag">
-      <Filter>Resource Files\Shaders</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="game\gameObjects\PlayerCharacter.json">
-      <Filter>Resource Files\Game\GameObjects</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="assets\Character.png">
+    <Image Include="assets\Character.png">
       <Filter>Resource Files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="assets\Plants.png">
+    </Image>
+    <Image Include="assets\FireParticle.png">
       <Filter>Resource Files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="assets\SpaceTileset.png">
+    </Image>
+    <Image Include="assets\Plants.png">
       <Filter>Resource Files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="assets\VT323-Regular.ttf">
+    </Image>
+    <Image Include="assets\Props.png">
       <Filter>Resource Files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="assets\Main.tmx">
+    </Image>
+    <Image Include="assets\RocketLauncher.png">
       <Filter>Resource Files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="game\world.json">
-      <Filter>Resource Files\Game</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="assets\Character.json">
+    </Image>
+    <Image Include="assets\RocketProjectile.png">
       <Filter>Resource Files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="shaders\foliage.vert">
-      <Filter>Resource Files\Shaders</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="assets\Plants.tsx">
+    </Image>
+    <Image Include="assets\SpaceTileset.png">
       <Filter>Resource Files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="assets\SpaceTileset.tsx">
+    </Image>
+    <Image Include="assets\StatsPanel.png">
       <Filter>Resource Files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="game\gameObjects\EngineStats.json">
-      <Filter>Resource Files\Game\GameObjects</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="game\input.json">
-      <Filter>Resource Files\Game</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="game\gameObjects\RocketLauncher.json">
-      <Filter>Resource Files\Game\GameObjects</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="game\gameObjects\FireParticle.json">
-      <Filter>Resource Files\Game\GameObjects</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="game\gameObjects\RocketProjectile.json">
-      <Filter>Resource Files\Game\GameObjects</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="game\gameObjects\RocketExplosion.json">
-      <Filter>Resource Files\Game\GameObjects</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="assets\FireParticle.json">
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\VT323-Regular.ttf">
       <Filter>Resource Files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="assets\FireParticle.png">
-      <Filter>Resource Files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="assets\RocketLauncher.json">
-      <Filter>Resource Files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="assets\RocketLauncher.png">
-      <Filter>Resource Files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="assets\RocketProjectile.png">
-      <Filter>Resource Files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="game\gameObjects\StatsPanel.json">
-      <Filter>Resource Files\Game\GameObjects</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="assets\StatsPanel.json">
-      <Filter>Resource Files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="assets\StatsPanel.png">
-      <Filter>Resource Files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="assets\Arena.tmx">
-      <Filter>Resource Files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="game\gameObjects\Prop.json">
-      <Filter>Resource Files\Game\GameObjects</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="assets\Props.png">
-      <Filter>Resource Files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="assets\Props.tsx">
-      <Filter>Resource Files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="game\gameObjects\ExplodeChunkParticle.json">
-      <Filter>Resource Files\Game\GameObjects</Filter>
-    </CopyFileToFolders>
+    </Font>
   </ItemGroup>
 </Project>

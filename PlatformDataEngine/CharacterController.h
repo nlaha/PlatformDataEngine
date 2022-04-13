@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <execution>
+#include <map>
+#include <memory>
 
 #include "Component.h"
 #include "PhysicsCallbacks.h"
@@ -41,6 +43,8 @@ namespace PlatformDataEngine {
         
         DirTestMask isAdjacentWall() const;
         bool fastGroundCheck() const;
+
+        inline InputManager* getInputManager() const { return this->m_pInputManager.get(); };
 
         static bool HasFlag(int a, int b)
         {

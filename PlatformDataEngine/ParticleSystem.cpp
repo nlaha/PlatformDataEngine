@@ -35,11 +35,12 @@ void ParticleSystem::loadDefinition(nlohmann::json object)
 
 void ParticleSystem::spawnParticles()
 {
+	
 	for (size_t i = 0; i < this->m_numParticles; i++)
 	{
 
 		std::shared_ptr<GameObject> particle = PlatformDataEngineWrapper::getWorld()->spawnGameObject(
-			this->m_particleName, this->m_parent->getPosition()
+			this->m_particleName, this->m_parent->getPosition(), "", true
 		);
 
 		b2Body* bd = particle->findComponentOfType<PhysicsBody>()->getBody();
@@ -62,4 +63,5 @@ void ParticleSystem::spawnParticles()
 	}
 
 	this->m_parent->destroySelf();
+
 }

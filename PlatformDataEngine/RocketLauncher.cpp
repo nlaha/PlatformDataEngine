@@ -1,6 +1,10 @@
+#include <map>
+
 #include "RocketLauncher.h"
 #include "GameObject.h"
 #include "Utility.h"
+#include "Server.h"
+#include "InputManager.h"
 #include "PlatformDataEngineWrapper.h"
 
 using namespace PlatformDataEngine;
@@ -16,59 +20,62 @@ void RocketLauncher::init()
 		this->m_pInputManager = std::make_shared<NetworkInputManager>();
 		std::shared_ptr<NetworkInputManager> netIn = std::dynamic_pointer_cast<NetworkInputManager>(this->m_pInputManager);
 		netIn->loadDefinition("./game/input.json");
+		if (!PlatformDataEngineWrapper::getIsClient()) {
+			dynamic_cast<Server*>(PlatformDataEngineWrapper::getNetworkHandler())->addInputManager(this->m_parent->getParent()->getConnection(), netIn);
+		}
 	}
 }
 
 void RocketLauncher::update(const float& dt, const float& elapsedTime)
 {
-	sf::Vector2i pixelPos = this->m_pInputManager->getMouse();
-
-	sf::Vector2f worldPos = PlatformDataEngineWrapper::getWindow()->mapPixelToCoords(pixelPos);
-
+	sf::Vector2f worldPos = this->m_pInputManager->getMouse();
+	
 	std::shared_ptr<GameObject> parent = this->m_parent->getParent();
 
-	if (this->m_pInputManager->getAxis("x_right").isNegative() || this->m_pInputManager->getAxis("x_right").isPositive()
-		|| this->m_pInputManager->getAxis("y_right").isNegative() || this->m_pInputManager->getAxis("y_right").isNegative())
-	{
-		sf::Vector2f axisIn(this->m_pInputManager->getAxis("x_right").getValue(), this->m_pInputManager->getAxis("y_right").getValue());
-		
-		worldPos = parent->getPosition();
-		worldPos.x += axisIn.x;
-		worldPos.y += axisIn.y;
-	}	
+	if (parent != nullptr) {
+		if (this->m_pInputManager->getAxis("x_right").isNegative() || this->m_pInputManager->getAxis("x_right").isPositive()
+			|| this->m_pInputManager->getAxis("y_right").isNegative() || this->m_pInputManager->getAxis("y_right").isNegative())
+		{
+			sf::Vector2f axisIn(this->m_pInputManager->getAxis("x_right").getValue(), this->m_pInputManager->getAxis("y_right").getValue());
 
-	float rot = Utility::lookAt(
-		parent->getPosition(),
-		worldPos
-	);
+			worldPos = parent->getPosition();
+			worldPos.x += axisIn.x;
+			worldPos.y += axisIn.y;
+		}
 
-	this->m_parent->setRotation(rot);
+		float rot = Utility::lookAt(
+			parent->getPosition(),
+			worldPos
+		);
+
+		this->m_parent->setRotation(rot);
 
 
-	if (this->m_pInputManager->getButton("primary").getValue() && 
-		this->m_rocketClock.getElapsedTime().asMilliseconds() >
-		this->m_rocketCooldown) {
-		sf::Vector2f directionVec = Utility::directionVec(parent->getPosition(), worldPos);
-		GameObject* p_gameObject = PlatformDataEngineWrapper::getWorld()->spawnGameObject(
-			"RocketProjectile", 
-			(parent->getPosition() + this->m_parent->getPosition())
-		).get();
-		p_gameObject->setZlayer(40);
-		p_gameObject->setRotation(rot);
-	
-		b2Body* pBody = p_gameObject->findComponentOfType<PhysicsBody>()->getBody();
-		pBody->SetTransform(pBody->GetPosition(), Utility::degToRad(rot));
+		if (this->m_pInputManager->getButton("primary").getValue() &&
+			this->m_rocketClock.getElapsedTime().asMilliseconds() >
+			this->m_rocketCooldown) {
+			sf::Vector2f directionVec = Utility::directionVec(parent->getPosition(), worldPos);
+			GameObject* p_gameObject = PlatformDataEngineWrapper::getWorld()->spawnGameObject(
+				"RocketProjectile",
+				(parent->getPosition() + this->m_parent->getPosition())
+			).get();
+			p_gameObject->setZlayer(40);
+			p_gameObject->setRotation(rot);
 
-		pBody->ApplyLinearImpulseToCenter(
-			Utility::fromSf(directionVec * -this->m_velocity), true);
+			b2Body* pBody = p_gameObject->findComponentOfType<PhysicsBody>()->getBody();
+			pBody->SetTransform(pBody->GetPosition(), Utility::degToRad(rot));
 
-		AnimationController* animControl = this->m_parent->findComponentOfType<AnimationController>().get();
-		animControl->setAnimation("Shoot", 1.0, false);
+			pBody->ApplyLinearImpulseToCenter(
+				Utility::fromSf(directionVec * -this->m_velocity), true);
 
-		RocketProjectile* projectile = p_gameObject->findComponentOfType<RocketProjectile>().get();
-		projectile->setOwner(this->m_parent->getParent());
+			AnimationController* animControl = this->m_parent->findComponentOfType<AnimationController>().get();
+			animControl->setAnimation("Shoot", 1.0, false);
 
-		this->m_rocketClock.restart();
+			RocketProjectile* projectile = p_gameObject->findComponentOfType<RocketProjectile>().get();
+			projectile->setOwner(this->m_parent->getParent());
+
+			this->m_rocketClock.restart();
+		}
 	}
 }
 

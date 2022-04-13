@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <SFML/Network.hpp>
+#include <spdlog/spdlog.h>
 
 namespace PlatformDataEngine {
 
@@ -38,7 +39,10 @@ namespace PlatformDataEngine {
 			Disconnected,
 			Text,
 
-			MoveGameObject,
+			GarbageCollect,
+			SpawnChild,
+			RequestUpdates,
+			UpdateGameObject,
 			SpawnGameObject,
 			DamageGameObject,
 			UserInput,

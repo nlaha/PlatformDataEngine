@@ -6,7 +6,7 @@ using namespace std::chrono;
 
 GameWorld::GameWorld()
 {
-
+	this->m_inGame = false;
 }
 
 /// <summary>
@@ -55,7 +55,10 @@ void GameWorld::init(std::string filePath, sf::View& view)
 	// spawn host player
 	auto hostPlayer = spawnDefinedGameObject(this->m_playerDef);
 
-	this->m_players.emplace("localhost", hostPlayer.get());
+	std::shared_ptr<Connection> hostConnection = std::make_shared<Connection>();
+	hostConnection->id = "Server";
+	hostConnection->ip = sf::IpAddress::getLocalAddress();
+	this->m_players.emplace(hostConnection, hostPlayer.get());
 	this->mp_currentPlayer = hostPlayer.get();
 
 	int spawnIdx = 0;
@@ -120,8 +123,17 @@ void GameWorld::initPhysics()
 /// <param name="elapsedTime">elapsed time (since game started)</param>
 void GameWorld::update(const float& dt, const float& elapsedTime)
 {
+	PlatformDataEngineWrapper::getNetworkHandler()->recieve(this);
+
 	// network update
-	PlatformDataEngineWrapper::getNetworkHandler()->process(this);
+	// limit send rate
+	if (PlatformDataEngineWrapper::getIsClient()) {
+		if (this->m_packetClock.getElapsedTime().asMilliseconds() > 40) {
+			PlatformDataEngineWrapper::getNetworkHandler()->process(this);
+
+			m_packetClock.restart();
+		}
+	}
 
 	// update tile objects
 	this->mp_tileMap->update(dt, elapsedTime);
@@ -132,11 +144,24 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 		gameObjectPair.second->update(dt, elapsedTime);
 	}
 
+	if (PlatformDataEngineWrapper::getIsClient()) {
+		for (std::string name : this->mp_netToDestroy)
+		{
+			if (this->getGameObject(name) != nullptr)
+			{
+				this->getGameObject(name)->destroySelf();
+			}
+			this->mp_netToDestroy.resize(this->mp_netToDestroy.size() - 1);
+		}
+	}
+	
 	// remove deleted gameObjects
 	for (auto it = this->mp_gameObjects.cbegin(); it != this->mp_gameObjects.cend();)
 	{
 		if (it->second->getDestroyed())
 		{
+			this->addNetToDestroy(it->second->getName());
+
 			if (it->second.get() == this->mp_currentPlayer) {
 				this->setPlayer(nullptr);
 			}
@@ -244,44 +269,64 @@ void GameWorld::registerGameObject(std::string name, std::shared_ptr<GameObject>
 /// <param name="gameObject">the gameObject "template" definition</param>
 void GameWorld::registerGameObjectDefinition(std::string name, std::shared_ptr<GameObject> gameObject)
 {
+	gameObject->setType(name);
 	this->m_gameObjectDefinitions.emplace(name, gameObject);
 }
 
-std::shared_ptr<GameObject> GameWorld::spawnGameObject(std::string type, sf::Vector2f position)
+std::shared_ptr<GameObject> GameWorld::spawnGameObject(std::string type, sf::Vector2f position, std::string name, bool noReplication)
 {
 	//sf::Clock timer;
+	if (this->m_gameObjectDefinitions.count(type) > 0) {
+		std::shared_ptr<GameObject> p_gameObject = std::make_shared<GameObject>(
+			*this->getGameObjectDefs().at(type)
+			);
 
-	std::shared_ptr<GameObject> p_gameObject = std::make_shared<GameObject>(
-		*this->getGameObjectDefs().at(type)
-	);
+		// since we're spawning something, it's not a definition
+		p_gameObject->setIsDefinition(false);
 
-	// since we're spawning something, it's not a definition
-	p_gameObject->setIsDefinition(false);
+		p_gameObject->setPosition(position);
+		p_gameObject->registerComponentHierarchy(p_gameObject);
 
-	p_gameObject->setPosition(position);
-	p_gameObject->registerComponentHierarchy(p_gameObject);
+		if (name == "") {
+			name = Utility::generate_uuid_v4();
+		}
 
-	std::string name = Utility::generate_uuid_v4();
+		p_gameObject->setName(name);
+		p_gameObject->setIsUI(false);
 
-	p_gameObject->setName(name);
-	p_gameObject->setIsUI(false);
+		this->registerGameObject(
+			name, p_gameObject
+		);
 
-	this->registerGameObject(
-		name, p_gameObject
-	);
+		p_gameObject->init();
 
-	p_gameObject->init();
+		//spdlog::info("Spawning object {} took: {}uS at position {}, {}", p_gameObject->getName(), timer.getElapsedTime().asMicroseconds(), position.x, position.y);
+		if (!PlatformDataEngineWrapper::getIsClient() && !noReplication)
+		{
+			dynamic_cast<Server*>(PlatformDataEngineWrapper::getNetworkHandler())->replicateGameObject(p_gameObject.get());
+		}
 
-	//spdlog::info("Spawning object {} took: {}uS at position {}, {}", p_gameObject->getName(), timer.getElapsedTime().asMicroseconds(), position.x, position.y);
+		if (PlatformDataEngineWrapper::getIsClient()) {
+			if (name == dynamic_cast<Client*>(PlatformDataEngineWrapper::getNetworkHandler())->getConnection()->id) {
+				this->mp_currentPlayer = p_gameObject.get();
+				this->m_cameraControl.setTarget(p_gameObject);
+			}
+		}
 
-	return p_gameObject;
+		return p_gameObject;
+	}
+	else {
+		return nullptr;
+	}
 }
 
-std::string GameWorld::spawnPlayer(std::string ip)
+std::string GameWorld::spawnPlayer(std::shared_ptr<Connection> conn)
 {
-	std::shared_ptr<GameObject> player = this->spawnDefinedGameObject(this->m_playerDef);
-	this->m_players.emplace(ip, player.get());
+	std::shared_ptr<GameObject> player = this->spawnDefinedGameObject(this->m_playerDef, conn->id);
+	this->m_players.emplace(conn, player.get());
+	player->setName(conn->id);
 
+	player->setConnection(conn);
 	player->init();
 
 	for (std::shared_ptr<GameObject> child : player->getChildren())
@@ -292,7 +337,7 @@ std::string GameWorld::spawnPlayer(std::string ip)
 	return player->getName();
 }
 
-std::shared_ptr<GameObject> GameWorld::spawnDefinedGameObject(nlohmann::json gameObject)
+std::shared_ptr<GameObject> GameWorld::spawnDefinedGameObject(nlohmann::json gameObject, std::string name)
 {
 	std::shared_ptr<GameObject> p_gameObject = std::make_shared<GameObject>(
 		*this->m_gameObjectDefinitions.at(gameObject.at("type"))
@@ -324,7 +369,9 @@ std::shared_ptr<GameObject> GameWorld::spawnDefinedGameObject(nlohmann::json gam
 	}
 	p_gameObject->registerComponentHierarchy(p_gameObject);
 
-	std::string name = Utility::generate_uuid_v4();
+	if (name == "") {
+		name = Utility::generate_uuid_v4();
+	}
 	p_gameObject->setName(name);
 	this->registerGameObject(name, p_gameObject);
 
@@ -334,6 +381,11 @@ std::shared_ptr<GameObject> GameWorld::spawnDefinedGameObject(nlohmann::json gam
 		std::shared_ptr<GameObject> childObj = spawnDefinedGameObject(child);
 		childObj->setParent(p_gameObject);
 		p_gameObject->addChild(childObj);
+	}
+
+	if (!PlatformDataEngineWrapper::getIsClient())
+	{
+		dynamic_cast<Server*>(PlatformDataEngineWrapper::getNetworkHandler())->replicateGameObject(p_gameObject.get());
 	}
 
 	return p_gameObject;

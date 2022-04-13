@@ -1,4 +1,6 @@
 #pragma once
+#include <memory>
+
 #include "Component.h"
 #include "PlayerInputManager.h"
 #include "NetworkInputManager.h"

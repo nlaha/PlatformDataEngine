@@ -37,6 +37,7 @@ void PDEPacket::clear()
 void PDEPacket::onReceive(const void* data, std::size_t size)
 {
     std::size_t so_flag = sizeof m_flag;
+
     std::memcpy(&m_flag, ((char*)data) + size - so_flag, so_flag);
 
     append(data, size - so_flag);

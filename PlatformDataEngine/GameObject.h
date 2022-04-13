@@ -67,6 +67,8 @@ namespace PlatformDataEngine {
 		inline void setType(std::string type) { this->m_type = type; };
 		inline bool getDestroyed() const { return this->m_destroyed; };
 		inline std::vector<std::shared_ptr<GameObject>> getChildren() const { return this->m_children; };
+		inline void setNetworked(bool networked) { this->m_networked = networked; };
+		inline bool getNetworked() { return this->m_networked; };
 
 		void sortChildZ();
 
@@ -103,6 +105,7 @@ namespace PlatformDataEngine {
 		bool m_destroyed;
 		bool m_isDefinition;
 		bool m_isUI;
+		bool m_networked;
 		std::string m_type;
 
 		bool m_hasHealthBar;

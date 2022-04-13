@@ -133,11 +133,13 @@ void Server::recieve(GameWorld* world)
 				// send move data
 				for (const auto& gameObjectPair : world->getGameObjects())
 				{
-					PDEPacket packet(PDEPacket::UpdateGameObject);
-					packet << gameObjectPair.second->getName();
-					gameObjectPair.second->networkSerialize(packet);
+					if (gameObjectPair.second->getNetworked()) {
+						PDEPacket packet(PDEPacket::UpdateGameObject);
+						packet << gameObjectPair.second->getName();
+						gameObjectPair.second->networkSerialize(packet);
 
-					m_socket.send(packet, clientIp, clientPort);
+						m_socket.send(packet, clientIp, clientPort);
+					}
 				}
 
 				//PDEPacket destroyPacket(PDEPacket::GarbageCollect);

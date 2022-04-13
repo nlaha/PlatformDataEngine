@@ -26,7 +26,9 @@ void GlobalEffects::explode(SpriteRenderer& sprite, sf::Vector2f pos, int slices
 	std::shared_ptr<sf::Texture> tex = sprite.getTexture();
 	for (sf::IntRect pRect : particleRects)
 	{
-		std::shared_ptr<GameObject> particle = PlatformDataEngineWrapper::getWorld()->spawnGameObject("ExplodeChunkParticle", pos + sf::Vector2f(pRect.left, pRect.top));
+		std::shared_ptr<GameObject> particle = PlatformDataEngineWrapper::getWorld()->spawnGameObject(
+			"ExplodeChunkParticle", pos + sf::Vector2f(pRect.left, pRect.top),
+			"", true);
 		particle->setZlayer(40);
 
 		SpriteRenderer* pSprite = particle->findComponentOfType<SpriteRenderer>().get();

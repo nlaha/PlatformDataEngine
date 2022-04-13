@@ -298,6 +298,13 @@ std::shared_ptr<GameObject> GameWorld::spawnGameObject(std::string type, sf::Vec
 			name, p_gameObject
 		);
 
+		if (PlatformDataEngineWrapper::getIsClient()) {
+			if (name == dynamic_cast<Client*>(PlatformDataEngineWrapper::getNetworkHandler())->getConnection()->id) {
+				this->mp_currentPlayer = p_gameObject.get();
+				this->m_cameraControl.setTarget(p_gameObject);
+			}
+		}
+
 		p_gameObject->init();
 
 		//spdlog::info("Spawning object {} took: {}uS at position {}, {}", p_gameObject->getName(), timer.getElapsedTime().asMicroseconds(), position.x, position.y);
@@ -306,11 +313,11 @@ std::shared_ptr<GameObject> GameWorld::spawnGameObject(std::string type, sf::Vec
 			dynamic_cast<Server*>(PlatformDataEngineWrapper::getNetworkHandler())->replicateGameObject(p_gameObject.get());
 		}
 
-		if (PlatformDataEngineWrapper::getIsClient()) {
-			if (name == dynamic_cast<Client*>(PlatformDataEngineWrapper::getNetworkHandler())->getConnection()->id) {
-				this->mp_currentPlayer = p_gameObject.get();
-				this->m_cameraControl.setTarget(p_gameObject);
-			}
+		if (noReplication) {
+			p_gameObject->setNetworked(false);
+		}
+		else {
+			p_gameObject->setNetworked(true);
 		}
 
 		return p_gameObject;

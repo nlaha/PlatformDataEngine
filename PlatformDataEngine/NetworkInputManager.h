@@ -37,15 +37,15 @@ namespace PlatformDataEngine {
 			bool value;
 		};
 
-		NetworkInputManager::Axis& getAxis(std::string axisName);
-		NetworkInputManager::Button& getButton(std::string button);
+		NetworkInputManager::Axis& getAxis(const std::string& axisName);
+		NetworkInputManager::Button& getButton(const std::string& button);
 
-		void loadDefinition(std::string inputManagerFile);
+		void loadDefinition(const std::string& inputManagerFile);
 
-		void setAxis(std::string axisName, float value);
+		void setAxis(const std::string& axisName, float value);
 		void setAxis(sf::Uint8 idx, float value);
 
-		void setButton(std::string buttonName, bool value);
+		void setButton(const std::string& buttonName, bool value);
 		void setButton(sf::Uint8 idx, bool value);
 
 		void setMouse(sf::Vector2f pos);

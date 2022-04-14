@@ -213,7 +213,7 @@ void GameObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
 /// Loads a gameObject definition from a json file
 /// </summary>
 /// <param name="filename">game object definition .json filename</param>
-void GameObject::loadDefinition(std::string filename) {
+void GameObject::loadDefinition(const std::string& filename) {
 	// load json file
 	std::ifstream file(filename);
 	

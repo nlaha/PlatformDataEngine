@@ -24,17 +24,17 @@ bool NetworkInputManager::Axis::isPositive() const
 	return this->value > 0.0f;
 }
 
-NetworkInputManager::Axis& NetworkInputManager::getAxis(std::string axisName)
+NetworkInputManager::Axis& NetworkInputManager::getAxis(const std::string& axisName)
 {
 	return *this->m_axis.at(axisName);
 }
 
-NetworkInputManager::Button& NetworkInputManager::getButton(std::string button)
+NetworkInputManager::Button& NetworkInputManager::getButton(const std::string& button)
 {
 	return *this->m_buttons.at(button);
 }
 
-void NetworkInputManager::loadDefinition(std::string inputManagerFile)
+void NetworkInputManager::loadDefinition(const std::string& inputManagerFile)
 {
 	std::ifstream configFile(inputManagerFile);
 
@@ -67,14 +67,14 @@ void NetworkInputManager::loadDefinition(std::string inputManagerFile)
 	}
 }
 
-void NetworkInputManager::setAxis(std::string axisName, float value)
+void NetworkInputManager::setAxis(const std::string& axisName, float value)
 {
 	if (this->m_axis.count(axisName) > 0) {
 		this->m_axis.at(axisName)->setValue(value);
 	}
 }
 
-void NetworkInputManager::setButton(std::string buttonName, bool value)
+void NetworkInputManager::setButton(const std::string& buttonName, bool value)
 {
 	if (this->m_buttons.count(buttonName) > 0) {
 		this->m_buttons.at(buttonName)->setValue(value);

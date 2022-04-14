@@ -252,6 +252,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClCompile Include="GlobalEffects.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="Networkable.cpp" />
     <ClCompile Include="NetworkHandler.cpp" />
@@ -273,6 +274,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="StatsBar.cpp" />
     <ClCompile Include="StatsPanel.cpp" />
+    <ClCompile Include="TextDrawable.cpp" />
     <ClCompile Include="TextRenderer.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Tileset.cpp" />
@@ -296,6 +298,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClInclude Include="GlobalEffects.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="Networkable.h" />
     <ClInclude Include="NetworkHandler.h" />
@@ -317,6 +320,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="StatsBar.h" />
     <ClInclude Include="StatsPanel.h" />
+    <ClInclude Include="TextDrawable.h" />
     <ClInclude Include="TextRenderer.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Tileset.h" />
@@ -374,7 +378,11 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugClient|x64'">false</ExcludedFromBuild>
     </None>
+    <None Include="game\gameObjects\MainMenu.json" />
+    <None Include="game\gameObjects\MainMenuTitle.json" />
     <None Include="game\network.json" />
+    <None Include="game\worlds\menu.json" />
+    <None Include="game\worlds\world.json" />
     <None Include="shaders\foliage.frag">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
@@ -399,17 +407,6 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/game/gameObjects</DestinationFolders>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugClient|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugClient|x64'">false</ExcludedFromBuild>
-    </None>
-    <None Include="game\world.json">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/game</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)/game</DestinationFolders>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugClient|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -557,6 +554,8 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugClient|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </None>
+    <None Include="shaders\text.frag" />
+    <None Include="shaders\text.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\Character.png">

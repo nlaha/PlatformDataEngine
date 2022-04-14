@@ -76,6 +76,9 @@
     <Filter Include="Source Files\Networking">
       <UniqueIdentifier>{bdbdaf72-7535-4696-bd0a-1b9124452c78}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Worlds">
+      <UniqueIdentifier>{52835a7c-1579-478d-872f-4f226937bcc5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -200,6 +203,12 @@
     </ClCompile>
     <ClCompile Include="Networkable.cpp">
       <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="TextDrawable.cpp">
+      <Filter>Source Files\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -332,6 +341,12 @@
     <ClInclude Include="Networkable.h">
       <Filter>Header Files\Networking</Filter>
     </ClInclude>
+    <ClInclude Include="TextDrawable.h">
+      <Filter>Header Files\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\vcpkg.json">
@@ -365,9 +380,6 @@
       <Filter>Resource Files\Game\GameObjects</Filter>
     </None>
     <None Include="game\input.json">
-      <Filter>Resource Files\Game</Filter>
-    </None>
-    <None Include="game\world.json">
       <Filter>Resource Files\Game</Filter>
     </None>
     <None Include="shaders\foliage.frag">
@@ -405,6 +417,24 @@
     </None>
     <None Include="game\network.json">
       <Filter>Resource Files\Game</Filter>
+    </None>
+    <None Include="game\gameObjects\MainMenu.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </None>
+    <None Include="game\worlds\menu.json">
+      <Filter>Resource Files\Worlds</Filter>
+    </None>
+    <None Include="game\worlds\world.json">
+      <Filter>Resource Files\Worlds</Filter>
+    </None>
+    <None Include="game\gameObjects\MainMenuTitle.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </None>
+    <None Include="shaders\text.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="shaders\text.vert">
+      <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

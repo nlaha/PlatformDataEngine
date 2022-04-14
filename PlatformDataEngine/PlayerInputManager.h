@@ -58,10 +58,10 @@ namespace PlatformDataEngine {
 			int m_gamepadIndex;
 		};
 
-		PlayerInputManager::Axis& getAxis(std::string axisName);
-		PlayerInputManager::Button& getButton(std::string button);
+		PlayerInputManager::Axis& getAxis(const std::string& axisName);
+		PlayerInputManager::Button& getButton(const std::string& button);
 
-		virtual void loadDefinition(std::string inputManagerFile);
+		virtual void loadDefinition(const std::string& inputManagerFile);
 
 		void serializeInputs(PDEPacket& packet);
 

@@ -210,7 +210,7 @@ PlayerInputManager::PlayerInputManager(int gamepadIndex)
 /// </summary>
 /// <param name="axisName">the axis name</param>
 /// <returns>the axis</returns>
-PlayerInputManager::Axis& PlayerInputManager::getAxis(std::string axisName)
+PlayerInputManager::Axis& PlayerInputManager::getAxis(const std::string& axisName)
 {
 	return *this->m_axis.at(axisName);
 }
@@ -220,7 +220,7 @@ PlayerInputManager::Axis& PlayerInputManager::getAxis(std::string axisName)
 /// </summary>
 /// <param name="button">the button name</param>
 /// <returns></returns>
-PlayerInputManager::Button& PlayerInputManager::getButton(std::string button)
+PlayerInputManager::Button& PlayerInputManager::getButton(const std::string& button)
 {
 	return *this->m_buttons.at(button);
 }
@@ -229,7 +229,7 @@ PlayerInputManager::Button& PlayerInputManager::getButton(std::string button)
 /// Loads input manager configuration from a json file
 /// </summary>
 /// <param name="inputManagerFile"></param>
-void PlayerInputManager::loadDefinition(std::string inputManagerFile)
+void PlayerInputManager::loadDefinition(const std::string& inputManagerFile)
 {
 	std::ifstream configFile(inputManagerFile);
 

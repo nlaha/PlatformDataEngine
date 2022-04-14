@@ -1,12 +1,12 @@
 {
   "components": [
     {
-      "type": "EngineStatsText",
+      "type": "TextRenderer",
       "properties": {
-        "text": "",
+        "text": "Platform Data Engine",
         "fontPath": "assets/yoster.ttf",
         "fontSize": 70,
-        "renderSize": 0.1,
+        "renderSize": 1.0,
         "fontBold": false
       }
     }

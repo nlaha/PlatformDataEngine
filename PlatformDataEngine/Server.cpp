@@ -53,9 +53,12 @@ void Server::recieve(GameWorld* world)
 	// player connected
 	if (packet.flag() == PDEPacket::Connect) {
 		// spawn new player on server
+		std::string name;
+		packet >> name;
 		std::shared_ptr<Connection> connection = std::make_shared<Connection>();
 		connection->ip = clientIp;
 		connection->id = Utility::generate_uuid_v4();
+		connection->name = name;
 		connection->port = clientPort;
 
 		spdlog::info("A player has connected: {}:{} - {}", clientIp.toString(), clientPort, connection->id);
@@ -127,7 +130,6 @@ void Server::recieve(GameWorld* world)
 					world->getGameObject(clientId)->destroySelf();
 					world->getPlayers().erase(findConnection(clientIp, clientId));
 				}
-				world->clearNetDestroy();
 
 				packet = PDEPacket(PDEPacket::Disconnected);
 				packet << connection->id;
@@ -178,7 +180,7 @@ void Server::recieve(GameWorld* world)
 	}
 }
 
-void Server::broadcastObjectHealth(std::string objName, float health)
+void Server::broadcastObjectHealth(const std::string& objName, float health)
 {
 	for (std::shared_ptr<Connection> conn : this->m_connections)
 	{

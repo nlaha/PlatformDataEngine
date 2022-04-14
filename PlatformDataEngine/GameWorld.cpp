@@ -3,6 +3,7 @@
 
 using namespace PlatformDataEngine;
 using namespace std::chrono;
+namespace fs = std::filesystem;
 
 GameWorld::GameWorld()
 {
@@ -17,7 +18,7 @@ GameWorld::GameWorld()
 /// </summary>
 /// <param name="filePath">the path to the world definition file</param>
 /// <param name="view">a view that has been linked to a window</param>
-void GameWorld::init(std::string filePath, sf::View& view, ApplicationMode appMode)
+void GameWorld::init(const std::string& filePath, sf::View& view, ApplicationMode appMode)
 {
 
 	// load world json file
@@ -33,12 +34,16 @@ void GameWorld::init(std::string filePath, sf::View& view, ApplicationMode appMo
 	nlohmann::json world;
 	file >> world;
 
-	this->mp_tileMap = std::make_shared<TileMap>(world.at("tiledMapFile"));
+	if (world.count("tiledMapFile") > 0) {
+		this->mp_tileMap = std::make_shared<TileMap>(world.at("tiledMapFile"));
+	}
 
 	// construct game object instances
 	nlohmann::json gameObjects = world.at("gameObjects");
 
 	nlohmann::json player;
+
+	this->mp_view = std::make_shared<sf::View>(view);
 
 	// loop through all game objects
 	for (auto& gameObject : gameObjects)
@@ -53,20 +58,23 @@ void GameWorld::init(std::string filePath, sf::View& view, ApplicationMode appMo
 
 	if (appMode != ApplicationMode::DEDICATED) {
 		// init camera controller
-		nlohmann::json cameraControllerObj = world.at("cameraController");
+		if (world.count("cameraController") > 0) {
+			nlohmann::json cameraControllerObj = world.at("cameraController");
 
+			// spawn host player
+			std::shared_ptr<Connection> hostConnection = std::make_shared<Connection>();
+			hostConnection->id = "Server";
+			hostConnection->name = PlatformDataEngineWrapper::getPlayerName();
+			hostConnection->ip = sf::IpAddress::getLocalAddress();
+			hostConnection->port = 5660;
 
-		// spawn host player
-		std::shared_ptr<Connection> hostConnection = std::make_shared<Connection>();
-		hostConnection->id = "Server";
-		hostConnection->ip = sf::IpAddress::getLocalAddress();
-		hostConnection->port = 5660;
+			spawnPlayer(hostConnection);
 
-		spawnPlayer(hostConnection);
+			CameraController cc(cameraControllerObj.at("cameraLerpSpeed"), this->mp_view);
+			this->m_cameraControl = cc;
 
-		this->mp_view = std::make_shared<sf::View>(view);
-		CameraController cc(cameraControllerObj.at("cameraLerpSpeed"), this->mp_view);
-		this->m_cameraControl = cc;
+			this->m_cameraControl.setTarget(this->mp_currentPlayer);
+		}
 	}
 
 	// init game objects
@@ -74,13 +82,9 @@ void GameWorld::init(std::string filePath, sf::View& view, ApplicationMode appMo
 	{
 		gameObjectPair.second->init();
 	}
-
-	if (appMode != ApplicationMode::DEDICATED) {
-		this->m_cameraControl.setTarget(this->mp_currentPlayer);
-	}
 }
 
-void GameWorld::initClient(std::string filePath, sf::View& view)
+void GameWorld::initClient(const std::string& filePath, sf::View& view)
 {
 
 	// load world json file
@@ -136,12 +140,18 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 	}
 
 	// update tile objects
-	this->mp_tileMap->update(dt, elapsedTime);
+	if (this->mp_tileMap != nullptr) {
+		this->mp_tileMap->update(dt, elapsedTime);
+	}
 
 	// update game objects
 	for (auto gameObjectPair : this->mp_gameObjects)
 	{
 		gameObjectPair.second->update(dt, elapsedTime);
+
+		if (this != PlatformDataEngineWrapper::getWorld().get()) {
+			return;
+		}
 	}
 
 	garbageCollect();
@@ -173,7 +183,9 @@ void GameWorld::physicsUpdate(const float& dt, const float& elapsedTime)
 void GameWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	// draw tile map
-	target.draw(*this->mp_tileMap, states);
+	if (this->mp_tileMap != nullptr) {
+		target.draw(*this->mp_tileMap, states);
+	}
 
 	// sort game objects by z layer
 	// TODO: this could be done faster
@@ -209,7 +221,7 @@ void GameWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 /// </summary>
 /// <param name="name">a unique name for the gameObject</param>
 /// <param name="gameObject">a pointer to the gameObject</param>
-void GameWorld::registerGameObject(std::string name, std::shared_ptr<GameObject> gameObject)
+void GameWorld::registerGameObject(const std::string& name, std::shared_ptr<GameObject> gameObject)
 {
 	this->mp_gameObjects.emplace(name, gameObject);
 
@@ -225,13 +237,35 @@ void GameWorld::registerGameObject(std::string name, std::shared_ptr<GameObject>
 /// </summary>
 /// <param name="name">a unique name for the gameObject definition</param>
 /// <param name="gameObject">the gameObject "template" definition</param>
-void GameWorld::registerGameObjectDefinition(std::string name, std::shared_ptr<GameObject> gameObject)
+void GameWorld::registerGameObjectDefinition(const std::string& name, std::shared_ptr<GameObject> gameObject)
 {
 	gameObject->setType(name);
 	this->m_gameObjectDefinitions.emplace(name, gameObject);
 }
 
-std::shared_ptr<GameObject> GameWorld::spawnGameObject(std::string type, sf::Vector2f position, std::string name, bool noReplication)
+void GameWorld::loadGameObjectDefinitions()
+{
+	// load game objects definitions from gameObjects/*.json
+	// loop through all json files in game/gameObjects
+	// and create game objects from them
+	const fs::path gameObjectPath("./game/gameObjects/");
+
+	for (const auto& entry : fs::directory_iterator(gameObjectPath)) {
+		const auto filenameStr = entry.path().filename().string();
+		if (entry.is_regular_file()) {
+			if (entry.path().extension() == ".json")
+			{
+				// we've found a gameObject definition
+				spdlog::info("Loading GameObject definition: {}", entry.path().string());
+				std::shared_ptr<GameObject> gameObject = std::make_shared<GameObject>(true);
+				gameObject->loadDefinition(entry.path().string());
+				this->registerGameObjectDefinition(entry.path().filename().replace_extension("").string(), gameObject);
+			}
+		}
+	}
+}
+
+std::shared_ptr<GameObject> GameWorld::spawnGameObject(const std::string& type, sf::Vector2f position, std::string name, bool noReplication)
 {
 	sf::Clock timer;
 	if (this->m_gameObjectDefinitions.count(type) > 0) {
@@ -324,9 +358,25 @@ std::shared_ptr<GameObject> GameWorld::spawnDefinedGameObject(nlohmann::json gam
 	std::shared_ptr<GameObject> p_gameObject = std::make_shared<GameObject>(
 		*this->m_gameObjectDefinitions.at(gameObject.at("type"))
 		);
+
+	sf::Vector2f pos;
+	if (gameObject.at("transform").at("x") != "centered") {
+		pos.x = gameObject.at("transform").at("x");
+	}
+	else {
+		pos.x = this->mp_view->getSize().x / 2.0f;
+	}
+
+	if (gameObject.at("transform").at("y") != "centered") {
+		pos.y = gameObject.at("transform").at("y");
+	}
+	else {
+		pos.y = this->mp_view->getSize().y / 2.0f;
+	}
+
 	p_gameObject->setPosition(
-		gameObject.at("transform").at("x"),
-		gameObject.at("transform").at("y")
+		pos.x,
+		pos.y
 	);
 	p_gameObject->setOrigin(
 		gameObject.at("transform").at("origin_x"),
@@ -399,14 +449,16 @@ void GameWorld::garbageCollect()
 
 	// destroy physics bodies that are queued for destruction
 	b2Body* body = this->mp_physicsWorld->GetBodyList();
-	while (body->GetUserData().pointer != 0 && body->GetNext() != nullptr)
-	{
-		b2Body* next = body->GetNext();
-		if (reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer)->destroyed == true) {
-			delete reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer);
-			this->getPhysWorld()->DestroyBody(body);
-		}
+	if (body != nullptr) {
+		while (body->GetUserData().pointer != 0 && body->GetNext() != nullptr)
+		{
+			b2Body* next = body->GetNext();
+			if (reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer)->destroyed == true) {
+				delete reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer);
+				this->getPhysWorld()->DestroyBody(body);
+			}
 
-		body = next;
+			body = next;
+		}
 	}
 }

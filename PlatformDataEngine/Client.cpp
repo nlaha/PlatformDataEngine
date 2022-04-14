@@ -33,6 +33,7 @@ void Client::process(GameWorld* world)
 		// try to connect to a server
 
 		PDEPacket connectRequest(PDEPacket::Connect);
+		connectRequest << PlatformDataEngineWrapper::getPlayerName();
 		const auto status = m_socket.send(connectRequest, this->m_serverIp, this->m_serverPort);
 		if (status == sf::Socket::Error) {
 			spdlog::error("Error connecting to server: {}:{}", this->m_serverIp.toString(), m_serverPort);
@@ -161,7 +162,7 @@ void Client::recieve(GameWorld* world)
 		case PDEPacket::Connected:
 			this->m_clientConnection = std::make_shared<Connection>();
 			packet >> this->m_clientConnection->id;
-			this->m_clientConnection->ip = sf::IpAddress::getLocalAddress();
+			this->m_clientConnection->ip = sf::IpAddress::getPublicAddress();
 			this->m_isConnected = true;
 			world->setInGame(true);
 			spdlog::info("Client connected to server: {}:{} - {}", m_serverIp.toString(), m_serverPort, this->m_clientConnection->id);

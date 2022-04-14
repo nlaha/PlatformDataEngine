@@ -6,6 +6,7 @@
 #include <thread>
 #include <box2d/box2d.h>
 #include <spdlog/spdlog.h>
+#include <filesystem>
 #include <string>
 #include "TileMap.h"
 #include "GameObject.h"
@@ -36,18 +37,19 @@ namespace PlatformDataEngine {
 		GameWorld();
 
 		// game functions and loops
-		void init(std::string filePath, sf::View& view, ApplicationMode appMode);
-		void initClient(std::string filePath, sf::View& view);
+		void init(const std::string& filePath, sf::View& view, ApplicationMode appMode);
+		void initClient(const std::string& filePath, sf::View& view);
 		void initPhysics();
 		void update(const float& dt, const float& elapsedTime);
 		void physicsUpdate(const float& dt, const float& elapsedTime);
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 		// helpers
-		void registerGameObject(std::string name, std::shared_ptr<GameObject> gameObject);
-		void registerGameObjectDefinition(std::string name, std::shared_ptr<GameObject> gameObjectDef);
+		void registerGameObject(const std::string& name, std::shared_ptr<GameObject> gameObject);
+		void registerGameObjectDefinition(const std::string& name, std::shared_ptr<GameObject> gameObjectDef);
+		void loadGameObjectDefinitions();
 
-		std::shared_ptr<GameObject> spawnGameObject(std::string type, sf::Vector2f position, std::string name = "", bool noReplication = false);
+		std::shared_ptr<GameObject> spawnGameObject(const std::string& type, sf::Vector2f position, std::string name = "", bool noReplication = false);
 
 		// getters
 		inline std::map<std::string, std::shared_ptr<GameObject>>& getGameObjects() { return this->mp_gameObjects; };
@@ -55,7 +57,7 @@ namespace PlatformDataEngine {
 		inline std::shared_ptr<TileMap> getTileMap() const { return this->mp_tileMap; };
 		inline const CameraController& getCameraController() const { return this->m_cameraControl; };
 		inline sf::View getView() const { return *this->mp_view; };
-		inline std::shared_ptr<GameObject> getGameObject(std::string search) {
+		inline std::shared_ptr<GameObject> getGameObject(const std::string& search) {
 			if (mp_gameObjects.find(search) != mp_gameObjects.end()) {
 				return this->mp_gameObjects.find(search)->second;
 			}

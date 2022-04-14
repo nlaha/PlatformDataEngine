@@ -44,7 +44,7 @@ namespace PlatformDataEngine {
 		std::string getType() const { return this->m_type; };
 		nlohmann::json getProps() const { return this->m_all_props; };
 
-		void setType(std::string type) { this->m_type = type;  };
+		void setType(const std::string& type) { this->m_type = type;  };
 		void setProps(nlohmann::json& props) { this->m_all_props = props; };
 
 		inline void setIsDefinition(bool isDef) { this->m_isDefinition = isDef; };

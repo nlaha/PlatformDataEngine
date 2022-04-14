@@ -4,12 +4,17 @@ namespace fs = std::filesystem;
 
 namespace PlatformDataEngine {
 
-    std::shared_ptr<GameWorld> PlatformDataEngineWrapper::mp_mainWorld = std::make_shared<GameWorld>();
+    std::shared_ptr<GameWorld> PlatformDataEngineWrapper::mp_mainWorld = nullptr;
     std::shared_ptr<PlayerInputManager> PlatformDataEngineWrapper::mp_playerInputManager = std::make_shared<PlayerInputManager>(0);
     std::shared_ptr<sf::RenderWindow> PlatformDataEngineWrapper::mp_renderWindow = nullptr;
     bool PlatformDataEngineWrapper::m_pausedGame = false;
     bool PlatformDataEngineWrapper::m_debugPhysics = false;
     bool PlatformDataEngineWrapper::m_isClient = false;
+    std::string PlatformDataEngineWrapper::m_playerName = "Player";
+    sf::View PlatformDataEngineWrapper::m_view;
+    std::thread PlatformDataEngineWrapper::m_renderThread;
+    std::atomic<bool> PlatformDataEngineWrapper::m_renderThreadStop(false);
+    std::string PlatformDataEngineWrapper::m_playerInput = "";
 
     std::shared_ptr <NetworkHandler> PlatformDataEngineWrapper::m_netHandler = nullptr;
 
@@ -21,10 +26,10 @@ namespace PlatformDataEngine {
     {
     }
 
-    void renderingThread(std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<GameWorld> world)
+    void renderingThread(std::shared_ptr<sf::RenderWindow> window, GameWorld* world, std::atomic<bool>& threadStop)
     {
         sf::Clock fpsClock;
-        while (window->isOpen())
+        while (window->isOpen() && !threadStop.load(std::memory_order_relaxed))
         {
             // clear
             window->clear(sf::Color(0, 0, 0));
@@ -73,16 +78,15 @@ namespace PlatformDataEngine {
         }
 
         // create window and viewport
-        sf::View gameView;
         sf::FloatRect viewPort;
         if (appMode != ApplicationMode::DEDICATED) {
             mp_renderWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(640, 640), "PlatformData Engine" + flags, sf::Style::Default, contextSettings);
             sf::FloatRect visibleArea(0.f, 0.f, 256, 256);
-            gameView = sf::View(visibleArea);
+            m_view = sf::View(visibleArea);
             float xoffset = ((mp_renderWindow->getSize().x - mp_renderWindow->getSize().y) / 2.0f) / mp_renderWindow->getSize().x;
             viewPort = sf::FloatRect({ xoffset, 0 }, { (float)mp_renderWindow->getSize().y / (float)mp_renderWindow->getSize().x, 1.0f });
-            gameView.setViewport(viewPort);
-            mp_renderWindow->setView(gameView);
+            m_view.setViewport(viewPort);
+            mp_renderWindow->setView(m_view);
         }
 
         bool isFullscreen = false;
@@ -90,33 +94,20 @@ namespace PlatformDataEngine {
         // init input
         mp_playerInputManager->loadDefinition("./game/input.json");
 
+        // load game worlds
+        mp_mainWorld = std::make_shared<GameWorld>();
+
         // init physics
         mp_mainWorld->initPhysics();
 
-        // TODO: load game objects definitions from gameObjects/*.json
-        // loop through all json files in game/gameObjects
-        // and create game objects from them
-        const fs::path gameObjectPath("./game/gameObjects/");
+        mp_mainWorld->loadGameObjectDefinitions();
 
-        for (const auto& entry : fs::directory_iterator(gameObjectPath)) {
-            const auto filenameStr = entry.path().filename().string();
-            if (entry.is_regular_file()) {
-                if (entry.path().extension() == ".json")
-                {
-                    // we've found a gameObject definition
-                    spdlog::info("Loading GameObject definition: {}", entry.path().string());
-                    std::shared_ptr<GameObject> gameObject = std::make_shared<GameObject>(true);
-                    gameObject->loadDefinition(entry.path().string());
-                    mp_mainWorld->registerGameObjectDefinition(entry.path().filename().replace_extension("").string(), gameObject);
-                }
-            }
+        if (appMode != ApplicationMode::DEDICATED) {
+            // show menu
+            mp_mainWorld->init("game/worlds/menu.json", m_view, appMode);
         }
-
-        // init main world
-        if (m_isClient) {
-            mp_mainWorld->initClient("game/world.json", gameView);
-        } else {
-            mp_mainWorld->init("game/world.json", gameView, appMode);
+        else {
+            mp_mainWorld->init("game/worlds/world.json", m_view, appMode);
         }
 
         // game loop
@@ -130,12 +121,11 @@ namespace PlatformDataEngine {
         mp_mainWorld->getPhysWorld()->SetDebugDraw(&debugDraw);
         debugDraw.SetFlags(b2Draw::e_shapeBit); //Only draw shapes
 
-        std::thread renderThread;
         if (appMode != ApplicationMode::DEDICATED) {
             // deactivate its OpenGL context
             mp_renderWindow->setActive(false);
 
-            renderThread = std::thread(&renderingThread, mp_renderWindow, mp_mainWorld);
+            PlatformDataEngineWrapper::startRenderThread();
         }
 
         while (appMode == ApplicationMode::DEDICATED || mp_renderWindow->isOpen())
@@ -144,6 +134,13 @@ namespace PlatformDataEngine {
             if (appMode != ApplicationMode::DEDICATED) {
                 while (mp_renderWindow->pollEvent(event))
                 {
+                    if (event.type == sf::Event::TextEntered)
+                    {
+                        if (event.text.unicode < 128)
+                        {
+                            PlatformDataEngineWrapper::m_playerInput += event.text.unicode;
+                        }
+                    }
                     if (event.type == sf::Event::Closed)
                         mp_renderWindow->close();
 
@@ -161,7 +158,7 @@ namespace PlatformDataEngine {
                             event.key.alt && event.key.code == sf::Keyboard::Enter)
                         {
                             mp_renderWindow->close();
-                            renderThread.join();
+                            m_renderThread.join();
                             if (!isFullscreen) {
                                 mp_renderWindow->create(sf::VideoMode::getDesktopMode(), "PlatformData Engine", sf::Style::None, contextSettings);
                                 isFullscreen = true;
@@ -170,8 +167,7 @@ namespace PlatformDataEngine {
                                 mp_renderWindow->create(sf::VideoMode(1920, 1024), "PlatformData Engine", sf::Style::Default, contextSettings);
                                 isFullscreen = false;
                             }
-                            mp_renderWindow->setActive(false);
-                            renderThread = std::thread(&renderingThread, mp_renderWindow, mp_mainWorld);
+                            PlatformDataEngineWrapper::startRenderThread();
                         }
                         else if (event.key.code == sf::Keyboard::Pause)
                         {
@@ -180,6 +176,12 @@ namespace PlatformDataEngine {
                         else if (event.key.code == sf::Keyboard::Home)
                         {
                             m_debugPhysics = !m_debugPhysics;
+                        }
+                        else if (event.key.code == sf::Keyboard::BackSpace)
+                        {
+                            if (PlatformDataEngineWrapper::m_playerInput.size() > 0) {
+                                PlatformDataEngineWrapper::m_playerInput.pop_back();
+                            }
                         }
                     }
 
@@ -212,6 +214,8 @@ namespace PlatformDataEngine {
         if (m_isClient) {
             dynamic_cast<Client*>(PlatformDataEngineWrapper::getNetworkHandler())->disconnect();
         }
-        renderThread.join();
+        if(m_renderThread.joinable()) {
+            m_renderThread.join();
+        }
     }
 }

@@ -40,7 +40,7 @@ namespace PlatformDataEngine {
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-		void loadDefinition(std::string filename);
+		void loadDefinition(const std::string& filename);
 		void registerComponentHierarchy(std::shared_ptr<GameObject> self);
 
 		inline std::string getName() const { return this->m_name; };
@@ -56,7 +56,7 @@ namespace PlatformDataEngine {
 		inline std::shared_ptr<Connection> getConnection() const { return this->m_owningConnection; };
 		inline std::shared_ptr<GameObject> getParent() { return this->m_parent; };
 
-		inline void setName(std::string& name) { this->m_name = name; };
+		inline void setName(const std::string& name) { this->m_name = name; };
 		inline void destroySelf() {
 			this->m_destroyed = true;
 			for (std::shared_ptr<GameObject> child : this->m_children)
@@ -66,14 +66,14 @@ namespace PlatformDataEngine {
 		};
 
 		inline std::string getType() const { return this->m_type; };
-		inline void setType(std::string type) { this->m_type = type; };
+		inline void setType(const std::string& type) { this->m_type = type; };
 		inline bool getDestroyed() const { return this->m_destroyed; };
 		inline std::vector<std::shared_ptr<GameObject>> getChildren() const { return this->m_children; };
 		inline void setNetworked(bool networked) { this->m_networked = networked; };
 		inline bool getNetworked() { return this->m_networked; };
 
-		inline void setHasBeenSent(std::string id) { this->m_hasBeenSent.emplace(id, true); };
-		inline bool getHasBeenSent(std::string id) const { return this->m_hasBeenSent.count(id) > 0; };
+		inline void setHasBeenSent(const std::string& id) { this->m_hasBeenSent.emplace(id, true); };
+		inline bool getHasBeenSent(const std::string& id) const { return this->m_hasBeenSent.count(id) > 0; };
 
 		void sortChildZ();
 

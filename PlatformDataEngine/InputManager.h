@@ -32,7 +32,7 @@ namespace PlatformDataEngine {
 		private:
 		};
 
-		virtual Axis& getAxis(std::string axisName) = 0;
-		virtual Button& getButton(std::string button) = 0;
+		virtual Axis& getAxis(const std::string& axisName) = 0;
+		virtual Button& getButton(const std::string& button) = 0;
 	};
 }

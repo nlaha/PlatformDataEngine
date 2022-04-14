@@ -15,6 +15,7 @@ namespace PlatformDataEngine
         sf::IpAddress ip;
         std::string id;
         unsigned short port;
+        std::string name;
     };
 
     /// <summary>

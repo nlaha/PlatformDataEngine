@@ -57,15 +57,6 @@ namespace PlatformDataEngine {
     {
         m_isClient = appMode == ApplicationMode::CLIENT ? true : false;
 
-        // NETWORKING
-        if (m_isClient) {
-            m_netHandler = std::make_shared<Client>();
-        }
-        else {
-            m_netHandler = std::make_shared<Server>();
-        }
-        m_netHandler->start();
-
         sf::ContextSettings contextSettings;
 
         std::string flags = " [";

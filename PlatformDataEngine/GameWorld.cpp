@@ -129,14 +129,16 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 {
 
 	// network recieve, unlimited
-	PlatformDataEngineWrapper::getNetworkHandler()->recieve(this);
+	if (PlatformDataEngineWrapper::getNetworkHandler() != nullptr) {
+		PlatformDataEngineWrapper::getNetworkHandler()->recieve(this);
 
-	// network update
-	// limit send rate
-	if (PlatformDataEngineWrapper::getIsClient() &&
-		this->m_packetClock.getElapsedTime().asMilliseconds() > 24) {
-		PlatformDataEngineWrapper::getNetworkHandler()->process(this);
-		m_packetClock.restart();
+		// network update
+		// limit send rate
+		if (PlatformDataEngineWrapper::getIsClient() &&
+			this->m_packetClock.getElapsedTime().asMilliseconds() > 24) {
+			PlatformDataEngineWrapper::getNetworkHandler()->process(this);
+			m_packetClock.restart();
+		}
 	}
 
 	// update tile objects

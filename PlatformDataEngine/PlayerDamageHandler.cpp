@@ -28,8 +28,6 @@ void PlayerDamageHandler::loadDefinition(nlohmann::json object)
 void PlayerDamageHandler::onDeath()
 {
 	GlobalEffects::explode(*this->m_parent->findComponentOfType<SpriteRenderer>(), this->m_parent->getPosition());
-
-	this->m_parent->destroySelf();
 }
 
 void PlayerDamageHandler::onDamage(float currentHP)

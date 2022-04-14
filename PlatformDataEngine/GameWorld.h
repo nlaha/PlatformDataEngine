@@ -78,20 +78,6 @@ namespace PlatformDataEngine {
 
 		inline std::map<std::string, std::shared_ptr<GameObject>>& getGameObjectDefs() { return this->m_gameObjectDefinitions; };
 
-		inline std::vector<std::string> getNetToDestroy() const {
-			return this->mp_netToDestroy;
-		}
-
-		inline void clearNetDestroy() {
-			this->mp_netToDestroy.clear();
-		}
-
-		inline void addNetToDestroy(std::string name) {
-			if (name != "") {
-				this->mp_netToDestroy.push_back(name);
-			}
-		}
-
 
 		// setters
 		std::string spawnPlayer(std::shared_ptr<Connection> conn);
@@ -125,7 +111,6 @@ namespace PlatformDataEngine {
 
 		std::shared_ptr<ContactFilter> m_physFilter;
 
-		std::vector<std::string> mp_netToDestroy;
 		std::map<std::string, std::shared_ptr<GameObject>> mp_gameObjects;
 		std::map<std::shared_ptr<Connection>, GameObject*> m_players;
 		nlohmann::json m_playerDef;

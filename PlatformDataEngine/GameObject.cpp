@@ -274,6 +274,8 @@ void GameObject::onDeath()
 	std::shared_ptr<DamageHandler> dh = this->findComponentOfType<DamageHandler>();
 	if (dh != nullptr)
 		dh->onDeath();
+
+	this->destroySelf();
 }
 
 void GameObject::onDamage(float currentHP)

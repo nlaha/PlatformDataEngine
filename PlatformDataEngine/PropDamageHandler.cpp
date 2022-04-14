@@ -30,8 +30,6 @@ void PropDamageHandler::onDeath()
 	if (!this->m_died) {
 		this->m_died = true;
 		GlobalEffects::explode(*this->m_parent->findComponentOfType<SpriteRenderer>(), this->m_parent->getPosition(), 4);
-
-		this->m_parent->destroySelf();
 	}
 }
 

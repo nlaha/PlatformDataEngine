@@ -171,12 +171,6 @@ void Server::recieve(GameWorld* world)
 					}
 				}
 
-				packet << static_cast<sf::Uint32>(world->getNetToDestroy().size());
-				for (std::string name : world->getNetToDestroy())
-				{
-					packet << name;
-				}
-
 				m_socket.send(packet, clientIp, clientPort);
 				break;
 			}

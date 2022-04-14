@@ -85,6 +85,7 @@ void Client::recieve(GameWorld* world)
 		bool isNetworked = false;
 		float objHealth = 0.0f;
 		bool hasRecievedBefore = false;
+		std::vector<std::string> updatedObjects;
 
 		switch (packet.flag())
 		{
@@ -98,6 +99,8 @@ void Client::recieve(GameWorld* world)
 					packet >> objType;
 					packet >> objPos.x >> objPos.y;
 					packet >> objName;
+
+					updatedObjects.push_back(objName);
 
 					if (objName == "")
 					{
@@ -114,18 +117,35 @@ void Client::recieve(GameWorld* world)
 				}
 			}
 
-			packet >> numObjs;
-			for (size_t i = 0; i < numObjs; i++)
+			//packet >> numObjs;
+
+			for (const auto& gameObjectPair : world->getGameObjects())
 			{
-				packet >> objName;
-				if (world->getGameObject(objName) != nullptr) {
-					if (world->getGameObject(objName)->getHealth() <= 0)
+				if (gameObjectPair.second->getNetworked()) {
+					if (std::find(updatedObjects.begin(),
+						updatedObjects.end(),
+						gameObjectPair.first) != updatedObjects.end())
 					{
-						world->getGameObject(objName)->onDeath();
+						// found object, don't destroy
 					}
-					world->getGameObject(objName)->destroySelf();
+					else {
+						// we didn't get an update, go ahead and destroy it
+						gameObjectPair.second->onDeath();
+					}
 				}
 			}
+
+			//for (size_t i = 0; i < numObjs; i++)
+			//{
+			//	packet >> objName;
+			//	if (world->getGameObject(objName) != nullptr) {
+			//		if (world->getGameObject(objName)->getHealth() <= 0)
+			//		{
+			//			world->getGameObject(objName)->onDeath();
+			//		}
+			//		world->getGameObject(objName)->destroySelf();
+			//	}
+			//}
 
 			break;
 

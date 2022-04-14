@@ -123,13 +123,6 @@ void GameWorld::initPhysics()
 /// <param name="elapsedTime">elapsed time (since game started)</param>
 void GameWorld::update(const float& dt, const float& elapsedTime)
 {
-	// if the clients haven't gotten the message
-	// to destroy the garbage after 10 seconds, just clear it
-	if (this->m_garbageClock.getElapsedTime().asSeconds() > 1)
-	{
-		this->clearNetDestroy();
-		m_garbageClock.restart();
-	}
 
 	// network recieve, unlimited
 	PlatformDataEngineWrapper::getNetworkHandler()->recieve(this);
@@ -385,9 +378,6 @@ void GameWorld::garbageCollect()
 	{
 		if (it->second->getDestroyed())
 		{
-			if (!PlatformDataEngineWrapper::getIsClient()) {
-				this->addNetToDestroy(it->second->getName());
-			}
 
 			if (it->second.get() == this->mp_currentPlayer) {
 				this->setPlayer(nullptr);

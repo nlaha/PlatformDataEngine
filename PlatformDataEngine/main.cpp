@@ -3,10 +3,14 @@
 
 int main(int argc, char** argv)
 {
-    bool isClient = false;
+    PlatformDataEngine::ApplicationMode appMode = PlatformDataEngine::SERVER;
     char* clientArg = argv[1];
     if (argc > 1 && std::strcmp(clientArg, "--client") == 0) {
-        isClient = true;
+        appMode = PlatformDataEngine::CLIENT;
+    }
+
+    if (argc > 1 && std::strcmp(clientArg, "--dedicated") == 0) {
+        appMode = PlatformDataEngine::DEDICATED;
     }
 
     srand(time(NULL));
@@ -14,7 +18,7 @@ int main(int argc, char** argv)
     spdlog::set_level(spdlog::level::info);
 
     PlatformDataEngine::PlatformDataEngineWrapper engine;
-    engine.run(isClient);
+    engine.run(appMode);
 
     return 0;
 }

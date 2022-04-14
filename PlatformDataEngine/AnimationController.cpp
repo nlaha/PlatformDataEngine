@@ -80,10 +80,7 @@ void AnimationController::update(const float &dt, const float &elapsedTime)
             }
         }
     }
-}
 
-void AnimationController::draw(sf::RenderTarget &target, sf::RenderStates states) const
-{
     if (!this->m_parent->getNetworked() || !PlatformDataEngineWrapper::getIsClient()) {
         if (this->m_curFrame != nullptr) {
             // draw frame
@@ -103,6 +100,11 @@ void AnimationController::draw(sf::RenderTarget &target, sf::RenderStates states
             this->m_spriteRenderer->setRect(frameRect);
         }
     }
+}
+
+void AnimationController::draw(sf::RenderTarget &target, sf::RenderStates states) const
+{
+
 }
 
 void AnimationController::copy(std::shared_ptr<Component> otherCompPtr)

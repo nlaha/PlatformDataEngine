@@ -7,8 +7,13 @@ Server::Server()
 {
 	spdlog::info("Running in SERVER mode!");
 
-	this->m_port = 5660;
-	this->m_ip = sf::IpAddress("localhost");
+	std::ifstream netFile("./game/network.json");
+
+	nlohmann::json netConf;
+	netFile >> netConf;
+
+	this->m_port = netConf.at("port");
+	this->m_ip = sf::IpAddress::getPublicAddress();
 	this->m_socket.setBlocking(false);
 }
 

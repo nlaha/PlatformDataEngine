@@ -403,6 +403,9 @@
     <None Include="assets\SpaceTileset.tsx">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="game\network.json">
+      <Filter>Resource Files\Game</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\Character.png">

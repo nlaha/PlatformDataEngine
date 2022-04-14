@@ -28,6 +28,12 @@ namespace PlatformDataEngine {
 		PARTICLE = 0x0012,
 	};
 
+	enum ApplicationMode {
+		CLIENT,
+		SERVER,
+		DEDICATED
+	};
+
 	void renderingThread(std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<GameWorld> world);
 
 	/// <summary>
@@ -39,7 +45,7 @@ namespace PlatformDataEngine {
 		PlatformDataEngineWrapper();
 		~PlatformDataEngineWrapper();
 
-		void run(bool isClient);
+		void run(ApplicationMode appMode);
 
 		static inline float m_fps{ 0.0 };
 		static inline sf::Vector2f m_windowZero{ 0.0, 0.0 };

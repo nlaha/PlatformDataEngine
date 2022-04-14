@@ -15,6 +15,8 @@
 
 namespace PlatformDataEngine {
 
+	enum ApplicationMode;
+
 	/// <summary>
 	/// Represents a game world with it's own tile map and gameObjects
 	/// </summary>
@@ -34,7 +36,7 @@ namespace PlatformDataEngine {
 		GameWorld();
 
 		// game functions and loops
-		void init(std::string filePath, sf::View& view);
+		void init(std::string filePath, sf::View& view, ApplicationMode appMode);
 		void initClient(std::string filePath, sf::View& view);
 		void initPhysics();
 		void update(const float& dt, const float& elapsedTime);

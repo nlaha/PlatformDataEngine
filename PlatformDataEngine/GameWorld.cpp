@@ -17,7 +17,7 @@ GameWorld::GameWorld()
 /// </summary>
 /// <param name="filePath">the path to the world definition file</param>
 /// <param name="view">a view that has been linked to a window</param>
-void GameWorld::init(std::string filePath, sf::View& view)
+void GameWorld::init(std::string filePath, sf::View& view, ApplicationMode appMode)
 {
 
 	// load world json file
@@ -51,20 +51,23 @@ void GameWorld::init(std::string filePath, sf::View& view)
 		}
 	}
 
-	// init camera controller
-	nlohmann::json cameraControllerObj = world.at("cameraController");
+	if (appMode != ApplicationMode::DEDICATED) {
+		// init camera controller
+		nlohmann::json cameraControllerObj = world.at("cameraController");
 
-	// spawn host player
-	std::shared_ptr<Connection> hostConnection = std::make_shared<Connection>();
-	hostConnection->id = "Server";
-	hostConnection->ip = sf::IpAddress::getLocalAddress();
-	hostConnection->port = 5660;
 
-	spawnPlayer(hostConnection);
+		// spawn host player
+		std::shared_ptr<Connection> hostConnection = std::make_shared<Connection>();
+		hostConnection->id = "Server";
+		hostConnection->ip = sf::IpAddress::getLocalAddress();
+		hostConnection->port = 5660;
 
-	this->mp_view = std::make_shared<sf::View>(view);
-	CameraController cc(cameraControllerObj.at("cameraLerpSpeed"), this->mp_view);
-	this->m_cameraControl = cc;
+		spawnPlayer(hostConnection);
+
+		this->mp_view = std::make_shared<sf::View>(view);
+		CameraController cc(cameraControllerObj.at("cameraLerpSpeed"), this->mp_view);
+		this->m_cameraControl = cc;
+	}
 
 	// init game objects
 	for (auto& gameObjectPair : this->mp_gameObjects)
@@ -72,7 +75,9 @@ void GameWorld::init(std::string filePath, sf::View& view)
 		gameObjectPair.second->init();
 	}
 
-	this->m_cameraControl.setTarget(this->mp_currentPlayer);
+	if (appMode != ApplicationMode::DEDICATED) {
+		this->m_cameraControl.setTarget(this->mp_currentPlayer);
+	}
 }
 
 void GameWorld::initClient(std::string filePath, sf::View& view)
@@ -120,7 +125,7 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 {
 	// if the clients haven't gotten the message
 	// to destroy the garbage after 10 seconds, just clear it
-	if (this->m_garbageClock.getElapsedTime().asSeconds() > 10)
+	if (this->m_garbageClock.getElapsedTime().asSeconds() > 1)
 	{
 		this->clearNetDestroy();
 		m_garbageClock.restart();
@@ -132,7 +137,7 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 	// network update
 	// limit send rate
 	if (PlatformDataEngineWrapper::getIsClient() &&
-		this->m_packetClock.getElapsedTime().asMilliseconds() > 16) {
+		this->m_packetClock.getElapsedTime().asMilliseconds() > 24) {
 		PlatformDataEngineWrapper::getNetworkHandler()->process(this);
 		m_packetClock.restart();
 	}

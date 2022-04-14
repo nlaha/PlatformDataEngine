@@ -37,7 +37,7 @@ void StatsPanel::update(const float &dt, const float &elapsedTime)
         }
     }
 
-    if (this->m_playerRocketLauncher) {
+    if (this->m_playerRocketLauncher != nullptr) {
         // update rocket cooldown animations
         if (m_playerRocketLauncher->isCoolingDown())
         {
@@ -49,19 +49,20 @@ void StatsPanel::update(const float &dt, const float &elapsedTime)
         }
     }
 
-    this->m_targetHealth = this->m_player->getHealth();
+    if (this->m_player != nullptr) {
+        this->m_targetHealth = this->m_player->getHealth();
 
-    // lerp health to target health
-    if (this->m_health != this->m_targetHealth)
-    {
-        this->m_health = Utility::lerp(this->m_health, this->m_targetHealth, this->m_healthBarSpeed * dt);
+        // lerp health to target health
+        if (this->m_health != this->m_targetHealth)
+        {
+            this->m_health = Utility::lerp(this->m_health, this->m_targetHealth, this->m_healthBarSpeed * dt);
+        }
+
+        this->m_healthBar.setSize(sf::Vector2f(
+            this->m_healthBarSize.x * (this->m_targetHealth / 100.0f), this->m_healthBarSize.y));
+        this->m_healthBarDelayed.setSize(sf::Vector2f(
+            this->m_healthBarSize.x * (this->m_health / 100.0f), this->m_healthBarSize.y));
     }
-
-    this->m_healthBar.setSize(sf::Vector2f(
-        this->m_healthBarSize.x * (this->m_targetHealth / 100.0f), this->m_healthBarSize.y));
-    this->m_healthBarDelayed.setSize(sf::Vector2f(
-        this->m_healthBarSize.x * (this->m_health / 100.0f), this->m_healthBarSize.y));
-
 }
 
 void StatsPanel::draw(sf::RenderTarget &target, sf::RenderStates states) const

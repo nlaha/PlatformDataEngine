@@ -7,8 +7,13 @@ Client::Client()
 {
 	spdlog::info("Running in CLIENT mode!");
 
-	this->m_serverPort = 5660;
-	this->m_serverIp = sf::IpAddress("localhost");
+	std::ifstream netFile("./game/network.json");
+
+	nlohmann::json netConf;
+	netFile >> netConf;
+
+	this->m_serverPort = netConf.at("port");
+	this->m_serverIp = sf::IpAddress(std::string(netConf.at("ip")));
 	this->m_socket.setBlocking(false);
 	this->m_isConnecting = false;
 	this->m_isConnected = false;

@@ -53,22 +53,8 @@ void RocketProjectile::update(const float& dt, const float& elapsedTime)
         {
             if (c->contact->GetFixtureA()->IsSensor() != true &&
                 c->contact->GetFixtureB()->IsSensor() != true) {
-                // don't explode on self
-                if (c->other->GetUserData().pointer != 0) {
-                    GameObject* otherGameObject = reinterpret_cast<PhysBodyUserData*>(c->other->GetUserData().pointer)->gameObjectOwner;
-                    if (PlatformDataEngineWrapper::getWorld()->getPlayer() != nullptr) {
-                        std::string player = PlatformDataEngineWrapper::getWorld()->getPlayer()->getName();
-                        if (otherGameObject->getName() != player)
-                        {
-                            this->m_isExploding = true;
-                            break;
-                        }
-                    }
-                }
-                else {
-                    this->m_isExploding = true;
-                    break;
-                }
+                this->m_isExploding = true;
+                break;
             }
         }
 

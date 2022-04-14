@@ -13,7 +13,12 @@ Server::Server()
 	netFile >> netConf;
 
 	this->m_port = netConf.at("port");
-	this->m_ip = sf::IpAddress::getPublicAddress();
+	if (netConf.at("ip") == "public") {
+		this->m_ip = sf::IpAddress::getPublicAddress();
+	}
+	else {
+		this->m_ip = sf::IpAddress(std::string(netConf.at("ip")));
+	}
 	this->m_socket.setBlocking(false);
 }
 

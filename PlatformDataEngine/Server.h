@@ -26,8 +26,7 @@ namespace PlatformDataEngine {
 
 		void recieve(GameWorld* world);
 
-		void replicateGameObject(GameObject* newObject);
-		void replicateChild(std::shared_ptr<GameObject> child, std::string parent);
+		void broadcastObjectHealth(std::string objName, float health);
 
 		std::shared_ptr<Connection> findConnection(sf::IpAddress ip, std::string id);
 

@@ -19,7 +19,7 @@ void GlobalEffects::explode(SpriteRenderer& sprite, sf::Vector2f pos, int slices
 	{
 		for (int j = 0; j < slices; j++)
 		{
-			particleRects.push_back(sf::IntRect(i * width, j * height, width, height));
+			particleRects.push_back(sf::IntRect(i * width + fullRect.left, j * height + fullRect.top, width, height));
 		}
 	}
 
@@ -27,7 +27,7 @@ void GlobalEffects::explode(SpriteRenderer& sprite, sf::Vector2f pos, int slices
 	for (sf::IntRect pRect : particleRects)
 	{
 		std::shared_ptr<GameObject> particle = PlatformDataEngineWrapper::getWorld()->spawnGameObject(
-			"ExplodeChunkParticle", pos + sf::Vector2f(pRect.left, pRect.top),
+			"ExplodeChunkParticle", pos + sf::Vector2f(pRect.left - fullRect.left, pRect.top - fullRect.top),
 			"", true);
 		particle->setZlayer(40);
 

@@ -117,8 +117,11 @@ namespace PlatformDataEngine {
 		std::shared_ptr<sf::View> mp_view;
 
 		sf::Clock m_packetClock;
+		sf::Clock m_garbageClock;
 
 		CameraController m_cameraControl;
+
+		std::shared_ptr<ContactFilter> m_physFilter;
 
 		std::vector<std::string> mp_netToDestroy;
 		std::map<std::string, std::shared_ptr<GameObject>> mp_gameObjects;
@@ -126,9 +129,12 @@ namespace PlatformDataEngine {
 		nlohmann::json m_playerDef;
 
 		bool m_inGame;
+		int m_spawnIdx;
 
 		std::map<std::string, std::shared_ptr<GameObject>> m_gameObjectDefinitions;
 
 		std::shared_ptr<GameObject> spawnDefinedGameObject(nlohmann::json gameObject, std::string name = "");
+	
+		void garbageCollect();
 	};
 }

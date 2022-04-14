@@ -1,5 +1,6 @@
 #pragma once
 #include <box2d/box2d.h>
+#include <spdlog/spdlog.h>
 
 namespace PlatformDataEngine {
 
@@ -13,6 +14,16 @@ namespace PlatformDataEngine {
     {
         bool destroyed;
         GameObject* gameObjectOwner;
+    };
+
+    /// <summary>
+    /// Contact filter, overrides default to prevent rockets
+    /// from colliding with player
+    /// </summary>
+    class ContactFilter : public b2ContactFilter
+    {
+    public:
+        bool ShouldCollide(b2Fixture* fixtureA, b2Fixture* fixtureB);
     };
 
     /// <summary>

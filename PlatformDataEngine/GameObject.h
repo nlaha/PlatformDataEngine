@@ -21,7 +21,7 @@ namespace PlatformDataEngine {
 	/// transformable and components can be added to modify the funcionality. 
 	/// These classes are defined by the user in a json file.
 	/// </summary>
-	class GameObject : public sf::Transformable, public sf::Drawable, public Alive
+	class GameObject : public sf::Transformable, public sf::Drawable, public Alive, public Networkable
 	{
 	public:
 
@@ -35,6 +35,8 @@ namespace PlatformDataEngine {
 		void update(const float& dt, const float& elapsedTime);
 		void networkSerialize(PDEPacket& output);
 		void networkDeserialize(PDEPacket& input);
+		void networkSerializeInit(PDEPacket& output);
+		void networkDeserializeInit(PDEPacket& input);
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -70,6 +72,9 @@ namespace PlatformDataEngine {
 		inline void setNetworked(bool networked) { this->m_networked = networked; };
 		inline bool getNetworked() { return this->m_networked; };
 
+		inline void setHasBeenSent(std::string id) { this->m_hasBeenSent.emplace(id, true); };
+		inline bool getHasBeenSent(std::string id) const { return this->m_hasBeenSent.count(id) > 0; };
+
 		void sortChildZ();
 
 		template<typename T>
@@ -92,6 +97,7 @@ namespace PlatformDataEngine {
 		void onDamage(float currentHP);
 
 	private:
+
 		std::map<std::string, std::shared_ptr<Component>> m_components;
 		std::vector<std::shared_ptr<GameObject>> m_children;
 		std::shared_ptr<GameObject> m_parent;
@@ -106,7 +112,12 @@ namespace PlatformDataEngine {
 		bool m_isDefinition;
 		bool m_isUI;
 		bool m_networked;
+		std::map<std::string, bool> m_hasBeenSent;
 		std::string m_type;
+
+		bool m_hasPhysics;
+
+		std::vector<std::string> m_childNames;
 
 		bool m_hasHealthBar;
 		std::shared_ptr<StatsBar> m_healthBar;

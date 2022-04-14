@@ -77,61 +77,86 @@ void Client::recieve(GameWorld* world)
 		std::string objConnId = "";
 		std::string parentName = "";
 		sf::Uint32 numObjs = 0;
+		bool isNetworked = false;
+		float objHealth = 0.0f;
+		bool hasRecievedBefore = false;
 
 		switch (packet.flag())
 		{
-		case PDEPacket::SpawnGameObject:
-			packet >> objType;
-			packet >> objPos.x >> objPos.y;
-			packet >> objName;
-			//spdlog::info("Spawning gameObject of type {}, at ({}, {})", objType, objPos.x, objPos.y);
-			obj = world->spawnGameObject(objType, objPos, objName);
-			break;
 
-		case PDEPacket::SpawnChild:
-			packet >> parentName;
-			packet >> objType;
-			packet >> objPos.x >> objPos.y;
-			packet >> objName;
-			//spdlog::info("Spawning child gameObject of type {} on {}", objType, parentName);
-			obj = world->spawnGameObject(objType, objPos, objName);
-			if (world->getGameObject(parentName) != nullptr) {
-				std::shared_ptr<GameObject> parent = world->getGameObject(parentName);
-				parent->addChild(obj);
-				obj->setParent(parent);
+		case PDEPacket::ResponseUpdates:
+			packet >> numObjs;
+			for (size_t i = 0; i < numObjs; i++)
+			{
+				packet >> isNetworked;
+				if (isNetworked) {
+					packet >> objType;
+					packet >> objPos.x >> objPos.y;
+					packet >> objName;
+
+					if (objName == "")
+					{
+						spdlog::error("Update packet is malformed!");
+					}
+					//spdlog::info("Moving {} to position ({}, {})", objName, objPos.x, objPos.y);
+					if (world->getGameObject(objName) != nullptr) {
+						world->getGameObject(objName)->networkDeserialize(packet);
+					}
+					else {
+						obj = world->spawnGameObject(objType, objPos, objName);
+						obj->networkDeserializeInit(packet);
+					}
+				}
 			}
+
+			packet >> numObjs;
+			for (size_t i = 0; i < numObjs; i++)
+			{
+				packet >> objName;
+				if (world->getGameObject(objName) != nullptr) {
+					if (world->getGameObject(objName)->getHealth() <= 0)
+					{
+						world->getGameObject(objName)->onDeath();
+					}
+					world->getGameObject(objName)->destroySelf();
+				}
+			}
+
 			break;
 
-		case PDEPacket::UpdateGameObject:
+		case PDEPacket::SetObjectHealth:
 			packet >> objName;
-			//spdlog::info("Moving {} to position ({}, {})", objName, objPos.x, objPos.y);
+			packet >> objHealth;
 			if (world->getGameObject(objName) != nullptr) {
-				world->getGameObject(objName)->networkDeserialize(packet);
+				world->getGameObject(objName)->setHealth(objHealth);
 			}
-			break;
 
-		//case PDEPacket::GarbageCollect:
-		//	packet >> numObjs;
-		//	for (size_t i = 0; i < numObjs; i++)
-		//	{
-		//		packet >> objName;
-		//		world->addNetToDestroy(objName);
-		//	}
-		//	break;
+			break;
 
 		case PDEPacket::Connected:
-
 			this->m_clientConnection = std::make_shared<Connection>();
 			packet >> this->m_clientConnection->id;
 			this->m_clientConnection->ip = sf::IpAddress::getLocalAddress();
 			this->m_isConnected = true;
 			world->setInGame(true);
-			spdlog::info("Client connected to server: {}:{}", m_serverIp.toString(), m_serverPort);
+			spdlog::info("Client connected to server: {}:{} - {}", m_serverIp.toString(), m_serverPort, this->m_clientConnection->id);
 
 			break;
 
-		default:
+		case PDEPacket::Disconnected:
+			this->m_clientConnection = nullptr;
+			spdlog::info("Disconnected from server!");
 			break;
 		}
+	}
+}
+
+void Client::disconnect()
+{
+	PDEPacket disconnectPk(PDEPacket::Disconnect);
+	disconnectPk << this->m_clientConnection->id;
+	if (m_socket.send(disconnectPk, this->m_serverIp, m_serverPort) != sf::Socket::Done)
+	{
+		spdlog::warn("Failed to send disconnect request packet!");
 	}
 }

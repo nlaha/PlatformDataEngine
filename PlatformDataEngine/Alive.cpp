@@ -1,4 +1,5 @@
 #include "Alive.h"
+#include "PlatformDataEngineWrapper.h"
 
 using namespace PlatformDataEngine;
 
@@ -16,12 +17,17 @@ Alive::Alive()
 /// <param name="damageAmount">amount of damage to deal in % where an object at full health is 100%</param>
 void Alive::damage(float damageAmount)
 {
-	if (this->m_HP - damageAmount <= 0) {
-		this->m_HP = 0;
+	if (m_HP <= 0.0f)
+	{
+		this->m_HP = 0.0f;
+		onDamage(this->m_HP);
 		onDeath();
 	}
 	else {
-		this->m_HP -= damageAmount;
-		onDamage(this->m_HP);
+		// don't damage on client, sever will take care of that
+		if (!PlatformDataEngineWrapper::getIsClient()) {
+			this->m_HP -= damageAmount;
+			onDamage(this->m_HP);
+		}
 	}
 }

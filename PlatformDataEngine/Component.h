@@ -4,6 +4,7 @@
 #include <memory>
 #include <nlohmann/json.hpp>
 #include "Packet.h"
+#include "Networkable.h"
 
 namespace PlatformDataEngine {
 
@@ -13,7 +14,7 @@ namespace PlatformDataEngine {
 	/// The base component class, when creating components to
 	/// add gameplay functionality, they should inherit from this class
 	/// </summary>
-	class Component : public sf::Drawable
+	class Component : public sf::Drawable, public Networkable
 	{
 
 	public:
@@ -29,6 +30,9 @@ namespace PlatformDataEngine {
 		virtual void update(const float& dt, const float& elapsedTime);
 
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+		virtual void networkSerializeInit(PDEPacket& output);
+		virtual void networkDeserializeInit(PDEPacket& input);
 
 		virtual void networkSerialize(PDEPacket& output);
 		virtual void networkDeserialize(PDEPacket& input);

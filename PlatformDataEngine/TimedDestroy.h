@@ -21,9 +21,6 @@ namespace PlatformDataEngine {
 
         void loadDefinition(nlohmann::json object);
 
-        void networkSerialize(PDEPacket& output);
-        void networkDeserialize(PDEPacket& input);
-
     private:
 
         sf::Clock m_timer;

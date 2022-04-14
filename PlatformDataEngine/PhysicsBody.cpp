@@ -43,6 +43,11 @@ void PhysicsBody::copy(std::shared_ptr<Component> otherCompPtr)
 			filter.categoryBits = PlatformDataEngine::WORLD_STATIC;
 			fix->SetFilterData(filter);
 		}
+
+		//if (PlatformDataEngineWrapper::getIsClient())
+		//{
+		//	this->m_body->SetType(b2BodyType::b2_kinematicBody);
+		//}
 	}
 }
 

@@ -7,6 +7,8 @@ using namespace std::chrono;
 GameWorld::GameWorld()
 {
 	this->m_inGame = false;
+	this->mp_currentPlayer = nullptr;
+	this->m_spawnIdx = 0;
 }
 
 /// <summary>
@@ -53,22 +55,12 @@ void GameWorld::init(std::string filePath, sf::View& view)
 	nlohmann::json cameraControllerObj = world.at("cameraController");
 
 	// spawn host player
-	auto hostPlayer = spawnDefinedGameObject(this->m_playerDef);
-
 	std::shared_ptr<Connection> hostConnection = std::make_shared<Connection>();
 	hostConnection->id = "Server";
 	hostConnection->ip = sf::IpAddress::getLocalAddress();
-	this->m_players.emplace(hostConnection, hostPlayer.get());
-	this->mp_currentPlayer = hostPlayer.get();
+	hostConnection->port = 5660;
 
-	int spawnIdx = 0;
-	for (auto& playerPair : this->m_players)
-	{
-		if (spawnIdx < this->mp_playerSpawns.size()) {
-			playerPair.second->setPosition(this->mp_playerSpawns[spawnIdx].position);
-			spawnIdx++;
-		}
-	}
+	spawnPlayer(hostConnection);
 
 	this->mp_view = std::make_shared<sf::View>(view);
 	CameraController cc(cameraControllerObj.at("cameraLerpSpeed"), this->mp_view);
@@ -80,7 +72,7 @@ void GameWorld::init(std::string filePath, sf::View& view)
 		gameObjectPair.second->init();
 	}
 
-	this->m_cameraControl.setTarget(hostPlayer);
+	this->m_cameraControl.setTarget(this->mp_currentPlayer);
 }
 
 void GameWorld::initClient(std::string filePath, sf::View& view)
@@ -114,6 +106,9 @@ void GameWorld::initPhysics()
 	// init physics world
 	b2Vec2 gravity(0.0f, 9.0f);
 	this->mp_physicsWorld = std::make_shared<b2World>(gravity);
+
+	m_physFilter = std::make_shared<ContactFilter>();
+	this->mp_physicsWorld->SetContactFilter(m_physFilter.get());
 }
 
 /// <summary>
@@ -123,16 +118,23 @@ void GameWorld::initPhysics()
 /// <param name="elapsedTime">elapsed time (since game started)</param>
 void GameWorld::update(const float& dt, const float& elapsedTime)
 {
+	// if the clients haven't gotten the message
+	// to destroy the garbage after 10 seconds, just clear it
+	if (this->m_garbageClock.getElapsedTime().asSeconds() > 10)
+	{
+		this->clearNetDestroy();
+		m_garbageClock.restart();
+	}
+
+	// network recieve, unlimited
 	PlatformDataEngineWrapper::getNetworkHandler()->recieve(this);
 
 	// network update
 	// limit send rate
-	if (PlatformDataEngineWrapper::getIsClient()) {
-		if (this->m_packetClock.getElapsedTime().asMilliseconds() > 40) {
-			PlatformDataEngineWrapper::getNetworkHandler()->process(this);
-
-			m_packetClock.restart();
-		}
+	if (PlatformDataEngineWrapper::getIsClient() &&
+		this->m_packetClock.getElapsedTime().asMilliseconds() > 16) {
+		PlatformDataEngineWrapper::getNetworkHandler()->process(this);
+		m_packetClock.restart();
 	}
 
 	// update tile objects
@@ -144,54 +146,7 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 		gameObjectPair.second->update(dt, elapsedTime);
 	}
 
-	if (PlatformDataEngineWrapper::getIsClient()) {
-		for (std::string name : this->mp_netToDestroy)
-		{
-			if (this->getGameObject(name) != nullptr)
-			{
-				this->getGameObject(name)->destroySelf();
-			}
-			this->mp_netToDestroy.resize(this->mp_netToDestroy.size() - 1);
-		}
-	}
-	
-	// remove deleted gameObjects
-	for (auto it = this->mp_gameObjects.cbegin(); it != this->mp_gameObjects.cend();)
-	{
-		if (it->second->getDestroyed())
-		{
-			this->addNetToDestroy(it->second->getName());
-
-			if (it->second.get() == this->mp_currentPlayer) {
-				this->setPlayer(nullptr);
-			}
-
-			// no idea why I need to explicitly call the destructor here, clearly
-			// something still has ownership idk
-			if (it->second->findComponentOfType<PhysicsBody>().get() != nullptr) {
-				it->second->findComponentOfType<PhysicsBody>()->~PhysicsBody();
-			}
-
-			this->mp_gameObjects.erase(it++);
-		}
-		else
-		{
-			++it;
-		}
-	}
-
-	// destroy physics bodies that are queued for destruction
-	b2Body* body = this->mp_physicsWorld->GetBodyList();
-	while (body->GetUserData().pointer != 0 && body->GetNext() != nullptr)
-	{
-		b2Body* next = body->GetNext();
-		if (reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer)->destroyed == true) {
-			delete reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer);
-			this->getPhysWorld()->DestroyBody(body);
-		}
-
-		body = next;
-	}
+	garbageCollect();
 
 	// update camera
 	this->m_cameraControl.update(dt, elapsedTime);
@@ -232,7 +187,7 @@ void GameWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	std::sort(gameObjects.begin(), gameObjects.end(), [](std::shared_ptr<GameObject> a, std::shared_ptr<GameObject> b) {
 		return a->getZlayer() < b->getZlayer();
-	});
+		});
 
 	// draw game objects
 	for (auto& gameObject : gameObjects)
@@ -259,6 +214,11 @@ void GameWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 void GameWorld::registerGameObject(std::string name, std::shared_ptr<GameObject> gameObject)
 {
 	this->mp_gameObjects.emplace(name, gameObject);
+
+	if (this->mp_gameObjects.count(name) <= 0)
+	{
+		spdlog::error("Failed to register game object {}", name);
+	}
 }
 
 /// <summary>
@@ -275,7 +235,7 @@ void GameWorld::registerGameObjectDefinition(std::string name, std::shared_ptr<G
 
 std::shared_ptr<GameObject> GameWorld::spawnGameObject(std::string type, sf::Vector2f position, std::string name, bool noReplication)
 {
-	//sf::Clock timer;
+	sf::Clock timer;
 	if (this->m_gameObjectDefinitions.count(type) > 0) {
 		std::shared_ptr<GameObject> p_gameObject = std::make_shared<GameObject>(
 			*this->getGameObjectDefs().at(type)
@@ -289,6 +249,7 @@ std::shared_ptr<GameObject> GameWorld::spawnGameObject(std::string type, sf::Vec
 
 		if (name == "") {
 			name = Utility::generate_uuid_v4();
+			spdlog::debug("Creating new UUID for object: {}", name);
 		}
 
 		p_gameObject->setName(name);
@@ -301,17 +262,14 @@ std::shared_ptr<GameObject> GameWorld::spawnGameObject(std::string type, sf::Vec
 		if (PlatformDataEngineWrapper::getIsClient()) {
 			if (name == dynamic_cast<Client*>(PlatformDataEngineWrapper::getNetworkHandler())->getConnection()->id) {
 				this->mp_currentPlayer = p_gameObject.get();
-				this->m_cameraControl.setTarget(p_gameObject);
+				this->m_cameraControl.setTarget(p_gameObject.get());
+				spdlog::info("Setting current player to {}", p_gameObject->getName());
 			}
 		}
 
 		p_gameObject->init();
 
 		//spdlog::info("Spawning object {} took: {}uS at position {}, {}", p_gameObject->getName(), timer.getElapsedTime().asMicroseconds(), position.x, position.y);
-		if (!PlatformDataEngineWrapper::getIsClient() && !noReplication)
-		{
-			dynamic_cast<Server*>(PlatformDataEngineWrapper::getNetworkHandler())->replicateGameObject(p_gameObject.get());
-		}
 
 		if (noReplication) {
 			p_gameObject->setNetworked(false);
@@ -329,9 +287,21 @@ std::shared_ptr<GameObject> GameWorld::spawnGameObject(std::string type, sf::Vec
 
 std::string GameWorld::spawnPlayer(std::shared_ptr<Connection> conn)
 {
+	spdlog::info("Spawning player for connection: {}:{} - {}", conn->ip.toString(), conn->port, conn->id);
+
 	std::shared_ptr<GameObject> player = this->spawnDefinedGameObject(this->m_playerDef, conn->id);
 	this->m_players.emplace(conn, player.get());
+
+	player->setPosition(this->mp_playerSpawns[this->m_spawnIdx].position);
+	if (this->m_spawnIdx < this->mp_playerSpawns.size()) {
+		this->m_spawnIdx++;
+	}
+	else {
+		this->m_spawnIdx = 0;
+	}
+
 	player->setName(conn->id);
+	player->setNetworked(true);
 
 	player->setConnection(conn);
 	player->init();
@@ -339,6 +309,13 @@ std::string GameWorld::spawnPlayer(std::shared_ptr<Connection> conn)
 	for (std::shared_ptr<GameObject> child : player->getChildren())
 	{
 		child->init();
+	}
+
+	if (!PlatformDataEngineWrapper::getIsClient()) {
+		if (conn->id == "Server")
+		{
+			this->mp_currentPlayer = player.get();
+		}
 	}
 
 	return player->getName();
@@ -380,6 +357,8 @@ std::shared_ptr<GameObject> GameWorld::spawnDefinedGameObject(nlohmann::json gam
 		name = Utility::generate_uuid_v4();
 	}
 	p_gameObject->setName(name);
+	p_gameObject->setNetworked(true);
+
 	this->registerGameObject(name, p_gameObject);
 
 	// spawn children
@@ -390,10 +369,49 @@ std::shared_ptr<GameObject> GameWorld::spawnDefinedGameObject(nlohmann::json gam
 		p_gameObject->addChild(childObj);
 	}
 
-	if (!PlatformDataEngineWrapper::getIsClient())
-	{
-		dynamic_cast<Server*>(PlatformDataEngineWrapper::getNetworkHandler())->replicateGameObject(p_gameObject.get());
-	}
 
 	return p_gameObject;
+}
+
+void GameWorld::garbageCollect()
+{
+	// remove deleted gameObjects
+	for (auto it = this->mp_gameObjects.cbegin(); it != this->mp_gameObjects.cend();)
+	{
+		if (it->second->getDestroyed())
+		{
+			if (!PlatformDataEngineWrapper::getIsClient()) {
+				this->addNetToDestroy(it->second->getName());
+			}
+
+			if (it->second.get() == this->mp_currentPlayer) {
+				this->setPlayer(nullptr);
+			}
+
+			// no idea why I need to explicitly call the destructor here, clearly
+			// something still has ownership idk
+			if (it->second->findComponentOfType<PhysicsBody>().get() != nullptr) {
+				it->second->findComponentOfType<PhysicsBody>()->~PhysicsBody();
+			}
+
+			this->mp_gameObjects.erase(it++);
+		}
+		else
+		{
+			++it;
+		}
+	}
+
+	// destroy physics bodies that are queued for destruction
+	b2Body* body = this->mp_physicsWorld->GetBodyList();
+	while (body->GetUserData().pointer != 0 && body->GetNext() != nullptr)
+	{
+		b2Body* next = body->GetNext();
+		if (reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer)->destroyed == true) {
+			delete reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer);
+			this->getPhysWorld()->DestroyBody(body);
+		}
+
+		body = next;
+	}
 }

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <SFML/Network.hpp>
 #include <spdlog/spdlog.h>
+#include <snappy.h>
+#include <memory>
 
 namespace PlatformDataEngine {
 
@@ -39,14 +41,10 @@ namespace PlatformDataEngine {
 			Disconnected,
 			Text,
 
-			GarbageCollect,
-			SpawnChild,
+			SetObjectHealth,
 			RequestUpdates,
-			UpdateGameObject,
-			SpawnGameObject,
-			DamageGameObject,
+			ResponseUpdates,
 			UserInput,
-			BindPlayer,
 		};
 
 		/** Default constructor. */

@@ -36,11 +36,14 @@ void PDEPacket::clear()
 
 void PDEPacket::onReceive(const void* data, std::size_t size)
 {
+    std::string uncompressed;
+    snappy::Uncompress(((char*)data), size, &uncompressed);
+
     std::size_t so_flag = sizeof m_flag;
 
-    std::memcpy(&m_flag, ((char*)data) + size - so_flag, so_flag);
+    std::memcpy(&m_flag, ((char*)uncompressed.data()) + uncompressed.size() - so_flag, so_flag);
 
-    append(data, size - so_flag);
+    append(uncompressed.data(), uncompressed.size() - so_flag);
 }
 
 
@@ -49,7 +52,14 @@ const void* PDEPacket::onSend(std::size_t& size)
 {
     *this << m_flag;
 
-    size = getDataSize();
+    std::string compressed;
+    snappy::Compress(((char*)getData()), getDataSize(), &compressed);
+
+    size = compressed.size();
+
+    clear();
+    append(compressed.data(), compressed.size());
+
     return getData();
 }
 

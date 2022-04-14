@@ -42,13 +42,13 @@ void Server::recieve(GameWorld* world)
 
 	// player connected
 	if (packet.flag() == PDEPacket::Connect) {
-		spdlog::info("A player has connected with ip: {}", clientIp.toString());
-
 		// spawn new player on server
 		std::shared_ptr<Connection> connection = std::make_shared<Connection>();
 		connection->ip = clientIp;
 		connection->id = Utility::generate_uuid_v4();
 		connection->port = clientPort;
+
+		spdlog::info("A player has connected: {}:{} - {}", clientIp.toString(), clientPort, connection->id);
 		std::string playerId = world->spawnPlayer(connection);
 
 		// send connected message back
@@ -57,37 +57,17 @@ void Server::recieve(GameWorld* world)
 		m_socket.send(connectedPacket, clientIp, clientPort);
 
 		this->m_connections.push_back(connection);
-
-		// send over players first
-		for (const auto& gameObjectPair : world->getPlayers())
-		{
-			replicateGameObject(gameObjectPair.second);
-		}
-
-		// send over currently spawned game objects
-		const auto players = world->getPlayers();
-		for (const auto& gameObjectPair : world->getGameObjects())
-		{
-			// don't send over players a second time!
-			int count = std::count_if(players.begin(), players.end(), [&]
-			(std::pair<std::shared_ptr<Connection>, GameObject*> go) {
-				return go.second == gameObjectPair.second.get();
-			});
-
-			if (count == 0) {
-				replicateGameObject(gameObjectPair.second.get());
-			}
-		}
-
 	}
 	else {
 		unsigned short numAxis = 0;
 		unsigned short numButtons = 0;
 		sf::Int8 idx = 0;
-		sf::Int8 value = 0.0f;
+		sf::Int8 value = 0;
 		bool valueBool = false;
 		std::string clientId;
 		packet >> clientId;
+		bool isNetworked;
+
 		std::shared_ptr<Connection> connection = this->findConnection(clientIp, clientId);
 		if (connection != nullptr) {
 			GameObject* player = world->getPlayer(connection);
@@ -129,62 +109,78 @@ void Server::recieve(GameWorld* world)
 
 				break;
 
+			case PDEPacket::Disconnect:
+				this->m_connections.erase(std::remove(this->m_connections.begin(),
+					this->m_connections.end(), findConnection(clientIp, clientId)));
+
+				if (world->getGameObject(clientId) != nullptr) {
+					world->getGameObject(clientId)->destroySelf();
+					world->getPlayers().erase(findConnection(clientIp, clientId));
+				}
+				world->clearNetDestroy();
+
+				packet = PDEPacket(PDEPacket::Disconnected);
+				packet << connection->id;
+				m_socket.send(packet, clientIp, clientPort);
+
+				spdlog::info("Player {} disconnected", clientId);
+
+				break;
+
 			case PDEPacket::RequestUpdates:
-				// send move data
+
+				// send update data
+				packet = PDEPacket(PDEPacket::ResponseUpdates);
+				packet << static_cast<sf::Uint32>(world->getGameObjects().size());
 				for (const auto& gameObjectPair : world->getGameObjects())
 				{
-					if (gameObjectPair.second->getNetworked()) {
-						PDEPacket packet(PDEPacket::UpdateGameObject);
-						packet << gameObjectPair.second->getName();
-						gameObjectPair.second->networkSerialize(packet);
-
-						m_socket.send(packet, clientIp, clientPort);
+					isNetworked = gameObjectPair.second->getNetworked();
+					packet << isNetworked;
+					if (isNetworked) {
+						if (gameObjectPair.second->getName() == "")
+						{
+							spdlog::error("Update packet is malformed!");
+						}
+						packet
+							<< gameObjectPair.second->getType()
+							<< gameObjectPair.second->getPosition().x
+							<< gameObjectPair.second->getPosition().y
+							<< gameObjectPair.second->getName();
+						if (gameObjectPair.second->getHasBeenSent(clientId)) {
+							spdlog::debug("Sending existing object {}", gameObjectPair.second->getName());
+							gameObjectPair.second->networkSerialize(packet);
+						}
+						else {
+							spdlog::debug("Sending new object {}", gameObjectPair.second->getName());
+							gameObjectPair.second->networkSerializeInit(packet);
+							gameObjectPair.second->setHasBeenSent(clientId);
+						}
+					}
+					else {
+						spdlog::debug("Object is not networked! {}", gameObjectPair.second->getName());
 					}
 				}
 
-				//PDEPacket destroyPacket(PDEPacket::GarbageCollect);
-				//destroyPacket << static_cast<sf::Uint32>(world->getNetToDestroy().size());
-				//for (const auto& gameObjectToDestroy : world->getNetToDestroy())
-				//{
-				//	destroyPacket << gameObjectToDestroy;
-				//	m_socket.send(destroyPacket, clientIp, clientPort);
-				//}
-				//world->clearNetDestroy();
+				packet << static_cast<sf::Uint32>(world->getNetToDestroy().size());
+				for (std::string name : world->getNetToDestroy())
+				{
+					packet << name;
+				}
+
+				m_socket.send(packet, clientIp, clientPort);
 				break;
 			}
 		}
 	}
 }
 
-void Server::replicateGameObject(GameObject* newObject)
+void Server::broadcastObjectHealth(std::string objName, float health)
 {
-	for (std::shared_ptr<Connection> conn : this->m_connections) {
-		PDEPacket spawnPacket(PDEPacket::SpawnGameObject);
-		spawnPacket
-			<< newObject->getType()
-			<< newObject->getPosition().x
-			<< newObject->getPosition().y
-			<< newObject->getName();
-		m_socket.send(spawnPacket, conn->ip, conn->port);
-
-		for (std::shared_ptr<GameObject> child : newObject->getChildren())
-		{
-			replicateChild(child, newObject->getName());
-		}
-	}
-}
-
-void Server::replicateChild(std::shared_ptr<GameObject> child, std::string parent)
-{
-	for (std::shared_ptr<Connection> conn : this->m_connections) {
-		PDEPacket spawnPacket(PDEPacket::SpawnChild);
-		spawnPacket
-			<< parent
-			<< child->getType()
-			<< child->getPosition().x
-			<< child->getPosition().y
-			<< child->getName();
-		m_socket.send(spawnPacket, conn->ip, conn->port);
+	for (std::shared_ptr<Connection> conn : this->m_connections)
+	{
+		PDEPacket packet(PDEPacket::SetObjectHealth);
+		packet << objName << health;
+		m_socket.send(packet, conn->ip, conn->port);
 	}
 }
 
@@ -196,5 +192,6 @@ std::shared_ptr<Connection> Server::findConnection(sf::IpAddress ip, std::string
 			return conn;
 		}
 	}
+	return nullptr;
 }
 

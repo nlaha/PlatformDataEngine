@@ -22,6 +22,8 @@ namespace PlatformDataEngine {
 
 		void recieve(GameWorld* world);
 
+		void disconnect();
+
 		inline std::shared_ptr<Connection> getConnection() { return this->m_clientConnection; };
 
 	private:

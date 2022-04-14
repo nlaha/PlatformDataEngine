@@ -18,9 +18,6 @@ void StatsPanel::init()
         spdlog::critical("GameObject {} has a StatsPanel so it must also have an AnimationController", this->m_parent->getName());
     }
 
-    this->m_player = PlatformDataEngineWrapper::getWorld()->getPlayer();
-    this->m_playerRocketLauncher = this->m_player->getChildren()[0]->findComponentOfType<RocketLauncher>().get();
-     
     this->m_healthBar.setSize(sf::Vector2f(this->m_healthBarSize.x, this->m_healthBarSize.y));
     this->m_healthBar.setFillColor(sf::Color::Red);
 
@@ -30,14 +27,26 @@ void StatsPanel::init()
 
 void StatsPanel::update(const float &dt, const float &elapsedTime)
 {
-    // update rocket cooldown animations
-    if (m_playerRocketLauncher->isCoolingDown())
+    if (this->m_player == nullptr || this->m_playerRocketLauncher == nullptr)
     {
-        this->m_animController->setAnimation("IdleRocketCooldown");
+        if (PlatformDataEngineWrapper::getWorld()->getPlayer() != nullptr) {
+            this->m_player = PlatformDataEngineWrapper::getWorld()->getPlayer();
+            if (this->m_player->getChildren().size() > 0) {
+                this->m_playerRocketLauncher = this->m_player->getChildren()[0]->findComponentOfType<RocketLauncher>().get();
+            }
+        }
     }
-    else
-    {
-        this->m_animController->setAnimation("IdleRocketReady");
+
+    if (this->m_playerRocketLauncher) {
+        // update rocket cooldown animations
+        if (m_playerRocketLauncher->isCoolingDown())
+        {
+            this->m_animController->setAnimation("IdleRocketCooldown");
+        }
+        else
+        {
+            this->m_animController->setAnimation("IdleRocketReady");
+        }
     }
 
     this->m_targetHealth = this->m_player->getHealth();
@@ -52,6 +61,7 @@ void StatsPanel::update(const float &dt, const float &elapsedTime)
         this->m_healthBarSize.x * (this->m_targetHealth / 100.0f), this->m_healthBarSize.y));
     this->m_healthBarDelayed.setSize(sf::Vector2f(
         this->m_healthBarSize.x * (this->m_health / 100.0f), this->m_healthBarSize.y));
+
 }
 
 void StatsPanel::draw(sf::RenderTarget &target, sf::RenderStates states) const

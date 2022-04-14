@@ -253,6 +253,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Message.cpp" />
+    <ClCompile Include="Networkable.cpp" />
     <ClCompile Include="NetworkHandler.cpp" />
     <ClCompile Include="NetworkInputManager.cpp" />
     <ClCompile Include="Packet.cpp" />
@@ -296,6 +297,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClInclude Include="Globals.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Message.h" />
+    <ClInclude Include="Networkable.h" />
     <ClInclude Include="NetworkHandler.h" />
     <ClInclude Include="NetworkInputManager.h" />
     <ClInclude Include="Packet.h" />

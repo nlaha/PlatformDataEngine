@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="8" tileheight="8" infinite="1" nextlayerid="11" nextobjectid="16">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="8" tileheight="8" infinite="1" nextlayerid="11" nextobjectid="17">
  <tileset firstgid="1" source="SpaceTileset.tsx"/>
  <tileset firstgid="65" source="Plants.tsx"/>
  <tileset firstgid="71" source="Props.tsx"/>
@@ -3263,7 +3263,10 @@
   </data>
  </layer>
  <objectgroup id="8" name="Spawns">
-  <object id="6" name="Player Spawn" type="PlayerSpawn" x="-2.5" y="264.583">
+  <object id="6" name="Player Spawn" type="PlayerSpawn" x="164.5" y="151.083">
+   <point/>
+  </object>
+  <object id="16" name="Player Spawn" type="PlayerSpawn" x="-167" y="151.08">
    <point/>
   </object>
  </objectgroup>

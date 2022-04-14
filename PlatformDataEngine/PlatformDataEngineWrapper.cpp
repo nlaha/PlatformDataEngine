@@ -72,7 +72,7 @@ namespace PlatformDataEngine {
         }
 
         // create window and viewport
-        mp_renderWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(640, 480), "PlatformData Engine" + flags, sf::Style::Default, contextSettings);
+        mp_renderWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(640, 640), "PlatformData Engine" + flags, sf::Style::Default, contextSettings);
         sf::FloatRect visibleArea(0.f, 0.f, 256, 256);
         sf::View gameView(visibleArea);
         float xoffset = ((mp_renderWindow->getSize().x - mp_renderWindow->getSize().y) / 2.0f) / mp_renderWindow->getSize().x;
@@ -194,6 +194,10 @@ namespace PlatformDataEngine {
                 // get delta time
                 dt = deltaClock.restart();
             }
+        }
+
+        if (isClient) {
+            dynamic_cast<Client*>(PlatformDataEngineWrapper::getNetworkHandler())->disconnect();
         }
         renderThread.join();
     }

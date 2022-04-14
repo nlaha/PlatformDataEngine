@@ -43,12 +43,17 @@ void PhysicsBody::copy(std::shared_ptr<Component> otherCompPtr)
 			filter.categoryBits = PlatformDataEngine::WORLD_STATIC;
 			fix->SetFilterData(filter);
 		}
+
+		//if (PlatformDataEngineWrapper::getIsClient())
+		//{
+		//	this->m_body->SetType(b2BodyType::b2_kinematicBody);
+		//}
 	}
 }
 
 PhysicsBody::~PhysicsBody()
 {
-	if (!this->m_isDefinition && this->m_body != nullptr) {
+	if (!this->m_isDefinition && this->m_body != nullptr && m_bodyUserData != nullptr) {
 		m_bodyUserData->destroyed = true;
 	}
 }
@@ -60,10 +65,9 @@ void PhysicsBody::init()
 
 	sf::Vector2f initPos = this->m_parent->getPosition();
 	this->getBody()->SetTransform({
-		initPos.x / Constants::PHYS_SCALE, 
-		initPos.y / Constants::PHYS_SCALE 
-	}, 0.0);
-
+		initPos.x / Constants::PHYS_SCALE,
+		initPos.y / Constants::PHYS_SCALE
+		}, 0.0);
 	m_bodyUserData->gameObjectOwner = this->m_parent;
 }
 
@@ -83,6 +87,24 @@ void PhysicsBody::update(const float& dt, const float& elapsedTime)
 
 void PhysicsBody::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+}
+
+void PhysicsBody::networkSerialize(PDEPacket& output)
+{
+	output
+		<< this->m_body->GetPosition().x << this->m_body->GetPosition().y << this->m_body->GetAngle()
+		<< this->m_body->GetLinearVelocity().x << this->m_body->GetLinearVelocity().y
+		<< this->m_body->GetAngularVelocity();
+}
+
+void PhysicsBody::networkDeserialize(PDEPacket& input)
+{
+	float x = 0.0f, y = 0.0f, angle = 0.0f, vx = 0.0f, vy = 0.0f, va = 0.0f;
+	input >> x >> y >> angle >> vx >> vy >> va;
+	this->m_body->SetTransform({ x, y }, angle);
+	this->m_body->SetLinearVelocity({vx, vy});
+	this->m_body->SetAngularVelocity(va);
+
 }
 
 void PhysicsBody::loadDefinition(nlohmann::json object)

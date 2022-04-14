@@ -31,7 +31,7 @@ namespace PlatformDataEngine {
 
         void loadDefinition(nlohmann::json object);
 
-        inline void setOwner(std::shared_ptr<GameObject> owner) { this->m_owningGameObject = owner; };
+        void setOwner(std::shared_ptr<GameObject> owner);
 
     private:
 

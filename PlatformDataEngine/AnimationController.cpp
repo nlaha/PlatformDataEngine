@@ -2,6 +2,7 @@
 #include "SpriteRenderer.h"
 #include "GameObject.h"
 #include <spdlog/spdlog.h>
+#include "PlatformDataEngineWrapper.h"
 
 using namespace PlatformDataEngine;
 
@@ -79,27 +80,31 @@ void AnimationController::update(const float &dt, const float &elapsedTime)
             }
         }
     }
+
+    if (!this->m_parent->getNetworked() || !PlatformDataEngineWrapper::getIsClient()) {
+        if (this->m_curFrame != nullptr) {
+            // draw frame
+            sf::IntRect frameRect = this->m_curFrame->frame;
+            if (this->m_flip == AnimationController::FlipFlags::HORIZONTAL)
+            {
+                frameRect.width *= -1;
+                frameRect.left -= frameRect.width;
+            }
+
+            if (this->m_flip == AnimationController::FlipFlags::VERTICAL)
+            {
+                frameRect.height *= -1;
+                frameRect.top -= frameRect.height;
+            }
+
+            this->m_spriteRenderer->setRect(frameRect);
+        }
+    }
 }
 
 void AnimationController::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-    if (this->m_curFrame != nullptr) {
-        // draw frame
-        sf::IntRect frameRect = this->m_curFrame->frame;
-        if (this->m_flip == AnimationController::FlipFlags::HORIZONTAL)
-        {
-            frameRect.width *= -1;
-            frameRect.left -= frameRect.width;
-        }
 
-        if (this->m_flip == AnimationController::FlipFlags::VERTICAL)
-        {
-            frameRect.height *= -1;
-            frameRect.top -= frameRect.height;
-        }
-
-        this->m_spriteRenderer->setRect(frameRect);
-    }
 }
 
 void AnimationController::copy(std::shared_ptr<Component> otherCompPtr)
@@ -108,6 +113,25 @@ void AnimationController::copy(std::shared_ptr<Component> otherCompPtr)
 
     *this = *other;
 
+}
+
+void AnimationController::networkSerialize(PDEPacket& output)
+{
+    //output << this->m_curFrame->index << this->m_currentAnim << static_cast<sf::Uint8>(this->m_flip);
+}
+
+void AnimationController::networkDeserialize(PDEPacket& input)
+{
+    //int index = 0;
+    //std::string animName = "";
+    //sf::Uint8 flip;
+    //input >> index >> animName >> flip;
+    //this->m_flip = static_cast<FlipFlags>(flip);
+
+    //if (animName != "") {
+    //    Animation& anim = this->m_animations[animName];
+    //    this->m_curFrame = &anim.frames[index];
+    //}
 }
 
 void AnimationController::setAnimation(const std::string animName, float speed, bool loop)

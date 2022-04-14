@@ -15,7 +15,8 @@ namespace PlatformDataEngine {
 	public:
 		CameraController(float lerpTime = 0.0f, std::shared_ptr<sf::View> view = nullptr);
 
-		void setTarget(std::shared_ptr<GameObject> gameObject);
+		void setTarget(GameObject* gameObject);
+		inline GameObject* getTarget() const { return this->m_gameObject; };
 
 		void update(const float& dt, const float& elapsedTime);
 
@@ -23,7 +24,7 @@ namespace PlatformDataEngine {
 
 	private:
 		std::shared_ptr<sf::View> m_view;
-		std::shared_ptr<GameObject> m_gameObject;
+		GameObject* m_gameObject;
 		float m_lerpTime;
 
 	};

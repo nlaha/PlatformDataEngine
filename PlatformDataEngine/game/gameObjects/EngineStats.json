@@ -4,9 +4,9 @@
       "type": "EngineStatsText",
       "properties": {
         "text": "",
-        "fontPath": "assets/VT323-Regular.ttf",
-        "fontSize": 20,
-        "renderSize": 0.5,
+        "fontPath": "assets/yoster.ttf",
+        "fontSize": 70,
+        "renderSize": 0.1,
         "fontBold": false
       }
     }

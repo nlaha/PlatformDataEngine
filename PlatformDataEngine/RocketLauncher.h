@@ -1,6 +1,9 @@
 #pragma once
+#include <memory>
+
 #include "Component.h"
 #include "PlayerInputManager.h"
+#include "NetworkInputManager.h"
 #include "Globals.h"
 
 namespace PlatformDataEngine {
@@ -23,16 +26,20 @@ namespace PlatformDataEngine {
 
         void loadDefinition(nlohmann::json object);
 
+        void networkSerialize(PDEPacket& output);
+        void networkDeserialize(PDEPacket& input);
+
         inline bool isCoolingDown() const {
-            return m_rocketClock.getElapsedTime().asMilliseconds() < m_rocketCooldown;
+            return m_isCoolingDown;
         }
 
     private:
-        std::shared_ptr<PlayerInputManager> m_pInputManager;
+        std::shared_ptr<InputManager> m_pInputManager;
 
         sf::Clock m_rocketClock;
         float m_rocketCooldown;
         float m_velocity;
+        bool m_isCoolingDown;
 
         sf::Vector2i m_oldPixelPos;
         sf::Vector2f m_worldPos;

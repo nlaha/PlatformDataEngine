@@ -1,10 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <execution>
+#include <map>
+#include <memory>
 
 #include "Component.h"
 #include "PhysicsCallbacks.h"
 #include "PlayerInputManager.h"
+#include "NetworkInputManager.h"
 
 namespace PlatformDataEngine {
 
@@ -41,6 +44,8 @@ namespace PlatformDataEngine {
         DirTestMask isAdjacentWall() const;
         bool fastGroundCheck() const;
 
+        inline InputManager* getInputManager() const { return this->m_pInputManager.get(); };
+
         static bool HasFlag(int a, int b)
         {
             return (a & b) == b;
@@ -48,7 +53,7 @@ namespace PlatformDataEngine {
 
     private:
 
-        std::shared_ptr<PlayerInputManager> m_pInputManager;
+        std::shared_ptr<InputManager> m_pInputManager;
         
         void updateAnimation(b2Vec2 velocity);
         

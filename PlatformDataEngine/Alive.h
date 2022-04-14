@@ -4,6 +4,8 @@
 namespace PlatformDataEngine
 {
 
+	class GameObject;
+
 	/// <summary>
 	/// Class that defines an "alive" object, ie. an object
 	/// that can take damage and die
@@ -16,6 +18,9 @@ namespace PlatformDataEngine
 		void damage(float damageAmount);
 
 		inline float getHealth() const { return m_HP; }
+		inline void setHealth(float hp) {
+			this->m_HP = hp;
+		};
 
 	protected:
 		virtual void onDeath() = 0;

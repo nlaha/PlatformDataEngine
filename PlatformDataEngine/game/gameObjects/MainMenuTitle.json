@@ -1,0 +1,14 @@
+{
+  "components": [
+    {
+      "type": "TextRenderer",
+      "properties": {
+        "text": "Platform Data Engine",
+        "fontPath": "assets/yoster.ttf",
+        "fontSize": 70,
+        "renderSize": 1.0,
+        "fontBold": false
+      }
+    }
+  ]
+}

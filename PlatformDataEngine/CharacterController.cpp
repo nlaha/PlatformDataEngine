@@ -4,6 +4,8 @@
 #include "AnimationController.h"
 #include "PlatformDataEngineWrapper.h"
 #include "TileMap.h"
+#include "Server.h"
+#include "InputManager.h"
 #include <spdlog/spdlog.h>
 
 using namespace PlatformDataEngine;
@@ -22,9 +24,9 @@ void CharacterController::init()
 
             b2Filter filter;
             filter.categoryBits = PlatformDataEngine::CHARACTER;
-            filter.maskBits = 
-                PlatformDataEngine::CHARACTER | 
-                PlatformDataEngine::WORLD_DYNAMIC | 
+            filter.maskBits =
+                PlatformDataEngine::CHARACTER |
+                PlatformDataEngine::WORLD_DYNAMIC |
                 PlatformDataEngine::WORLD_STATIC |
                 PlatformDataEngine::PROJECTILE;
             fix->SetFilterData(filter);
@@ -44,7 +46,18 @@ void CharacterController::init()
         spdlog::critical("GameObject {} has a CharacterController so it must also have a AnimationController", this->m_parent->getName());
     }
 
-    this->m_pInputManager = PlatformDataEngineWrapper::getPlayerInputManager();
+    // attach player input manager if we're the player
+    if (this->m_parent == PlatformDataEngineWrapper::getWorld()->getPlayer()) {
+        this->m_pInputManager = PlatformDataEngineWrapper::getPlayerInputManager();
+    }
+    else {
+        this->m_pInputManager = std::make_shared<NetworkInputManager>();
+        std::shared_ptr<NetworkInputManager> netIn = std::dynamic_pointer_cast<NetworkInputManager>(this->m_pInputManager);
+        netIn->loadDefinition("./game/input.json");
+        if (!PlatformDataEngineWrapper::getIsClient()) {
+            dynamic_cast<Server*>(PlatformDataEngineWrapper::getNetworkHandler())->addInputManager(this->m_parent->getConnection(), netIn);
+        }
+    }
 }
 
 void CharacterController::update(const float& dt, const float& elapsedTime)

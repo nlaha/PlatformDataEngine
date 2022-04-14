@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <SFML/Graphics.hpp>
 
 namespace PlatformDataEngine {
 
@@ -13,23 +14,25 @@ namespace PlatformDataEngine {
 	{
 	public:
 
+		virtual sf::Vector2f getMouse() = 0;
+
 		class Axis {
 		public:
-			virtual float getValue() = 0;
-			virtual bool isPositive() = 0;
-			virtual bool isNegative() = 0;
+			virtual float getValue() const = 0;
+			virtual bool isPositive() const = 0;
+			virtual bool isNegative() const = 0;
 
 		private:
 		};
 
 		class Button {
 		public:
-			virtual bool getValue() = 0;
+			virtual bool getValue() const = 0;
 
 		private:
 		};
 
-		virtual Axis& getAxis(std::string axisName) = 0;
-		virtual Button& getButton(std::string button) = 0;
+		virtual Axis& getAxis(const std::string& axisName) = 0;
+		virtual Button& getButton(const std::string& button) = 0;
 	};
 }

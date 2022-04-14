@@ -38,6 +38,28 @@ void SpriteRenderer::copy(std::shared_ptr<Component> otherCompPtr)
     this->m_sprite = other->m_sprite;
 }
 
+void SpriteRenderer::networkSerialize(PDEPacket& output)
+{
+    output << this->m_sprite.getPosition().x << this->m_sprite.getPosition().y;
+    output << this->m_rect.left
+        << this->m_rect.top
+        << this->m_rect.width
+        << this->m_rect.height;
+}
+
+void SpriteRenderer::networkDeserialize(PDEPacket& input)
+{
+    float x = 0.0f, y = 0.0f;
+
+    input >> x >> y;
+    this->m_sprite.setPosition(x, y);
+
+    input >> this->m_rect.left 
+        >> this->m_rect.top 
+        >> this->m_rect.width
+        >> this->m_rect.height;
+}
+
 void SpriteRenderer::loadDefinition(nlohmann::json object)
 {
     // loop through each key in the json object

@@ -9,6 +9,7 @@
     {
       "name": "MainPlayer",
       "type": "PlayerCharacter",
+      "isPlayer":  true,
       "transform": {
         "x": 0,
         "y": 0,
@@ -18,21 +19,22 @@
         "rotation": 0,
         "scale": 1
       },
-      "children": ["PlayerRocketLauncher"]
-    },
-    {
-      "name": "PlayerRocketLauncher",
-      "type": "RocketLauncher",
-      "transform": {
-        "x": 4,
-        "y": 10,
-        "origin_x": 4,
-        "origin_y": 4,
-        "z_layer": 3,
-        "rotation": 0,
-        "scale": 1
-      },
-      "children": []
+      "children": [
+        {
+          "name": "PlayerRocketLauncher",
+          "type": "RocketLauncher",
+          "transform": {
+            "x": 4,
+            "y": 10,
+            "origin_x": 4,
+            "origin_y": 4,
+            "z_layer": 3,
+            "rotation": 0,
+            "scale": 1
+          },
+          "children": []
+        }
+      ]
     },
     {
       "name": "EngineStats",

@@ -30,6 +30,9 @@ namespace PlatformDataEngine
 
         void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
+        void networkSerialize(PDEPacket& output);
+        void networkDeserialize(PDEPacket& input);
+
         void loadDefinition(nlohmann::json object);
 
         inline b2Body *getBody()

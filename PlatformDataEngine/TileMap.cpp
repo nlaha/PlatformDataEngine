@@ -130,7 +130,7 @@ TileMap::TileMap(const std::string &tmxPath)
                     };
                     PlatformDataEngineWrapper::getWorld()->addPlayerSpawn(spawn);
                 }
-                else if (object.getType() == "Prop")
+                else if (object.getType() == "Prop" && !PlatformDataEngineWrapper::getIsClient())
                 {
                     int tileId = object.getTileID();
 

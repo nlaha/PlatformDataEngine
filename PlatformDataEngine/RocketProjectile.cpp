@@ -16,12 +16,13 @@ void RocketProjectile::init()
     Component::init();
 
     PhysicsBody* pb = this->m_parent->findComponentOfType<PhysicsBody>().get();
+
     if (pb != nullptr) {
         this->m_PhysBody = pb;
 
         b2Fixture* fix = this->m_PhysBody->getBody()->GetFixtureList();
         b2Filter filter;
-        filter.categoryBits = PlatformDataEngine::FRIEND_PROJECTILE;
+        filter.categoryBits = PlatformDataEngine::PROJECTILE;
         fix->SetFilterData(filter);
     }
     else {
@@ -45,86 +46,76 @@ void RocketProjectile::init()
 
 void RocketProjectile::update(const float& dt, const float& elapsedTime)
 {
-    this->m_PhysBody->getBody()->SetLinearDamping(0);
+    if (!PlatformDataEngineWrapper::getIsClient()) {
+        this->m_PhysBody->getBody()->SetLinearDamping(0);
 
-    for (b2ContactEdge* c = this->m_PhysBody->getBody()->GetContactList(); c; c = c->next)
-    {
-        if (c->contact->GetFixtureA()->IsSensor() != true &&
-            c->contact->GetFixtureB()->IsSensor() != true) {
-            // don't explode on self
-            if (c->other->GetUserData().pointer != 0) {
-                GameObject* otherGameObject = reinterpret_cast<PhysBodyUserData*>(c->other->GetUserData().pointer)->gameObjectOwner;
-                std::string player = PlatformDataEngineWrapper::getWorld()->getPlayer()->getName();
-                if (otherGameObject->getName() != player)
-                {
-                    this->m_isExploding = true;
-                    break;
-                }
-            }
-            else {
+        for (b2ContactEdge* c = this->m_PhysBody->getBody()->GetContactList(); c; c = c->next)
+        {
+            if (c->contact->GetFixtureA()->IsSensor() != true &&
+                c->contact->GetFixtureB()->IsSensor() != true) {
                 this->m_isExploding = true;
                 break;
             }
         }
-    }
 
-    if (this->m_isExploding) {
+        if (this->m_isExploding) {
 
-        sf::Vector2f ourPos = this->m_parent->getPosition();
+            sf::Vector2f ourPos = this->m_parent->getPosition();
 
-        // apply force
-        for (b2ContactEdge* c = this->m_PhysBody->getBody()->GetContactList(); c; c = c->next)
-        {
-            b2Body* body = c->other;
+            // apply force
+            for (b2ContactEdge* c = this->m_PhysBody->getBody()->GetContactList(); c; c = c->next)
+            {
+                b2Body* body = c->other;
 
-            if (body->GetType() == b2BodyType::b2_dynamicBody) {
+                if (body->GetType() == b2BodyType::b2_dynamicBody) {
 
-                b2Vec2 bodyCenter = body->GetPosition();
-                b2Vec2 impulseVec = Utility::normalize(b2Vec2(
-                    (bodyCenter.x - (ourPos.x / Constants::PHYS_SCALE)),
-                    (bodyCenter.y - (ourPos.y / Constants::PHYS_SCALE))
-                ));
+                    b2Vec2 bodyCenter = body->GetPosition();
+                    b2Vec2 impulseVec = Utility::normalize(b2Vec2(
+                        (bodyCenter.x - (ourPos.x / Constants::PHYS_SCALE)),
+                        (bodyCenter.y - (ourPos.y / Constants::PHYS_SCALE))
+                    ));
 
-                float distFrac = std::fmaxf(0.0f, 1.10f - Utility::distance(bodyCenter, Utility::fromSf(ourPos)) / this->m_explosionRadius);
-                float velocityFalloff = std::sqrtf(distFrac);
+                    float distFrac = std::fmaxf(0.0f, 1.10f - Utility::distance(bodyCenter, Utility::fromSf(ourPos)) / this->m_explosionRadius);
+                    float velocityFalloff = std::sqrt(distFrac);
 
-                impulseVec.x *= this->m_explosionForce * velocityFalloff;
-                impulseVec.y *= this->m_explosionForce * velocityFalloff;
+                    impulseVec.x *= this->m_explosionForce * velocityFalloff;
+                    impulseVec.y *= this->m_explosionForce * velocityFalloff;
 
-                float friendlyFireMultiplier = 1.0f;
-                if (reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer)->gameObjectOwner == 
-                    PlatformDataEngineWrapper::getWorld()->getPlayer())
-                {
-                    friendlyFireMultiplier = 0.1f;
+                    float friendlyFireMultiplier = 1.0f;
+                    if (reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer)->gameObjectOwner ==
+                        this->m_owningGameObject.get())
+                    {
+                        friendlyFireMultiplier = 0.1f;
+                    }
+
+                    // damage body
+                    if (body->GetUserData().pointer != 0 &&
+                        reinterpret_cast<PhysBodyUserData*>(
+                            body->GetUserData().pointer)->gameObjectOwner != nullptr)
+                    {
+                        reinterpret_cast<PhysBodyUserData*>(
+                            body->GetUserData().pointer)->gameObjectOwner->damage(this->m_explosionDamage * velocityFalloff * friendlyFireMultiplier);
+                    }
+
+                    b2Vec2 velocity = body->GetLinearVelocity();
+                    velocity.x *= 0.50f;
+                    velocity.y *= 0.50f;
+                    body->SetLinearVelocity(velocity);
+                    body->ApplyLinearImpulseToCenter(impulseVec, true);
                 }
-
-                // damage body
-                if (body->GetUserData().pointer != 0 &&
-                    reinterpret_cast<PhysBodyUserData*>(
-                        body->GetUserData().pointer)->gameObjectOwner != nullptr)
-                {
-                    reinterpret_cast<PhysBodyUserData*>(
-                        body->GetUserData().pointer)->gameObjectOwner->damage(this->m_explosionDamage * velocityFalloff * friendlyFireMultiplier);
-                }
-
-                b2Vec2 velocity = body->GetLinearVelocity();
-                velocity.x *= 0.50f;
-                velocity.y *= 0.50f;
-                body->SetLinearVelocity(velocity);
-                body->ApplyLinearImpulseToCenter(impulseVec, true);
             }
+
+            // explode FX
+            // spawn particle system
+            PlatformDataEngineWrapper::getWorld()->spawnGameObject(
+                this->m_ParticleSystemName, ourPos, "", false);
+
+            // destroy self
+            this->m_parent->destroySelf();
         }
 
-        // explode FX
-        // spawn particle system
-        PlatformDataEngineWrapper::getWorld()->spawnGameObject(
-            this->m_ParticleSystemName, ourPos);
-
-        // destroy self
-        this->m_parent->destroySelf();
+        this->m_isExploding = false;
     }
-
-    this->m_isExploding = false;
 }
 
 void RocketProjectile::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -144,4 +135,11 @@ void RocketProjectile::loadDefinition(nlohmann::json object)
     this->m_explosionForce = object.at("explosionForce");
     this->m_explosionRadius = object.at("explosionRadius");
     this->m_ParticleSystemName = object.at("particleSystemName");
+}
+
+void RocketProjectile::setOwner(std::shared_ptr<GameObject> owner)
+{
+    this->m_owningGameObject = owner;
+    reinterpret_cast<PhysBodyUserData*>(
+        this->m_PhysBody->getBody()->GetUserData().pointer)->gameObjectOwner = this->m_owningGameObject.get();
 }

@@ -63,6 +63,9 @@ void ListMenu::update(const float& dt, const float& elapsedTime)
 		this->m_currentlySelected = this->m_menuOptions.begin()->get();
 		this->m_currentlySelected->setSelected(true);
 	}
+	else {
+		this->m_currentlySelected->update();
+	}
 
 	if (this->m_inputManager) {
 		if (this->m_inputManager->getAxis("y").isNegative()) {
@@ -120,11 +123,6 @@ void ListMenu::update(const float& dt, const float& elapsedTime)
 			this->m_inputActive = false;
 		}
 	}
-
-	for (const auto& op : this->m_menuOptions)
-	{
-		op->update();
-	}
 }
 
 void ListMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -166,9 +164,6 @@ void MenuOption::update()
 
 void MenuOption::setSelected(bool selected)
 {
-	//if (selected) {
-	//	PlatformDataEngineWrapper::m_playerInput = this->m_text.getText();
-	//}
 	this->m_isSelected = selected;
 }
 
@@ -196,10 +191,6 @@ void TextBox::init()
 
 void TextBox::update()
 {
-	//if (this->m_isSelected)
-	//{
-	//	this->m_text.setText(PlatformDataEngineWrapper::m_playerInput);
-	//}
 }
 
 void TextBox::draw(sf::RenderTarget& target, sf::RenderStates states) const

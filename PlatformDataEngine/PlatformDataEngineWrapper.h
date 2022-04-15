@@ -78,18 +78,30 @@ namespace PlatformDataEngine {
 
 		static inline void stopRenderThread() {
 			PlatformDataEngineWrapper::m_renderThreadStop = true;
-			m_renderThread.join();
+			m_renderThread->wait();
 		}
 
 		static inline void startRenderThread() {
 			PlatformDataEngineWrapper::m_renderThreadStop = false;
 			mp_renderWindow->setActive(false);
-			m_renderThread = std::thread(&renderingThread, mp_renderWindow, mp_mainWorld.get(), 
-				std::ref(PlatformDataEngineWrapper::m_renderThreadStop));
+			m_renderThread = std::make_shared<sf::Thread>(std::bind(& renderingThread, mp_renderWindow, mp_mainWorld.get(), std::ref(PlatformDataEngineWrapper::m_renderThreadStop)));
+			m_renderThread->launch();
+		}
+
+		static inline std::string getPlayerInput() {
+			return PlatformDataEngineWrapper::m_playerInput;
+		}
+
+		static inline void setPlayerInput(const std::string& input) {
+			PlatformDataEngineWrapper::m_playerInput = input;
 		}
 
 		static inline void quit() {
 			mp_renderWindow->close();
+		}
+
+		static inline sf::FloatRect getViewport() {
+			return PlatformDataEngineWrapper::m_viewPort;
 		}
 
 		static inline void loadServer() {
@@ -150,9 +162,9 @@ namespace PlatformDataEngine {
 			spdlog::info("Done loading client world!");
 		}
 
-		static std::string m_playerInput;
 	
 	private:
+		static std::string m_playerInput;
 		static std::shared_ptr<GameWorld> mp_mainWorld;
 		static std::shared_ptr<PlayerInputManager> mp_playerInputManager;
 		static std::shared_ptr<sf::RenderWindow> mp_renderWindow;
@@ -166,9 +178,11 @@ namespace PlatformDataEngine {
 		static std::string m_playerName;
 
 		std::mutex mutex;
-		static std::thread m_renderThread;
+		static std::shared_ptr<sf::Thread> m_renderThread;
 		static std::shared_ptr<PhysicsDebugDraw> m_debugDraw;
 		static std::atomic<bool> m_renderThreadStop;
+
+		static sf::FloatRect m_viewPort;
 	};
 }
 

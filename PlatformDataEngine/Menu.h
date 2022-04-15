@@ -106,13 +106,10 @@ namespace PlatformDataEngine {
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-		inline void setCurrentMenu(ListMenu* currentMenu) { this->m_currentMenu = currentMenu; };
 		inline ListMenu* getLastMenu() const { return this->m_lastMenu; };
-		inline void setLastMenu(ListMenu* lastMenu) { this->m_lastMenu = lastMenu; };
 
-		static inline void quit() {
-			exit(0);
-		}
+		inline void setCurrentMenu(ListMenu* currentMenu) { this->m_currentMenu = currentMenu; };
+		inline void setLastMenu(ListMenu* lastMenu) { this->m_lastMenu = lastMenu; };
 
 	private:
 

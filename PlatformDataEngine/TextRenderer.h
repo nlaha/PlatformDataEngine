@@ -26,7 +26,7 @@ namespace PlatformDataEngine {
 			this->m_textDrawable.setText(text);
 		};
 
-		inline std::string getText() const { this->m_textDrawable.getText(); };
+		inline std::string getText() const { return this->m_textDrawable.getText(); };
 
 	private:
 		sf::Font m_font;

@@ -27,7 +27,7 @@ void GlobalEffects::explode(SpriteRenderer& sprite, sf::Vector2f pos, int slices
 	for (sf::IntRect pRect : particleRects)
 	{
 		std::shared_ptr<GameObject> particle = PlatformDataEngineWrapper::getWorld()->spawnGameObject(
-			"ExplodeChunkParticle", pos + sf::Vector2f(pRect.left - fullRect.left, pRect.top - fullRect.top),
+			"ExplodeChunkParticle", pos,
 			"", true);
 		particle->setZlayer(40);
 
@@ -58,8 +58,8 @@ void GlobalEffects::explode(SpriteRenderer& sprite, sf::Vector2f pos, int slices
 			rand() % 100 + (-100),
 			rand() % 100 + (-100)
 		));
-		dir.x *= 20.0f / Constants::PHYS_SCALE;
-		dir.y *= 20.0f / Constants::PHYS_SCALE;
+		dir.x *= 100.0f / Constants::PHYS_SCALE;
+		dir.y *= 100.0f / Constants::PHYS_SCALE;
 
 		pBody->getBody()->ApplyLinearImpulseToCenter(dir, true);
 

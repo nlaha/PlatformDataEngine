@@ -12,12 +12,12 @@ namespace PlatformDataEngine {
     bool PlatformDataEngineWrapper::m_isClient = false;
     std::string PlatformDataEngineWrapper::m_playerName = "Player";
     sf::View PlatformDataEngineWrapper::m_view;
-    std::thread PlatformDataEngineWrapper::m_renderThread;
+    std::shared_ptr<sf::Thread> PlatformDataEngineWrapper::m_renderThread;
     std::atomic<bool> PlatformDataEngineWrapper::m_renderThreadStop(false);
     std::string PlatformDataEngineWrapper::m_playerInput = "";
     std::shared_ptr<PhysicsDebugDraw> PlatformDataEngineWrapper::m_debugDraw = nullptr;
-
     std::shared_ptr <NetworkHandler> PlatformDataEngineWrapper::m_netHandler = nullptr;
+    sf::FloatRect PlatformDataEngineWrapper::m_viewPort = sf::FloatRect();
 
     PlatformDataEngineWrapper::PlatformDataEngineWrapper()
     {
@@ -34,6 +34,10 @@ namespace PlatformDataEngine {
         {
             // clear
             window->clear(sf::Color(0, 0, 0));
+
+            sf::View view = world->getView();
+            view.setViewport(PlatformDataEngineWrapper::getViewport());
+            window->setView(view);
 
             // draw...
             window->draw(*world);
@@ -60,25 +64,16 @@ namespace PlatformDataEngine {
 
         sf::ContextSettings contextSettings;
 
-        std::string flags = " [";
-
-        if (m_isClient) {
-            flags += "Client]";
-        }
-        else {
-            flags += "Server]";
-        }
-
         // create window and viewport
-        sf::FloatRect viewPort;
         if (appMode != ApplicationMode::DEDICATED) {
-            mp_renderWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(640, 640), "PlatformData Engine" + flags, sf::Style::Default, contextSettings);
+            mp_renderWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(640, 640), "PlatformData Engine", sf::Style::Default, contextSettings);
             sf::FloatRect visibleArea(0.f, 0.f, 256, 256);
             m_view = sf::View(visibleArea);
             float xoffset = ((mp_renderWindow->getSize().x - mp_renderWindow->getSize().y) / 2.0f) / mp_renderWindow->getSize().x;
-            viewPort = sf::FloatRect({ xoffset, 0 }, { (float)mp_renderWindow->getSize().y / (float)mp_renderWindow->getSize().x, 1.0f });
-            m_view.setViewport(viewPort);
+            m_viewPort = sf::FloatRect({ xoffset, 0 }, { (float)mp_renderWindow->getSize().y / (float)mp_renderWindow->getSize().x, 1.0f });
+            m_view.setViewport(m_viewPort);
             mp_renderWindow->setView(m_view);
+            //mp_renderWindow->setVerticalSyncEnabled(true);
         }
 
         bool isFullscreen = false;
@@ -135,7 +130,7 @@ namespace PlatformDataEngine {
                     {
                         // update the view to the new size of the window
                         float xoffset = ((event.size.width - event.size.height) / 2.0f) / event.size.width;
-                        viewPort = sf::FloatRect({ xoffset, 0 }, { (float)event.size.height / (float)event.size.width, 1.0f });
+                        m_viewPort = sf::FloatRect({ xoffset, 0 }, { (float)event.size.height / (float)event.size.width, 1.0f });
 
                     }
 
@@ -144,7 +139,7 @@ namespace PlatformDataEngine {
                             event.key.alt && event.key.code == sf::Keyboard::Enter)
                         {
                             mp_renderWindow->close();
-                            m_renderThread.join();
+                            m_renderThread->wait();
                             if (!isFullscreen) {
                                 mp_renderWindow->create(sf::VideoMode::getDesktopMode(), "PlatformData Engine", sf::Style::None, contextSettings);
                                 isFullscreen = true;
@@ -184,9 +179,6 @@ namespace PlatformDataEngine {
                 // always top left of window (for GUI)
                 this->m_windowZero = mp_renderWindow->mapPixelToCoords({ 0, 0 });
 
-                sf::View view = mp_mainWorld->getView();
-                view.setViewport(viewPort);
-                mp_renderWindow->setView(view);
             }
             if (!m_pausedGame) {
                 mp_mainWorld->update(dt.asSeconds(), elapsedClock.getElapsedTime().asSeconds()); // update world
@@ -200,8 +192,6 @@ namespace PlatformDataEngine {
         if (m_isClient) {
             dynamic_cast<Client*>(PlatformDataEngineWrapper::getNetworkHandler())->disconnect();
         }
-        if(m_renderThread.joinable()) {
-            m_renderThread.join();
-        }
+        m_renderThread->wait();
     }
 }

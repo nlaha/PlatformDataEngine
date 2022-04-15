@@ -15,6 +15,7 @@ namespace PlatformDataEngine {
     std::thread PlatformDataEngineWrapper::m_renderThread;
     std::atomic<bool> PlatformDataEngineWrapper::m_renderThreadStop(false);
     std::string PlatformDataEngineWrapper::m_playerInput = "";
+    std::shared_ptr<PhysicsDebugDraw> PlatformDataEngineWrapper::m_debugDraw = nullptr;
 
     std::shared_ptr <NetworkHandler> PlatformDataEngineWrapper::m_netHandler = nullptr;
 
@@ -105,12 +106,6 @@ namespace PlatformDataEngine {
         sf::Clock deltaClock;
         sf::Clock elapsedClock;
         sf::Time dt;
-
-        /* Initialize Debug Draw */
-        PhysicsDebugDraw debugDraw(*mp_renderWindow);
-
-        mp_mainWorld->getPhysWorld()->SetDebugDraw(&debugDraw);
-        debugDraw.SetFlags(b2Draw::e_shapeBit); //Only draw shapes
 
         if (appMode != ApplicationMode::DEDICATED) {
             // deactivate its OpenGL context

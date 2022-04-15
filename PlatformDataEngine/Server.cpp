@@ -40,6 +40,44 @@ void Server::stop()
 
 void Server::process(GameWorld* world)
 {
+	PDEPacket packet;
+	bool isNetworked = false;
+	for (std::shared_ptr<Connection> conn : this->m_connections)
+	{
+		// send update data
+		packet = PDEPacket(PDEPacket::SendUpdates);
+		packet << static_cast<sf::Uint32>(world->getGameObjects().size());
+		for (const auto& gameObjectPair : world->getGameObjects())
+		{
+			isNetworked = gameObjectPair.second->getNetworked();
+			packet << isNetworked;
+			if (isNetworked) {
+				if (gameObjectPair.second->getName() == "")
+				{
+					spdlog::error("Update packet is malformed!");
+				}
+				packet
+					<< gameObjectPair.second->getType()
+					<< gameObjectPair.second->getPosition().x
+					<< gameObjectPair.second->getPosition().y
+					<< gameObjectPair.second->getName();
+				if (gameObjectPair.second->getHasBeenSent(conn->id)) {
+					spdlog::debug("Sending existing object {}", gameObjectPair.second->getName());
+					gameObjectPair.second->networkSerialize(packet);
+				}
+				else {
+					spdlog::debug("Sending new object {}", gameObjectPair.second->getName());
+					gameObjectPair.second->networkSerializeInit(packet);
+					gameObjectPair.second->setHasBeenSent(conn->id);
+				}
+			}
+			else {
+				spdlog::debug("Object is not networked! {}", gameObjectPair.second->getName());
+			}
+		}
+
+		m_socket.send(packet, conn->ip, conn->port);
+	}
 }
 
 void Server::recieve(GameWorld* world)
@@ -137,43 +175,6 @@ void Server::recieve(GameWorld* world)
 
 				spdlog::info("Player {} disconnected", clientId);
 
-				break;
-
-			case PDEPacket::RequestUpdates:
-
-				// send update data
-				packet = PDEPacket(PDEPacket::ResponseUpdates);
-				packet << static_cast<sf::Uint32>(world->getGameObjects().size());
-				for (const auto& gameObjectPair : world->getGameObjects())
-				{
-					isNetworked = gameObjectPair.second->getNetworked();
-					packet << isNetworked;
-					if (isNetworked) {
-						if (gameObjectPair.second->getName() == "")
-						{
-							spdlog::error("Update packet is malformed!");
-						}
-						packet
-							<< gameObjectPair.second->getType()
-							<< gameObjectPair.second->getPosition().x
-							<< gameObjectPair.second->getPosition().y
-							<< gameObjectPair.second->getName();
-						if (gameObjectPair.second->getHasBeenSent(clientId)) {
-							spdlog::debug("Sending existing object {}", gameObjectPair.second->getName());
-							gameObjectPair.second->networkSerialize(packet);
-						}
-						else {
-							spdlog::debug("Sending new object {}", gameObjectPair.second->getName());
-							gameObjectPair.second->networkSerializeInit(packet);
-							gameObjectPair.second->setHasBeenSent(clientId);
-						}
-					}
-					else {
-						spdlog::debug("Object is not networked! {}", gameObjectPair.second->getName());
-					}
-				}
-
-				m_socket.send(packet, clientIp, clientPort);
 				break;
 			}
 		}

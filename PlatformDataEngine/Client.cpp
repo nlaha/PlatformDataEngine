@@ -54,13 +54,6 @@ void Client::process(GameWorld* world)
 			{
 				spdlog::warn("Failed to send input packet!");
 			}
-
-			PDEPacket updatesPacket(PDEPacket::RequestUpdates);
-			updatesPacket << this->m_clientConnection->id;
-			if (m_socket.send(updatesPacket, this->m_serverIp, m_serverPort) != sf::Socket::Done)
-			{
-				spdlog::warn("Failed to send update request packet!");
-			}
 		}
 
 
@@ -91,7 +84,7 @@ void Client::recieve(GameWorld* world)
 		switch (packet.flag())
 		{
 
-		case PDEPacket::ResponseUpdates:
+		case PDEPacket::SendUpdates:
 			packet >> numObjs;
 			for (size_t i = 0; i < numObjs; i++)
 			{

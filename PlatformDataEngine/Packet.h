@@ -43,7 +43,7 @@ namespace PlatformDataEngine {
 
 			SetObjectHealth,
 			RequestUpdates,
-			ResponseUpdates,
+			SendUpdates,
 			UserInput,
 		};
 

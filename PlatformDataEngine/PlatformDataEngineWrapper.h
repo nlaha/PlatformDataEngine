@@ -107,12 +107,15 @@ namespace PlatformDataEngine {
 
 			PlatformDataEngineWrapper::mp_mainWorld->loadGameObjectDefinitions();
 
-			/* Initialize Debug Draw */
-			PhysicsDebugDraw debugDraw(*mp_renderWindow);
 
-			mp_mainWorld->getPhysWorld()->SetDebugDraw(&debugDraw);
-			debugDraw.SetFlags(b2Draw::e_shapeBit); //Only draw shapes
 			PlatformDataEngineWrapper::mp_mainWorld->init("game/worlds/world.json", m_view, ApplicationMode::SERVER);
+
+			/* Initialize Debug Draw */
+			PlatformDataEngineWrapper::m_debugDraw = std::make_shared<PhysicsDebugDraw>(*mp_renderWindow);
+
+			mp_mainWorld->getPhysWorld()->SetDebugDraw(PlatformDataEngineWrapper::m_debugDraw.get());
+			PlatformDataEngineWrapper::m_debugDraw->SetFlags(b2Draw::e_shapeBit); //Only draw shapes
+
 			PlatformDataEngineWrapper::startRenderThread();
 
 			spdlog::info("Done loading server world!");
@@ -133,12 +136,15 @@ namespace PlatformDataEngine {
 
 			PlatformDataEngineWrapper::mp_mainWorld->loadGameObjectDefinitions();
 
-			/* Initialize Debug Draw */
-			PhysicsDebugDraw debugDraw(*mp_renderWindow);
 
-			mp_mainWorld->getPhysWorld()->SetDebugDraw(&debugDraw);
-			debugDraw.SetFlags(b2Draw::e_shapeBit); //Only draw shapes
 			PlatformDataEngineWrapper::mp_mainWorld->initClient("game/worlds/world.json", m_view);
+
+			/* Initialize Debug Draw */
+			PlatformDataEngineWrapper::m_debugDraw = std::make_shared<PhysicsDebugDraw>(*mp_renderWindow);
+
+			mp_mainWorld->getPhysWorld()->SetDebugDraw(PlatformDataEngineWrapper::m_debugDraw.get());
+			PlatformDataEngineWrapper::m_debugDraw->SetFlags(b2Draw::e_shapeBit); //Only draw shapes
+
 			PlatformDataEngineWrapper::startRenderThread();
 
 			spdlog::info("Done loading client world!");
@@ -161,6 +167,7 @@ namespace PlatformDataEngine {
 
 		std::mutex mutex;
 		static std::thread m_renderThread;
+		static std::shared_ptr<PhysicsDebugDraw> m_debugDraw;
 		static std::atomic<bool> m_renderThreadStop;
 	};
 }

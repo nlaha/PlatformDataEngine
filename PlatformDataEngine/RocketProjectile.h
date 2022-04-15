@@ -38,7 +38,8 @@ namespace PlatformDataEngine {
         std::shared_ptr<GameObject> m_owningGameObject;
 
         PhysicsBody* m_PhysBody;
-        b2Fixture* m_explosionSensor;
+        b2Fixture* m_forceSensor;
+        b2Fixture* m_damageSensor;
 
         std::string m_ParticleSystemName;
         float m_explosionRadius;

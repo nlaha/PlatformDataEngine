@@ -134,8 +134,7 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 
 		// network update
 		// limit send rate
-		if (PlatformDataEngineWrapper::getIsClient() &&
-			this->m_packetClock.getElapsedTime().asMilliseconds() > 24) {
+		if (this->m_packetClock.getElapsedTime().asMilliseconds() > 24) {
 			PlatformDataEngineWrapper::getNetworkHandler()->process(this);
 			m_packetClock.restart();
 		}

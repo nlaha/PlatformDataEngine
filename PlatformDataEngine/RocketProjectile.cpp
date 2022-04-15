@@ -31,21 +31,34 @@ void RocketProjectile::init()
     this->m_PhysBody->getBody()->SetBullet(true);
     this->m_PhysBody->getBody()->SetGravityScale(0.0f);
 
-    b2CircleShape circleShape;
-    circleShape.m_radius = this->m_explosionRadius / Constants::PHYS_SCALE;
-    b2FixtureDef sensorDef;
-    sensorDef.shape = &circleShape;
-    sensorDef.isSensor = true;
-    b2Filter filterSensor;
-    filterSensor.categoryBits = PlatformDataEngine::WORLD_DYNAMIC;
-    sensorDef.filter = filterSensor;
-    this->m_explosionSensor = this->m_PhysBody->getBody()->CreateFixture(&sensorDef);
+    // set up force sensor fixture
+    b2CircleShape forceSensorShape;
+    forceSensorShape.m_radius = this->m_explosionRadius / Constants::PHYS_SCALE;
+    b2FixtureDef forceSensorDef;
+    forceSensorDef.shape = &forceSensorShape;
+    forceSensorDef.isSensor = true;
+    b2Filter forceSensorFilter;
+    forceSensorFilter.categoryBits = PlatformDataEngine::WORLD_DYNAMIC;
+    forceSensorDef.filter = forceSensorFilter;
+    this->m_forceSensor = this->m_PhysBody->getBody()->CreateFixture(&forceSensorDef);
+
+    // set up damage sensor fixture
+    b2CircleShape damageSensorShape;
+    damageSensorShape.m_radius = (this->m_explosionRadius / Constants::PHYS_SCALE) / 3.0f;
+    b2FixtureDef damageSensorDef;
+    damageSensorDef.shape = &damageSensorShape;
+    damageSensorDef.isSensor = true;
+    b2Filter damageSensorFilter;
+    damageSensorFilter.categoryBits = PlatformDataEngine::WORLD_DYNAMIC;
+    damageSensorDef.filter = damageSensorFilter;
+    this->m_damageSensor = this->m_PhysBody->getBody()->CreateFixture(&damageSensorDef);
 
     this->m_isExploding = false;
 }
 
 void RocketProjectile::update(const float& dt, const float& elapsedTime)
 {
+    // only simulate on server
     if (!PlatformDataEngineWrapper::getIsClient()) {
         this->m_PhysBody->getBody()->SetLinearDamping(0);
 
@@ -58,50 +71,69 @@ void RocketProjectile::update(const float& dt, const float& elapsedTime)
             }
         }
 
+        // we've hit something!
         if (this->m_isExploding) {
 
             sf::Vector2f ourPos = this->m_parent->getPosition();
 
-            // apply force
             for (b2ContactEdge* c = this->m_PhysBody->getBody()->GetContactList(); c; c = c->next)
             {
-                b2Body* body = c->other;
+                // apply damage
+                if (c->contact->GetFixtureA() == this->m_damageSensor || c->contact->GetFixtureB() == this->m_damageSensor) {
 
-                if (body->GetType() == b2BodyType::b2_dynamicBody) {
+                    b2Body* body = c->other;
 
                     b2Vec2 bodyCenter = body->GetPosition();
-                    b2Vec2 impulseVec = Utility::normalize(b2Vec2(
-                        (bodyCenter.x - (ourPos.x / Constants::PHYS_SCALE)),
-                        (bodyCenter.y - (ourPos.y / Constants::PHYS_SCALE))
-                    ));
-
                     float distFrac = std::fmaxf(0.0f, 1.10f - Utility::distance(bodyCenter, Utility::fromSf(ourPos)) / this->m_explosionRadius);
                     float velocityFalloff = std::sqrt(distFrac);
 
-                    impulseVec.x *= this->m_explosionForce * velocityFalloff;
-                    impulseVec.y *= this->m_explosionForce * velocityFalloff;
-
-                    float friendlyFireMultiplier = 1.0f;
-                    if (reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer)->gameObjectOwner ==
-                        this->m_owningGameObject.get())
-                    {
-                        friendlyFireMultiplier = 0.1f;
+                    // don't apply damage to ourself
+                    if (body->GetUserData().pointer != 0) {
+                        if (reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer)->gameObjectOwner !=
+                            this->m_owningGameObject.get())
+                        {
+                            // damage body
+                            if (body->GetUserData().pointer != 0 &&
+                                reinterpret_cast<PhysBodyUserData*>(
+                                    body->GetUserData().pointer)->gameObjectOwner != nullptr)
+                            {
+                                reinterpret_cast<PhysBodyUserData*>(
+                                    body->GetUserData().pointer)->gameObjectOwner->damage(this->m_explosionDamage * velocityFalloff);
+                            }
+                        }
                     }
+                }
 
-                    // damage body
-                    if (body->GetUserData().pointer != 0 &&
-                        reinterpret_cast<PhysBodyUserData*>(
-                            body->GetUserData().pointer)->gameObjectOwner != nullptr)
-                    {
-                        reinterpret_cast<PhysBodyUserData*>(
-                            body->GetUserData().pointer)->gameObjectOwner->damage(this->m_explosionDamage * velocityFalloff * friendlyFireMultiplier);
+                // apply force
+                if (c->contact->GetFixtureA() == this->m_forceSensor || c->contact->GetFixtureB() == this->m_forceSensor) {
+
+                    b2Body* body = c->other;
+
+                    // we don't need to do anything if we're interacting
+                    // with a static body
+                    if (body->GetType() == b2BodyType::b2_dynamicBody) {
+
+                        b2Vec2 bodyCenter = body->GetPosition();
+                        b2Vec2 impulseVec = Utility::normalize(b2Vec2(
+                            (bodyCenter.x - (ourPos.x / Constants::PHYS_SCALE)),
+                            (bodyCenter.y - (ourPos.y / Constants::PHYS_SCALE))
+                        ));
+
+                        float distFrac = std::fmaxf(0.0f, 1.10f - Utility::distance(bodyCenter, Utility::fromSf(ourPos)) / this->m_explosionRadius);
+                        float velocityFalloff = std::sqrt(distFrac);
+
+                        impulseVec.x *= this->m_explosionForce * velocityFalloff;
+                        impulseVec.y *= this->m_explosionForce * velocityFalloff;
+
+                        // don't apply force to particles
+                        if (body->GetFixtureList()[0].GetFilterData().categoryBits != PhysicsCategory::PARTICLE) {
+                            b2Vec2 velocity = body->GetLinearVelocity();
+                            velocity.x *= 0.50f;
+                            velocity.y *= 0.50f;
+                            body->SetLinearVelocity(velocity);
+                            body->ApplyLinearImpulseToCenter(impulseVec, true);
+                        }
                     }
-
-                    b2Vec2 velocity = body->GetLinearVelocity();
-                    velocity.x *= 0.50f;
-                    velocity.y *= 0.50f;
-                    body->SetLinearVelocity(velocity);
-                    body->ApplyLinearImpulseToCenter(impulseVec, true);
                 }
             }
 

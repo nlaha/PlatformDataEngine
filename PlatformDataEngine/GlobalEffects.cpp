@@ -53,5 +53,15 @@ void GlobalEffects::explode(SpriteRenderer& sprite, sf::Vector2f pos, int slices
 		fd.filter.maskBits = PlatformDataEngine::WORLD_STATIC | PlatformDataEngine::WORLD_DYNAMIC;
 		pBody->getBody()->CreateFixture(&fd);
 
+		// get a random vector
+		b2Vec2 dir = Utility::normalize(b2Vec2(
+			rand() % 100 + (-100),
+			rand() % 100 + (-100)
+		));
+		dir.x *= 20.0f / Constants::PHYS_SCALE;
+		dir.y *= 20.0f / Constants::PHYS_SCALE;
+
+		pBody->getBody()->ApplyLinearImpulseToCenter(dir, true);
+
 	}
 }

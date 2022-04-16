@@ -29,14 +29,17 @@ void StatsPanel::update(const float &dt, const float &elapsedTime)
 {
     if (this->m_player == nullptr || this->m_playerRocketLauncher == nullptr)
     {
-        if (PlatformDataEngineWrapper::getWorld()->getPlayer() != nullptr)
-        {
-            this->m_player = PlatformDataEngineWrapper::getWorld()->getPlayer();
-            if (this->m_player->getChildren().size() > 0)
-            {
-                this->m_playerRocketLauncher = this->m_player->getChildren()[0]->findComponentOfType<RocketLauncher>().get();
-            }
-        }
+        this->m_player = PlatformDataEngineWrapper::getWorld()->getGameObject(
+            PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->id).get();
+
+        //if (PlatformDataEngineWrapper::getWorld()->getPlayer() != nullptr)
+        //{
+        //    this->m_player = PlatformDataEngineWrapper::getWorld()->getPlayer();
+        //    if (this->m_player->getChildren().size() > 0)
+        //    {
+        //        this->m_playerRocketLauncher = this->m_player->getChildren()[0]->findComponentOfType<RocketLauncher>().get();
+        //    }
+        //}
     }
 
     if (this->m_playerRocketLauncher != nullptr)

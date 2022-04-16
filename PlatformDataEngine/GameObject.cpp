@@ -276,6 +276,15 @@ void GameObject::onDeath()
 	if (dh != nullptr)
 		dh->onDeath();
 
+	if (!PlatformDataEngineWrapper::getIsClient()) {
+		if (this->m_name == PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->id) {
+			// player has died
+			PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->state = PlayerState::DEAD;
+			PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->respawnTimer.restart();
+			spdlog::info("Player {} has died!", PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->name);
+		}
+	}
+
 	this->destroySelf();
 }
 

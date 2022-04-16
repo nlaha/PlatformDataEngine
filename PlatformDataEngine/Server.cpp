@@ -212,15 +212,6 @@ void Server::broadcastObjectHealth(const std::string& objName, float health)
 				spdlog::info("Player {} has died!", conn->name);
 			}
 		}
-		
-		if (objName == this->m_clientConnection->id) {
-			if (health <= 0) {
-				// player has died
-				this->m_clientConnection->state = PlayerState::DEAD;
-				this->m_clientConnection->respawnTimer.restart();
-				spdlog::info("Player {} has died!", this->m_clientConnection->name);
-			}
-		}
 
 		PDEPacket packet(PDEPacket::SetObjectHealth);
 		packet << objName << health;

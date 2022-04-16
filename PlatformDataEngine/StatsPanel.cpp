@@ -8,7 +8,7 @@ using namespace PlatformDataEngine;
 
 void StatsPanel::init()
 {
-    AnimationController* ac = this->m_parent->findComponentOfType<AnimationController>().get();
+    AnimationController *ac = this->m_parent->findComponentOfType<AnimationController>().get();
     if (ac != nullptr)
     {
         this->m_animController = ac;
@@ -29,15 +29,18 @@ void StatsPanel::update(const float &dt, const float &elapsedTime)
 {
     if (this->m_player == nullptr || this->m_playerRocketLauncher == nullptr)
     {
-        if (PlatformDataEngineWrapper::getWorld()->getPlayer() != nullptr) {
+        if (PlatformDataEngineWrapper::getWorld()->getPlayer() != nullptr)
+        {
             this->m_player = PlatformDataEngineWrapper::getWorld()->getPlayer();
-            if (this->m_player->getChildren().size() > 0) {
+            if (this->m_player->getChildren().size() > 0)
+            {
                 this->m_playerRocketLauncher = this->m_player->getChildren()[0]->findComponentOfType<RocketLauncher>().get();
             }
         }
     }
 
-    if (this->m_playerRocketLauncher != nullptr) {
+    if (this->m_playerRocketLauncher != nullptr)
+    {
         // update rocket cooldown animations
         if (m_playerRocketLauncher->isCoolingDown())
         {
@@ -49,7 +52,8 @@ void StatsPanel::update(const float &dt, const float &elapsedTime)
         }
     }
 
-    if (this->m_player != nullptr) {
+    if (this->m_player != nullptr)
+    {
         this->m_targetHealth = this->m_player->getHealth();
 
         // lerp health to target health
@@ -81,13 +85,10 @@ void StatsPanel::copy(std::shared_ptr<Component> otherCompPtr)
 void StatsPanel::loadDefinition(nlohmann::json object)
 {
     this->m_healthBarSpeed = object.at("healthBar").at("healthBarSpeed");
-    this->m_healthBar.setPosition({ 
-        object.at("healthBar").at("transform").at("x"), 
-        object.at("healthBar").at("transform").at("y") 
-    });
+    this->m_healthBar.setPosition({object.at("healthBar").at("transform").at("x"),
+                                   object.at("healthBar").at("transform").at("y")});
 
     this->m_healthBarSize = sf::Vector2f(
         object.at("healthBar").at("transform").at("width"),
-        object.at("healthBar").at("transform").at("height")
-    );
+        object.at("healthBar").at("transform").at("height"));
 }

@@ -213,6 +213,9 @@
     <ClCompile Include="Utility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Spike.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameWorld.h">
@@ -320,6 +323,7 @@
     <ClInclude Include="Globals.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
+
     <ClInclude Include="Packet.h">
       <Filter>Header Files\Networking</Filter>
     </ClInclude>
@@ -350,11 +354,15 @@
     <ClInclude Include="Menu.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Spike.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\vcpkg.json">
       <Filter>Resource Files</Filter>
     </None>
+
     <None Include="game\gameObjects\EngineStats.json">
       <Filter>Resource Files\Game\GameObjects</Filter>
     </None>
@@ -377,6 +385,20 @@
       <Filter>Resource Files\Game\GameObjects</Filter>
     </None>
     <None Include="game\gameObjects\RocketProjectile.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </None>
+    <None Include="game\gameObjects\Spike.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="shaders\foliage.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="game\gameObjects\PlayerCharacter.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </CopyFileToFolders>
+    <None Include="game\gameObjects\Spike.json">
       <Filter>Resource Files\Game\GameObjects</Filter>
     </None>
     <None Include="game\gameObjects\StatsPanel.json">

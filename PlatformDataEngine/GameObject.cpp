@@ -52,6 +52,7 @@ GameObject::GameObject(const GameObject& other)
 	this->m_type = other.m_type;
 	this->m_id = other.m_id;
 	this->m_properties = other.m_properties;
+	this->m_HP = 100.0f;
 
 	if (other.m_healthBar != nullptr)
 		this->m_healthBar = std::make_shared<StatsBar>(*other.m_healthBar);

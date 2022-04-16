@@ -20,30 +20,35 @@
 #include "PlayerDamageHandler.h"
 #include "PropDamageHandler.h"
 
-namespace PlatformDataEngine {
+#include "Spike.h"
 
-	/// <summary>
-	/// COMPONENT FACTORY
+namespace PlatformDataEngine
+{
+
+    /// <summary>
+    /// COMPONENT FACTORY
     /// This is a class that is responsible for creating components
     /// of different types from a string representation of the type.
     /// For example, if the component with type "AnimationController"
     /// is added in the json file, we need a way to make an object of
     /// type AnimationController so we'd call the following:
     /// ComponentFactory::create("AnimationController")
-	/// </summary>
-	class ComponentFactory {
+    /// </summary>
+    class ComponentFactory
+    {
 
-        typedef std::map<std::string, std::shared_ptr<Component>(*)()> map_type;
+        typedef std::map<std::string, std::shared_ptr<Component> (*)()> map_type;
 
     public:
-        static inline std::shared_ptr<Component> create(const std::string& type)
+        static inline std::shared_ptr<Component> create(const std::string &type)
         {
             return factoryMap.at(type)();
         }
 
     private:
-        template<typename T>
-        static inline std::shared_ptr<Component> construct() {
+        template <typename T>
+        static inline std::shared_ptr<Component> construct()
+        {
             return std::make_shared<T>();
         }
 
@@ -60,11 +65,10 @@ namespace PlatformDataEngine {
             {"TimedDestroy", &construct<TimedDestroy>},
             {"StatsPanel", &construct<StatsPanel>},
             {"Menu", &construct<Menu>},
+            {"Spike", &construct<Spike>},
 
             // damage handlers
             {"PlayerDamageHandler", &construct<PlayerDamageHandler>},
-            {"PropDamageHandler", &construct<PropDamageHandler>}
-        };
-	};
+            {"PropDamageHandler", &construct<PropDamageHandler>}};
+    };
 }
-

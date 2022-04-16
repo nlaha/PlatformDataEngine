@@ -281,6 +281,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClCompile Include="TileSprite.cpp" />
     <ClCompile Include="TileTexture.cpp" />
     <ClCompile Include="TimedDestroy.cpp" />
+    <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alive.h" />

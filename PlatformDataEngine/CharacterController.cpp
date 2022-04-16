@@ -124,7 +124,7 @@ void CharacterController::update(const float& dt, const float& elapsedTime)
 
         // dash
         if (vel.LengthSquared() <= this->m_maxVelocity)
-            this->m_PhysBody->getBody()->ApplyLinearImpulseToCenter({ (vel.x > 0 ? 1 : -1) * this->m_jumpForce * 2, 0.0 }, true);
+            this->m_PhysBody->getBody()->ApplyLinearImpulseToCenter({ (vel.x > 0 ? 1 : -1) * this->m_jumpForce, 0.0 }, true);
         m_dashCooldownClock.restart();
     }
 

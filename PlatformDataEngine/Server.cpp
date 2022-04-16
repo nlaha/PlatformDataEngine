@@ -35,12 +35,34 @@ void Server::stop()
 
 void Server::process(GameWorld* world)
 {
+	if (this->m_clientConnection->state == PlayerState::DEAD)
+	{
+		if (this->m_clientConnection->respawnTimer.getElapsedTime().asSeconds() > 10)
+		{
+			spdlog::info("Spawning player {}", this->m_clientConnection->name);
+			this->m_clientConnection->state = PlayerState::ALIVE;
+			std::string playerId = world->spawnPlayer(this->m_clientConnection);
+			world->getCameraController().setTarget(world->getGameObject(playerId).get());
+		}
+	}
+
 	PDEPacket packet;
 	bool isNetworked = false;
 	for (std::shared_ptr<Connection> conn : this->m_connections)
 	{
+		if (conn->state == PlayerState::DEAD)
+		{
+			if (conn->respawnTimer.getElapsedTime().asSeconds() > 10)
+			{
+				spdlog::info("Spawning player {}", conn->name);
+				conn->state = PlayerState::ALIVE;
+				std::string playerId = world->spawnPlayer(conn);
+			}
+		}
+
 		// send update data
 		packet = PDEPacket(PDEPacket::SendUpdates);
+		conn->networkSerialize(packet);
 		packet << static_cast<sf::Uint32>(world->getGameObjects().size());
 		for (const auto& gameObjectPair : world->getGameObjects())
 		{
@@ -93,6 +115,7 @@ void Server::recieve(GameWorld* world)
 		connection->id = Utility::generate_uuid_v4();
 		connection->name = name;
 		connection->port = clientPort;
+		connection->state = PlayerState::ALIVE;
 
 		spdlog::info("A player has connected: {}:{} - {}", clientIp.toString(), clientPort, connection->id);
 		std::string playerId = world->spawnPlayer(connection);
@@ -180,6 +203,25 @@ void Server::broadcastObjectHealth(const std::string& objName, float health)
 {
 	for (std::shared_ptr<Connection> conn : this->m_connections)
 	{
+		if (objName == conn->id) {
+			// we're broadcasting a player's health
+			if (health <= 0) {
+				// player has died
+				conn->state = PlayerState::DEAD;
+				conn->respawnTimer.restart();
+				spdlog::info("Player {} has died!", conn->name);
+			}
+		}
+		
+		if (objName == this->m_clientConnection->id) {
+			if (health <= 0) {
+				// player has died
+				this->m_clientConnection->state = PlayerState::DEAD;
+				this->m_clientConnection->respawnTimer.restart();
+				spdlog::info("Player {} has died!", this->m_clientConnection->name);
+			}
+		}
+
 		PDEPacket packet(PDEPacket::SetObjectHealth);
 		packet << objName << health;
 		m_socket.send(packet, conn->ip, conn->port);

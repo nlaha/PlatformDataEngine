@@ -84,6 +84,7 @@ void Client::recieve(GameWorld* world)
 		{
 
 		case PDEPacket::SendUpdates:
+			this->m_clientConnection->networkDeserialize(packet);
 			packet >> numObjs;
 			for (size_t i = 0; i < numObjs; i++)
 			{

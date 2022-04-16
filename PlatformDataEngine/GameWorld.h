@@ -55,11 +55,11 @@ namespace PlatformDataEngine {
 		inline std::map<std::string, std::shared_ptr<GameObject>>& getGameObjects() { return this->mp_gameObjects; };
 		inline std::shared_ptr<b2World> getPhysWorld() const { return this->mp_physicsWorld; };
 		inline std::shared_ptr<TileMap> getTileMap() const { return this->mp_tileMap; };
-		inline const CameraController& getCameraController() const { return this->m_cameraControl; };
+		inline CameraController& getCameraController() { return this->m_cameraControl; };
 		inline sf::View getView() const { return *this->mp_view; };
 		inline std::shared_ptr<GameObject> getGameObject(const std::string& search) {
-			if (mp_gameObjects.find(search) != mp_gameObjects.end()) {
-				return this->mp_gameObjects.find(search)->second;
+			if (mp_gameObjects.count(search) > 0) {
+				return this->mp_gameObjects.at(search);
 			}
 			else {
 				return nullptr;
@@ -124,6 +124,8 @@ namespace PlatformDataEngine {
 
 		std::shared_ptr<GameObject> spawnDefinedGameObject(nlohmann::json gameObject, std::string name = "");
 	
+		TextDrawable m_youDiedText;
+
 		void garbageCollect();
 	};
 }

@@ -48,7 +48,6 @@ namespace PlatformDataEngine {
 		void run(ApplicationMode appMode);
 
 		static inline float m_fps{ 0.0 };
-		static inline sf::Vector2f m_windowZero{ 0.0, 0.0 };
 
 		static inline std::shared_ptr<PlayerInputManager> getPlayerInputManager() {
 			return PlatformDataEngineWrapper::mp_playerInputManager;
@@ -162,6 +161,14 @@ namespace PlatformDataEngine {
 			spdlog::info("Done loading client world!");
 		}
 
+		static inline sf::Vector2f getWindowZero() {
+			return PlatformDataEngineWrapper::m_windowZero;
+		}
+
+		static inline sf::Vector2f getWindowCenter() {
+			return PlatformDataEngineWrapper::m_windowCenter;
+		}
+
 		struct HostConfig {
 			static std::string ip;
 			static std::string port;
@@ -173,6 +180,8 @@ namespace PlatformDataEngine {
 		};
 
 	private:
+		static sf::Vector2f m_windowCenter;
+		static sf::Vector2f m_windowZero;
 		static std::string m_playerInput;
 		static std::shared_ptr<GameWorld> mp_mainWorld;
 		static std::shared_ptr<PlayerInputManager> mp_playerInputManager;

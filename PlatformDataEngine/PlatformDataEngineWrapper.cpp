@@ -18,6 +18,8 @@ namespace PlatformDataEngine {
     std::shared_ptr<PhysicsDebugDraw> PlatformDataEngineWrapper::m_debugDraw = nullptr;
     std::shared_ptr <NetworkHandler> PlatformDataEngineWrapper::m_netHandler = nullptr;
     sf::FloatRect PlatformDataEngineWrapper::m_viewPort = sf::FloatRect();
+    sf::Vector2f PlatformDataEngineWrapper::m_windowZero = sf::Vector2f(0.0f, 0.0f);
+    sf::Vector2f PlatformDataEngineWrapper::m_windowCenter = sf::Vector2f(0.0f, 0.0f);
 
     std::string PlatformDataEngineWrapper::HostConfig::ip = "localhost";
     std::string PlatformDataEngineWrapper::HostConfig::port = "65525";
@@ -158,10 +160,16 @@ namespace PlatformDataEngine {
                             if (!isFullscreen) {
                                 mp_renderWindow->create(sf::VideoMode::getDesktopMode(), "PlatformData Engine", sf::Style::None, contextSettings);
                                 isFullscreen = true;
+
+                                // update the view to the new size of the window
+                                float xoffset = ((sf::VideoMode::getDesktopMode().width - sf::VideoMode::getDesktopMode().height) / 2.0f) / sf::VideoMode::getDesktopMode().width;
+                                m_viewPort = sf::FloatRect({ xoffset, 0 }, { (float)sf::VideoMode::getDesktopMode().height / (float)sf::VideoMode::getDesktopMode().width, 1.0f });
                             }
                             else {
-                                mp_renderWindow->create(sf::VideoMode(1920, 1024), "PlatformData Engine", sf::Style::Default, contextSettings);
+                                mp_renderWindow->create(sf::VideoMode(640, 640), "PlatformData Engine", sf::Style::Default, contextSettings);
                                 isFullscreen = false;
+
+                                m_viewPort = sf::FloatRect({ 0, 0 }, { (float)640 / (float)640, 1.0f });
                             }
                             PlatformDataEngineWrapper::startRenderThread();
                         }
@@ -192,7 +200,11 @@ namespace PlatformDataEngine {
             if (appMode != ApplicationMode::DEDICATED) {
 
                 // always top left of window (for GUI)
-                this->m_windowZero = mp_renderWindow->mapPixelToCoords({ 0, 0 });
+                PlatformDataEngineWrapper::m_windowZero = mp_renderWindow->mapPixelToCoords({ 0, 0 });
+                sf::Vector2i center = sf::Vector2i(
+                    mp_renderWindow->getSize().x / 2,
+                    mp_renderWindow->getSize().y / 2);
+                PlatformDataEngineWrapper::m_windowCenter = mp_renderWindow->mapPixelToCoords(center);
 
             }
         }

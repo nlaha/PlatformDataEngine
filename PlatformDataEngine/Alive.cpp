@@ -17,7 +17,7 @@ Alive::Alive()
 /// <param name="damageAmount">amount of damage to deal in % where an object at full health is 100%</param>
 void Alive::damage(float damageAmount)
 {
-	if (m_HP <= 0.0f)
+	if ((m_HP - damageAmount) <= 0.0f)
 	{
 		this->m_HP = 0.0f;
 		onDamage(this->m_HP);

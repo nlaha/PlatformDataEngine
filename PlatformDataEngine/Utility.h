@@ -5,17 +5,35 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
 
+#include "Networkable.h"
 #include "Globals.h"
 
 namespace PlatformDataEngine
 {
 
-    class Connection {
+    enum class PlayerState {
+        ALIVE,
+        DEAD,
+        SPECTATOR
+    };
+
+
+    class Connection : Networkable {
     public:
         sf::IpAddress ip;
         std::string id;
         unsigned short port;
         std::string name;
+
+        sf::Clock respawnTimer;
+        PlayerState state;
+
+        inline void networkSerializeInit(PDEPacket& output) {};
+        inline void networkDeserializeInit(PDEPacket& input) {};
+
+        void networkSerialize(PDEPacket& output);
+        void networkDeserialize(PDEPacket& input);
+        
     };
 
     /// <summary>

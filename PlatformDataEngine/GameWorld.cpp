@@ -10,6 +10,8 @@ GameWorld::GameWorld()
 	this->m_inGame = false;
 	this->mp_currentPlayer = nullptr;
 	this->m_spawnIdx = 0;
+
+	m_youDiedText.setText("YOU DIED");
 }
 
 /// <summary>
@@ -67,8 +69,14 @@ void GameWorld::init(const std::string& filePath, sf::View& view, ApplicationMod
 			hostConnection->name = PlatformDataEngineWrapper::getPlayerName();
 			hostConnection->ip = sf::IpAddress::getLocalAddress();
 			hostConnection->port = 5660;
+			hostConnection->state = PlayerState::ALIVE;
 
 			spawnPlayer(hostConnection);
+
+			if (PlatformDataEngineWrapper::getNetworkHandler() != nullptr)
+			{
+				PlatformDataEngineWrapper::getNetworkHandler()->setConnection(hostConnection);
+			}
 
 			CameraController cc(cameraControllerObj.at("cameraLerpSpeed"), this->mp_view);
 			this->m_cameraControl = cc;
@@ -135,6 +143,10 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 		// network update
 		// limit send rate
 		if (this->m_packetClock.getElapsedTime().asMilliseconds() > 24) {
+			if (this->mp_currentPlayer == nullptr && PlatformDataEngineWrapper::getNetworkHandler()->getConnection() != nullptr) {
+				this->mp_currentPlayer = this->getGameObject(PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->id).get();
+			}
+
 			PlatformDataEngineWrapper::getNetworkHandler()->process(this);
 			m_packetClock.restart();
 		}
@@ -159,6 +171,16 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 
 	// update camera
 	this->m_cameraControl.update(dt, elapsedTime);
+
+	if (PlatformDataEngineWrapper::getNetworkHandler() != nullptr) {
+		if (PlatformDataEngineWrapper::getNetworkHandler()->getConnection() != nullptr) {
+			if (PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->state == PlayerState::DEAD)
+			{
+				m_youDiedText.setPosition(PlatformDataEngineWrapper::getWindowCenter());
+			}
+		}
+	}
+
 }
 
 /// <summary>
@@ -213,6 +235,15 @@ void GameWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	if (PlatformDataEngineWrapper::getIsDebugPhysics()) {
 		this->mp_physicsWorld->DebugDraw();
+	}
+
+	if (PlatformDataEngineWrapper::getNetworkHandler() != nullptr) {
+		if (PlatformDataEngineWrapper::getNetworkHandler()->getConnection() != nullptr) {
+			if (PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->state == PlayerState::DEAD)
+			{
+				target.draw(this->m_youDiedText, states);
+			}
+		}
 	}
 }
 
@@ -333,6 +364,13 @@ std::string GameWorld::spawnPlayer(std::shared_ptr<Connection> conn)
 		this->m_spawnIdx = 0;
 	}
 
+	if (!PlatformDataEngineWrapper::getIsClient()) {
+		if (conn->id == "Server")
+		{
+			this->mp_currentPlayer = player.get();
+		}
+	}
+
 	player->setName(conn->id);
 	player->setNetworked(true);
 
@@ -342,13 +380,6 @@ std::string GameWorld::spawnPlayer(std::shared_ptr<Connection> conn)
 	for (std::shared_ptr<GameObject> child : player->getChildren())
 	{
 		child->init();
-	}
-
-	if (!PlatformDataEngineWrapper::getIsClient()) {
-		if (conn->id == "Server")
-		{
-			this->mp_currentPlayer = player.get();
-		}
 	}
 
 	return player->getName();

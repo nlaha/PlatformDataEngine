@@ -27,5 +27,12 @@ namespace PlatformDataEngine {
 		/// </summary>
 		/// <param name="world"></param>
 		virtual void recieve(GameWorld* world) = 0;
+
+		inline std::shared_ptr<Connection> getConnection() { return this->m_clientConnection; };
+		inline void setConnection(std::shared_ptr<Connection> conn) { this->m_clientConnection = conn; };
+
+	protected:
+		std::shared_ptr<Connection> m_clientConnection;
+
 	};
 }

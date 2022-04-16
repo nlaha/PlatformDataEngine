@@ -26,11 +26,7 @@ namespace PlatformDataEngine {
 
 		void disconnect();
 
-		inline std::shared_ptr<Connection> getConnection() { return this->m_clientConnection; };
-
 	private:
-
-		std::shared_ptr<Connection> m_clientConnection;
 
 		unsigned short m_serverPort;
 		sf::IpAddress m_serverIp;

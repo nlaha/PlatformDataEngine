@@ -12,6 +12,7 @@ GameWorld::GameWorld()
 	this->m_spawnIdx = 0;
 
 	m_youDiedText.setText("YOU DIED");
+	m_respawnTimerText.setScale({ 0.2f, 0.2f });
 }
 
 /// <summary>
@@ -177,6 +178,12 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 			if (PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->state == PlayerState::DEAD)
 			{
 				m_youDiedText.setPosition(PlatformDataEngineWrapper::getWindowCenter());
+				m_respawnTimerText.setText(fmt::format("Respawning in: {:.2f}", 
+					10.0f - PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->respawnTimer.getElapsedTime().asSeconds()));
+				m_respawnTimerText.setPosition({ 
+					PlatformDataEngineWrapper::getWindowCenter().x,
+					PlatformDataEngineWrapper::getWindowCenter().y + 20
+				});
 			}
 		}
 	}
@@ -242,6 +249,7 @@ void GameWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 			if (PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->state == PlayerState::DEAD)
 			{
 				target.draw(this->m_youDiedText, states);
+				target.draw(this->m_respawnTimerText, states);
 			}
 		}
 	}

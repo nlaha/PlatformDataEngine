@@ -125,6 +125,7 @@ namespace PlatformDataEngine {
 		std::shared_ptr<GameObject> spawnDefinedGameObject(nlohmann::json gameObject, std::string name = "");
 	
 		TextDrawable m_youDiedText;
+		TextDrawable m_respawnTimerText;
 
 		void garbageCollect();
 	};

@@ -380,7 +380,6 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     </None>
     <None Include="game\gameObjects\MainMenu.json" />
     <None Include="game\gameObjects\MainMenuTitle.json" />
-    <None Include="game\network.json" />
     <None Include="game\worlds\menu.json" />
     <None Include="game\worlds\world.json" />
     <None Include="shaders\foliage.frag">

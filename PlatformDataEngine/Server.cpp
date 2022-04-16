@@ -1,5 +1,6 @@
 #include "Server.h"
 #include "Utility.h"
+#include "PlatformDataEngineWrapper.h"
 
 using namespace PlatformDataEngine;
 
@@ -7,18 +8,12 @@ Server::Server()
 {
 	spdlog::info("Running in SERVER mode!");
 
-	std::ifstream netFile("./game/network.json");
+	std::stringstream portSS(PlatformDataEngineWrapper::HostConfig::port);
+	std::stringstream ipSS(PlatformDataEngineWrapper::HostConfig::ip);
 
-	nlohmann::json netConf;
-	netFile >> netConf;
+	portSS >> this->m_port;
+	ipSS >> this->m_ip;
 
-	this->m_port = netConf.at("port");
-	if (netConf.at("ip") == "public") {
-		this->m_ip = sf::IpAddress::getPublicAddress();
-	}
-	else {
-		this->m_ip = sf::IpAddress(std::string(netConf.at("ip")));
-	}
 	this->m_socket.setBlocking(false);
 }
 

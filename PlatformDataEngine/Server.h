@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <spdlog/spdlog.h>
 #include <map>
+#include <sstream>
 #include "MessageTypes.h"
 #include "GameObject.h"
 #include "Packet.h"

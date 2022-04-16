@@ -37,7 +37,7 @@
     },
     "interact": {
       "buttons": [ 0 ],
-      "keys": [ 5 ]
+      "keys": [ 58 ]
     },
     "back": {
       "buttons": [ 1 ],

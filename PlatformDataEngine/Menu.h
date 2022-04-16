@@ -21,16 +21,25 @@ namespace PlatformDataEngine {
 			this->m_shader = std::make_shared<sf::Shader>();
 			this->m_shader->loadFromFile("shaders/text.vert", "shaders/text.frag");
 		};
-		inline MenuOption(const std::string& text) {
+
+		inline MenuOption(ListMenu* parent) {
+			this->m_submenu = nullptr;
+			this->m_isSelected = false;
+			this->m_shader = std::make_shared<sf::Shader>();
+			this->m_shader->loadFromFile("shaders/text.vert", "shaders/text.frag");
+			this->m_parent = parent;
+		};
+		inline MenuOption(const std::string& text, ListMenu* parent) {
 			this->m_submenu = nullptr;
 			this->m_isSelected = false;
 			this->m_text.setText(text);
 			this->m_shader = std::make_shared<sf::Shader>();
 			this->m_shader->loadFromFile("shaders/text.vert", "shaders/text.frag");
+			this->m_parent = parent;
 		};
 
 		virtual void init();
-		virtual void update();
+		virtual void update(const float& dt, const float& elapsedTime);
 
 		inline void setSubmenu(ListMenu* submenu) { this->m_submenu = submenu; };
 		inline ListMenu* getSubmenu() { return this->m_submenu; };
@@ -47,18 +56,21 @@ namespace PlatformDataEngine {
 		bool m_isSelected;
 		std::shared_ptr<sf::Shader> m_shader;
 		ListMenu* m_submenu;
-		
+		ListMenu* m_parent;
+
 		void (*m_optFunction)(void);
 	};
 
 	class TextBox : public MenuOption {
 		
 	public:
-		inline TextBox() {};
-		TextBox(const std::string& defaultText, const std::string& label);
+		inline TextBox() { this->m_isEditing = false; };
+		TextBox(const std::string& label, ListMenu* parent);
+
+		inline void setStringRef(std::string* stringPtr) { this->m_stringPtr = stringPtr; };
 
 		void init();
-		void update();
+		void update(const float& dt, const float& elapsedTime);
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -67,6 +79,9 @@ namespace PlatformDataEngine {
 	private:
 		TextDrawable m_labelText;
 		sf::Sprite m_textBoxOutline;
+
+		std::string* m_stringPtr;
+		bool m_isEditing;
 	};
 
 	class ListMenu : public Component
@@ -82,8 +97,11 @@ namespace PlatformDataEngine {
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+		void addOption(std::shared_ptr<TextBox> option, std::string* data);
 		void addOption(std::shared_ptr<MenuOption> option, ListMenu* submenu);
 		void addOption(std::shared_ptr<MenuOption> option, void (*optFunction)(void));
+
+		inline void setEditing(bool editing) { this->m_inputEditing = editing; };
 
 	private:
 		
@@ -94,6 +112,7 @@ namespace PlatformDataEngine {
 		int m_selectionIdx;
 		MenuOption* m_currentlySelected;
 		Menu* m_menuParent;
+		bool m_inputEditing;
 	};
 
 	class Menu : public Component

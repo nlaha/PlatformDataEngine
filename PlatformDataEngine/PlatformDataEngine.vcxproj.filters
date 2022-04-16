@@ -415,9 +415,6 @@
     <None Include="assets\SpaceTileset.tsx">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="game\network.json">
-      <Filter>Resource Files\Game</Filter>
-    </None>
     <None Include="game\gameObjects\MainMenu.json">
       <Filter>Resource Files\Game\GameObjects</Filter>
     </None>

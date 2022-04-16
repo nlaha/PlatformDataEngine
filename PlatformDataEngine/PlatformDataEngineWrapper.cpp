@@ -19,6 +19,12 @@ namespace PlatformDataEngine {
     std::shared_ptr <NetworkHandler> PlatformDataEngineWrapper::m_netHandler = nullptr;
     sf::FloatRect PlatformDataEngineWrapper::m_viewPort = sf::FloatRect();
 
+    std::string PlatformDataEngineWrapper::HostConfig::ip = "localhost";
+    std::string PlatformDataEngineWrapper::HostConfig::port = "65525";
+
+    std::string PlatformDataEngineWrapper::JoinConfig::ip = "localhost";
+    std::string PlatformDataEngineWrapper::JoinConfig::port = "65525";
+
     PlatformDataEngineWrapper::PlatformDataEngineWrapper()
     {
     }
@@ -60,6 +66,7 @@ namespace PlatformDataEngine {
     /// </summary>
     void PlatformDataEngineWrapper::run(ApplicationMode appMode)
     {
+
         m_isClient = appMode == ApplicationMode::CLIENT ? true : false;
 
         sf::ContextSettings contextSettings;
@@ -111,13 +118,21 @@ namespace PlatformDataEngine {
 
         while (appMode == ApplicationMode::DEDICATED || mp_renderWindow->isOpen())
         {
+            if (!m_pausedGame) {
+                mp_mainWorld->update(dt.asSeconds(), elapsedClock.getElapsedTime().asSeconds()); // update world
+                mp_mainWorld->physicsUpdate(dt.asSeconds(), elapsedClock.getElapsedTime().asSeconds()); // update physics world
+
+                // get delta time
+                dt = deltaClock.restart();
+            }
+
             sf::Event event;
             if (appMode != ApplicationMode::DEDICATED) {
                 while (mp_renderWindow->pollEvent(event))
                 {
                     if (event.type == sf::Event::TextEntered)
                     {
-                        if (event.text.unicode < 128)
+                        if (event.text.unicode < 128 && event.text.unicode != '\b' && event.text.unicode != 13)
                         {
                             PlatformDataEngineWrapper::m_playerInput += event.text.unicode;
                         }
@@ -158,7 +173,7 @@ namespace PlatformDataEngine {
                         {
                             m_debugPhysics = !m_debugPhysics;
                         }
-                        else if (event.key.code == sf::Keyboard::BackSpace)
+                        else if (event.key.code == sf::Keyboard::Backspace)
                         {
                             if (PlatformDataEngineWrapper::m_playerInput.size() > 0) {
                                 PlatformDataEngineWrapper::m_playerInput.pop_back();
@@ -179,13 +194,6 @@ namespace PlatformDataEngine {
                 // always top left of window (for GUI)
                 this->m_windowZero = mp_renderWindow->mapPixelToCoords({ 0, 0 });
 
-            }
-            if (!m_pausedGame) {
-                mp_mainWorld->update(dt.asSeconds(), elapsedClock.getElapsedTime().asSeconds()); // update world
-                mp_mainWorld->physicsUpdate(dt.asSeconds(), elapsedClock.getElapsedTime().asSeconds()); // update physics world
-
-                // get delta time
-                dt = deltaClock.restart();
             }
         }
 

@@ -2,7 +2,8 @@
 #include <SFML/Network.hpp>
 #include <SFML/Graphics.hpp>
 #include <spdlog/spdlog.h>
-#include <fstream>
+#include <sstream>
+#include <string>
 #include "MessageTypes.h"
 #include "GameObject.h"
 #include "Packet.h"

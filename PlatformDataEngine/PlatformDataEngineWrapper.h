@@ -162,7 +162,16 @@ namespace PlatformDataEngine {
 			spdlog::info("Done loading client world!");
 		}
 
+		struct HostConfig {
+			static std::string ip;
+			static std::string port;
+		};
 	
+		struct JoinConfig {
+			static std::string ip;
+			static std::string port;
+		};
+
 	private:
 		static std::string m_playerInput;
 		static std::shared_ptr<GameWorld> mp_mainWorld;

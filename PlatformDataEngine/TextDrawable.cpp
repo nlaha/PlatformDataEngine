@@ -4,7 +4,7 @@ using namespace PlatformDataEngine;
 
 TextDrawable::TextDrawable()
 {
-	this->m_font.loadFromFile("assets/yoster.ttf");
+	this->m_font.loadFromFile("assets/smallest_pixel-7.ttf");
 	this->m_fontBold = false;
 	this->m_fontSize = 70;
 	this->m_quads = sf::VertexArray(sf::Quads);
@@ -15,7 +15,7 @@ TextDrawable::TextDrawable()
 
 TextDrawable::TextDrawable(int fontSize, bool bold, float renderSize, const std::string& text)
 {
-	this->m_font.loadFromFile("assets/yoster.ttf");
+	this->m_font.loadFromFile("assets/smallest_pixel-7.ttf");
 	this->m_fontBold = bold;
 	this->m_fontSize = fontSize;
 	this->m_quads = sf::VertexArray(sf::Quads);
@@ -74,17 +74,16 @@ void TextDrawable::setText(const std::string& text)
 
 				lambdaAddQuad(glyph, leftOffset, this->m_renderSize);
 			}
-		}
-
-		if (this->m_isCentered) {
-			this->setPosition(this->getPosition().x - m_quads.getBounds().width / 2.0f, this->getPosition().y);
-		}
+		}		
 	}
 }
 
 void TextDrawable::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= getTransform();
+	if (this->m_isCentered) {
+		states.transform.translate({ -(m_quads.getBounds().width / 2.0f), 0.0f });
+	}
 
 	sf::Texture texture = this->m_font.getTexture(this->m_fontSize);
 	texture.setSmooth(false);

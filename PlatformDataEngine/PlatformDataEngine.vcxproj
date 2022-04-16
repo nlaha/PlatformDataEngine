@@ -172,6 +172,7 @@
     <ClCompile Include="PropDamageHandler.cpp" />
     <ClCompile Include="RocketProjectile.cpp" />
     <ClCompile Include="RocketLauncher.cpp" />
+    <ClCompile Include="Spike.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="StatsBar.cpp" />
     <ClCompile Include="StatsPanel.cpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="RocketProjectile.h" />
     <ClInclude Include="PhysicsCallbacks.h" />
     <ClInclude Include="RocketLauncher.h" />
+    <ClInclude Include="Spike.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="StatsBar.h" />
     <ClInclude Include="StatsPanel.h" />
@@ -329,6 +331,7 @@
       <FileType>Document</FileType>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/game/gameObjects</DestinationFolders>
     </CopyFileToFolders>
+    <None Include="game\gameObjects\Spike.json" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="assets\Character.png">

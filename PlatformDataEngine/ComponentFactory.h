@@ -19,6 +19,8 @@
 #include "PlayerDamageHandler.h"
 #include "PropDamageHandler.h"
 
+#include "Spike.h"
+
 namespace PlatformDataEngine {
 
 	/// <summary>
@@ -58,6 +60,7 @@ namespace PlatformDataEngine {
             {"RocketProjectile", &construct<RocketProjectile>},
             {"TimedDestroy", &construct<TimedDestroy>},
             {"StatsPanel", &construct<StatsPanel>},
+            {"Spike", &construct<Spike>},
 
             // damage handlers
             {"PlayerDamageHandler", &construct<PlayerDamageHandler>},

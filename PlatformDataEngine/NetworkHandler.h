@@ -5,12 +5,12 @@ namespace PlatformDataEngine {
 	class NetworkHandler
 	{
 	private:
-		std::string m_name;
+		std::string m_id;
 
 	public:
 
-		inline const std::string& getName() { return this->m_name; };
-		inline void setName(const std::string& name) { this->m_name = name; };
+		inline const std::string& getId() { return this->m_id; };
+		inline void setId(const std::string& name) { this->m_id = name; };
 
 		virtual void start() = 0;
 

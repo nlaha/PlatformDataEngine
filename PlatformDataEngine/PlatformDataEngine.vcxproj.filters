@@ -214,7 +214,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Spike.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -35,7 +35,7 @@ void CharacterController::init()
         }
     }
     else {
-        spdlog::critical("GameObject {} has a CharacterController so it must also have a PhysicsBody", this->m_parent->getName());
+        spdlog::critical("GameObject {} has a CharacterController so it must also have a PhysicsBody", this->m_parent->getId());
     }
 
     AnimationController* animController = this->m_parent->findComponentOfType<AnimationController>().get();
@@ -43,7 +43,7 @@ void CharacterController::init()
         this->m_AnimController = animController;
     }
     else {
-        spdlog::critical("GameObject {} has a CharacterController so it must also have a AnimationController", this->m_parent->getName());
+        spdlog::critical("GameObject {} has a CharacterController so it must also have a AnimationController", this->m_parent->getId());
     }
 
     // attach player input manager if we're the player

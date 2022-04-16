@@ -43,7 +43,6 @@ namespace PlatformDataEngine {
 		void loadDefinition(const std::string& filename);
 		void registerComponentHierarchy(std::shared_ptr<GameObject> self);
 
-		inline std::string getName() const { return this->m_name; };
 		inline bool isDefinition() const { return this->m_isDefinition; };
 		inline void setIsDefinition(bool isDef) { this->m_isDefinition = isDef; };
 		inline int getZlayer() const { return this->m_zLayer; };
@@ -56,7 +55,11 @@ namespace PlatformDataEngine {
 		inline std::shared_ptr<Connection> getConnection() const { return this->m_owningConnection; };
 		inline std::shared_ptr<GameObject> getParent() { return this->m_parent; };
 
-		inline void setName(const std::string& name) { this->m_name = name; };
+		inline std::string getId() const { return this->m_id; };
+		inline void setId(const std::string& id) { this->m_id = id; };
+
+		inline void setName(const std::string& name) { this->m_objName = name; };
+
 		inline void destroySelf() {
 			this->m_destroyed = true;
 			for (std::shared_ptr<GameObject> child : this->m_children)
@@ -105,8 +108,8 @@ namespace PlatformDataEngine {
 
 		std::shared_ptr<Connection> m_owningConnection;
 
+		std::string m_objName;
 		std::string m_id;
-		std::string m_name;
 		int m_zLayer;
 		bool m_destroyed;
 		bool m_isDefinition;
@@ -116,6 +119,8 @@ namespace PlatformDataEngine {
 		std::string m_type;
 
 		bool m_hasPhysics;
+
+		TextDrawable m_nameText;
 
 		std::vector<std::string> m_childNames;
 

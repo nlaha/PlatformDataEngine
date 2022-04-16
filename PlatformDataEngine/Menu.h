@@ -18,23 +18,20 @@ namespace PlatformDataEngine {
 		inline MenuOption() {
 			this->m_submenu = nullptr;
 			this->m_isSelected = false;
-			this->m_shader = std::make_shared<sf::Shader>();
-			this->m_shader->loadFromFile("shaders/text.vert", "shaders/text.frag");
+			this->m_shader = this->m_text.getShader();
 		};
 
 		inline MenuOption(ListMenu* parent) {
 			this->m_submenu = nullptr;
 			this->m_isSelected = false;
-			this->m_shader = std::make_shared<sf::Shader>();
-			this->m_shader->loadFromFile("shaders/text.vert", "shaders/text.frag");
+			this->m_shader = this->m_text.getShader();
 			this->m_parent = parent;
 		};
 		inline MenuOption(const std::string& text, ListMenu* parent) {
 			this->m_submenu = nullptr;
 			this->m_isSelected = false;
 			this->m_text.setText(text);
-			this->m_shader = std::make_shared<sf::Shader>();
-			this->m_shader->loadFromFile("shaders/text.vert", "shaders/text.frag");
+			this->m_shader = this->m_text.getShader();
 			this->m_parent = parent;
 		};
 

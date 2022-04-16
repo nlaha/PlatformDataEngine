@@ -2,6 +2,7 @@ uniform sampler2D texture;
 uniform float selected;
 uniform float editing;
 uniform float time;
+uniform vec4 textColor;
 
 void main()
 {
@@ -17,5 +18,5 @@ void main()
     color = mix(color, mix(vec4(0.0, 1.0, 1.0, 1.0), vec4(1.0, 0.0, 1.0, 1.0), sinVal), editing);
 
     // multiply it by the color
-    gl_FragColor = gl_Color * pixel * color;
+    gl_FragColor = gl_Color * pixel * color * textColor;
 }

@@ -55,5 +55,7 @@ namespace PlatformDataEngine {
 		sf::IpAddress m_ip;
 		sf::UdpSocket m_socket;
 
+		sf::Clock m_broadcastCooldown;
+
 	};
 }

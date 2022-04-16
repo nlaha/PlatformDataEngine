@@ -70,7 +70,7 @@ void Client::recieve(GameWorld* world)
 
 		std::string objType = "";
 		sf::Vector2f objPos;
-		std::string objName = "";
+		std::string objId = "";
 		std::shared_ptr<GameObject> obj = nullptr;
 		std::string objConnId = "";
 		std::string parentName = "";
@@ -92,20 +92,20 @@ void Client::recieve(GameWorld* world)
 				if (isNetworked) {
 					packet >> objType;
 					packet >> objPos.x >> objPos.y;
-					packet >> objName;
+					packet >> objId;
 
-					updatedObjects.push_back(objName);
+					updatedObjects.push_back(objId);
 
-					if (objName == "")
+					if (objId == "")
 					{
 						spdlog::error("Update packet is malformed!");
 					}
-					//spdlog::info("Moving {} to position ({}, {})", objName, objPos.x, objPos.y);
-					if (world->getGameObject(objName) != nullptr) {
-						world->getGameObject(objName)->networkDeserialize(packet);
+					//spdlog::info("Moving {} to position ({}, {})", objId, objPos.x, objPos.y);
+					if (world->getGameObject(objId) != nullptr) {
+						world->getGameObject(objId)->networkDeserialize(packet);
 					}
 					else {
-						obj = world->spawnGameObject(objType, objPos, objName);
+						obj = world->spawnGameObject(objType, objPos, objId);
 						obj->networkDeserializeInit(packet);
 					}
 				}
@@ -131,23 +131,30 @@ void Client::recieve(GameWorld* world)
 
 			//for (size_t i = 0; i < numObjs; i++)
 			//{
-			//	packet >> objName;
-			//	if (world->getGameObject(objName) != nullptr) {
-			//		if (world->getGameObject(objName)->getHealth() <= 0)
+			//	packet >> objId;
+			//	if (world->getGameObject(objId) != nullptr) {
+			//		if (world->getGameObject(objId)->getHealth() <= 0)
 			//		{
-			//			world->getGameObject(objName)->onDeath();
+			//			world->getGameObject(objId)->onDeath();
 			//		}
-			//		world->getGameObject(objName)->destroySelf();
+			//		world->getGameObject(objId)->destroySelf();
 			//	}
 			//}
 
 			break;
 
 		case PDEPacket::SetObjectHealth:
-			packet >> objName;
+			packet >> objId;
 			packet >> objHealth;
-			if (world->getGameObject(objName) != nullptr) {
-				world->getGameObject(objName)->setHealth(objHealth);
+			if (world->getGameObject(objId) != nullptr) {
+				world->getGameObject(objId)->setHealth(objHealth);
+			}
+
+			if (objId == this->m_clientConnection->id)
+			{
+				if (this->m_clientConnection->health <= 0) {
+					this->m_clientConnection->respawnTimer.restart();
+				}
 			}
 
 			break;

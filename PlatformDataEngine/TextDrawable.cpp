@@ -11,6 +11,9 @@ TextDrawable::TextDrawable()
 	this->m_renderSize = 1.0f;
 	this->m_text = "";
 	this->m_isCentered = true;
+	this->m_shader = std::make_shared<sf::Shader>();
+	this->m_shader->loadFromFile("shaders/text.vert", "shaders/text.frag");
+	this->m_shader->setUniform("textColor", sf::Glsl::Vec4(sf::Color::White));
 }
 
 TextDrawable::TextDrawable(int fontSize, bool bold, float renderSize, const std::string& text)
@@ -21,6 +24,9 @@ TextDrawable::TextDrawable(int fontSize, bool bold, float renderSize, const std:
 	this->m_quads = sf::VertexArray(sf::Quads);
 	this->m_renderSize = renderSize;
 	this->m_text = text;
+	this->m_shader = std::make_shared<sf::Shader>();
+	this->m_shader->loadFromFile("shaders/text.vert", "shaders/text.frag");
+	this->m_shader->setUniform("textColor", sf::Glsl::Vec4(sf::Color::White));
 }
 
 void TextDrawable::setText(const std::string& text)
@@ -80,6 +86,7 @@ void TextDrawable::setText(const std::string& text)
 
 void TextDrawable::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	states.shader = this->m_shader.get();
 	states.transform *= getTransform();
 	if (this->m_isCentered) {
 		states.transform.translate({ -(m_quads.getBounds().width / 2.0f), 0.0f });

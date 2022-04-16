@@ -27,6 +27,7 @@ namespace PlatformDataEngine
 
         sf::Clock respawnTimer;
         PlayerState state;
+        float health;
 
         inline void networkSerializeInit(PDEPacket& output) {};
         inline void networkDeserializeInit(PDEPacket& input) {};

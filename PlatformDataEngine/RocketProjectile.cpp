@@ -26,7 +26,7 @@ void RocketProjectile::init()
         fix->SetFilterData(filter);
     }
     else {
-        spdlog::critical("GameObject {} has a RocketProjectile so it must also have a PhysicsBody", this->m_parent->getName());
+        spdlog::critical("GameObject {} has a RocketProjectile so it must also have a PhysicsBody", this->m_parent->getId());
     }
     this->m_PhysBody->getBody()->SetBullet(true);
     this->m_PhysBody->getBody()->SetGravityScale(0.0f);

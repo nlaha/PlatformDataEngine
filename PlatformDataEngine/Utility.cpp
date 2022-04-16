@@ -19,6 +19,9 @@ void Connection::networkSerialize(PDEPacket& output)
 		break;
 
 	}
+
+	output << this->name;
+	output << this->health;
 }
 
 void Connection::networkDeserialize(PDEPacket& input)
@@ -38,4 +41,7 @@ void Connection::networkDeserialize(PDEPacket& input)
 		this->state = PlayerState::SPECTATOR;
 		break;
 	}
+
+	input >> this->name;
+	input >> this->health;
 }

@@ -69,7 +69,7 @@ void Server::process(GameWorld* world)
 			isNetworked = gameObjectPair.second->getNetworked();
 			packet << isNetworked;
 			if (isNetworked) {
-				if (gameObjectPair.second->getName() == "")
+				if (gameObjectPair.second->getId() == "")
 				{
 					spdlog::error("Update packet is malformed!");
 				}
@@ -77,19 +77,19 @@ void Server::process(GameWorld* world)
 					<< gameObjectPair.second->getType()
 					<< gameObjectPair.second->getPosition().x
 					<< gameObjectPair.second->getPosition().y
-					<< gameObjectPair.second->getName();
+					<< gameObjectPair.second->getId();
 				if (gameObjectPair.second->getHasBeenSent(conn->id)) {
-					spdlog::debug("Sending existing object {}", gameObjectPair.second->getName());
+					spdlog::debug("Sending existing object {}", gameObjectPair.second->getId());
 					gameObjectPair.second->networkSerialize(packet);
 				}
 				else {
-					spdlog::debug("Sending new object {}", gameObjectPair.second->getName());
+					spdlog::debug("Sending new object {}", gameObjectPair.second->getId());
 					gameObjectPair.second->networkSerializeInit(packet);
 					gameObjectPair.second->setHasBeenSent(conn->id);
 				}
 			}
 			else {
-				spdlog::debug("Object is not networked! {}", gameObjectPair.second->getName());
+				spdlog::debug("Object is not networked! {}", gameObjectPair.second->getId());
 			}
 		}
 
@@ -201,21 +201,24 @@ void Server::recieve(GameWorld* world)
 
 void Server::broadcastObjectHealth(const std::string& objName, float health)
 {
-	for (std::shared_ptr<Connection> conn : this->m_connections)
-	{
-		if (objName == conn->id) {
-			// we're broadcasting a player's health
-			if (health <= 0) {
-				// player has died
-				conn->state = PlayerState::DEAD;
-				conn->respawnTimer.restart();
-				spdlog::info("Player {} has died!", conn->name);
+	if (this->m_broadcastCooldown.getElapsedTime().asMilliseconds() > 30) {
+		for (std::shared_ptr<Connection> conn : this->m_connections)
+		{
+			if (objName == conn->id) {
+				// we're broadcasting a player's health
+				if (health <= 0) {
+					// player has died
+					conn->state = PlayerState::DEAD;
+					conn->respawnTimer.restart();
+					spdlog::info("Player {} has died!", conn->name);
+				}
 			}
-		}
 
-		PDEPacket packet(PDEPacket::SetObjectHealth);
-		packet << objName << health;
-		m_socket.send(packet, conn->ip, conn->port);
+			PDEPacket packet(PDEPacket::SetObjectHealth);
+			packet << objName << health;
+			m_socket.send(packet, conn->ip, conn->port);
+		}
+		this->m_broadcastCooldown.restart();
 	}
 }
 

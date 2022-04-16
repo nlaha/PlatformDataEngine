@@ -15,7 +15,7 @@ void StatsPanel::init()
     }
     else
     {
-        spdlog::critical("GameObject {} has a StatsPanel so it must also have an AnimationController", this->m_parent->getName());
+        spdlog::critical("GameObject {} has a StatsPanel so it must also have an AnimationController", this->m_parent->getId());
     }
 
     this->m_healthBar.setSize(sf::Vector2f(this->m_healthBarSize.x, this->m_healthBarSize.y));

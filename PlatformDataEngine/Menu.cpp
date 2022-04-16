@@ -6,6 +6,10 @@ using namespace PlatformDataEngine;
 
 void Menu::init()
 {
+	std::shared_ptr<ListMenu> playerProfileMenu = std::make_shared<ListMenu>(this);
+	playerProfileMenu->addOption(std::make_shared<TextBox>("Name:", playerProfileMenu.get()), &PlatformDataEngineWrapper::ProfileConfig::name);
+	this->m_menus.push_back(playerProfileMenu);
+
 	// init host game menu
 	std::shared_ptr<ListMenu> hostMenu = std::make_shared<ListMenu>(this);
 	hostMenu->addOption(std::make_shared<TextBox>("IP:", hostMenu.get()), &PlatformDataEngineWrapper::HostConfig::ip);
@@ -24,6 +28,7 @@ void Menu::init()
 	std::shared_ptr<ListMenu> topLevel = std::make_shared<ListMenu>(this);
 	topLevel->addOption(std::make_shared<MenuOption>("Host Game", topLevel.get()), hostMenu.get());
 	topLevel->addOption(std::make_shared<MenuOption>("Join Game", topLevel.get()), joinMenu.get());
+	topLevel->addOption(std::make_shared<MenuOption>("Edit Profile", topLevel.get()), playerProfileMenu.get());
 	topLevel->addOption(std::make_shared<MenuOption>("Quit", topLevel.get()), &PlatformDataEngineWrapper::quit);
 	this->m_menus.push_back(topLevel);
 
@@ -181,7 +186,6 @@ void MenuOption::setSelected(bool selected)
 void MenuOption::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= getTransform();
-	states.shader = this->m_shader.get();
 	this->m_shader->setUniform("selected", this->m_isSelected ? 1.0f : 0.0f);
 
 	target.draw(this->m_text, states);
@@ -216,7 +220,6 @@ void TextBox::update(const float& dt, const float& elapsedTime)
 void TextBox::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= getTransform();
-	states.shader = this->m_shader.get();
 	if (this->m_shader) {
 		this->m_shader->setUniform("selected", this->m_isSelected ? 1.0f : 0.0f);
 		this->m_shader->setUniform("editing", this->m_isEditing ? 1.0f : 0.0f);

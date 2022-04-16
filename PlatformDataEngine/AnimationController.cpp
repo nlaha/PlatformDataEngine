@@ -27,7 +27,7 @@ void AnimationController::init()
     }
     else
     {
-        spdlog::critical("GameObject {} has a AnimationController so it must also have a SpriteRenderer", this->m_parent->getName());
+        spdlog::critical("GameObject {} has a AnimationController so it must also have a SpriteRenderer", this->m_parent->getId());
     }
 
     // init to first frame of animation until we start updating

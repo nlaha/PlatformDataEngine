@@ -26,6 +26,7 @@ namespace PlatformDataEngine
 		inline float getRenderSize() const { return this->m_renderSize; };
 		inline const std::string& getText() const { return this->m_text; };
 		inline const sf::FloatRect getBounds() const { return this->m_quads.getBounds(); };
+		inline std::shared_ptr<sf::Shader> getShader() const { return this->m_shader; };
 
 		// setters
 
@@ -33,6 +34,9 @@ namespace PlatformDataEngine
 		inline void setFontSize(int fontSize) { this->m_fontSize = fontSize; };
 		inline void setFontBold(bool bold) { this->m_fontBold = m_fontBold; };
 		inline void setRenderSize(float renderSize) { this->m_renderSize = renderSize; };
+		inline void setColor(const sf::Color& color) {
+			this->m_shader->setUniform("textColor", sf::Glsl::Vec4(color));
+		}
 
 	private:
 		sf::Font m_font;
@@ -42,5 +46,6 @@ namespace PlatformDataEngine
 		std::string m_text;
 		sf::VertexArray m_quads;
 		bool m_isCentered;
+		std::shared_ptr<sf::Shader> m_shader;
 	};
 }

@@ -20,7 +20,9 @@ void Alive::damage(float damageAmount)
 	if ((m_HP - damageAmount) <= 0.0f)
 	{
 		this->m_HP = 0.0f;
-		onDamage(this->m_HP);
+		if (!PlatformDataEngineWrapper::getIsClient()) {
+			onDamage(this->m_HP);
+		}
 		onDeath();
 	}
 	else {

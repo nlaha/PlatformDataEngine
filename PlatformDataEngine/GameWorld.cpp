@@ -12,6 +12,8 @@ GameWorld::GameWorld()
 	this->m_spawnIdx = 0;
 
 	m_youDiedText.setText("YOU DIED");
+	m_youDiedText.setColor(sf::Color::Red);
+	m_youDiedText.setScale({ 0.8f, 0.8f });
 	m_respawnTimerText.setScale({ 0.2f, 0.2f });
 }
 
@@ -324,7 +326,7 @@ std::shared_ptr<GameObject> GameWorld::spawnGameObject(const std::string& type, 
 			spdlog::debug("Creating new UUID for object: {}", name);
 		}
 
-		p_gameObject->setName(name);
+		p_gameObject->setId(name);
 		p_gameObject->setIsUI(false);
 
 		this->registerGameObject(
@@ -335,13 +337,13 @@ std::shared_ptr<GameObject> GameWorld::spawnGameObject(const std::string& type, 
 			if (name == dynamic_cast<Client*>(PlatformDataEngineWrapper::getNetworkHandler())->getConnection()->id) {
 				this->mp_currentPlayer = p_gameObject.get();
 				this->m_cameraControl.setTarget(p_gameObject.get());
-				spdlog::info("Setting current player to {}", p_gameObject->getName());
+				spdlog::info("Setting current player to {}", p_gameObject->getId());
 			}
 		}
 
 		p_gameObject->init();
 
-		//spdlog::info("Spawning object {} took: {}uS at position {}, {}", p_gameObject->getName(), timer.getElapsedTime().asMicroseconds(), position.x, position.y);
+		//spdlog::info("Spawning object {} took: {}uS at position {}, {}", p_gameObject->getId(), timer.getElapsedTime().asMicroseconds(), position.x, position.y);
 
 		if (noReplication) {
 			p_gameObject->setNetworked(false);
@@ -379,7 +381,8 @@ std::string GameWorld::spawnPlayer(std::shared_ptr<Connection> conn)
 		}
 	}
 
-	player->setName(conn->id);
+	player->setName(conn->name);
+	player->setId(conn->id);
 	player->setNetworked(true);
 
 	player->setConnection(conn);
@@ -390,7 +393,7 @@ std::string GameWorld::spawnPlayer(std::shared_ptr<Connection> conn)
 		child->init();
 	}
 
-	return player->getName();
+	return player->getId();
 }
 
 std::shared_ptr<GameObject> GameWorld::spawnDefinedGameObject(nlohmann::json gameObject, std::string name)
@@ -444,7 +447,7 @@ std::shared_ptr<GameObject> GameWorld::spawnDefinedGameObject(nlohmann::json gam
 	if (name == "") {
 		name = Utility::generate_uuid_v4();
 	}
-	p_gameObject->setName(name);
+	p_gameObject->setId(name);
 	p_gameObject->setNetworked(true);
 
 	this->registerGameObject(name, p_gameObject);

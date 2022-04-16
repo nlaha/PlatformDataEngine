@@ -10,7 +10,6 @@ namespace PlatformDataEngine {
     bool PlatformDataEngineWrapper::m_pausedGame = false;
     bool PlatformDataEngineWrapper::m_debugPhysics = false;
     bool PlatformDataEngineWrapper::m_isClient = false;
-    std::string PlatformDataEngineWrapper::m_playerName = "Player";
     sf::View PlatformDataEngineWrapper::m_view;
     std::shared_ptr<sf::Thread> PlatformDataEngineWrapper::m_renderThread;
     std::atomic<bool> PlatformDataEngineWrapper::m_renderThreadStop(false);
@@ -26,6 +25,8 @@ namespace PlatformDataEngine {
 
     std::string PlatformDataEngineWrapper::JoinConfig::ip = "localhost";
     std::string PlatformDataEngineWrapper::JoinConfig::port = "65525";
+
+    std::string PlatformDataEngineWrapper::ProfileConfig::name = "Player";
 
     PlatformDataEngineWrapper::PlatformDataEngineWrapper()
     {

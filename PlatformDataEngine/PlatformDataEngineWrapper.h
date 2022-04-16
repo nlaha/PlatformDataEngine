@@ -72,7 +72,7 @@ namespace PlatformDataEngine {
 		}
 
 		static inline std::string getPlayerName() {
-			return PlatformDataEngineWrapper::m_playerName;
+			return PlatformDataEngineWrapper::ProfileConfig::name;
 		}
 
 		static inline void stopRenderThread() {
@@ -179,6 +179,10 @@ namespace PlatformDataEngine {
 			static std::string port;
 		};
 
+		struct ProfileConfig {
+			static std::string name;
+		};
+
 	private:
 		static sf::Vector2f m_windowCenter;
 		static sf::Vector2f m_windowZero;
@@ -192,8 +196,6 @@ namespace PlatformDataEngine {
 		static bool m_pausedGame;
 		static bool m_debugPhysics;
 		static bool m_isClient;
-
-		static std::string m_playerName;
 
 		std::mutex mutex;
 		static std::shared_ptr<sf::Thread> m_renderThread;

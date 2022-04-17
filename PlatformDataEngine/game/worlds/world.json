@@ -1,5 +1,5 @@
 {
-  "tiledMapFile": "assets/Arena.tmx",
+  "tiledMapFile": "assets/Arena2.tmx",
   "playerObject":  "MainPlayer",
   "cameraController": {
     "cameraLockObject": "MainPlayer",

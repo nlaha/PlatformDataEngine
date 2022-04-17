@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="8" tileheight="8" infinite="1" nextlayerid="11" nextobjectid="24">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="8" tileheight="8" infinite="1" nextlayerid="12" nextobjectid="32">
  <tileset firstgid="1" source="SpaceTilesetOvergrown.tsx"/>
  <tileset firstgid="65" source="Plants.tsx"/>
  <tileset firstgid="71" source="Props.tsx"/>
@@ -3242,5 +3242,22 @@
   <object id="21" name="Prop" type="Prop" gid="71" x="-260" y="218.667" width="16" height="16"/>
   <object id="22" name="Prop" type="Prop" gid="72" x="229.667" y="233.667" width="16" height="16"/>
   <object id="23" name="Prop" type="Prop" gid="72" x="18" y="266.25" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup id="11" name="GameObjects">
+  <object id="27" name="Spike" type="GameObject" x="-256" y="-48" rotation="90">
+   <polygon points="0,0 16,0 8,-16"/>
+  </object>
+  <object id="28" name="Spike" type="GameObject" x="-256" y="-32" rotation="90">
+   <polygon points="0,0 16,0 8,-16"/>
+  </object>
+  <object id="29" name="Spike" type="GameObject" x="-256" y="-64" rotation="90">
+   <polygon points="0,0 16,0 8,-16"/>
+  </object>
+  <object id="30" name="Spike" type="GameObject" x="-256" y="-80" rotation="90">
+   <polygon points="0,0 16,0 8,-16"/>
+  </object>
+  <object id="31" name="Spike" type="GameObject" x="-256" y="-16" rotation="90">
+   <polygon points="0,0 16,0 8,-16"/>
+  </object>
  </objectgroup>
 </map>

@@ -138,7 +138,6 @@ void GameWorld::initPhysics()
 /// <param name="elapsedTime">elapsed time (since game started)</param>
 void GameWorld::update(const float& dt, const float& elapsedTime)
 {
-
 	// network recieve, unlimited
 	if (PlatformDataEngineWrapper::getNetworkHandler() != nullptr) {
 		PlatformDataEngineWrapper::getNetworkHandler()->recieve(this);
@@ -189,7 +188,6 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 			}
 		}
 	}
-
 }
 
 /// <summary>
@@ -234,7 +232,7 @@ void GameWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	// draw game objects
 	for (auto& gameObject : gameObjects)
 	{
-		if (!gameObject->getDestroyed()) {
+		if (!gameObject->getDestroyed()) { 
 			if (gameObject->getParent() == nullptr)
 			{
 				target.draw(*gameObject, states);

@@ -16,6 +16,7 @@
 #include "PhysicsDebugDraw.h"
 #include "Server.h"
 #include "Client.h"
+#include "AudioSystem.h"
 
 namespace PlatformDataEngine {
 
@@ -161,12 +162,42 @@ namespace PlatformDataEngine {
 			spdlog::info("Done loading client world!");
 		}
 
+		static inline void loadMenu() {
+			spdlog::info("Loading menu world please wait...");
+
+			PlatformDataEngineWrapper::stopRenderThread();
+
+			m_netHandler = nullptr;
+
+			PlatformDataEngineWrapper::mp_mainWorld = std::make_shared<GameWorld>();
+			mp_mainWorld->initPhysics();
+
+			PlatformDataEngineWrapper::mp_mainWorld->loadGameObjectDefinitions();
+
+
+			PlatformDataEngineWrapper::mp_mainWorld->init("game/worlds/menu.json", m_view, ApplicationMode::SERVER);
+
+			/* Initialize Debug Draw */
+			PlatformDataEngineWrapper::m_debugDraw = std::make_shared<PhysicsDebugDraw>(*mp_renderWindow);
+
+			mp_mainWorld->getPhysWorld()->SetDebugDraw(PlatformDataEngineWrapper::m_debugDraw.get());
+			PlatformDataEngineWrapper::m_debugDraw->SetFlags(b2Draw::e_shapeBit); //Only draw shapes
+
+			PlatformDataEngineWrapper::startRenderThread();
+
+			spdlog::info("Done loading menu world!");
+		}
+
 		static inline sf::Vector2f getWindowZero() {
 			return PlatformDataEngineWrapper::m_windowZero;
 		}
 
 		static inline sf::Vector2f getWindowCenter() {
 			return PlatformDataEngineWrapper::m_windowCenter;
+		}
+
+		static inline std::shared_ptr<AudioSystem> getAudioSystem() {
+			return PlatformDataEngineWrapper::m_audioSystem;
 		}
 
 		struct HostConfig {
@@ -184,6 +215,7 @@ namespace PlatformDataEngine {
 		};
 
 	private:
+		static std::shared_ptr<AudioSystem> m_audioSystem;
 		static sf::Vector2f m_windowCenter;
 		static sf::Vector2f m_windowZero;
 		static std::string m_playerInput;

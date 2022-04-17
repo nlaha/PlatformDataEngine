@@ -33,6 +33,12 @@ void CameraController::update(const float& dt, const float& elapsedTime)
 
 		sf::Vector2f newPosition = Utility::lerp(currentPosition, targetPosition, this->m_lerpTime * dt);
 
+		sf::Listener::setPosition(
+			newPosition.x,
+			newPosition.y,
+			0.0f
+		);
+
 		this->m_view->setCenter(newPosition);
 	}
 }

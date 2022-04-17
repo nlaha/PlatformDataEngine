@@ -8,6 +8,7 @@
 #include <spdlog/spdlog.h>
 #include <filesystem>
 #include <string>
+#include <SFML/Audio.hpp>
 #include "TileMap.h"
 #include "GameObject.h"
 #include "Utility.h"

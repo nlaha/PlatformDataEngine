@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <box2d/box2d.h>
+#include <SFML/Audio.hpp>
 
 #include "Component.h"
 #include "Utility.h"
@@ -45,6 +46,8 @@ namespace PlatformDataEngine {
         float m_explosionRadius;
         float m_explosionForce;
         float m_explosionDamage;
+
+        sf::Sound* m_sound;
 
         bool m_isExploding;
     };

@@ -34,6 +34,11 @@ void Menu::init()
 
 	this->m_currentMenu = topLevel.get();
 
+	sf::Music* bgMusic = PlatformDataEngineWrapper::getAudioSystem()->getMusic("menu.ogg");
+	bgMusic->play();
+	bgMusic->setVolume(50);
+	bgMusic->setLoop(true);
+
 }
 
 void Menu::update(const float& dt, const float& elapsedTime)

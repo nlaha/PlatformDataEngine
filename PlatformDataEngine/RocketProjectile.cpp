@@ -15,6 +15,16 @@ void RocketProjectile::init()
 {
     Component::init();
 
+    if (this->m_sound != nullptr)
+    {
+        this->m_sound->setPosition(
+            this->m_parent->getPosition().x,
+            this->m_parent->getPosition().y,
+            0.0f);
+        this->m_sound->setAttenuation(0.3f);
+        this->m_sound->play();
+    }
+
     PhysicsBody* pb = this->m_parent->findComponentOfType<PhysicsBody>().get();
 
     if (pb != nullptr) {
@@ -167,6 +177,11 @@ void RocketProjectile::loadDefinition(nlohmann::json object)
     this->m_explosionForce = object.at("explosionForce");
     this->m_explosionRadius = object.at("explosionRadius");
     this->m_ParticleSystemName = object.at("particleSystemName");
+
+    if (object.count("sound") > 0)
+    {
+        this->m_sound = PlatformDataEngineWrapper::getAudioSystem()->getSound(object.at("sound"));
+    }
 }
 
 void RocketProjectile::setOwner(std::shared_ptr<GameObject> owner)

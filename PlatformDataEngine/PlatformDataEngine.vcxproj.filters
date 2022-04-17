@@ -64,12 +64,6 @@
     <Filter Include="Source Files\Components\DamageHandler">
       <UniqueIdentifier>{9bc446ff-0d3a-4025-8a6c-9398a5ca5be9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GameScenes">
-      <UniqueIdentifier>{382fb005-b711-4ef0-8d16-943e5fb919ea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\GameScenes">
-      <UniqueIdentifier>{867b2680-addf-4801-9408-8f1b7f04f021}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Networking">
       <UniqueIdentifier>{32b54291-a62b-4936-a484-974b0b118f9f}</UniqueIdentifier>
     </Filter>
@@ -168,12 +162,6 @@
     <ClCompile Include="PlayerDamageHandler.cpp">
       <Filter>Source Files\Components\DamageHandler</Filter>
     </ClCompile>
-    <ClCompile Include="GameScene.cpp">
-      <Filter>Source Files\GameScenes</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerDeathScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GlobalEffects.cpp">
       <Filter>Source Files\Internal</Filter>
     </ClCompile>
@@ -215,6 +203,9 @@
     </ClCompile>
     <ClCompile Include="Spike.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioSystem.cpp">
+      <Filter>Source Files\Internal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -308,12 +299,6 @@
     <ClInclude Include="PlayerDamageHandler.h">
       <Filter>Header Files\Components\DamageHandler</Filter>
     </ClInclude>
-    <ClInclude Include="GameScene.h">
-      <Filter>Header Files\GameScenes</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerDeathScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GlobalEffects.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
@@ -355,6 +340,9 @@
     </ClInclude>
     <ClInclude Include="Spike.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioSystem.h">
+      <Filter>Header Files\Internal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

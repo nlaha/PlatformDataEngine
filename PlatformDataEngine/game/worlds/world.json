@@ -71,7 +71,7 @@
       "type": "Spike",
       "transform": {
         "x": 0,
-        "y": 0,
+        "y": -100,
         "origin_x": 0,
         "origin_y": 0,
         "z_layer": 50,

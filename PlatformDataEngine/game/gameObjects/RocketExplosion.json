@@ -4,8 +4,9 @@
       "type": "ParticleSystem",
       "properties": {
         "numParticles": 50,
-        "velocity": 2,
-        "particle": "FireParticle"
+        "velocity": 1,
+        "particle": "FireParticle",
+        "sound": "sfx_exp_short_soft1.wav"
       }
     },
     {

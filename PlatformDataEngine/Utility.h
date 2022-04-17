@@ -11,14 +11,15 @@
 namespace PlatformDataEngine
 {
 
-    enum class PlayerState {
+    enum class PlayerState
+    {
         ALIVE,
         DEAD,
         SPECTATOR
     };
 
-
-    class Connection : Networkable {
+    class Connection : Networkable
+    {
     public:
         sf::IpAddress ip;
         std::string id;
@@ -29,12 +30,11 @@ namespace PlatformDataEngine
         PlayerState state;
         float health;
 
-        inline void networkSerializeInit(PDEPacket& output) {};
-        inline void networkDeserializeInit(PDEPacket& input) {};
+        inline void networkSerializeInit(PDEPacket &output){};
+        inline void networkDeserializeInit(PDEPacket &input){};
 
-        void networkSerialize(PDEPacket& output);
-        void networkDeserialize(PDEPacket& input);
-        
+        void networkSerialize(PDEPacket &output);
+        void networkDeserialize(PDEPacket &input);
     };
 
     /// <summary>
@@ -79,6 +79,11 @@ namespace PlatformDataEngine
                 ss << Utility::dis(Utility::gen);
             };
             return ss.str();
+        }
+
+        static float getRandomFloat(float min, float max)
+        {
+            return min + (max - min) * Utility::gen() / (float)Utility::gen.max();
         }
 
         // lerp vector2f

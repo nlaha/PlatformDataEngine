@@ -303,12 +303,17 @@ void GameObject::onDeath()
 
 void GameObject::onDamage(float currentHP)
 {
-	std::shared_ptr<DamageHandler> dh = this->findComponentOfType<DamageHandler>();
-	if (dh != nullptr)
-		dh->onDamage(currentHP);
+	if (this->m_hasHealthBar) {
+		std::shared_ptr<DamageHandler> dh = this->findComponentOfType<DamageHandler>();
+		if (dh != nullptr)
+			dh->onDamage(currentHP);
 
-	if (!PlatformDataEngineWrapper::getIsClient()) {
-		dynamic_cast<Server*>(PlatformDataEngineWrapper::getNetworkHandler())->
-			broadcastObjectHealth(this->m_id, this->m_HP);
+		if (!PlatformDataEngineWrapper::getIsClient()) {
+			dynamic_cast<Server*>(PlatformDataEngineWrapper::getNetworkHandler())->
+				broadcastObjectHealth(this->m_id, this->m_HP);
+		}
+	}
+	else {
+		this->m_HP = 100.0f;
 	}
 }

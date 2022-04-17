@@ -28,6 +28,8 @@ namespace PlatformDataEngine {
 
     std::string PlatformDataEngineWrapper::ProfileConfig::name = "Player";
 
+    std::shared_ptr<AudioSystem> PlatformDataEngineWrapper::m_audioSystem = std::make_shared<AudioSystem>();
+
     PlatformDataEngineWrapper::PlatformDataEngineWrapper()
     {
     }
@@ -69,7 +71,6 @@ namespace PlatformDataEngine {
     /// </summary>
     void PlatformDataEngineWrapper::run(ApplicationMode appMode)
     {
-
         m_isClient = appMode == ApplicationMode::CLIENT ? true : false;
 
         sf::ContextSettings contextSettings;

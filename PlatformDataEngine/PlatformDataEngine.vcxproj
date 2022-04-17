@@ -240,6 +240,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
   <ItemGroup>
     <ClCompile Include="Alive.cpp" />
     <ClCompile Include="AnimationController.cpp" />
+    <ClCompile Include="AudioSystem.cpp" />
     <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="CharacterController.cpp" />
     <ClCompile Include="Client.cpp" />
@@ -247,7 +248,6 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClCompile Include="DamageHandler.cpp" />
     <ClCompile Include="EngineStatsText.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="GlobalEffects.cpp" />
     <ClCompile Include="Globals.cpp" />
@@ -262,7 +262,6 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClCompile Include="PhysicsCallbacks.cpp" />
     <ClCompile Include="PhysicsDebugDraw.cpp" />
     <ClCompile Include="PlayerDamageHandler.cpp" />
-    <ClCompile Include="PlayerDeathScene.cpp" />
     <ClCompile Include="PlayerInputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
@@ -287,6 +286,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
   <ItemGroup>
     <ClInclude Include="Alive.h" />
     <ClInclude Include="AnimationController.h" />
+    <ClInclude Include="AudioSystem.h" />
     <ClInclude Include="CameraController.h" />
     <ClInclude Include="CharacterController.h" />
     <ClInclude Include="Client.h" />
@@ -295,7 +295,6 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClInclude Include="DamageHandler.h" />
     <ClInclude Include="EngineStatsText.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GameScene.h" />
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="GlobalEffects.h" />
     <ClInclude Include="Globals.h" />
@@ -310,7 +309,6 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PhysicsDebugDraw.h" />
     <ClInclude Include="PlayerDamageHandler.h" />
-    <ClInclude Include="PlayerDeathScene.h" />
     <ClInclude Include="PlayerInputManager.h" />
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="PlatformDataEngineWrapper.h" />

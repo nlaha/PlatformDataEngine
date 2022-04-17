@@ -201,7 +201,8 @@ void Server::recieve(GameWorld* world)
 
 void Server::broadcastObjectHealth(const std::string& objName, float health)
 {
-	if (this->m_broadcastCooldown.getElapsedTime().asMilliseconds() > 30) {
+	// override timer for death packets
+	if (this->m_broadcastCooldown.getElapsedTime().asMilliseconds() > 100 || health <= 0) {
 		for (std::shared_ptr<Connection> conn : this->m_connections)
 		{
 			if (objName == conn->id) {

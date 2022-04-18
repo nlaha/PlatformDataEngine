@@ -9,6 +9,15 @@ using namespace PlatformDataEngine;
 
 void GlobalEffects::explode(SpriteRenderer& sprite, sf::Vector2f pos, int slices)
 {
+
+	// get random float between 0.5f and 1.5f for pitch
+	sf::Sound* sound = PlatformDataEngineWrapper::getAudioSystem()->getSound("sfx_exp_cluster2.wav");
+	float pitch = Utility::getRandomFloat(0.5f, 1.5f);
+	sound->setPitch(pitch);
+	sound->setAttenuation(0.02f);
+	sound->setPosition(sf::Vector3f(pos.x, pos.y, 0.0f));
+	sound->play();
+
 	sf::IntRect fullRect = sprite.getRect();
 	std::vector<sf::IntRect> particleRects;
 

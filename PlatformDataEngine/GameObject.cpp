@@ -25,8 +25,6 @@ GameObject::GameObject(bool isDef)
 	this->m_hasPhysics = true;
 	this->m_networked = true;
 
-	this->m_numDeaths = 0;
-	this->m_numKills = 0;
 }
 
 /// <summary>
@@ -82,6 +80,7 @@ void GameObject::init()
 
 	this->m_nameText.setText(this->m_objName);
 	this->m_nameText.setScale({ 0.05f, 0.05f });
+
 }
 
 /// <summary>
@@ -100,6 +99,10 @@ void GameObject::update(const float& dt, const float& elapsedTime)
 	for (auto& compPair : this->m_components)
 	{
 		compPair.second->update(dt, elapsedTime);
+	}
+
+	if (this->m_objName != "") {
+		this->m_nameText.setText(fmt::format("{}", this->m_objName));
 	}
 }
 
@@ -141,7 +144,6 @@ void GameObject::networkDeserialize(PDEPacket& input)
 	{
 		compPair.second->networkDeserialize(input);
 	}
-
 }
 
 void GameObject::networkSerializeInit(PDEPacket& output)
@@ -293,8 +295,6 @@ void GameObject::onDeath()
 		dh->onDeath();
 
 	if (!PlatformDataEngineWrapper::getIsClient()) {
-
-		this->m_numDeaths++;
 		if (this->m_id == PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->id) {
 			// player has died
 			PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->state = PlayerState::DEAD;

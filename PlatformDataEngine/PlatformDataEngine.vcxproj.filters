@@ -323,7 +323,6 @@
     <ClInclude Include="Globals.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
-
     <ClInclude Include="Packet.h">
       <Filter>Header Files\Networking</Filter>
     </ClInclude>
@@ -362,7 +361,6 @@
     <None Include="..\vcpkg.json">
       <Filter>Resource Files</Filter>
     </None>
-
     <None Include="game\gameObjects\EngineStats.json">
       <Filter>Resource Files\Game\GameObjects</Filter>
     </None>
@@ -392,12 +390,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="shaders\foliage.frag">
-      <Filter>Resource Files\Shaders</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="game\gameObjects\PlayerCharacter.json">
-      <Filter>Resource Files\Game\GameObjects</Filter>
-    </CopyFileToFolders>
     <None Include="game\gameObjects\Spike.json">
       <Filter>Resource Files\Game\GameObjects</Filter>
     </None>

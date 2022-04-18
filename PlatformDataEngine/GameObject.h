@@ -120,6 +120,9 @@ namespace PlatformDataEngine {
 
 		bool m_hasPhysics;
 
+		sf::Uint8 m_numKills;
+		sf::Uint8 m_numDeaths;
+
 		TextDrawable m_nameText;
 
 		std::vector<std::string> m_childNames;

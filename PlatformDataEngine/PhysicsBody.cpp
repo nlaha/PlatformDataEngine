@@ -67,7 +67,7 @@ void PhysicsBody::init()
 	this->getBody()->SetTransform({
 		initPos.x / Constants::PHYS_SCALE,
 		initPos.y / Constants::PHYS_SCALE
-		}, 0.0);
+		}, Utility::degToRad(this->m_parent->getRotation()));
 	m_bodyUserData->gameObjectOwner = this->m_parent;
 }
 
@@ -109,7 +109,19 @@ void PhysicsBody::networkDeserialize(PDEPacket& input)
 
 void PhysicsBody::loadDefinition(nlohmann::json object)
 {
-	this->m_bodyType = object.at("type") == "dynamic" ? b2_dynamicBody : b2_staticBody;
+	if (object.at("type") == "dynamic")
+	{
+		this->m_bodyType = b2_dynamicBody;
+	}
+	else if (object.at("type") == "kinematic")
+	{
+		this->m_bodyType = b2_kinematicBody;
+	}
+	else
+	{
+		this->m_bodyType = b2_staticBody;
+	}
+
 
 	this->m_density = object.at("density");
 	this->m_friction = object.at("friction");

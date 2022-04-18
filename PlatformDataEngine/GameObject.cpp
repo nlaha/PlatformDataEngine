@@ -24,6 +24,9 @@ GameObject::GameObject(bool isDef)
 	this->m_type = "";
 	this->m_hasPhysics = true;
 	this->m_networked = true;
+
+	this->m_numDeaths = 0;
+	this->m_numKills = 0;
 }
 
 /// <summary>
@@ -290,6 +293,8 @@ void GameObject::onDeath()
 		dh->onDeath();
 
 	if (!PlatformDataEngineWrapper::getIsClient()) {
+
+		this->m_numDeaths++;
 		if (this->m_id == PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->id) {
 			// player has died
 			PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->state = PlayerState::DEAD;

@@ -81,9 +81,20 @@ namespace PlatformDataEngine
             return ss.str();
         }
 
+        // get random float in range
         static float getRandomFloat(float min, float max)
         {
             return min + (max - min) * Utility::gen() / (float)Utility::gen.max();
+        }
+
+        // rotate point
+        static sf::Vector2f rotatePoint(sf::Vector2f point, sf::Vector2f origin, float angle)
+        {
+            sf::Vector2f result;
+            float rad = degToRad(angle);
+            result.x = (point.x - origin.x) * cos(rad) - (point.y - origin.y) * sin(rad) + origin.x;
+            result.y = (point.x - origin.x) * sin(rad) + (point.y - origin.y) * cos(rad) + origin.y;
+            return result;
         }
 
         // lerp vector2f

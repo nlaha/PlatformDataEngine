@@ -50,7 +50,7 @@ namespace PlatformDataEngine {
 		void registerGameObjectDefinition(const std::string& name, std::shared_ptr<GameObject> gameObjectDef);
 		void loadGameObjectDefinitions();
 
-		std::shared_ptr<GameObject> spawnGameObject(const std::string& type, sf::Vector2f position, std::string name = "", bool noReplication = false);
+		std::shared_ptr<GameObject> spawnGameObject(const std::string& type, sf::Vector2f position, std::string name = "", bool noReplication = false, float rotation = 0, sf::Vector2f origin = { 0.0, 0.0 });
 
 		// getters
 		inline std::map<std::string, std::shared_ptr<GameObject>>& getGameObjects() { return this->mp_gameObjects; };

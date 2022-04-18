@@ -305,7 +305,7 @@ void GameWorld::loadGameObjectDefinitions()
 	}
 }
 
-std::shared_ptr<GameObject> GameWorld::spawnGameObject(const std::string& type, sf::Vector2f position, std::string name, bool noReplication)
+std::shared_ptr<GameObject> GameWorld::spawnGameObject(const std::string& type, sf::Vector2f position, std::string name, bool noReplication, float rotation, sf::Vector2f origin)
 {
 	sf::Clock timer;
 	if (this->m_gameObjectDefinitions.count(type) > 0) {
@@ -316,7 +316,9 @@ std::shared_ptr<GameObject> GameWorld::spawnGameObject(const std::string& type, 
 		// since we're spawning something, it's not a definition
 		p_gameObject->setIsDefinition(false);
 
+		p_gameObject->setOrigin(origin);
 		p_gameObject->setPosition(position);
+		p_gameObject->setRotation(rotation);
 		p_gameObject->registerComponentHierarchy(p_gameObject);
 
 		if (name == "") {

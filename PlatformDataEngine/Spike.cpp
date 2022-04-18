@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "PhysicsBody.h"
 #include "PhysicsCallbacks.h"
+#include "PlatformDataEngineWrapper.h"
+
 using namespace PlatformDataEngine;
 void Spike::init()
 {
@@ -19,10 +21,14 @@ void Spike::init()
 void Spike::update(const float& dt, const float& elapsedTime) //Called once per update cycle
 {//Checks for collisions
 	for (b2ContactEdge* c = this->m_PhysBody->getBody()->GetContactList(); c; c = c->next) {
-        b2Body* body = c->other;
-        if (body->GetUserData().pointer != 0) {
-            PhysBodyUserData* userData = reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer);
-            userData->gameObjectOwner->damage(dt*damageTakenPerSecond);
+
+        // small bug fix, players were getting damaged when they shot at the spike
+        if (c->other->GetFixtureList()->GetFilterData().categoryBits == PlatformDataEngine::PhysicsCategory::CHARACTER) {
+            b2Body* body = c->other;
+            if (body->GetUserData().pointer != 0) {
+                PhysBodyUserData* userData = reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer);
+                userData->gameObjectOwner->damage(dt * damageTakenPerSecond);
+            }
         }
 	}
 }

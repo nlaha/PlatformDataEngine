@@ -13,6 +13,12 @@
       }
     },
     {
+      "type": "Spike",
+      "properties": {
+        "damageOnContactPerSecond": 10.0
+      }
+    },
+    {
       "type": "PhysicsBody",
       "properties": {
         "type": "static",
@@ -31,21 +37,16 @@
           {
             "shape": "box",
             "rect": {
-              "x": 1,
-              "y": 1,
-              "width": 16,
-              "height": 16
-            }
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            } 
           }
         ]
       }
-    },
-    {
-      "type": "Spike",
-      "properties": {
-        
-      }
     }
+    
   ]
 
 }

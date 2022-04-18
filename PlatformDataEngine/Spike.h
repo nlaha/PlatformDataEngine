@@ -28,5 +28,6 @@ namespace PlatformDataEngine
         //
     private:
         PhysicsBody* m_PhysBody;
+        float damageTakenPerSecond;
     };
 }

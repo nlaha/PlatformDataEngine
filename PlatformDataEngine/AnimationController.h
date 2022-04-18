@@ -44,6 +44,9 @@ namespace PlatformDataEngine
 
         void copy(std::shared_ptr<Component> otherCompPtr);
 
+        void networkSerialize(PDEPacket& output);
+        void networkDeserialize(PDEPacket& input);
+
         void loadDefinition(nlohmann::json object);
 
         inline void setFlipFlag(AnimationController::FlipFlags flip) { this->m_flip = flip; };

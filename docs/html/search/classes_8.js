@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['spriterenderer_0',['SpriteRenderer',['../class_platform_data_engine_1_1_sprite_renderer.html',1,'PlatformDataEngine']]]
+  ['networkhandler_0',['NetworkHandler',['../class_platform_data_engine_1_1_network_handler.html',1,'PlatformDataEngine']]],
+  ['networkinputmanager_1',['NetworkInputManager',['../class_platform_data_engine_1_1_network_input_manager.html',1,'PlatformDataEngine']]]
 ];

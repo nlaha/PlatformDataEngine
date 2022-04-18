@@ -3,6 +3,8 @@
 #include <nlohmann/json.hpp>
 #include <memory>
 #include <nlohmann/json.hpp>
+#include "Packet.h"
+#include "Networkable.h"
 
 namespace PlatformDataEngine {
 
@@ -12,7 +14,7 @@ namespace PlatformDataEngine {
 	/// The base component class, when creating components to
 	/// add gameplay functionality, they should inherit from this class
 	/// </summary>
-	class Component : public sf::Drawable
+	class Component : public sf::Drawable, public Networkable
 	{
 
 	public:
@@ -29,6 +31,12 @@ namespace PlatformDataEngine {
 
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+		virtual void networkSerializeInit(PDEPacket& output);
+		virtual void networkDeserializeInit(PDEPacket& input);
+
+		virtual void networkSerialize(PDEPacket& output);
+		virtual void networkDeserialize(PDEPacket& input);
+
 		// must implement in any components so they can be loaded during gameObject
 		// definition loading and parsing
 		virtual void loadDefinition(nlohmann::json object);
@@ -36,7 +44,7 @@ namespace PlatformDataEngine {
 		std::string getType() const { return this->m_type; };
 		nlohmann::json getProps() const { return this->m_all_props; };
 
-		void setType(std::string type) { this->m_type = type;  };
+		void setType(const std::string& type) { this->m_type = type;  };
 		void setProps(nlohmann::json& props) { this->m_all_props = props; };
 
 		inline void setIsDefinition(bool isDef) { this->m_isDefinition = isDef; };

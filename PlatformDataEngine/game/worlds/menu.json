@@ -1,0 +1,35 @@
+{
+  "tiledMapFile": "assets/Menu.tmx",
+  "gameObjects": [
+    {
+      "name": "MainMenuTitle",
+      "type": "MainMenuTitle",
+      "isUI": true,
+      "transform": {
+        "x": "centered",
+        "y": 40,
+        "origin_x": 0,
+        "origin_y": 0,
+        "z_layer": 100,
+        "rotation": 0,
+        "scale": 0.25
+      },
+      "children": []
+    },
+    {
+      "name": "MainMenu",
+      "type": "MainMenu",
+      "isUI": true,
+      "transform": {
+        "x": "centered",
+        "y": 100,
+        "origin_x": 0,
+        "origin_y": 0,
+        "z_layer": 100,
+        "rotation": 0,
+        "scale": 1
+      },
+      "children": []
+    }
+  ]
+}

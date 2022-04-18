@@ -50,6 +50,41 @@ void Component::draw(sf::RenderTarget& target, sf::RenderStates states) const
 }
 
 /// <summary>
+/// Called when sending data for the first time
+/// </summary>
+/// <param name="output"></param>
+void Component::networkSerializeInit(PDEPacket& output)
+{
+}
+
+/// <summary>
+/// Called when recieving data for the first time
+/// </summary>
+/// <param name="input"></param>
+void Component::networkDeserializeInit(PDEPacket& input)
+{
+}
+
+/// <summary>
+/// Use this function to serialize any members you want replicated
+/// this is handy for animation components that should copy their
+/// state to all client instances
+/// </summary>
+/// <param name="output"></param>
+void Component::networkSerialize(PDEPacket& output)
+{
+}
+
+/// <summary>
+/// Use this function to deserialize data coming from the server
+/// for this specific client
+/// </summary>
+/// <param name="input"></param>
+void Component::networkDeserialize(PDEPacket& input)
+{
+}
+
+/// <summary>
 /// Called when game object definitions are loaded
 /// </summary>
 /// <param name="object"></param>

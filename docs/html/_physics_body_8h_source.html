@@ -94,14 +94,14 @@ $(document).ready(function(){initNavTree('_physics_body_8h_source.html',''); ini
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;Component.h&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;PhysicsCallbacks.h&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>PlatformDataEngine</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="class_platform_data_engine_1_1_physics_body.html">   16</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_platform_data_engine_1_1_physics_body.html">PhysicsBody</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_platform_data_engine_1_1_component.html">Component</a></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;Globals.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>PlatformDataEngine</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="class_platform_data_engine_1_1_physics_body.html">   17</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_platform_data_engine_1_1_physics_body.html">PhysicsBody</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_platform_data_engine_1_1_component.html">Component</a></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="comment">// constructor</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <a class="code hl_class" href="class_platform_data_engine_1_1_physics_body.html">PhysicsBody</a>();</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
@@ -127,29 +127,36 @@ $(document).ready(function(){initNavTree('_physics_body_8h_source.html',''); ini
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            <span class="keywordflow">return</span> this-&gt;m_bounds;</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        }</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        b2Body *m_body;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        b2BodyType m_bodyType;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordtype">float</span> m_density;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordtype">bool</span> m_isContinuous;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordtype">float</span> m_bouncy;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordtype">float</span> m_friction;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordtype">bool</span> m_doesRotate;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_struct" href="struct_platform_data_engine_1_1_phys_body_user_data.html">PhysBodyUserData</a> *m_bodyUserData;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        b2BodyDef m_bodyDef;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        std::vector&lt;b2FixtureDef&gt; m_bodyFixtureDefs;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        sf::FloatRect m_bounds;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    };</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keyword">inline</span> <span class="keywordtype">float</span> getDensity()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> this-&gt;m_density; };</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keyword">inline</span> <span class="keywordtype">bool</span> getIsContinuous()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> this-&gt;m_isContinuous; };</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keyword">inline</span> <span class="keywordtype">float</span> getBouncy()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> this-&gt;m_bouncy; };</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keyword">inline</span> <span class="keywordtype">float</span> getFriction()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> this-&gt;m_friction; };</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keyword">inline</span> <span class="keywordtype">bool</span> getDoesRotate()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> this-&gt;m_doesRotate; };</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">private</span>: </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        b2Body *m_body;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        b2BodyType m_bodyType;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordtype">float</span> m_density;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordtype">bool</span> m_isContinuous;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordtype">float</span> m_bouncy;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordtype">float</span> m_friction;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordtype">bool</span> m_doesRotate;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <a class="code hl_struct" href="struct_platform_data_engine_1_1_phys_body_user_data.html">PhysBodyUserData</a> *m_bodyUserData;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        b2BodyDef m_bodyDef;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        std::vector&lt;b2FixtureDef&gt; m_bodyFixtureDefs;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        sf::FloatRect m_bounds;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    };</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>}</div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_component_html"><div class="ttname"><a href="class_platform_data_engine_1_1_component.html">PlatformDataEngine::Component</a></div><div class="ttdoc">The base component class, when creating components to add gameplay functionality, they should inherit...</div><div class="ttdef"><b>Definition:</b> Component.h:16</div></div>
-<div class="ttc" id="aclass_platform_data_engine_1_1_physics_body_html"><div class="ttname"><a href="class_platform_data_engine_1_1_physics_body.html">PlatformDataEngine::PhysicsBody</a></div><div class="ttdoc">A component that enables collision and rigidbody for a gameObject</div><div class="ttdef"><b>Definition:</b> PhysicsBody.h:17</div></div>
-<div class="ttc" id="aclass_platform_data_engine_1_1_physics_body_html_a146dab71aa09531b552e49df02e16598"><div class="ttname"><a href="class_platform_data_engine_1_1_physics_body.html#a146dab71aa09531b552e49df02e16598">PlatformDataEngine::PhysicsBody::loadDefinition</a></div><div class="ttdeci">void loadDefinition(nlohmann::json object)</div><div class="ttdoc">Called when game object definitions are loaded</div><div class="ttdef"><b>Definition:</b> PhysicsBody.cpp:85</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_physics_body_html"><div class="ttname"><a href="class_platform_data_engine_1_1_physics_body.html">PlatformDataEngine::PhysicsBody</a></div><div class="ttdoc">A component that enables collision and rigidbody for a gameObject</div><div class="ttdef"><b>Definition:</b> PhysicsBody.h:18</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_physics_body_html_a146dab71aa09531b552e49df02e16598"><div class="ttname"><a href="class_platform_data_engine_1_1_physics_body.html#a146dab71aa09531b552e49df02e16598">PlatformDataEngine::PhysicsBody::loadDefinition</a></div><div class="ttdeci">void loadDefinition(nlohmann::json object)</div><div class="ttdoc">Called when game object definitions are loaded</div><div class="ttdef"><b>Definition:</b> PhysicsBody.cpp:88</div></div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_physics_body_html_a1c68835c0f8795da2114414aa2d47b6e"><div class="ttname"><a href="class_platform_data_engine_1_1_physics_body.html#a1c68835c0f8795da2114414aa2d47b6e">PlatformDataEngine::PhysicsBody::copy</a></div><div class="ttdeci">void copy(std::shared_ptr&lt; Component &gt; otherCompPtr)</div><div class="ttdoc">Essentially a copy constructor except the generic shared pointer must be converted to the derived typ...</div><div class="ttdef"><b>Definition:</b> PhysicsBody.cpp:12</div></div>
-<div class="ttc" id="aclass_platform_data_engine_1_1_physics_body_html_a49b0670e9be352e5b2df61ce2fa2675a"><div class="ttname"><a href="class_platform_data_engine_1_1_physics_body.html#a49b0670e9be352e5b2df61ce2fa2675a">PlatformDataEngine::PhysicsBody::draw</a></div><div class="ttdeci">void draw(sf::RenderTarget &amp;target, sf::RenderStates states) const</div><div class="ttdoc">Called every draw cycle</div><div class="ttdef"><b>Definition:</b> PhysicsBody.cpp:81</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_physics_body_html_a49b0670e9be352e5b2df61ce2fa2675a"><div class="ttname"><a href="class_platform_data_engine_1_1_physics_body.html#a49b0670e9be352e5b2df61ce2fa2675a">PlatformDataEngine::PhysicsBody::draw</a></div><div class="ttdeci">void draw(sf::RenderTarget &amp;target, sf::RenderStates states) const</div><div class="ttdoc">Called every draw cycle</div><div class="ttdef"><b>Definition:</b> PhysicsBody.cpp:84</div></div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_physics_body_html_aa8e8571527c8030ccf4f5ccedf7fdc12"><div class="ttname"><a href="class_platform_data_engine_1_1_physics_body.html#aa8e8571527c8030ccf4f5ccedf7fdc12">PlatformDataEngine::PhysicsBody::init</a></div><div class="ttdeci">void init()</div><div class="ttdoc">Called once on startup</div><div class="ttdef"><b>Definition:</b> PhysicsBody.cpp:57</div></div>
-<div class="ttc" id="aclass_platform_data_engine_1_1_physics_body_html_ae8c28b05a597666ce1134d2589bf0558"><div class="ttname"><a href="class_platform_data_engine_1_1_physics_body.html#ae8c28b05a597666ce1134d2589bf0558">PlatformDataEngine::PhysicsBody::update</a></div><div class="ttdeci">void update(const float &amp;dt, const float &amp;elapsedTime)</div><div class="ttdoc">Called every update cycle</div><div class="ttdef"><b>Definition:</b> PhysicsBody.cpp:67</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_physics_body_html_ae8c28b05a597666ce1134d2589bf0558"><div class="ttname"><a href="class_platform_data_engine_1_1_physics_body.html#ae8c28b05a597666ce1134d2589bf0558">PlatformDataEngine::PhysicsBody::update</a></div><div class="ttdeci">void update(const float &amp;dt, const float &amp;elapsedTime)</div><div class="ttdoc">Called every update cycle</div><div class="ttdef"><b>Definition:</b> PhysicsBody.cpp:70</div></div>
 <div class="ttc" id="astruct_platform_data_engine_1_1_phys_body_user_data_html"><div class="ttname"><a href="struct_platform_data_engine_1_1_phys_body_user_data.html">PlatformDataEngine::PhysBodyUserData</a></div><div class="ttdoc">Data stored in physics bodies that are attached to a game object</div><div class="ttdef"><b>Definition:</b> PhysicsCallbacks.h:13</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

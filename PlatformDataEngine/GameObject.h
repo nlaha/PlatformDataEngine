@@ -12,6 +12,7 @@
 #include "Alive.h"
 #include "ComponentFactory.h"
 #include "StatsBar.h"
+#include "Packet.h"
 
 namespace PlatformDataEngine {
 
@@ -20,7 +21,7 @@ namespace PlatformDataEngine {
 	/// transformable and components can be added to modify the funcionality. 
 	/// These classes are defined by the user in a json file.
 	/// </summary>
-	class GameObject : public sf::Transformable, public sf::Drawable, public Alive
+	class GameObject : public sf::Transformable, public sf::Drawable, public Alive, public Networkable
 	{
 	public:
 
@@ -32,12 +33,16 @@ namespace PlatformDataEngine {
 
 		void init();
 		void update(const float& dt, const float& elapsedTime);
+		void networkSerialize(PDEPacket& output);
+		void networkDeserialize(PDEPacket& input);
+		void networkSerializeInit(PDEPacket& output);
+		void networkDeserializeInit(PDEPacket& input);
+
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-		void loadDefinition(std::string filename);
+		void loadDefinition(const std::string& filename);
 		void registerComponentHierarchy(std::shared_ptr<GameObject> self);
 
-		inline std::string getName() const { return this->m_name; };
 		inline bool isDefinition() const { return this->m_isDefinition; };
 		inline void setIsDefinition(bool isDef) { this->m_isDefinition = isDef; };
 		inline int getZlayer() const { return this->m_zLayer; };
@@ -46,9 +51,15 @@ namespace PlatformDataEngine {
 		inline void setParent(std::shared_ptr<GameObject> gameObject) { this->m_parent = gameObject; };
 		inline void setIsUI(bool isUI) { this->m_isUI = isUI; };
 		inline bool getIsUI() const { return this->m_isUI; };
+		inline void setConnection(std::shared_ptr<Connection> conn) { this->m_owningConnection = conn; };
+		inline std::shared_ptr<Connection> getConnection() const { return this->m_owningConnection; };
 		inline std::shared_ptr<GameObject> getParent() { return this->m_parent; };
 
-		inline void setName(std::string& name) { this->m_name = name; };
+		inline std::string getId() const { return this->m_id; };
+		inline void setId(const std::string& id) { this->m_id = id; };
+
+		inline void setName(const std::string& name) { this->m_objName = name; };
+
 		inline void destroySelf() {
 			this->m_destroyed = true;
 			for (std::shared_ptr<GameObject> child : this->m_children)
@@ -57,8 +68,15 @@ namespace PlatformDataEngine {
 			}
 		};
 
+		inline std::string getType() const { return this->m_type; };
+		inline void setType(const std::string& type) { this->m_type = type; };
 		inline bool getDestroyed() const { return this->m_destroyed; };
 		inline std::vector<std::shared_ptr<GameObject>> getChildren() const { return this->m_children; };
+		inline void setNetworked(bool networked) { this->m_networked = networked; };
+		inline bool getNetworked() { return this->m_networked; };
+
+		inline void setHasBeenSent(const std::string& id) { this->m_hasBeenSent.emplace(id, true); };
+		inline bool getHasBeenSent(const std::string& id) const { return this->m_hasBeenSent.count(id) > 0; };
 
 		void sortChildZ();
 
@@ -82,17 +100,29 @@ namespace PlatformDataEngine {
 		void onDamage(float currentHP);
 
 	private:
+
 		std::map<std::string, std::shared_ptr<Component>> m_components;
 		std::vector<std::shared_ptr<GameObject>> m_children;
 		std::shared_ptr<GameObject> m_parent;
 		GameObject* m_self;
 
+		std::shared_ptr<Connection> m_owningConnection;
+
+		std::string m_objName;
 		std::string m_id;
-		std::string m_name;
 		int m_zLayer;
 		bool m_destroyed;
 		bool m_isDefinition;
 		bool m_isUI;
+		bool m_networked;
+		std::map<std::string, bool> m_hasBeenSent;
+		std::string m_type;
+
+		bool m_hasPhysics;
+
+		TextDrawable m_nameText;
+
+		std::vector<std::string> m_childNames;
 
 		bool m_hasHealthBar;
 		std::shared_ptr<StatsBar> m_healthBar;

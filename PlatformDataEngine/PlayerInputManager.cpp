@@ -1,4 +1,5 @@
 #include "PlayerInputManager.h"
+#include "PlatformDataEngineWrapper.h"
 
 using namespace PlatformDataEngine;
 
@@ -42,31 +43,37 @@ void PlayerInputManager::Axis::addTrigger(sf::Keyboard::Key key, bool direction)
 /// Gets the value from the axis
 /// </summary>
 /// <returns>the value from -100 to 100</returns>
-float PlayerInputManager::Axis::getValue()
+float PlayerInputManager::Axis::getValue() const
 {
 	float value = 0.0f;
 
-	// check if anything is happening on the joystick axis
-	for (sf::Joystick::Axis jAxis : this->m_joyAxis)
-	{
-		value += sf::Joystick::getAxisPosition(this->m_gamepadIndex, jAxis);
-	}
+	if (PlatformDataEngineWrapper::getWindow()->hasFocus()) {
 
-	// check positive keys
-	for (sf::Keyboard::Key key : this->m_positiveKeys)
-	{
-		if (sf::Keyboard::isKeyPressed(key))
+		// check if anything is happening on the joystick axis
+		for (sf::Joystick::Axis jAxis : this->m_joyAxis)
 		{
-			value += 100;
+			float rawVal = sf::Joystick::getAxisPosition(this->m_gamepadIndex, jAxis);
+			if (std::abs(rawVal) > this->m_deadZone) {
+				value += sf::Joystick::getAxisPosition(this->m_gamepadIndex, jAxis);
+			}
 		}
-	}
 
-	// check negative keys
-	for (sf::Keyboard::Key key : this->m_negativeKeys)
-	{
-		if (sf::Keyboard::isKeyPressed(key))
+		// check positive keys
+		for (sf::Keyboard::Key key : this->m_positiveKeys)
 		{
-			value += -100;
+			if (sf::Keyboard::isKeyPressed(key))
+			{
+				value += 100;
+			}
+		}
+
+		// check negative keys
+		for (sf::Keyboard::Key key : this->m_negativeKeys)
+		{
+			if (sf::Keyboard::isKeyPressed(key))
+			{
+				value += -100;
+			}
 		}
 	}
 
@@ -77,7 +84,7 @@ float PlayerInputManager::Axis::getValue()
 /// Gets if the value is positive
 /// </summary>
 /// <returns>true if positive, false if negative</returns>
-bool PlayerInputManager::Axis::isPositive()
+bool PlayerInputManager::Axis::isPositive() const
 {
 	if (getValue() > this->m_deadZone)
 	{
@@ -93,7 +100,7 @@ bool PlayerInputManager::Axis::isPositive()
 /// Gets if the value is negative
 /// </summary>
 /// <returns>true if positive, false if negative</returns>
-bool PlayerInputManager::Axis::isNegative()
+bool PlayerInputManager::Axis::isNegative() const
 {
 	if (getValue() < -this->m_deadZone)
 	{
@@ -145,38 +152,52 @@ void PlayerInputManager::Button::addTrigger(sf::Mouse::Button button)
 /// Gets the value of the button
 /// </summary>
 /// <returns>true if pressed, false if not</returns>
-bool PlayerInputManager::Button::getValue()
+bool PlayerInputManager::Button::getValue() const
 {
 	bool value = false;
 
-	// check mouse buttons
-	for (sf::Mouse::Button key : this->m_mouseBtns)
-	{
-		if (sf::Mouse::isButtonPressed(key))
-		{
-			value += true;
-		}
-	}
+	if (PlatformDataEngineWrapper::getWindow()->hasFocus()) {
 
-	// check keys
-	for (sf::Keyboard::Key key : this->m_keys)
-	{
-		if (sf::Keyboard::isKeyPressed(key))
+		// check mouse buttons
+		for (sf::Mouse::Button key : this->m_mouseBtns)
 		{
-			value += true;
+			if (sf::Mouse::isButtonPressed(key))
+			{
+				value += true;
+			}
 		}
-	}
 
-	// check gamepad buttons
-	for (int key : this->m_buttons)
-	{
-		if (sf::Joystick::isButtonPressed(this->m_gamepadIndex, key))
+		// check keys
+		for (sf::Keyboard::Key key : this->m_keys)
 		{
-			value += true;
+			if (sf::Keyboard::isKeyPressed(key))
+			{
+				value += true;
+			}
+		}
+
+		// check gamepad buttons
+		for (int key : this->m_buttons)
+		{
+			if (sf::Joystick::isButtonPressed(this->m_gamepadIndex, key))
+			{
+				value += true;
+			}
 		}
 	}
 
 	return value;
+}
+
+sf::Vector2f PlatformDataEngine::PlayerInputManager::getMouse()
+{
+	if (PlatformDataEngineWrapper::getWindow()->hasFocus()) {
+		sf::Vector2i pixelPos = sf::Mouse::getPosition(*PlatformDataEngineWrapper::getWindow());
+		return PlatformDataEngineWrapper::getWindow()->mapPixelToCoords(pixelPos);
+	}
+	else {
+		return sf::Vector2f(0, 0);
+	}
 }
 
 PlayerInputManager::PlayerInputManager(int gamepadIndex)
@@ -189,9 +210,9 @@ PlayerInputManager::PlayerInputManager(int gamepadIndex)
 /// </summary>
 /// <param name="axisName">the axis name</param>
 /// <returns>the axis</returns>
-PlayerInputManager::Axis& PlayerInputManager::getAxis(std::string axisName)
+PlayerInputManager::Axis& PlayerInputManager::getAxis(const std::string& axisName)
 {
-	return this->m_axis.at(axisName);
+	return *this->m_axis.at(axisName);
 }
 
 /// <summary>
@@ -199,16 +220,16 @@ PlayerInputManager::Axis& PlayerInputManager::getAxis(std::string axisName)
 /// </summary>
 /// <param name="button">the button name</param>
 /// <returns></returns>
-PlayerInputManager::Button& PlayerInputManager::getButton(std::string button)
+PlayerInputManager::Button& PlayerInputManager::getButton(const std::string& button)
 {
-	return this->m_buttons.at(button);
+	return *this->m_buttons.at(button);
 }
 
 /// <summary>
 /// Loads input manager configuration from a json file
 /// </summary>
 /// <param name="inputManagerFile"></param>
-void PlayerInputManager::loadDefinition(std::string inputManagerFile)
+void PlayerInputManager::loadDefinition(const std::string& inputManagerFile)
 {
 	std::ifstream configFile(inputManagerFile);
 
@@ -225,45 +246,49 @@ void PlayerInputManager::loadDefinition(std::string inputManagerFile)
 	this->m_gamepadIndex = inputConfig.at("gamepadIndex");
 
 	// load axis first
+	sf::Uint8 axisCount = 0;
 	for (const auto& axisConfig : inputConfig.at("axis").items())
 	{
-		Axis axis(this->m_gamepadIndex, axisConfig.value().at("deadZone"));
+		std::shared_ptr<Axis> axis = std::make_shared<Axis>(this->m_gamepadIndex, axisConfig.value().at("deadZone"));
 
 		// axis keys
 		if (axisConfig.value().count("positiveKeys") > 0) {
 			for (const auto& axisKey : axisConfig.value().at("positiveKeys"))
 			{
-				axis.addTrigger(static_cast<sf::Keyboard::Key>(axisKey), 1);
+				axis->addTrigger(static_cast<sf::Keyboard::Key>(axisKey), 1);
 			}
 		}
 
 		if (axisConfig.value().count("negativeKeys") > 0) {
 			for (const auto& axisKey : axisConfig.value().at("negativeKeys"))
 			{
-				axis.addTrigger(static_cast<sf::Keyboard::Key>(axisKey), 0);
+				axis->addTrigger(static_cast<sf::Keyboard::Key>(axisKey), 0);
 			}
 		}
 
 		// axis gamepad axis
 		for (const auto& axisAxis : axisConfig.value().at("axis"))
 		{
-			axis.addTrigger(static_cast<sf::Joystick::Axis>(axisAxis));
+			axis->addTrigger(static_cast<sf::Joystick::Axis>(axisAxis));
 		}
 
+		this->m_axisIdx.push_back(axis);
 		this->m_axis.emplace(axisConfig.key(), axis);
+		axisCount++;
 	}
 
 	// load buttons
+	sf::Uint8 buttonCount = 0;
 	for (const auto& buttonConfig : inputConfig.at("buttons").items())
 	{
-		Button button(this->m_gamepadIndex);
+		std::shared_ptr<Button> button = std::make_shared<Button>(this->m_gamepadIndex);
 
 		// button keys
 		if (buttonConfig.value().count("keys") > 0)
 		{
 			for (const int& buttonKey : buttonConfig.value().at("keys"))
 			{
-				button.addTrigger(static_cast<sf::Keyboard::Key>(buttonKey));
+				button->addTrigger(static_cast<sf::Keyboard::Key>(buttonKey));
 			}
 		}
 
@@ -272,7 +297,7 @@ void PlayerInputManager::loadDefinition(std::string inputManagerFile)
 		{
 			for (const int& buttonButton : buttonConfig.value().at("buttons"))
 			{
-				button.addTrigger(buttonButton);
+				button->addTrigger(buttonButton);
 			}
 		}
 
@@ -281,10 +306,38 @@ void PlayerInputManager::loadDefinition(std::string inputManagerFile)
 			// button buttons
 			for (const int& mouseButtonButton : buttonConfig.value().at("mouseButtons"))
 			{
-				button.addTrigger(static_cast<sf::Mouse::Button>(mouseButtonButton));
+				button->addTrigger(static_cast<sf::Mouse::Button>(mouseButtonButton));
 			}
 		}
 
+		this->m_buttonIdx.push_back(button);
 		this->m_buttons.emplace(buttonConfig.key(), button);
+		buttonCount++;
 	}
+}
+
+void PlayerInputManager::serializeInputs(PDEPacket& packet)
+{
+	// grab axis values
+	packet.setFlag(PDEPacket::UserInput);
+
+	packet << static_cast<unsigned short>(this->m_axis.size()) << static_cast<unsigned short>(this->m_buttons.size());
+
+	sf::Uint8 counter = 0; // todo, make a vector of inputs as well as map for sending indices
+	for (const auto& axis : this->m_axisIdx)
+	{
+		packet << counter << static_cast<sf::Int8>(axis->getValue());
+		counter++;
+	}
+
+	// grab button values
+	counter = 0;
+	for (const auto& button : this->m_buttonIdx)
+	{
+		packet << counter << button->getValue();
+		counter++;
+	}
+
+	sf::Vector2f mouse = this->getMouse();
+	packet << mouse.x << mouse.y;
 }

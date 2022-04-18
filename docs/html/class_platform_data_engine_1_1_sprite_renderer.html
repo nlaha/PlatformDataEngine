@@ -122,12 +122,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1e9ea756f1f116a7785380d830d0a8f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_sprite_renderer.html#a1e9ea756f1f116a7785380d830d0a8f7">loadDefinition</a> (nlohmann::json object)</td></tr>
 <tr class="memdesc:a1e9ea756f1f116a7785380d830d0a8f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when game object definitions are loaded  <a href="class_platform_data_engine_1_1_sprite_renderer.html#a1e9ea756f1f116a7785380d830d0a8f7">More...</a><br /></td></tr>
 <tr class="separator:a1e9ea756f1f116a7785380d830d0a8f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b2d691d7a084e9c3187e55188a0a3aa"><td class="memItemLeft" align="right" valign="top"><a id="a2b2d691d7a084e9c3187e55188a0a3aa" name="a2b2d691d7a084e9c3187e55188a0a3aa"></a>
-sf::Sprite&#160;</td><td class="memItemRight" valign="bottom"><b>getSprite</b> () const</td></tr>
-<tr class="separator:a2b2d691d7a084e9c3187e55188a0a3aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2332c53a0010c987bea47b7720423df6"><td class="memItemLeft" align="right" valign="top"><a id="a2332c53a0010c987bea47b7720423df6" name="a2332c53a0010c987bea47b7720423df6"></a>
+sf::Sprite &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getSprite</b> ()</td></tr>
+<tr class="separator:a2332c53a0010c987bea47b7720423df6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab89c0b54afb0eef2c926df174c8b3280"><td class="memItemLeft" align="right" valign="top"><a id="ab89c0b54afb0eef2c926df174c8b3280" name="ab89c0b54afb0eef2c926df174c8b3280"></a>
+std::shared_ptr&lt; sf::Texture &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getTexture</b> () const</td></tr>
+<tr class="separator:ab89c0b54afb0eef2c926df174c8b3280"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56dd85a180e205a7f026bc525013b65b"><td class="memItemLeft" align="right" valign="top"><a id="a56dd85a180e205a7f026bc525013b65b" name="a56dd85a180e205a7f026bc525013b65b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setTexture</b> (std::shared_ptr&lt; sf::Texture &gt; tex)</td></tr>
+<tr class="separator:a56dd85a180e205a7f026bc525013b65b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6403f2f6efc8efc04a1d762096897145"><td class="memItemLeft" align="right" valign="top"><a id="a6403f2f6efc8efc04a1d762096897145" name="a6403f2f6efc8efc04a1d762096897145"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setRect</b> (sf::IntRect rect)</td></tr>
 <tr class="separator:a6403f2f6efc8efc04a1d762096897145"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b8ebb8dff758710ef59f2775b302682"><td class="memItemLeft" align="right" valign="top"><a id="a6b8ebb8dff758710ef59f2775b302682" name="a6b8ebb8dff758710ef59f2775b302682"></a>
+sf::IntRect&#160;</td><td class="memItemRight" valign="bottom"><b>getRect</b> () const</td></tr>
+<tr class="separator:a6b8ebb8dff758710ef59f2775b302682"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_platform_data_engine_1_1_component"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_platform_data_engine_1_1_component')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_platform_data_engine_1_1_component.html">PlatformDataEngine::Component</a></td></tr>
 <tr class="memitem:af8dcce5864ea8313f923bc3159784b78 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_component.html#af8dcce5864ea8313f923bc3159784b78">copy</a> (std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_component.html">Component</a> &gt; otherCompPtr)</td></tr>
 <tr class="memdesc:af8dcce5864ea8313f923bc3159784b78 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Essentially a copy constructor except the generic shared pointer must be converted to the derived type using std::dynamic_pointer_cast  <a href="class_platform_data_engine_1_1_component.html#af8dcce5864ea8313f923bc3159784b78">More...</a><br /></td></tr>

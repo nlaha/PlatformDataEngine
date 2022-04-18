@@ -3,11 +3,39 @@
 #include <sstream>
 #include <box2d/box2d.h>
 #include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
 
+#include "Networkable.h"
 #include "Globals.h"
 
 namespace PlatformDataEngine
 {
+
+    enum class PlayerState
+    {
+        ALIVE,
+        DEAD,
+        SPECTATOR
+    };
+
+    class Connection : Networkable
+    {
+    public:
+        sf::IpAddress ip;
+        std::string id;
+        unsigned short port;
+        std::string name;
+
+        sf::Clock respawnTimer;
+        PlayerState state;
+        float health;
+
+        inline void networkSerializeInit(PDEPacket &output){};
+        inline void networkDeserializeInit(PDEPacket &input){};
+
+        void networkSerialize(PDEPacket &output);
+        void networkDeserialize(PDEPacket &input);
+    };
 
     /// <summary>
     /// Utility class for holding helper functions
@@ -51,6 +79,11 @@ namespace PlatformDataEngine
                 ss << Utility::dis(Utility::gen);
             };
             return ss.str();
+        }
+
+        static float getRandomFloat(float min, float max)
+        {
+            return min + (max - min) * Utility::gen() / (float)Utility::gen.max();
         }
 
         // lerp vector2f

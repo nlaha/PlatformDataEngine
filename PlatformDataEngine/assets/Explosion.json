@@ -1,0 +1,58 @@
+{ "frames": {
+   "Explosion (Idle) 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 32, "h": 33 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 33 },
+    "sourceSize": { "w": 32, "h": 33 },
+    "duration": 100
+   },
+   "Explosion (Idle) 1.aseprite": {
+    "frame": { "x": 32, "y": 0, "w": 32, "h": 33 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 33 },
+    "sourceSize": { "w": 32, "h": 33 },
+    "duration": 100
+   },
+   "Explosion (Idle) 2.aseprite": {
+    "frame": { "x": 64, "y": 0, "w": 32, "h": 33 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 33 },
+    "sourceSize": { "w": 32, "h": 33 },
+    "duration": 100
+   },
+   "Explosion (Idle) 3.aseprite": {
+    "frame": { "x": 96, "y": 0, "w": 32, "h": 33 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 33 },
+    "sourceSize": { "w": 32, "h": 33 },
+    "duration": 100
+   },
+   "Explosion (Idle) 4.aseprite": {
+    "frame": { "x": 128, "y": 0, "w": 32, "h": 33 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 33 },
+    "sourceSize": { "w": 32, "h": 33 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.21-dev",
+  "image": "Explosion.png",
+  "format": "RGBA8888",
+  "size": { "w": 160, "h": 33 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Idle", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

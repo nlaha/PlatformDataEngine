@@ -5,7 +5,17 @@
       "properties": {
         "numParticles": 50,
         "velocity": 1,
-        "particle": "FireParticle"
+        "particle": "FireParticle",
+        "sound": "sfx_exp_short_soft1.wav"
+      }
+    },
+    {
+      "type": "TimedDestroy",
+      "properties": {
+        "time": 1000,
+        "range": false,
+        "rangeLow": 1000,
+        "rangeHigh": 1000
       }
     }
   ]

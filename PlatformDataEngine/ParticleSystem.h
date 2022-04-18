@@ -1,6 +1,7 @@
 #pragma once
 #include <thread>
 #include <mutex>
+#include <SFML/Audio.hpp>
 #include "Component.h"
 
 namespace PlatformDataEngine {
@@ -32,6 +33,7 @@ namespace PlatformDataEngine {
         std::string m_particleName;
         int m_numParticles;
         float m_velocity;
+        sf::Sound* m_sound;
     };
 }
 

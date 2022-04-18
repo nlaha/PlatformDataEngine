@@ -19,7 +19,11 @@ GameObject::GameObject(bool isDef)
 	this->m_self = nullptr;
 	this->m_hasHealthBar = false;
 	this->m_healthBar = nullptr;
-	this->m_name = "";
+	this->m_id = "";
+	this->m_owningConnection = nullptr;
+	this->m_type = "";
+	this->m_hasPhysics = true;
+	this->m_networked = true;
 }
 
 /// <summary>
@@ -44,9 +48,11 @@ GameObject::GameObject(const GameObject& other)
 	this->m_zLayer = other.m_zLayer;
 	this->m_parent = other.m_parent;
 	this->m_self = nullptr;
-	this->m_name = other.m_name;
 	this->m_id = other.m_id;
+	this->m_type = other.m_type;
+	this->m_objName = other.m_objName;
 	this->m_properties = other.m_properties;
+	this->m_HP = 100.0f;
 
 	if (other.m_healthBar != nullptr)
 		this->m_healthBar = std::make_shared<StatsBar>(*other.m_healthBar);
@@ -58,6 +64,8 @@ GameObject::GameObject(const GameObject& other)
 /// </summary>
 void GameObject::init()
 {
+	this->m_hasPhysics = this->findComponentOfType<PhysicsBody>() != nullptr;
+
 	if (this->m_hasHealthBar && this->m_healthBar != nullptr)
 	{
 		this->m_healthBar->init();
@@ -68,6 +76,9 @@ void GameObject::init()
 		compPair.second->init();
 	}
 	sortChildZ();
+
+	this->m_nameText.setText(this->m_objName);
+	this->m_nameText.setScale({ 0.05f, 0.05f });
 }
 
 /// <summary>
@@ -79,6 +90,7 @@ void GameObject::update(const float& dt, const float& elapsedTime)
 {
 	if (this->m_hasHealthBar && this->m_healthBar != nullptr)
 	{
+		this->m_healthBar->setPosition(Utility::fromB2(this->findComponentOfType<PhysicsBody>()->getBody()->GetWorldCenter()));
 		this->m_healthBar->update(dt, elapsedTime, this->m_HP);
 	}
 
@@ -86,6 +98,83 @@ void GameObject::update(const float& dt, const float& elapsedTime)
 	{
 		compPair.second->update(dt, elapsedTime);
 	}
+}
+
+void GameObject::networkSerialize(PDEPacket& output)
+{
+	if (!this->m_hasPhysics) {
+		output << this->getPosition().x << this->getPosition().y << this->getRotation();
+	}
+
+	for (auto& compPair : this->m_components)
+	{
+		compPair.second->networkSerialize(output);
+	}
+}
+
+void GameObject::networkDeserialize(PDEPacket& input)
+{
+	if (!this->m_hasPhysics) {
+		float x = 0.0f, y = 0.0f, angle = 0.0f;
+		input >> x >> y >> angle;
+		this->setPosition(x, y);
+		this->setRotation(angle);
+	}
+
+	// update child links
+	if (this->m_children.size() < this->m_childNames.size())
+	{
+		for (const std::string& name : this->m_childNames) {
+			if (PlatformDataEngineWrapper::getWorld()->getGameObject(name) != nullptr) {
+				this->addChild(PlatformDataEngineWrapper::getWorld()->getGameObject(name));
+				PlatformDataEngineWrapper::getWorld()->getGameObject(name)->setParent(
+					PlatformDataEngineWrapper::getWorld()->getGameObject(this->getId())
+				);
+			}
+		}
+	}
+
+	for (auto& compPair : this->m_components)
+	{
+		compPair.second->networkDeserialize(input);
+	}
+
+}
+
+void GameObject::networkSerializeInit(PDEPacket& output)
+{
+	output << this->m_zLayer << this->m_isUI;
+
+	output << this->getOrigin().x << this->getOrigin().y;
+
+	output << static_cast<sf::Uint32>(this->m_children.size());
+	for (std::shared_ptr<GameObject> child : this->m_children)
+	{
+		output << child->getId();
+	}
+
+	output << this->m_objName;
+}
+
+void GameObject::networkDeserializeInit(PDEPacket& input)
+{
+	input >> this->m_zLayer >> this->m_isUI;
+
+	float ox = 0.0f, oy = 0.0f;
+	input >> ox >> oy;
+	this->setOrigin(ox, oy);
+
+	sf::Uint32 numChildren = 0;
+	input >> numChildren;
+	for (size_t i = 0; i < numChildren; i++)
+	{
+		std::string name;
+		input >> name;
+		this->m_childNames.push_back(name);
+	}
+
+	input >> this->m_objName;
+	this->m_nameText.setText(this->m_objName);
 }
 
 GameObject::~GameObject()
@@ -126,8 +215,11 @@ void GameObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	// draw health bar if we have that enabled
 	if (this->m_hasHealthBar && this->m_healthBar != nullptr)
 	{
-		this->m_healthBar->setPosition(Utility::fromB2(this->findComponentOfType<PhysicsBody>()->getBody()->GetWorldCenter()));
 		target.draw(*this->m_healthBar, states);
+	}
+	
+	if (this->m_nameText.getText() != "") {
+		target.draw(m_nameText, states);
 	}
 }
 
@@ -135,7 +227,7 @@ void GameObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
 /// Loads a gameObject definition from a json file
 /// </summary>
 /// <param name="filename">game object definition .json filename</param>
-void GameObject::loadDefinition(std::string filename) {
+void GameObject::loadDefinition(const std::string& filename) {
 	// load json file
 	std::ifstream file(filename);
 	
@@ -196,11 +288,32 @@ void GameObject::onDeath()
 	std::shared_ptr<DamageHandler> dh = this->findComponentOfType<DamageHandler>();
 	if (dh != nullptr)
 		dh->onDeath();
+
+	if (!PlatformDataEngineWrapper::getIsClient()) {
+		if (this->m_id == PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->id) {
+			// player has died
+			PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->state = PlayerState::DEAD;
+			PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->respawnTimer.restart();
+			spdlog::info("Player {} has died!", PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->name);
+		}
+	}
+
+	this->destroySelf();
 }
 
 void GameObject::onDamage(float currentHP)
 {
-	std::shared_ptr<DamageHandler> dh = this->findComponentOfType<DamageHandler>();
-	if (dh != nullptr)
-		dh->onDamage(currentHP);
+	if (this->m_hasHealthBar) {
+		std::shared_ptr<DamageHandler> dh = this->findComponentOfType<DamageHandler>();
+		if (dh != nullptr)
+			dh->onDamage(currentHP);
+
+		if (!PlatformDataEngineWrapper::getIsClient()) {
+			dynamic_cast<Server*>(PlatformDataEngineWrapper::getNetworkHandler())->
+				broadcastObjectHealth(this->m_id, this->m_HP);
+		}
+	}
+	else {
+		this->m_HP = 100.0f;
+	}
 }

@@ -19,14 +19,16 @@ void GlobalEffects::explode(SpriteRenderer& sprite, sf::Vector2f pos, int slices
 	{
 		for (int j = 0; j < slices; j++)
 		{
-			particleRects.push_back(sf::IntRect(i * width, j * height, width, height));
+			particleRects.push_back(sf::IntRect(i * width + fullRect.left, j * height + fullRect.top, width, height));
 		}
 	}
 
 	std::shared_ptr<sf::Texture> tex = sprite.getTexture();
 	for (sf::IntRect pRect : particleRects)
 	{
-		std::shared_ptr<GameObject> particle = PlatformDataEngineWrapper::getWorld()->spawnGameObject("ExplodeChunkParticle", pos + sf::Vector2f(pRect.left, pRect.top));
+		std::shared_ptr<GameObject> particle = PlatformDataEngineWrapper::getWorld()->spawnGameObject(
+			"ExplodeChunkParticle", pos,
+			"", true);
 		particle->setZlayer(40);
 
 		SpriteRenderer* pSprite = particle->findComponentOfType<SpriteRenderer>().get();
@@ -50,6 +52,16 @@ void GlobalEffects::explode(SpriteRenderer& sprite, sf::Vector2f pos, int slices
 		fd.filter.categoryBits = PlatformDataEngine::PARTICLE;
 		fd.filter.maskBits = PlatformDataEngine::WORLD_STATIC | PlatformDataEngine::WORLD_DYNAMIC;
 		pBody->getBody()->CreateFixture(&fd);
+
+		// get a random vector
+		b2Vec2 dir = Utility::normalize(b2Vec2(
+			rand() % 100 + (-100),
+			rand() % 100 + (-100)
+		));
+		dir.x *= 100.0f / Constants::PHYS_SCALE;
+		dir.y *= 100.0f / Constants::PHYS_SCALE;
+
+		pBody->getBody()->ApplyLinearImpulseToCenter(dir, true);
 
 	}
 }

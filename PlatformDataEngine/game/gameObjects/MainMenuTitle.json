@@ -1,0 +1,14 @@
+{
+  "components": [
+    {
+      "type": "TextRenderer",
+      "properties": {
+        "text": "Rocket-Jump",
+        "fontPath": "assets/m04.ttf",
+        "fontSize": 70,
+        "renderSize": 1.0,
+        "fontBold": false
+      }
+    }
+  ]
+}

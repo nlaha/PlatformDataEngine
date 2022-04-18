@@ -1,4 +1,3 @@
-uniform vec2 charPos;
 
 void main()
 {

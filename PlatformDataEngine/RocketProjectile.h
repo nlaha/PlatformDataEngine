@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <box2d/box2d.h>
+#include <SFML/Audio.hpp>
 
 #include "Component.h"
 #include "Utility.h"
@@ -31,19 +32,22 @@ namespace PlatformDataEngine {
 
         void loadDefinition(nlohmann::json object);
 
-        inline void setOwner(std::shared_ptr<GameObject> owner) { this->m_owningGameObject = owner; };
+        void setOwner(std::shared_ptr<GameObject> owner);
 
     private:
 
         std::shared_ptr<GameObject> m_owningGameObject;
 
         PhysicsBody* m_PhysBody;
-        b2Fixture* m_explosionSensor;
+        b2Fixture* m_forceSensor;
+        b2Fixture* m_damageSensor;
 
         std::string m_ParticleSystemName;
         float m_explosionRadius;
         float m_explosionForce;
         float m_explosionDamage;
+
+        sf::Sound* m_sound;
 
         bool m_isExploding;
     };

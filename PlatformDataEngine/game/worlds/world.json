@@ -1,0 +1,84 @@
+{
+  "tiledMapFile": "assets/Arena2.tmx",
+  "playerObject":  "MainPlayer",
+  "cameraController": {
+    "cameraLockObject": "MainPlayer",
+    "cameraLerpSpeed": 3
+  },
+  "gameObjects": [
+    {
+      "name": "MainPlayer",
+      "type": "PlayerCharacter",
+      "isPlayer":  true,
+      "transform": {
+        "x": 0,
+        "y": 0,
+        "origin_x": 0,
+        "origin_y": 0,
+        "z_layer": 2,
+        "rotation": 0,
+        "scale": 1
+      },
+      "children": [
+        {
+          "name": "PlayerRocketLauncher",
+          "type": "RocketLauncher",
+          "transform": {
+            "x": 4,
+            "y": 10,
+            "origin_x": 4,
+            "origin_y": 4,
+            "z_layer": 3,
+            "rotation": 0,
+            "scale": 1
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "EngineStats",
+      "type": "EngineStats",
+      "isUI": true,
+      "transform": {
+        "x": 140,
+        "y": 10,
+        "origin_x": 0,
+        "origin_y": 0,
+        "z_layer": 100,
+        "rotation": 0,
+        "scale": 1
+      },
+      "children": []
+    },
+    {
+      "name": "PlayerStatsPanel",
+      "type": "StatsPanel",
+      "isUI": true,
+      "transform": {
+        "x": 0,
+        "y": 0,
+        "origin_x": 0,
+        "origin_y": 0,
+        "z_layer": 100,
+        "rotation": 0,
+        "scale": 1
+      },
+      "children": []
+    },
+    {
+      "name": "SpikeTest",
+      "type": "Spike",
+      "transform": {
+        "x": 0,
+        "y": -100,
+        "origin_x": 0,
+        "origin_y": 0,
+        "z_layer": 50,
+        "rotation": 0,
+        "scale": 1
+      },
+      "children": []
+    }
+  ]
+}

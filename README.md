@@ -20,10 +20,8 @@ Visual Studio should automatically use `vcpkg` to install the correct dependenci
 
 - spdlog
 
+![screenshot](./screenshots/sc3.jpg)
+
 ![screenshot](./screenshots/NetworkSc.gif)
-
-![screenshot](./screenshots/sc1.jpg)
-
-![screenshot](./screenshots/sc2.jpg)
 
 ![screenshot](./screenshots/ClassDiagram.drawio.png)

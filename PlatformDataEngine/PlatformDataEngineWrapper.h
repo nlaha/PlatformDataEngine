@@ -121,17 +121,16 @@ namespace PlatformDataEngine {
 
 			spdlog::info("Loading client world please wait...");
 
-			m_netHandler = std::make_shared<Client>();
-			m_isClient = true;
-			m_netHandler->start();
-
 			PlatformDataEngineWrapper::mp_mainWorld = std::make_shared<GameWorld>();
 			mp_mainWorld->initPhysics();
 
 			PlatformDataEngineWrapper::mp_mainWorld->loadGameObjectDefinitions();
 
-
 			PlatformDataEngineWrapper::mp_mainWorld->initClient("game/worlds/world.json", m_view);
+
+			m_netHandler = std::make_shared<Client>();
+			m_isClient = true;
+			m_netHandler->start();
 
 			/* Initialize Debug Draw */
 			PlatformDataEngineWrapper::m_debugDraw = std::make_shared<PhysicsDebugDraw>(*mp_renderWindow);

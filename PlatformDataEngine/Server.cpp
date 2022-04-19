@@ -77,13 +77,14 @@ void Server::process(GameWorld* world)
 					<< gameObjectPair.second->getType()
 					<< gameObjectPair.second->getPosition().x
 					<< gameObjectPair.second->getPosition().y
-					<< gameObjectPair.second->getId();
+					<< gameObjectPair.second->getId()
+					<< gameObjectPair.second->getHasBeenSent(conn->id);
 				if (gameObjectPair.second->getHasBeenSent(conn->id)) {
-					spdlog::debug("Sending existing object {}", gameObjectPair.second->getId());
+					spdlog::debug("Sending existing object {} {}", gameObjectPair.second->getId(), gameObjectPair.second->getType());
 					gameObjectPair.second->networkSerialize(packet);
 				}
 				else {
-					spdlog::debug("Sending new object {}", gameObjectPair.second->getId());
+					spdlog::debug("Sending new object {} {}", gameObjectPair.second->getId(), gameObjectPair.second->getType());
 					gameObjectPair.second->networkSerializeInit(packet);
 					gameObjectPair.second->setHasBeenSent(conn->id);
 				}
@@ -134,6 +135,7 @@ void Server::recieve(GameWorld* world)
 		sf::Int8 value = 0;
 		bool valueBool = false;
 		std::string clientId;
+		std::string objId;
 		packet >> clientId;
 		bool isNetworked;
 
@@ -176,6 +178,14 @@ void Server::recieve(GameWorld* world)
 					dynamic_cast<NetworkInputManager*>(input)->setMouse(sf::Vector2f(mouseX, mouseY));
 				}
 
+				break;
+
+			case PDEPacket::RecievedObject:
+				packet >> objId;
+				if (world->getGameObject(objId) != nullptr)
+				{
+					world->getGameObject(objId)->setHasBeenSent(clientId);
+				}
 				break;
 
 			case PDEPacket::Disconnect:

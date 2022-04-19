@@ -10,17 +10,9 @@
     </LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugClient|x64'">
-    <LocalDebuggerCommandArguments>--client</LocalDebuggerCommandArguments>
-    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerCommandArguments>
     </LocalDebuggerCommandArguments>
-    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugClient|Win32'">
-    <LocalDebuggerCommandArguments>--client</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

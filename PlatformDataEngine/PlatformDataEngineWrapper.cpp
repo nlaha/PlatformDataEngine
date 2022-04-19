@@ -96,6 +96,9 @@ namespace PlatformDataEngine {
                 // get delta time
                 dt = deltaClock.restart();
             }
+
+            // ==================== DRAWING
+
             // clear
             mp_renderWindow->clear(sf::Color(0, 0, 0));
 
@@ -111,8 +114,11 @@ namespace PlatformDataEngine {
 
             // calculate fps
             PlatformDataEngineWrapper::m_fps = 1.f / fpsClock.getElapsedTime().asSeconds();
+
             //Another Part Of The FPS Clock
             fpsClock.restart();
+
+            // ==================== END DRAWING
 
             sf::Event event;
             if (appMode != ApplicationMode::DEDICATED) {

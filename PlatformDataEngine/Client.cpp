@@ -93,6 +93,7 @@ void Client::recieve(GameWorld* world)
 					packet >> objType;
 					packet >> objPos.x >> objPos.y;
 					packet >> objId;
+					packet >> hasRecievedBefore;
 
 					updatedObjects.push_back(objId);
 
@@ -101,12 +102,18 @@ void Client::recieve(GameWorld* world)
 						spdlog::error("Update packet is malformed!");
 					}
 					//spdlog::info("Moving {} to position ({}, {})", objId, objPos.x, objPos.y);
-					if (world->getGameObject(objId) != nullptr) {
+					if (hasRecievedBefore) {
 						world->getGameObject(objId)->networkDeserialize(packet);
 					}
 					else {
-						obj = world->spawnGameObject(objType, objPos, objId);
-						obj->networkDeserializeInit(packet);
+						if (world->getGameObject(objId) == nullptr) {
+							spdlog::debug("Creating object with ID: {}", objId);
+							obj = world->spawnGameObject(objType, objPos, objId);
+							obj->networkDeserializeInit(packet);
+						}
+						else {
+							spdlog::warn("Skipped initialization for existing object: {} {}", objId, objType);
+						}
 					}
 				}
 			}

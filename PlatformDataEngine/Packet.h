@@ -41,6 +41,7 @@ namespace PlatformDataEngine {
 			Disconnected,
 			Text,
 
+			RecievedObject,
 			SetObjectHealth,
 			RequestUpdates,
 			SendUpdates,

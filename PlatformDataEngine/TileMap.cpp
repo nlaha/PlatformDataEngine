@@ -130,7 +130,7 @@ TileMap::TileMap(const std::string &tmxPath)
                     };
                     PlatformDataEngineWrapper::getWorld()->addPlayerSpawn(spawn);
                 }
-                else if (!PlatformDataEngineWrapper::getIsClient())
+                else
                 {
                     int tileId = object.getTileID();
 
@@ -145,7 +145,7 @@ TileMap::TileMap(const std::string &tmxPath)
                             tmx::ObjectGroup collision = tilesetPair.tmxTileset.getTile(tileId)->objectGroup;
 
                             std::shared_ptr<GameObject> gObj = PlatformDataEngineWrapper::getWorld()->spawnGameObject(object.getType(),
-                                sf::Vector2f(object.getPosition().x, object.getPosition().y), "", false, object.getRotation(), sf::Vector2f(0.0, tSize));
+                                sf::Vector2f(object.getPosition().x, object.getPosition().y), std::to_string(object.getUID()) + "_T", false, object.getRotation(), sf::Vector2f(0.0, tSize), true);
 
                             gObj->findComponentOfType<SpriteRenderer>()->setRect(sf::IntRect(
                                 sf::Vector2i(pos.x, pos.y),

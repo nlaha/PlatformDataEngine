@@ -24,7 +24,6 @@ GameObject::GameObject(bool isDef)
 	this->m_type = "";
 	this->m_hasPhysics = true;
 	this->m_networked = true;
-
 }
 
 /// <summary>
@@ -58,6 +57,7 @@ GameObject::GameObject(const GameObject& other)
 	if (other.m_healthBar != nullptr)
 		this->m_healthBar = std::make_shared<StatsBar>(*other.m_healthBar);
 	this->m_hasHealthBar = other.m_hasHealthBar;
+	this->m_alreadyReplicated = false;
 }
 
 /// <summary>
@@ -159,6 +159,11 @@ void GameObject::networkSerializeInit(PDEPacket& output)
 	}
 
 	output << this->m_objName;
+
+	//for (auto& compPair : this->m_components)
+	//{
+	//	compPair.second->networkSerializeInit(output);
+	//}
 }
 
 void GameObject::networkDeserializeInit(PDEPacket& input)
@@ -180,6 +185,11 @@ void GameObject::networkDeserializeInit(PDEPacket& input)
 
 	input >> this->m_objName;
 	this->m_nameText.setText(this->m_objName);
+
+	//for (auto& compPair : this->m_components)
+	//{
+	//	compPair.second->networkDeserializeInit(input);
+	//}
 }
 
 GameObject::~GameObject()

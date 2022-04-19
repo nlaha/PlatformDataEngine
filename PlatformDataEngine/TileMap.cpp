@@ -189,7 +189,7 @@ TileMap::TileMap(const std::string &tmxPath)
 
 void TileMap::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-    for (const auto &tilesetPair : this->m_tilesets)
+    for (const auto& tilesetPair : this->m_tilesets)
     {
         target.draw(*tilesetPair.tileset, states);
     }

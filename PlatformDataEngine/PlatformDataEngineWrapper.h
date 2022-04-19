@@ -76,18 +76,6 @@ namespace PlatformDataEngine {
 			return PlatformDataEngineWrapper::ProfileConfig::name;
 		}
 
-		static inline void stopRenderThread() {
-			PlatformDataEngineWrapper::m_renderThreadStop = true;
-			m_renderThread->wait();
-		}
-
-		static inline void startRenderThread() {
-			PlatformDataEngineWrapper::m_renderThreadStop = false;
-			mp_renderWindow->setActive(false);
-			m_renderThread = std::make_shared<sf::Thread>(std::bind(& renderingThread, mp_renderWindow, mp_mainWorld.get(), std::ref(PlatformDataEngineWrapper::m_renderThreadStop)));
-			m_renderThread->launch();
-		}
-
 		static inline std::string getPlayerInput() {
 			return PlatformDataEngineWrapper::m_playerInput;
 		}
@@ -108,8 +96,6 @@ namespace PlatformDataEngine {
 
 			spdlog::info("Loading server world please wait...");
 
-			PlatformDataEngineWrapper::stopRenderThread();
-
 			m_netHandler = std::make_shared<Server>();
 			m_isClient = false;
 			m_netHandler->start();
@@ -128,16 +114,12 @@ namespace PlatformDataEngine {
 			mp_mainWorld->getPhysWorld()->SetDebugDraw(PlatformDataEngineWrapper::m_debugDraw.get());
 			PlatformDataEngineWrapper::m_debugDraw->SetFlags(b2Draw::e_shapeBit); //Only draw shapes
 
-			PlatformDataEngineWrapper::startRenderThread();
-
 			spdlog::info("Done loading server world!");
 		}
 
 		static inline void loadClient() {
 
 			spdlog::info("Loading client world please wait...");
-
-			PlatformDataEngineWrapper::stopRenderThread();
 
 			m_netHandler = std::make_shared<Client>();
 			m_isClient = true;
@@ -157,15 +139,11 @@ namespace PlatformDataEngine {
 			mp_mainWorld->getPhysWorld()->SetDebugDraw(PlatformDataEngineWrapper::m_debugDraw.get());
 			PlatformDataEngineWrapper::m_debugDraw->SetFlags(b2Draw::e_shapeBit); //Only draw shapes
 
-			PlatformDataEngineWrapper::startRenderThread();
-
 			spdlog::info("Done loading client world!");
 		}
 
 		static inline void loadMenu() {
 			spdlog::info("Loading menu world please wait...");
-
-			PlatformDataEngineWrapper::stopRenderThread();
 
 			m_netHandler = nullptr;
 
@@ -182,8 +160,6 @@ namespace PlatformDataEngine {
 
 			mp_mainWorld->getPhysWorld()->SetDebugDraw(PlatformDataEngineWrapper::m_debugDraw.get());
 			PlatformDataEngineWrapper::m_debugDraw->SetFlags(b2Draw::e_shapeBit); //Only draw shapes
-
-			PlatformDataEngineWrapper::startRenderThread();
 
 			spdlog::info("Done loading menu world!");
 		}
@@ -214,6 +190,10 @@ namespace PlatformDataEngine {
 			static std::string name;
 		};
 
+		struct OptionsConfig {
+			static std::string musicVol;
+		};
+
 	private:
 		static std::shared_ptr<AudioSystem> m_audioSystem;
 		static sf::Vector2f m_windowCenter;
@@ -230,7 +210,6 @@ namespace PlatformDataEngine {
 		static bool m_isClient;
 
 		std::mutex mutex;
-		static std::shared_ptr<sf::Thread> m_renderThread;
 		static std::shared_ptr<PhysicsDebugDraw> m_debugDraw;
 		static std::atomic<bool> m_renderThreadStop;
 

@@ -2,6 +2,8 @@
 #include <memory>
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include <sstream>
 
 #include "Component.h"
 #include "TextDrawable.h"
@@ -132,6 +134,7 @@ namespace PlatformDataEngine {
 		std::vector<std::shared_ptr<ListMenu>> m_menus;
 		ListMenu* m_currentMenu;
 		ListMenu* m_lastMenu;
+		sf::Music* m_bgMusic;
 	};
 
 }

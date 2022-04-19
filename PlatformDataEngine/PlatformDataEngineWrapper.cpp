@@ -11,8 +11,6 @@ namespace PlatformDataEngine {
     bool PlatformDataEngineWrapper::m_debugPhysics = false;
     bool PlatformDataEngineWrapper::m_isClient = false;
     sf::View PlatformDataEngineWrapper::m_view;
-    std::shared_ptr<sf::Thread> PlatformDataEngineWrapper::m_renderThread;
-    std::atomic<bool> PlatformDataEngineWrapper::m_renderThreadStop(false);
     std::string PlatformDataEngineWrapper::m_playerInput = "";
     std::shared_ptr<PhysicsDebugDraw> PlatformDataEngineWrapper::m_debugDraw = nullptr;
     std::shared_ptr <NetworkHandler> PlatformDataEngineWrapper::m_netHandler = nullptr;
@@ -28,6 +26,8 @@ namespace PlatformDataEngine {
 
     std::string PlatformDataEngineWrapper::ProfileConfig::name = "Player";
 
+    std::string PlatformDataEngineWrapper::OptionsConfig::musicVol = "30";
+
     std::shared_ptr<AudioSystem> PlatformDataEngineWrapper::m_audioSystem = std::make_shared<AudioSystem>();
 
     PlatformDataEngineWrapper::PlatformDataEngineWrapper()
@@ -36,22 +36,6 @@ namespace PlatformDataEngine {
 
     PlatformDataEngineWrapper::~PlatformDataEngineWrapper()
     {
-    }
-
-    void renderingThread(std::shared_ptr<sf::RenderWindow> window, GameWorld* world, std::atomic<bool>& threadStop)
-    {
-        sf::Clock fpsClock;
-        while (window->isOpen() && !threadStop.load(std::memory_order_relaxed))
-        {
-            
-
-            // calculate fps
-            PlatformDataEngineWrapper::m_fps = 1.f / fpsClock.getElapsedTime().asSeconds();
-            fpsClock.restart();
-
-            // print some stats
-            //spdlog::debug("FPS: {0:.2f}", PlatformDataEngineWrapper::m_fps);
-        }
     }
 
     /// <summary>
@@ -101,12 +85,6 @@ namespace PlatformDataEngine {
         sf::Clock elapsedClock;
         sf::Time dt;
 
-        if (appMode != ApplicationMode::DEDICATED) {
-            // deactivate its OpenGL context
-            //mp_renderWindow->setActive(false);
-
-            PlatformDataEngineWrapper::startRenderThread();
-        }
         //declaration of fpsclock
         sf::Clock fpsClock;
         while (appMode == ApplicationMode::DEDICATED || mp_renderWindow->isOpen())
@@ -164,7 +142,6 @@ namespace PlatformDataEngine {
                             event.key.alt && event.key.code == sf::Keyboard::Enter)
                         {
                             mp_renderWindow->close();
-                            m_renderThread->wait();
                             if (!isFullscreen) {
                                 mp_renderWindow->create(sf::VideoMode::getDesktopMode(), "PlatformData Engine", sf::Style::None, contextSettings);
                                 isFullscreen = true;
@@ -179,7 +156,6 @@ namespace PlatformDataEngine {
 
                                 m_viewPort = sf::FloatRect({ 0, 0 }, { (float)640 / (float)640, 1.0f });
                             }
-                            PlatformDataEngineWrapper::startRenderThread();
                         }
                         else if (event.key.code == sf::Keyboard::Pause)
                         {
@@ -195,11 +171,6 @@ namespace PlatformDataEngine {
                                 PlatformDataEngineWrapper::m_playerInput.pop_back();
                             }
                         }
-                    }
-
-                    if (event.type == sf::Event::JoystickMoved)
-                    {
-
                     }
                 }
             }
@@ -220,6 +191,5 @@ namespace PlatformDataEngine {
         if (m_isClient) {
             dynamic_cast<Client*>(PlatformDataEngineWrapper::getNetworkHandler())->disconnect();
         }
-        m_renderThread->wait();
     }
 }

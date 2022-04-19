@@ -282,6 +282,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClCompile Include="TileTexture.cpp" />
     <ClCompile Include="TimedDestroy.cpp" />
     <ClCompile Include="Utility.cpp" />
+    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alive.h" />
@@ -329,6 +330,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClInclude Include="TileTexture.h" />
     <ClInclude Include="TimedDestroy.h" />
     <ClInclude Include="Utility.h" />
+    <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\vcpkg.json">

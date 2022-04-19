@@ -52,12 +52,6 @@
     <Filter Include="Source Files\Input">
       <UniqueIdentifier>{32935a15-8802-4f4f-a190-8fd7616bfd0b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Components\Rocket Launcher">
-      <UniqueIdentifier>{10ab9f3a-c8a9-421d-9b9d-af6d128123ce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Components\RocketLauncher">
-      <UniqueIdentifier>{a79633b1-18cb-4a5e-a0e8-fb58cd2f30a1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Components\DamageHandler">
       <UniqueIdentifier>{c97859e4-1d32-468d-b80c-be2840c1a3c7}</UniqueIdentifier>
     </Filter>
@@ -72,6 +66,18 @@
     </Filter>
     <Filter Include="Resource Files\Worlds">
       <UniqueIdentifier>{52835a7c-1579-478d-872f-4f226937bcc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Weapon">
+      <UniqueIdentifier>{5312904a-9c63-4d02-a7f5-b59d70ac8e62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Weapon\Rocket Launcher">
+      <UniqueIdentifier>{10ab9f3a-c8a9-421d-9b9d-af6d128123ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\Weapon">
+      <UniqueIdentifier>{ce9e0ec6-78ad-4eee-be83-f3cd5afe4c80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\Weapon\RocketLauncher">
+      <UniqueIdentifier>{a79633b1-18cb-4a5e-a0e8-fb58cd2f30a1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -133,10 +139,10 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="RocketLauncher.cpp">
-      <Filter>Source Files\Components\Rocket Launcher</Filter>
+      <Filter>Source Files\Components\Weapon\Rocket Launcher</Filter>
     </ClCompile>
     <ClCompile Include="RocketProjectile.cpp">
-      <Filter>Source Files\Components\Rocket Launcher</Filter>
+      <Filter>Source Files\Components\Weapon\Rocket Launcher</Filter>
     </ClCompile>
     <ClCompile Include="TimedDestroy.cpp">
       <Filter>Source Files\Components</Filter>
@@ -207,6 +213,9 @@
     <ClCompile Include="AudioSystem.cpp">
       <Filter>Source Files\Internal</Filter>
     </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Source Files\Components\Weapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameWorld.h">
@@ -273,10 +282,10 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="RocketLauncher.h">
-      <Filter>Header Files\Components\RocketLauncher</Filter>
+      <Filter>Header Files\Components\Weapon\RocketLauncher</Filter>
     </ClInclude>
     <ClInclude Include="RocketProjectile.h">
-      <Filter>Header Files\Components\RocketLauncher</Filter>
+      <Filter>Header Files\Components\Weapon\RocketLauncher</Filter>
     </ClInclude>
     <ClInclude Include="TimedDestroy.h">
       <Filter>Header Files\Components</Filter>
@@ -343,6 +352,9 @@
     </ClInclude>
     <ClInclude Include="AudioSystem.h">
       <Filter>Header Files\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Header Files\Components\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

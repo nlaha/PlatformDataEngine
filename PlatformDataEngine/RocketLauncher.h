@@ -5,6 +5,7 @@
 #include "PlayerInputManager.h"
 #include "NetworkInputManager.h"
 #include "Globals.h"
+#include "Weapon.h"
 
 namespace PlatformDataEngine {
 
@@ -13,36 +14,13 @@ namespace PlatformDataEngine {
     /// TODO: make this into a more generic "weapon" class
     /// </summary>
     class RocketLauncher :
-        public Component
+        public Weapon
     {
     public:
-        void init();
 
-        void update(const float& dt, const float& elapsedTime);
-
-        void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-
-        void copy(std::shared_ptr<Component> otherCompPtr);
-
-        void loadDefinition(nlohmann::json object);
-
-        void networkSerialize(PDEPacket& output);
-        void networkDeserialize(PDEPacket& input);
-
-        inline bool isCoolingDown() const {
-            return m_isCoolingDown;
-        }
-
+   
     private:
-        std::shared_ptr<InputManager> m_pInputManager;
 
-        sf::Clock m_rocketClock;
-        float m_rocketCooldown;
-        float m_velocity;
-        bool m_isCoolingDown;
-
-        sf::Vector2i m_oldPixelPos;
-        sf::Vector2f m_worldPos;
     };
 }
 

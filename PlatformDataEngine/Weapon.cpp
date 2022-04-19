@@ -1,4 +1,3 @@
-/*
 #include <map>
 
 #include "RocketLauncher.h"
@@ -7,10 +6,11 @@
 #include "Server.h"
 #include "InputManager.h"
 #include "PlatformDataEngineWrapper.h"
+#include "Weapon.h"
 
 using namespace PlatformDataEngine;
 
-void RocketLauncher::init()
+void Weapon::init()
 {
 	Component::init();
 	this->m_isCoolingDown = false;
@@ -28,7 +28,7 @@ void RocketLauncher::init()
 	}
 }
 
-void RocketLauncher::update(const float& dt, const float& elapsedTime)
+void Weapon::update(const float& dt, const float& elapsedTime)
 {
 	if (!PlatformDataEngineWrapper::getIsClient()) {
 		sf::Vector2f worldPos = this->m_pInputManager->getMouse();
@@ -55,8 +55,8 @@ void RocketLauncher::update(const float& dt, const float& elapsedTime)
 
 
 			if (this->m_pInputManager->getButton("primary").getValue() &&
-				this->m_rocketClock.getElapsedTime().asMilliseconds() >
-				this->m_rocketCooldown) {
+				this->m_weaponClock.getElapsedTime().asMilliseconds() >
+				this->m_Cooldown) {
 				this->m_isCoolingDown = false;
 				sf::Vector2f directionVec = Utility::directionVec(parent->getPosition(), worldPos);
 				GameObject* p_gameObject = PlatformDataEngineWrapper::getWorld()->spawnGameObject(
@@ -78,7 +78,7 @@ void RocketLauncher::update(const float& dt, const float& elapsedTime)
 				RocketProjectile* projectile = p_gameObject->findComponentOfType<RocketProjectile>().get();
 				projectile->setOwner(this->m_parent->getParent());
 
-				this->m_rocketClock.restart();
+				this->m_weaponClock.restart();
 			}
 			else {
 				this->m_isCoolingDown = true;
@@ -87,30 +87,29 @@ void RocketLauncher::update(const float& dt, const float& elapsedTime)
 	}
 }
 
-void RocketLauncher::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Weapon::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 }
 
-void RocketLauncher::copy(std::shared_ptr<Component> otherCompPtr)
+void Weapon::copy(std::shared_ptr<Component> otherCompPtr)
 {
-	std::shared_ptr<RocketLauncher> other = std::dynamic_pointer_cast<RocketLauncher>(otherCompPtr);
+	std::shared_ptr<Weapon> other = std::dynamic_pointer_cast<Weapon>(otherCompPtr);
 
 	*this = *other;
 }
 
-void RocketLauncher::loadDefinition(nlohmann::json object)
+void Weapon::loadDefinition(nlohmann::json object)
 {
-	this->m_rocketCooldown = object.at("cooldown");
+	this->m_Cooldown = object.at("cooldown");
 	this->m_velocity = object.at("velocity");
 }
 
-void RocketLauncher::networkSerialize(PDEPacket& output)
+void Weapon::networkSerialize(PDEPacket& output)
 {
 	output << this->m_isCoolingDown;
 }
 
-void RocketLauncher::networkDeserialize(PDEPacket& input)
+void Weapon::networkDeserialize(PDEPacket& input)
 {
 	input >> this->m_isCoolingDown;
 }
-*/

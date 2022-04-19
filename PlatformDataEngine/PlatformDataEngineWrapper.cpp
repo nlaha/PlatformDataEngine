@@ -43,19 +43,7 @@ namespace PlatformDataEngine {
         sf::Clock fpsClock;
         while (window->isOpen() && !threadStop.load(std::memory_order_relaxed))
         {
-            // clear
-            window->clear(sf::Color(0, 0, 0));
-
-            sf::View view = world->getView();
-            view.setViewport(PlatformDataEngineWrapper::getViewport());
-            window->setView(view);
-
-            // draw...
-            window->draw(*world);
-
-            // end the current frame
-            window->display();
-
+            
 
             // calculate fps
             PlatformDataEngineWrapper::m_fps = 1.f / fpsClock.getElapsedTime().asSeconds();
@@ -115,11 +103,12 @@ namespace PlatformDataEngine {
 
         if (appMode != ApplicationMode::DEDICATED) {
             // deactivate its OpenGL context
-            mp_renderWindow->setActive(false);
+            //mp_renderWindow->setActive(false);
 
             PlatformDataEngineWrapper::startRenderThread();
         }
-
+        //declaration of fpsclock
+        sf::Clock fpsClock;
         while (appMode == ApplicationMode::DEDICATED || mp_renderWindow->isOpen())
         {
             if (!m_pausedGame) {
@@ -129,6 +118,23 @@ namespace PlatformDataEngine {
                 // get delta time
                 dt = deltaClock.restart();
             }
+            // clear
+            mp_renderWindow->clear(sf::Color(0, 0, 0));
+
+            sf::View view = mp_mainWorld->getView();
+            view.setViewport(PlatformDataEngineWrapper::getViewport());
+            mp_renderWindow->setView(view);
+
+            // draw...
+            mp_renderWindow->draw(*mp_mainWorld);
+
+            // end the current frame
+            mp_renderWindow->display();
+
+            // calculate fps
+            PlatformDataEngineWrapper::m_fps = 1.f / fpsClock.getElapsedTime().asSeconds();
+            //Another Part Of The FPS Clock
+            fpsClock.restart();
 
             sf::Event event;
             if (appMode != ApplicationMode::DEDICATED) {

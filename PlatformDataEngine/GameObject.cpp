@@ -159,11 +159,6 @@ void GameObject::networkSerializeInit(PDEPacket& output)
 	}
 
 	output << this->m_objName;
-
-	//for (auto& compPair : this->m_components)
-	//{
-	//	compPair.second->networkSerializeInit(output);
-	//}
 }
 
 void GameObject::networkDeserializeInit(PDEPacket& input)
@@ -185,11 +180,6 @@ void GameObject::networkDeserializeInit(PDEPacket& input)
 
 	input >> this->m_objName;
 	this->m_nameText.setText(this->m_objName);
-
-	//for (auto& compPair : this->m_components)
-	//{
-	//	compPair.second->networkDeserializeInit(input);
-	//}
 }
 
 GameObject::~GameObject()

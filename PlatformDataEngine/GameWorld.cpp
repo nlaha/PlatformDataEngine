@@ -144,7 +144,7 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 
 		// network update
 		// limit send rate
-		if (this->m_packetClock.getElapsedTime().asMilliseconds() > 24) {
+		if (this->m_packetClock.getElapsedTime().asMilliseconds() > 25) {
 			if (this->mp_currentPlayer == nullptr && PlatformDataEngineWrapper::getNetworkHandler()->getConnection() != nullptr) {
 				this->mp_currentPlayer = this->getGameObject(PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->id).get();
 			}
@@ -197,8 +197,8 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 /// <param id="elapsedTime">elapsed time (since game started)</param>
 void GameWorld::physicsUpdate(const float& dt, const float& elapsedTime)
 {
-	int velocityIterations = 12;
-	int positionIterations = 8;
+	int velocityIterations = 8;
+	int positionIterations = 3;
 	float timeStep = dt * 2.0f;
 
 	// simulate physics

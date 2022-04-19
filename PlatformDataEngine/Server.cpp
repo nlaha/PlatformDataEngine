@@ -180,14 +180,6 @@ void Server::recieve(GameWorld* world)
 
 				break;
 
-			case PDEPacket::RecievedObject:
-				packet >> objId;
-				if (world->getGameObject(objId) != nullptr)
-				{
-					world->getGameObject(objId)->setHasBeenSent(clientId);
-				}
-				break;
-
 			case PDEPacket::Disconnect:
 				this->m_connections.erase(std::remove(this->m_connections.begin(),
 					this->m_connections.end(), findConnection(clientIp, clientId)));

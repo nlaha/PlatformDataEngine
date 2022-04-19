@@ -102,7 +102,7 @@ void Client::recieve(GameWorld* world)
 						spdlog::error("Update packet is malformed!");
 					}
 					//spdlog::info("Moving {} to position ({}, {})", objId, objPos.x, objPos.y);
-					if (hasRecievedBefore) {
+					if (hasRecievedBefore && world->getGameObject(objId) != nullptr) {
 						world->getGameObject(objId)->networkDeserialize(packet);
 					}
 					else {

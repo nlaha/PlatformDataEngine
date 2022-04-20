@@ -3,6 +3,9 @@
 
 using namespace PlatformDataEngine;
 
+/// <summary>
+/// Constructor
+/// </summary>
 Client::Client()
 {
 	spdlog::info("Running in CLIENT mode!");
@@ -18,14 +21,27 @@ Client::Client()
 	this->m_isConnected = false;
 }
 
+/// <summary>
+/// Starts the client,
+/// doesn't do anything right now
+/// </summary>
 void Client::start()
 {	
 }
 
+/// <summary>
+/// Stops the client,
+/// doesn't do anything right now
+/// </summary>
 void Client::stop()
 {
 }
 
+/// <summary>
+/// Sends data to the server, should be called
+/// in a fixed time period loop
+/// </summary>
+/// <param name="world">The game world</param>
 void Client::process(GameWorld* world)
 {
 	if (!this->m_isConnecting) {
@@ -59,6 +75,10 @@ void Client::process(GameWorld* world)
 	}
 }
 
+/// <summary>
+/// Checks for new data from the server and processes it
+/// </summary>
+/// <param name="world">The game world</param>
 void Client::recieve(GameWorld* world)
 {
 	PDEPacket packet;
@@ -184,6 +204,9 @@ void Client::recieve(GameWorld* world)
 	}
 }
 
+/// <summary>
+/// Lets the server know we're disconnecting
+/// </summary>
 void Client::disconnect()
 {
 	PDEPacket disconnectPk(PDEPacket::Disconnect);

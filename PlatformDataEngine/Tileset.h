@@ -14,6 +14,11 @@ namespace PlatformDataEngine {
 
     class TileSprite;
 
+    /// <summary>
+    /// Defines a tileset used in a tmx map. This is what actually gets drawn when
+    /// target.draw(tileMap) is called, it will loop through all the tilesets and draw them
+    /// each in a separate draw call
+    /// </summary>
     class Tileset : public sf::Drawable
     {
     public:

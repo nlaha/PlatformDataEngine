@@ -16,6 +16,10 @@ namespace PlatformDataEngine {
 
 		virtual sf::Vector2f getMouse() = 0;
 
+		/// <summary>
+		/// Defines an axis, this is usually something like a joystick
+		/// slider or knob
+		/// </summary>
 		class Axis {
 		public:
 			virtual float getValue() const = 0;
@@ -25,6 +29,9 @@ namespace PlatformDataEngine {
 		private:
 		};
 
+		/// <summary>
+		/// Defines a button (ie. something with a true/false state)
+		/// </summary>
 		class Button {
 		public:
 			virtual bool getValue() const = 0;

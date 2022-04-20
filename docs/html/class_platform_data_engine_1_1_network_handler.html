@@ -86,10 +86,16 @@ $(document).ready(function(){initNavTree('class_platform_data_engine_1_1_network
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="class_platform_data_engine_1_1_network_handler-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">PlatformDataEngine::NetworkHandler Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Base class for a network handler, responsible for handling network operations Example: <a class="el" href="class_platform_data_engine_1_1_server.html">Server</a>, <a class="el" href="class_platform_data_engine_1_1_client.html">Client</a>, etc.  
+ <a href="class_platform_data_engine_1_1_network_handler.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_network_handler_8h_source.html">NetworkHandler.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for PlatformDataEngine::NetworkHandler:</div>
 <div class="dyncontent">
@@ -103,16 +109,226 @@ Inheritance diagram for PlatformDataEngine::NetworkHandler:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adb0fd2194f825035e82950ef89c6a3e9"><td class="memItemLeft" align="right" valign="top"><a id="adb0fd2194f825035e82950ef89c6a3e9" name="adb0fd2194f825035e82950ef89c6a3e9"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>start</b> ()=0</td></tr>
+<tr class="memitem:abeaa38bf6bbef76aa1775837163e9154"><td class="memItemLeft" align="right" valign="top"><a id="abeaa38bf6bbef76aa1775837163e9154" name="abeaa38bf6bbef76aa1775837163e9154"></a>
+const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getId</b> ()</td></tr>
+<tr class="separator:abeaa38bf6bbef76aa1775837163e9154"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1987f62d4cf5e39dbf0a0fe0a3d4a20"><td class="memItemLeft" align="right" valign="top"><a id="ab1987f62d4cf5e39dbf0a0fe0a3d4a20" name="ab1987f62d4cf5e39dbf0a0fe0a3d4a20"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setId</b> (const std::string &amp;name)</td></tr>
+<tr class="separator:ab1987f62d4cf5e39dbf0a0fe0a3d4a20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb0fd2194f825035e82950ef89c6a3e9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_network_handler.html#adb0fd2194f825035e82950ef89c6a3e9">start</a> ()=0</td></tr>
 <tr class="separator:adb0fd2194f825035e82950ef89c6a3e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78676d377748610ad12a3c1bcbbcd9ae"><td class="memItemLeft" align="right" valign="top"><a id="a78676d377748610ad12a3c1bcbbcd9ae" name="a78676d377748610ad12a3c1bcbbcd9ae"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>stop</b> ()=0</td></tr>
+<tr class="memitem:a78676d377748610ad12a3c1bcbbcd9ae"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_network_handler.html#a78676d377748610ad12a3c1bcbbcd9ae">stop</a> ()=0</td></tr>
 <tr class="separator:a78676d377748610ad12a3c1bcbbcd9ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c8e8c7de91a0dbb33ec0f34c9ce2d49"><td class="memItemLeft" align="right" valign="top"><a id="a1c8e8c7de91a0dbb33ec0f34c9ce2d49" name="a1c8e8c7de91a0dbb33ec0f34c9ce2d49"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>process</b> (<a class="el" href="class_platform_data_engine_1_1_game_world.html">GameWorld</a> *world)=0</td></tr>
+<tr class="memitem:a1c8e8c7de91a0dbb33ec0f34c9ce2d49"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_network_handler.html#a1c8e8c7de91a0dbb33ec0f34c9ce2d49">process</a> (<a class="el" href="class_platform_data_engine_1_1_game_world.html">GameWorld</a> *world)=0</td></tr>
+<tr class="memdesc:a1c8e8c7de91a0dbb33ec0f34c9ce2d49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process is responsible for sending packets, limited in rate  <a href="class_platform_data_engine_1_1_network_handler.html#a1c8e8c7de91a0dbb33ec0f34c9ce2d49">More...</a><br /></td></tr>
 <tr class="separator:a1c8e8c7de91a0dbb33ec0f34c9ce2d49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70fb9055be6aa4b9141330ef8ebc50b3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_network_handler.html#a70fb9055be6aa4b9141330ef8ebc50b3">recieve</a> (<a class="el" href="class_platform_data_engine_1_1_game_world.html">GameWorld</a> *world)=0</td></tr>
+<tr class="memdesc:a70fb9055be6aa4b9141330ef8ebc50b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recieve checks for new packets, not limited in rate  <a href="class_platform_data_engine_1_1_network_handler.html#a70fb9055be6aa4b9141330ef8ebc50b3">More...</a><br /></td></tr>
+<tr class="separator:a70fb9055be6aa4b9141330ef8ebc50b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a872afe6870f54113154532f62f8182d5"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_connection.html">Connection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_network_handler.html#a872afe6870f54113154532f62f8182d5">getConnection</a> ()</td></tr>
+<tr class="memdesc:a872afe6870f54113154532f62f8182d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current process connection  <a href="class_platform_data_engine_1_1_network_handler.html#a872afe6870f54113154532f62f8182d5">More...</a><br /></td></tr>
+<tr class="separator:a872afe6870f54113154532f62f8182d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a94428f8cf23f0c98148629dea346d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_network_handler.html#a0a94428f8cf23f0c98148629dea346d5">setConnection</a> (std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_connection.html">Connection</a> &gt; conn)</td></tr>
+<tr class="memdesc:a0a94428f8cf23f0c98148629dea346d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the current process connection  <a href="class_platform_data_engine_1_1_network_handler.html#a0a94428f8cf23f0c98148629dea346d5">More...</a><br /></td></tr>
+<tr class="separator:a0a94428f8cf23f0c98148629dea346d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:aeeb222c3408d314646dd80a3996346cd"><td class="memItemLeft" align="right" valign="top"><a id="aeeb222c3408d314646dd80a3996346cd" name="aeeb222c3408d314646dd80a3996346cd"></a>
+std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_connection.html">Connection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_clientConnection</b></td></tr>
+<tr class="separator:aeeb222c3408d314646dd80a3996346cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >Base class for a network handler, responsible for handling network operations Example: <a class="el" href="class_platform_data_engine_1_1_server.html">Server</a>, <a class="el" href="class_platform_data_engine_1_1_client.html">Client</a>, etc. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a872afe6870f54113154532f62f8182d5" name="a872afe6870f54113154532f62f8182d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a872afe6870f54113154532f62f8182d5">&#9670;&nbsp;</a></span>getConnection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_connection.html">Connection</a> &gt; PlatformDataEngine::NetworkHandler::getConnection </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the current process connection </p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="a1c8e8c7de91a0dbb33ec0f34c9ce2d49" name="a1c8e8c7de91a0dbb33ec0f34c9ce2d49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c8e8c7de91a0dbb33ec0f34c9ce2d49">&#9670;&nbsp;</a></span>process()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void PlatformDataEngine::NetworkHandler::process </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_platform_data_engine_1_1_game_world.html">GameWorld</a> *&#160;</td>
+          <td class="paramname"><em>world</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Process is responsible for sending packets, limited in rate </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="class_platform_data_engine_1_1_client.html#aa2fdbeb10b7108222308b24f2bb41e21">PlatformDataEngine::Client</a>, and <a class="el" href="class_platform_data_engine_1_1_server.html#ad55e2b61b41d8dbc90ac177f97c002d9">PlatformDataEngine::Server</a>.</p>
+
+</div>
+</div>
+<a id="a70fb9055be6aa4b9141330ef8ebc50b3" name="a70fb9055be6aa4b9141330ef8ebc50b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70fb9055be6aa4b9141330ef8ebc50b3">&#9670;&nbsp;</a></span>recieve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void PlatformDataEngine::NetworkHandler::recieve </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_platform_data_engine_1_1_game_world.html">GameWorld</a> *&#160;</td>
+          <td class="paramname"><em>world</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Recieve checks for new packets, not limited in rate </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="class_platform_data_engine_1_1_client.html#a5781d622125febd0a38061a701fd6991">PlatformDataEngine::Client</a>, and <a class="el" href="class_platform_data_engine_1_1_server.html#ad67bb4a267b9257d8d7541e33fbc88fb">PlatformDataEngine::Server</a>.</p>
+
+</div>
+</div>
+<a id="a0a94428f8cf23f0c98148629dea346d5" name="a0a94428f8cf23f0c98148629dea346d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a94428f8cf23f0c98148629dea346d5">&#9670;&nbsp;</a></span>setConnection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PlatformDataEngine::NetworkHandler::setConnection </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_connection.html">Connection</a> &gt;&#160;</td>
+          <td class="paramname"><em>conn</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the current process connection </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">conn</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="adb0fd2194f825035e82950ef89c6a3e9" name="adb0fd2194f825035e82950ef89c6a3e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb0fd2194f825035e82950ef89c6a3e9">&#9670;&nbsp;</a></span>start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void PlatformDataEngine::NetworkHandler::start </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="class_platform_data_engine_1_1_client.html#a742373e08a80d993d2651b6fff76f5b9">PlatformDataEngine::Client</a>, and <a class="el" href="class_platform_data_engine_1_1_server.html#a7eac07d2582fa01c2671362efa955b31">PlatformDataEngine::Server</a>.</p>
+
+</div>
+</div>
+<a id="a78676d377748610ad12a3c1bcbbcd9ae" name="a78676d377748610ad12a3c1bcbbcd9ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78676d377748610ad12a3c1bcbbcd9ae">&#9670;&nbsp;</a></span>stop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void PlatformDataEngine::NetworkHandler::stop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="class_platform_data_engine_1_1_client.html#a9e827b82efa67d7e334dcdde36d7ea87">PlatformDataEngine::Client</a>, and <a class="el" href="class_platform_data_engine_1_1_server.html#a07c45a7e101a3926d8f9685c3c5d14e4">PlatformDataEngine::Server</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>PlatformDataEngine/<a class="el" href="_network_handler_8h_source.html">NetworkHandler.h</a></li>
 </ul>

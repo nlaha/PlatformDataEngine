@@ -174,9 +174,6 @@
     <ClCompile Include="Packet.cpp">
       <Filter>Source Files\Networking</Filter>
     </ClCompile>
-    <ClCompile Include="Message.cpp">
-      <Filter>Source Files\Networking</Filter>
-    </ClCompile>
     <ClCompile Include="Server.cpp">
       <Filter>Source Files\Networking</Filter>
     </ClCompile>
@@ -309,12 +306,6 @@
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
     <ClInclude Include="Packet.h">
-      <Filter>Header Files\Networking</Filter>
-    </ClInclude>
-    <ClInclude Include="MessageTypes.h">
-      <Filter>Header Files\Networking</Filter>
-    </ClInclude>
-    <ClInclude Include="Message.h">
       <Filter>Header Files\Networking</Filter>
     </ClInclude>
     <ClInclude Include="Server.h">

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pflag_0',['PFlag',['../class_platform_data_engine_1_1_p_d_e_packet.html#a75300f2d0dbab039b17bb362cfc5c1ef',1,'PlatformDataEngine::PDEPacket']]]
+  ['flipflags_0',['FlipFlags',['../class_platform_data_engine_1_1_animation_controller.html#a4e2d033cf8765e823b75bf932e7ca8ec',1,'PlatformDataEngine::AnimationController']]]
 ];

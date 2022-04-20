@@ -3,6 +3,10 @@
 
 namespace PlatformDataEngine {
 
+    /// <summary>
+    /// Base damage handler class
+    /// responsible for handling onDeath and onDamage events from the Alive class
+    /// </summary>
     class DamageHandler :
         public Component
     {

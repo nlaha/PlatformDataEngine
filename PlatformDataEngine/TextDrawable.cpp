@@ -2,6 +2,9 @@
 
 using namespace PlatformDataEngine;
 
+/// <summary>
+/// Default constructor
+/// </summary>
 TextDrawable::TextDrawable()
 {
 	this->m_font.loadFromFile("assets/smallest_pixel-7.ttf");
@@ -16,6 +19,13 @@ TextDrawable::TextDrawable()
 	this->m_shader->setUniform("textColor", sf::Glsl::Vec4(sf::Color::White));
 }
 
+/// <summary>
+/// Constructor
+/// </summary>
+/// <param name="fontSize">the font size</param>
+/// <param name="bold">if true, bold font</param>
+/// <param name="renderSize">the render size, sort of like scale, independant from font size</param>
+/// <param name="text">the text to draw</param>
 TextDrawable::TextDrawable(int fontSize, bool bold, float renderSize, const std::string& text)
 {
 	this->m_font.loadFromFile("assets/smallest_pixel-7.ttf");
@@ -29,6 +39,10 @@ TextDrawable::TextDrawable(int fontSize, bool bold, float renderSize, const std:
 	this->m_shader->setUniform("textColor", sf::Glsl::Vec4(sf::Color::White));
 }
 
+/// <summary>
+/// Sets the new text in the text drawable
+/// </summary>
+/// <param name="text">text to set</param>
 void TextDrawable::setText(const std::string& text)
 {
 	if (text != this->m_text) {
@@ -84,6 +98,12 @@ void TextDrawable::setText(const std::string& text)
 	}
 }
 
+/// <summary>
+/// Draws the text, never call directly
+/// always use target.draw(textDrawable);
+/// </summary>
+/// <param name="target"></param>
+/// <param name="states"></param>
 void TextDrawable::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.shader = this->m_shader.get();

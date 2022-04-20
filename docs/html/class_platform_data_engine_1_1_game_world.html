@@ -110,12 +110,12 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adebf4525972363b1af166612006480b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_world.html#adebf4525972363b1af166612006480b8">init</a> (std::string filePath, sf::View &amp;view)</td></tr>
-<tr class="memdesc:adebf4525972363b1af166612006480b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the game world with a world.json definition file and a view as defined by the game wrapper  <a href="class_platform_data_engine_1_1_game_world.html#adebf4525972363b1af166612006480b8">More...</a><br /></td></tr>
-<tr class="separator:adebf4525972363b1af166612006480b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49ec86b43d3c3e2f27a9b826ccf1cdd6"><td class="memItemLeft" align="right" valign="top"><a id="a49ec86b43d3c3e2f27a9b826ccf1cdd6" name="a49ec86b43d3c3e2f27a9b826ccf1cdd6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>initClient</b> (std::string filePath, sf::View &amp;view)</td></tr>
-<tr class="separator:a49ec86b43d3c3e2f27a9b826ccf1cdd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0724c0aeb8315a44e69e95bc65a95ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_world.html#ad0724c0aeb8315a44e69e95bc65a95ea">init</a> (const std::string &amp;filePath, sf::View &amp;view, ApplicationMode appMode)</td></tr>
+<tr class="memdesc:ad0724c0aeb8315a44e69e95bc65a95ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the game world with a world.json definition file and a view as defined by the game wrapper  <a href="class_platform_data_engine_1_1_game_world.html#ad0724c0aeb8315a44e69e95bc65a95ea">More...</a><br /></td></tr>
+<tr class="separator:ad0724c0aeb8315a44e69e95bc65a95ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb665f66763b3a84f3ba4c5cb5da65e4"><td class="memItemLeft" align="right" valign="top"><a id="acb665f66763b3a84f3ba4c5cb5da65e4" name="acb665f66763b3a84f3ba4c5cb5da65e4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>initClient</b> (const std::string &amp;filePath, sf::View &amp;view)</td></tr>
+<tr class="separator:acb665f66763b3a84f3ba4c5cb5da65e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e714eedc47ddb9ccd3c620db726fb6d"><td class="memItemLeft" align="right" valign="top"><a id="a8e714eedc47ddb9ccd3c620db726fb6d" name="a8e714eedc47ddb9ccd3c620db726fb6d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>initPhysics</b> ()</td></tr>
 <tr class="separator:a8e714eedc47ddb9ccd3c620db726fb6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,45 +128,63 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>initPhysics</b> ()</t
 <tr class="memitem:a6fa52e8afbab2fd1905dd961ce84ca85"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_world.html#a6fa52e8afbab2fd1905dd961ce84ca85">draw</a> (sf::RenderTarget &amp;target, sf::RenderStates states) const</td></tr>
 <tr class="memdesc:a6fa52e8afbab2fd1905dd961ce84ca85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw call, never call explicitly  <a href="class_platform_data_engine_1_1_game_world.html#a6fa52e8afbab2fd1905dd961ce84ca85">More...</a><br /></td></tr>
 <tr class="separator:a6fa52e8afbab2fd1905dd961ce84ca85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd46469a3a112cd94abf83fa3dd504d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_world.html#acd46469a3a112cd94abf83fa3dd504d3">registerGameObject</a> (std::string name, std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt; gameObject)</td></tr>
-<tr class="memdesc:acd46469a3a112cd94abf83fa3dd504d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a game object with a name (places it in the world's gameObjects map)  <a href="class_platform_data_engine_1_1_game_world.html#acd46469a3a112cd94abf83fa3dd504d3">More...</a><br /></td></tr>
-<tr class="separator:acd46469a3a112cd94abf83fa3dd504d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace209705c2e23458886f568f0895c810"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_world.html#ace209705c2e23458886f568f0895c810">registerGameObjectDefinition</a> (std::string name, std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt; gameObjectDef)</td></tr>
-<tr class="memdesc:ace209705c2e23458886f568f0895c810"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a gameObject definition, similar to <a class="el" href="class_platform_data_engine_1_1_game_world.html#acd46469a3a112cd94abf83fa3dd504d3" title="Registers a game object with a name (places it in the world&#39;s gameObjects map)">registerGameObject()</a> but it stores an actual gameObject rather than a pointer  <a href="class_platform_data_engine_1_1_game_world.html#ace209705c2e23458886f568f0895c810">More...</a><br /></td></tr>
-<tr class="separator:ace209705c2e23458886f568f0895c810"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1288dde9bc9b1af2e15652fd6f25571"><td class="memItemLeft" align="right" valign="top"><a id="ab1288dde9bc9b1af2e15652fd6f25571" name="ab1288dde9bc9b1af2e15652fd6f25571"></a>
-std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>spawnGameObject</b> (std::string type, sf::Vector2f position)</td></tr>
-<tr class="separator:ab1288dde9bc9b1af2e15652fd6f25571"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24697f1baf2a6c4a7b5fed988f567edf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_world.html#a24697f1baf2a6c4a7b5fed988f567edf">registerGameObject</a> (const std::string &amp;name, std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt; gameObject)</td></tr>
+<tr class="memdesc:a24697f1baf2a6c4a7b5fed988f567edf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a game object with a id (places it in the world's gameObjects map)  <a href="class_platform_data_engine_1_1_game_world.html#a24697f1baf2a6c4a7b5fed988f567edf">More...</a><br /></td></tr>
+<tr class="separator:a24697f1baf2a6c4a7b5fed988f567edf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5ca9e1a969e715f3ca9da5d977fa329"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_world.html#aa5ca9e1a969e715f3ca9da5d977fa329">registerGameObjectDefinition</a> (const std::string &amp;name, std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt; gameObjectDef)</td></tr>
+<tr class="memdesc:aa5ca9e1a969e715f3ca9da5d977fa329"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a gameObject definition, similar to <a class="el" href="class_platform_data_engine_1_1_game_world.html#a24697f1baf2a6c4a7b5fed988f567edf" title="Registers a game object with a id (places it in the world&#39;s gameObjects map)">registerGameObject()</a> but it stores an actual gameObject rather than a pointer  <a href="class_platform_data_engine_1_1_game_world.html#aa5ca9e1a969e715f3ca9da5d977fa329">More...</a><br /></td></tr>
+<tr class="separator:aa5ca9e1a969e715f3ca9da5d977fa329"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97ebfdbe7bef45bb2e1c42f311a7d43e"><td class="memItemLeft" align="right" valign="top"><a id="a97ebfdbe7bef45bb2e1c42f311a7d43e" name="a97ebfdbe7bef45bb2e1c42f311a7d43e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>loadGameObjectDefinitions</b> ()</td></tr>
+<tr class="separator:a97ebfdbe7bef45bb2e1c42f311a7d43e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb3b96f35df2a57d7bec9ab7fff9394c"><td class="memItemLeft" align="right" valign="top"><a id="aeb3b96f35df2a57d7bec9ab7fff9394c" name="aeb3b96f35df2a57d7bec9ab7fff9394c"></a>
+std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>spawnGameObject</b> (const std::string &amp;type, sf::Vector2f position, std::string id=&quot;&quot;, bool noReplication=false, float rotation=0, sf::Vector2f origin={ 0.0, 0.0 }, bool alreadyReplicated=false)</td></tr>
+<tr class="separator:aeb3b96f35df2a57d7bec9ab7fff9394c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13e38523230df097e1d43c36010138bd"><td class="memItemLeft" align="right" valign="top"><a id="a13e38523230df097e1d43c36010138bd" name="a13e38523230df097e1d43c36010138bd"></a>
+std::map&lt; std::string, std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getGameObjects</b> ()</td></tr>
+<tr class="separator:a13e38523230df097e1d43c36010138bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50ac3c073f164b2cccdd9e308995eb65"><td class="memItemLeft" align="right" valign="top"><a id="a50ac3c073f164b2cccdd9e308995eb65" name="a50ac3c073f164b2cccdd9e308995eb65"></a>
 std::shared_ptr&lt; b2World &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getPhysWorld</b> () const</td></tr>
 <tr class="separator:a50ac3c073f164b2cccdd9e308995eb65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a543eb27272cac22c51ada5fa871fe1e6"><td class="memItemLeft" align="right" valign="top"><a id="a543eb27272cac22c51ada5fa871fe1e6" name="a543eb27272cac22c51ada5fa871fe1e6"></a>
 std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_tile_map.html">TileMap</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getTileMap</b> () const</td></tr>
 <tr class="separator:a543eb27272cac22c51ada5fa871fe1e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a895688ab9cdec1959cccc2d3c970aaf4"><td class="memItemLeft" align="right" valign="top"><a id="a895688ab9cdec1959cccc2d3c970aaf4" name="a895688ab9cdec1959cccc2d3c970aaf4"></a>
-const <a class="el" href="class_platform_data_engine_1_1_camera_controller.html">CameraController</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getCameraController</b> () const</td></tr>
-<tr class="separator:a895688ab9cdec1959cccc2d3c970aaf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7ff79a85299f63db7329f6286b640dc"><td class="memItemLeft" align="right" valign="top"><a id="ab7ff79a85299f63db7329f6286b640dc" name="ab7ff79a85299f63db7329f6286b640dc"></a>
+<a class="el" href="class_platform_data_engine_1_1_camera_controller.html">CameraController</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getCameraController</b> ()</td></tr>
+<tr class="separator:ab7ff79a85299f63db7329f6286b640dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab942b721cf7ed6d180a79d5fb2857b15"><td class="memItemLeft" align="right" valign="top"><a id="ab942b721cf7ed6d180a79d5fb2857b15" name="ab942b721cf7ed6d180a79d5fb2857b15"></a>
 sf::View&#160;</td><td class="memItemRight" valign="bottom"><b>getView</b> () const</td></tr>
 <tr class="separator:ab942b721cf7ed6d180a79d5fb2857b15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6be31ce84ca9fe0811ee724cc67a180c"><td class="memItemLeft" align="right" valign="top"><a id="a6be31ce84ca9fe0811ee724cc67a180c" name="a6be31ce84ca9fe0811ee724cc67a180c"></a>
-std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getGameObject</b> (std::string search)</td></tr>
-<tr class="separator:a6be31ce84ca9fe0811ee724cc67a180c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ce8d18dde78c3f2f1791c13dd4c3f08"><td class="memItemLeft" align="right" valign="top"><a id="a6ce8d18dde78c3f2f1791c13dd4c3f08" name="a6ce8d18dde78c3f2f1791c13dd4c3f08"></a>
+std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getGameObject</b> (const std::string &amp;search)</td></tr>
+<tr class="separator:a6ce8d18dde78c3f2f1791c13dd4c3f08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b923625bf4dd0a78c3f860dcd714e54"><td class="memItemLeft" align="right" valign="top"><a id="a5b923625bf4dd0a78c3f860dcd714e54" name="a5b923625bf4dd0a78c3f860dcd714e54"></a>
 <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getPlayer</b> () const</td></tr>
 <tr class="separator:a5b923625bf4dd0a78c3f860dcd714e54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6507b33aa3b21567a82cd79a757d6aa0"><td class="memItemLeft" align="right" valign="top"><a id="a6507b33aa3b21567a82cd79a757d6aa0" name="a6507b33aa3b21567a82cd79a757d6aa0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setPlayer</b> (<a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> *player)</td></tr>
-<tr class="separator:a6507b33aa3b21567a82cd79a757d6aa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28bcf74845e72bfa3c792380752915fa"><td class="memItemLeft" align="right" valign="top"><a id="a28bcf74845e72bfa3c792380752915fa" name="a28bcf74845e72bfa3c792380752915fa"></a>
+<a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getPlayer</b> (std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_connection.html">Connection</a> &gt; conn) const</td></tr>
+<tr class="separator:a28bcf74845e72bfa3c792380752915fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9decb24451f5506a3a1dddb52b00dbdc"><td class="memItemLeft" align="right" valign="top"><a id="a9decb24451f5506a3a1dddb52b00dbdc" name="a9decb24451f5506a3a1dddb52b00dbdc"></a>
 std::map&lt; std::string, std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getGameObjectDefs</b> ()</td></tr>
 <tr class="separator:a9decb24451f5506a3a1dddb52b00dbdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a359fb9b8cce5d8182c8d104eac45031d"><td class="memItemLeft" align="right" valign="top"><a id="a359fb9b8cce5d8182c8d104eac45031d" name="a359fb9b8cce5d8182c8d104eac45031d"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>spawnPlayer</b> (std::string ip)</td></tr>
-<tr class="separator:a359fb9b8cce5d8182c8d104eac45031d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d42c1801590ad039376dee47feff5c6"><td class="memItemLeft" align="right" valign="top"><a id="a3d42c1801590ad039376dee47feff5c6" name="a3d42c1801590ad039376dee47feff5c6"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>spawnPlayer</b> (std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_connection.html">Connection</a> &gt; conn)</td></tr>
+<tr class="separator:a3d42c1801590ad039376dee47feff5c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6507b33aa3b21567a82cd79a757d6aa0"><td class="memItemLeft" align="right" valign="top"><a id="a6507b33aa3b21567a82cd79a757d6aa0" name="a6507b33aa3b21567a82cd79a757d6aa0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setPlayer</b> (<a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> *player)</td></tr>
+<tr class="separator:a6507b33aa3b21567a82cd79a757d6aa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77bb7eb89c9f2be8e9df41db30db1d93"><td class="memItemLeft" align="right" valign="top"><a id="a77bb7eb89c9f2be8e9df41db30db1d93" name="a77bb7eb89c9f2be8e9df41db30db1d93"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addPlayerSpawn</b> (<a class="el" href="struct_platform_data_engine_1_1_game_world_1_1_player_spawn.html">PlayerSpawn</a> &amp;spawn)</td></tr>
 <tr class="separator:a77bb7eb89c9f2be8e9df41db30db1d93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2650eb50d21dfd9eef5fc0f0085a717b"><td class="memItemLeft" align="right" valign="top"><a id="a2650eb50d21dfd9eef5fc0f0085a717b" name="a2650eb50d21dfd9eef5fc0f0085a717b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setInGame</b> (bool inGame)</td></tr>
+<tr class="separator:a2650eb50d21dfd9eef5fc0f0085a717b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bfa1be24cd5797d24c13254ae1c073a"><td class="memItemLeft" align="right" valign="top"><a id="a0bfa1be24cd5797d24c13254ae1c073a" name="a0bfa1be24cd5797d24c13254ae1c073a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>getInGame</b> ()</td></tr>
+<tr class="separator:a0bfa1be24cd5797d24c13254ae1c073a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec1a72af01cd29cbbc6d62a5c1bfc1cb"><td class="memItemLeft" align="right" valign="top"><a id="aec1a72af01cd29cbbc6d62a5c1bfc1cb" name="aec1a72af01cd29cbbc6d62a5c1bfc1cb"></a>
+std::map&lt; std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_connection.html">Connection</a> &gt;, <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getPlayers</b> () const</td></tr>
+<tr class="separator:aec1a72af01cd29cbbc6d62a5c1bfc1cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Represents a game world with it's own tile map and gameObjects </p>
@@ -206,18 +224,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addPlayerSpawn</b> (<
 </div><div class="memdoc">
 
 <p>Draw call, never call explicitly </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">target</td><td></td></tr>
-    <tr><td class="paramname">states</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
-<a id="adebf4525972363b1af166612006480b8" name="adebf4525972363b1af166612006480b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adebf4525972363b1af166612006480b8">&#9670;&nbsp;</a></span>init()</h2>
+<a id="ad0724c0aeb8315a44e69e95bc65a95ea" name="ad0724c0aeb8315a44e69e95bc65a95ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0724c0aeb8315a44e69e95bc65a95ea">&#9670;&nbsp;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,14 +236,20 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addPlayerSpawn</b> (<
         <tr>
           <td class="memname">void GameWorld::init </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>filePath</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">sf::View &amp;&#160;</td>
-          <td class="paramname"><em>view</em>&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ApplicationMode&#160;</td>
+          <td class="paramname"><em>appMode</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -243,13 +260,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addPlayerSpawn</b> (<
 </div><div class="memdoc">
 
 <p>Initializes the game world with a world.json definition file and a view as defined by the game wrapper </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">filePath</td><td>the path to the world definition file</td></tr>
-    <tr><td class="paramname">view</td><td>a view that has been linked to a window</td></tr>
-  </table>
-  </dd>
-</dl>
+<p >the path to the world definition file</p>
+<p >a view that has been linked to a window</p>
 
 </div>
 </div>
@@ -280,18 +292,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addPlayerSpawn</b> (<
 </div><div class="memdoc">
 
 <p>Updates the physics simulation </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dt</td><td>delta time</td></tr>
-    <tr><td class="paramname">elapsedTime</td><td>elapsed time (since game started)</td></tr>
-  </table>
-  </dd>
-</dl>
+<p >delta time</p>
+<p >elapsed time (since game started)</p>
 
 </div>
 </div>
-<a id="acd46469a3a112cd94abf83fa3dd504d3" name="acd46469a3a112cd94abf83fa3dd504d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd46469a3a112cd94abf83fa3dd504d3">&#9670;&nbsp;</a></span>registerGameObject()</h2>
+<a id="a24697f1baf2a6c4a7b5fed988f567edf" name="a24697f1baf2a6c4a7b5fed988f567edf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24697f1baf2a6c4a7b5fed988f567edf">&#9670;&nbsp;</a></span>registerGameObject()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -299,7 +306,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addPlayerSpawn</b> (<
         <tr>
           <td class="memname">void GameWorld::registerGameObject </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em>, </td>
         </tr>
         <tr>
@@ -316,19 +323,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addPlayerSpawn</b> (<
       </table>
 </div><div class="memdoc">
 
-<p>Registers a game object with a name (places it in the world's gameObjects map) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>a unique name for the gameObject</td></tr>
-    <tr><td class="paramname">gameObject</td><td>a pointer to the gameObject</td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Registers a game object with a id (places it in the world's gameObjects map) </p>
+<p >a unique id for the gameObject</p>
+<p >a pointer to the gameObject</p>
 
 </div>
 </div>
-<a id="ace209705c2e23458886f568f0895c810" name="ace209705c2e23458886f568f0895c810"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace209705c2e23458886f568f0895c810">&#9670;&nbsp;</a></span>registerGameObjectDefinition()</h2>
+<a id="aa5ca9e1a969e715f3ca9da5d977fa329" name="aa5ca9e1a969e715f3ca9da5d977fa329"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5ca9e1a969e715f3ca9da5d977fa329">&#9670;&nbsp;</a></span>registerGameObjectDefinition()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -336,7 +338,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addPlayerSpawn</b> (<
         <tr>
           <td class="memname">void GameWorld::registerGameObjectDefinition </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em>, </td>
         </tr>
         <tr>
@@ -353,14 +355,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addPlayerSpawn</b> (<
       </table>
 </div><div class="memdoc">
 
-<p>Registers a gameObject definition, similar to <a class="el" href="class_platform_data_engine_1_1_game_world.html#acd46469a3a112cd94abf83fa3dd504d3" title="Registers a game object with a name (places it in the world&#39;s gameObjects map)">registerGameObject()</a> but it stores an actual gameObject rather than a pointer </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>a unique name for the gameObject definition</td></tr>
-    <tr><td class="paramname">gameObject</td><td>the gameObject "template" definition</td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Registers a gameObject definition, similar to <a class="el" href="class_platform_data_engine_1_1_game_world.html#a24697f1baf2a6c4a7b5fed988f567edf" title="Registers a game object with a id (places it in the world&#39;s gameObjects map)">registerGameObject()</a> but it stores an actual gameObject rather than a pointer </p>
+<p >a unique id for the gameObject definition</p>
+<p >the gameObject "template" definition</p>
 
 </div>
 </div>
@@ -391,13 +388,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addPlayerSpawn</b> (<
 </div><div class="memdoc">
 
 <p>Update loop, calls update on the tileMap, gameObjects and the camera controller </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dt</td><td>delta time</td></tr>
-    <tr><td class="paramname">elapsedTime</td><td>elapsed time (since game started)</td></tr>
-  </table>
-  </dd>
-</dl>
+<p >delta time</p>
+<p >elapsed time (since game started)</p>
 
 </div>
 </div>

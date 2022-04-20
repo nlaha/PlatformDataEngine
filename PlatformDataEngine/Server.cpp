@@ -4,6 +4,9 @@
 
 using namespace PlatformDataEngine;
 
+/// <summary>
+/// Constructor
+/// </summary>
 Server::Server()
 {
 	spdlog::info("Running in SERVER mode!");
@@ -17,6 +20,9 @@ Server::Server()
 	this->m_socket.setBlocking(false);
 }
 
+/// <summary>
+/// Starts the server
+/// </summary>
 void Server::start()
 {
 	// bind the m_socket to a port
@@ -29,10 +35,19 @@ void Server::start()
 	}
 }
 
+/// <summary>
+/// Stops the server
+/// (currently does nothing)
+/// </summary>
 void Server::stop()
 {
 }
 
+/// <summary>
+/// Process: sends data to the clients, this should be called
+/// on a fixed interval
+/// </summary>
+/// <param name="world">The game world</param>
 void Server::process(GameWorld* world)
 {
 	if (this->m_clientConnection->state == PlayerState::DEAD)
@@ -98,6 +113,10 @@ void Server::process(GameWorld* world)
 	}
 }
 
+/// <summary>
+/// Checks for new data from the clients
+/// </summary>
+/// <param name="world">The game world</param>
 void Server::recieve(GameWorld* world)
 {
 	PDEPacket packet;
@@ -201,6 +220,12 @@ void Server::recieve(GameWorld* world)
 	}
 }
 
+/// <summary>
+/// Broadcasts health updates, makes
+/// sure it's not being sent too frequently
+/// </summary>
+/// <param name="objName">the object id</param>
+/// <param name="health">the new health</param>
 void Server::broadcastObjectHealth(const std::string& objName, float health)
 {
 	// override timer for death packets
@@ -225,6 +250,12 @@ void Server::broadcastObjectHealth(const std::string& objName, float health)
 	}
 }
 
+/// <summary>
+/// Finds a connection by ip and id
+/// </summary>
+/// <param name="ip">the ip of the connection</param>
+/// <param name="id">the id of the connection</param>
+/// <returns></returns>
 std::shared_ptr<Connection> Server::findConnection(sf::IpAddress ip, std::string id)
 {
 	for (std::shared_ptr<Connection> conn : this->m_connections)

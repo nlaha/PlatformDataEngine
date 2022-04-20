@@ -110,25 +110,27 @@ Inheritance diagram for PlatformDataEngine::InputManager:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_input_manager_1_1_axis.html">Axis</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines an axis, this is usually something like a joystick slider or knob  <a href="class_platform_data_engine_1_1_input_manager_1_1_axis.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_input_manager_1_1_button.html">Button</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines a button (ie. something with a true/false state)  <a href="class_platform_data_engine_1_1_input_manager_1_1_button.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a29f9421175ec503cbc49709515c81d32"><td class="memItemLeft" align="right" valign="top"><a id="a29f9421175ec503cbc49709515c81d32" name="a29f9421175ec503cbc49709515c81d32"></a>
-virtual sf::Vector2i&#160;</td><td class="memItemRight" valign="bottom"><b>getMouse</b> ()=0</td></tr>
-<tr class="separator:a29f9421175ec503cbc49709515c81d32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a259df415939f3324129459dc5c02acef"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_platform_data_engine_1_1_input_manager_1_1_axis.html">Axis</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_input_manager.html#a259df415939f3324129459dc5c02acef">getAxis</a> (std::string axisName)=0</td></tr>
-<tr class="separator:a259df415939f3324129459dc5c02acef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3337cc79b3aae0acba7c214818080a9"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_platform_data_engine_1_1_input_manager_1_1_button.html">Button</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_input_manager.html#aa3337cc79b3aae0acba7c214818080a9">getButton</a> (std::string button)=0</td></tr>
-<tr class="separator:aa3337cc79b3aae0acba7c214818080a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bc0aba14690eb8afe63b56026b5fb1e"><td class="memItemLeft" align="right" valign="top"><a id="a7bc0aba14690eb8afe63b56026b5fb1e" name="a7bc0aba14690eb8afe63b56026b5fb1e"></a>
+virtual sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><b>getMouse</b> ()=0</td></tr>
+<tr class="separator:a7bc0aba14690eb8afe63b56026b5fb1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd57fc1eb82559c85809751ec6b39679"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_platform_data_engine_1_1_input_manager_1_1_axis.html">Axis</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_input_manager.html#acd57fc1eb82559c85809751ec6b39679">getAxis</a> (const std::string &amp;axisName)=0</td></tr>
+<tr class="separator:acd57fc1eb82559c85809751ec6b39679"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a295c600d8b89ac55049d0b11e909c55f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_platform_data_engine_1_1_input_manager_1_1_button.html">Button</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_input_manager.html#a295c600d8b89ac55049d0b11e909c55f">getButton</a> (const std::string &amp;button)=0</td></tr>
+<tr class="separator:a295c600d8b89ac55049d0b11e909c55f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >The base class for an input manager, other classes can inherit this to feed input to the game. For example, if you had some hardware like a motion controller, midi keyboard or other weird device, you could make an input manager for it. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a259df415939f3324129459dc5c02acef" name="a259df415939f3324129459dc5c02acef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a259df415939f3324129459dc5c02acef">&#9670;&nbsp;</a></span>getAxis()</h2>
+<a id="acd57fc1eb82559c85809751ec6b39679" name="acd57fc1eb82559c85809751ec6b39679"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd57fc1eb82559c85809751ec6b39679">&#9670;&nbsp;</a></span>getAxis()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -139,7 +141,7 @@ virtual sf::Vector2i&#160;</td><td class="memItemRight" valign="bottom"><b>getMo
         <tr>
           <td class="memname">virtual <a class="el" href="class_platform_data_engine_1_1_input_manager_1_1_axis.html">Axis</a> &amp; PlatformDataEngine::InputManager::getAxis </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>axisName</em></td><td>)</td>
           <td></td>
         </tr>
@@ -151,12 +153,12 @@ virtual sf::Vector2i&#160;</td><td class="memItemRight" valign="bottom"><b>getMo
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="class_platform_data_engine_1_1_player_input_manager.html#a89bb7d3dd1ef6d69d0da9276f59dc0b5">PlatformDataEngine::PlayerInputManager</a>.</p>
+<p>Implemented in <a class="el" href="class_platform_data_engine_1_1_player_input_manager.html#aad51f13c83b9216972ae9786d406f164">PlatformDataEngine::PlayerInputManager</a>.</p>
 
 </div>
 </div>
-<a id="aa3337cc79b3aae0acba7c214818080a9" name="aa3337cc79b3aae0acba7c214818080a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3337cc79b3aae0acba7c214818080a9">&#9670;&nbsp;</a></span>getButton()</h2>
+<a id="a295c600d8b89ac55049d0b11e909c55f" name="a295c600d8b89ac55049d0b11e909c55f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a295c600d8b89ac55049d0b11e909c55f">&#9670;&nbsp;</a></span>getButton()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -167,7 +169,7 @@ virtual sf::Vector2i&#160;</td><td class="memItemRight" valign="bottom"><b>getMo
         <tr>
           <td class="memname">virtual <a class="el" href="class_platform_data_engine_1_1_input_manager_1_1_button.html">Button</a> &amp; PlatformDataEngine::InputManager::getButton </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>button</em></td><td>)</td>
           <td></td>
         </tr>
@@ -179,7 +181,7 @@ virtual sf::Vector2i&#160;</td><td class="memItemRight" valign="bottom"><b>getMo
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="class_platform_data_engine_1_1_player_input_manager.html#a15180f21a1af48060b4c6a813cb4d23d">PlatformDataEngine::PlayerInputManager</a>.</p>
+<p>Implemented in <a class="el" href="class_platform_data_engine_1_1_player_input_manager.html#a9ce04c3e4823cc3c00d9fc10017dd5fd">PlatformDataEngine::PlayerInputManager</a>.</p>
 
 </div>
 </div>

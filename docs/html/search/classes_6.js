@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['inputmanager_0',['InputManager',['../class_platform_data_engine_1_1_input_manager.html',1,'PlatformDataEngine']]]
+  ['hostconfig_0',['HostConfig',['../struct_platform_data_engine_1_1_platform_data_engine_wrapper_1_1_host_config.html',1,'PlatformDataEngine::PlatformDataEngineWrapper']]]
 ];

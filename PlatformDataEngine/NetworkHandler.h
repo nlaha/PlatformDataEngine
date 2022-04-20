@@ -2,6 +2,12 @@
 #include "GameWorld.h"
 
 namespace PlatformDataEngine {
+
+	/// <summary>
+	/// Base class for a network handler, responsible
+	/// for handling network operations
+	/// Example: Server, Client, etc.
+	/// </summary>
 	class NetworkHandler
 	{
 	private:
@@ -28,7 +34,16 @@ namespace PlatformDataEngine {
 		/// <param name="world"></param>
 		virtual void recieve(GameWorld* world) = 0;
 
+		/// <summary>
+		/// Gets the current process connection
+		/// </summary>
+		/// <returns></returns>
 		inline std::shared_ptr<Connection> getConnection() { return this->m_clientConnection; };
+
+		/// <summary>
+		/// Sets the current process connection
+		/// </summary>
+		/// <param name="conn"></param>
 		inline void setConnection(std::shared_ptr<Connection> conn) { this->m_clientConnection = conn; };
 
 	protected:

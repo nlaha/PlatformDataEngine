@@ -11,9 +11,10 @@ GameWorld::GameWorld()
 	this->mp_currentPlayer = nullptr;
 	this->m_spawnIdx = 0;
 
+	m_youDiedText = TextDrawable("assets/OptimusPrinceps.ttf");
 	m_youDiedText.setText("YOU DIED");
 	m_youDiedText.setColor(sf::Color::Red);
-	m_youDiedText.setScale({ 0.8f, 0.8f });
+	m_youDiedText.setScale({ 0.5f, 0.5f });
 	m_respawnTimerText.setScale({ 0.2f, 0.2f });
 }
 
@@ -178,9 +179,11 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 		if (PlatformDataEngineWrapper::getNetworkHandler()->getConnection() != nullptr) {
 			if (PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->state == PlayerState::DEAD)
 			{
+				float respawnSeconds = PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->respawnTimer.getElapsedTime().asSeconds();
+				m_youDiedText.setScale({0.5f * ((respawnSeconds / 20.0f) + 1), 0.5f * ((respawnSeconds / 20.0f) + 1)});
 				m_youDiedText.setPosition(PlatformDataEngineWrapper::getWindowCenter());
 				m_respawnTimerText.setText(fmt::format("Respawning in: {:.2f}", 
-					10.0f - PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->respawnTimer.getElapsedTime().asSeconds()));
+					10.0f - respawnSeconds));
 				m_respawnTimerText.setPosition({ 
 					PlatformDataEngineWrapper::getWindowCenter().x,
 					PlatformDataEngineWrapper::getWindowCenter().y + 20
@@ -227,7 +230,7 @@ void GameWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	std::sort(gameObjects.begin(), gameObjects.end(), [](std::shared_ptr<GameObject> a, std::shared_ptr<GameObject> b) {
 		return a->getZlayer() < b->getZlayer();
-		});
+	});
 
 	// draw game objects
 	for (auto& gameObject : gameObjects)

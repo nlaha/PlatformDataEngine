@@ -26,7 +26,7 @@ namespace PlatformDataEngine {
 
     std::string PlatformDataEngineWrapper::ProfileConfig::name = "Player";
 
-    std::string PlatformDataEngineWrapper::OptionsConfig::musicVol = "30";
+    std::string PlatformDataEngineWrapper::OptionsConfig::musicVol = "0";
 
     std::shared_ptr<AudioSystem> PlatformDataEngineWrapper::m_audioSystem = std::make_shared<AudioSystem>();
 

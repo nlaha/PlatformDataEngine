@@ -4,7 +4,6 @@
 #include <spdlog/spdlog.h>
 #include <sstream>
 #include <string>
-#include "MessageTypes.h"
 #include "GameObject.h"
 #include "Packet.h"
 #include "GameWorld.h"

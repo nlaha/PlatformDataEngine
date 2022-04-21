@@ -78,6 +78,7 @@ void Server::process(GameWorld* world)
 		// send update data
 		packet = PDEPacket(PDEPacket::SendUpdates);
 		conn->networkSerialize(packet);
+
 		packet << static_cast<sf::Uint32>(world->getGameObjects().size());
 		for (const auto& gameObjectPair : world->getGameObjects())
 		{
@@ -136,6 +137,9 @@ void Server::recieve(GameWorld* world)
 		connection->name = name;
 		connection->port = clientPort;
 		connection->state = PlayerState::ALIVE;
+
+		ConnectionStats stats;
+		this->m_connectionStats.emplace(connection, stats);
 
 		spdlog::info("A player has connected: {}:{} - {}", clientIp.toString(), clientPort, connection->id);
 		std::string playerId = world->spawnPlayer(connection);
@@ -267,3 +271,8 @@ std::shared_ptr<Connection> Server::findConnection(sf::IpAddress ip, std::string
 	return nullptr;
 }
 
+ConnectionStats::ConnectionStats()
+{
+	this->m_playerDeaths = 0;
+	this->m_playerKills = 0;
+}

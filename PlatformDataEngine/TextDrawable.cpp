@@ -5,9 +5,9 @@ using namespace PlatformDataEngine;
 /// <summary>
 /// Default constructor
 /// </summary>
-TextDrawable::TextDrawable()
+TextDrawable::TextDrawable(std::string fontFilename)
 {
-	this->m_font.loadFromFile("assets/smallest_pixel-7.ttf");
+	this->m_font.loadFromFile(fontFilename);
 	this->m_fontBold = false;
 	this->m_fontSize = 70;
 	this->m_quads = sf::VertexArray(sf::Quads);

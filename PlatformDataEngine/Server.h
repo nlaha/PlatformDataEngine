@@ -4,7 +4,6 @@
 #include <spdlog/spdlog.h>
 #include <map>
 #include <sstream>
-#include "MessageTypes.h"
 #include "GameObject.h"
 #include "Packet.h"
 #include "GameWorld.h"
@@ -12,6 +11,19 @@
 #include "NetworkHandler.h"
 
 namespace PlatformDataEngine {
+
+	class ConnectionStats {
+
+	public:
+		ConnectionStats();
+		
+		sf::Uint16 m_playerDeaths;
+		sf::Uint16 m_playerKills;
+
+	private:
+
+
+	};
 
 	class Server : public NetworkHandler
 	{
@@ -57,5 +69,7 @@ namespace PlatformDataEngine {
 
 		sf::Clock m_broadcastCooldown;
 
+
+		std::map<std::shared_ptr<Connection>, ConnectionStats> m_connectionStats;
 	};
 }

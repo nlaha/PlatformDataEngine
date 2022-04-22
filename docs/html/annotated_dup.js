@@ -5,12 +5,14 @@ var annotated_dup =
       [ "AnimationController", "class_platform_data_engine_1_1_animation_controller.html", "class_platform_data_engine_1_1_animation_controller" ],
       [ "AudioSystem", "class_platform_data_engine_1_1_audio_system.html", null ],
       [ "BoxQueryCallback", "class_platform_data_engine_1_1_box_query_callback.html", null ],
+      [ "Bullet", "class_platform_data_engine_1_1_bullet.html", "class_platform_data_engine_1_1_bullet" ],
       [ "CameraController", "class_platform_data_engine_1_1_camera_controller.html", "class_platform_data_engine_1_1_camera_controller" ],
       [ "CharacterController", "class_platform_data_engine_1_1_character_controller.html", "class_platform_data_engine_1_1_character_controller" ],
       [ "Client", "class_platform_data_engine_1_1_client.html", "class_platform_data_engine_1_1_client" ],
       [ "Component", "class_platform_data_engine_1_1_component.html", "class_platform_data_engine_1_1_component" ],
       [ "ComponentFactory", "class_platform_data_engine_1_1_component_factory.html", null ],
-      [ "Connection", "class_platform_data_engine_1_1_connection.html", null ],
+      [ "Connection", "class_platform_data_engine_1_1_connection.html", "class_platform_data_engine_1_1_connection" ],
+      [ "ConnectionStats", "class_platform_data_engine_1_1_connection_stats.html", null ],
       [ "ContactFilter", "class_platform_data_engine_1_1_contact_filter.html", null ],
       [ "DamageHandler", "class_platform_data_engine_1_1_damage_handler.html", "class_platform_data_engine_1_1_damage_handler" ],
       [ "EngineStatsText", "class_platform_data_engine_1_1_engine_stats_text.html", "class_platform_data_engine_1_1_engine_stats_text" ],
@@ -21,7 +23,8 @@ var annotated_dup =
       [ "ListMenu", "class_platform_data_engine_1_1_list_menu.html", "class_platform_data_engine_1_1_list_menu" ],
       [ "Menu", "class_platform_data_engine_1_1_menu.html", "class_platform_data_engine_1_1_menu" ],
       [ "MenuOption", "class_platform_data_engine_1_1_menu_option.html", null ],
-      [ "Networkable", "class_platform_data_engine_1_1_networkable.html", null ],
+      [ "MiniGun", "class_platform_data_engine_1_1_mini_gun.html", "class_platform_data_engine_1_1_mini_gun" ],
+      [ "Networkable", "class_platform_data_engine_1_1_networkable.html", "class_platform_data_engine_1_1_networkable" ],
       [ "NetworkHandler", "class_platform_data_engine_1_1_network_handler.html", "class_platform_data_engine_1_1_network_handler" ],
       [ "NetworkInputManager", "class_platform_data_engine_1_1_network_input_manager.html", "class_platform_data_engine_1_1_network_input_manager" ],
       [ "ParticleSystem", "class_platform_data_engine_1_1_particle_system.html", "class_platform_data_engine_1_1_particle_system" ],
@@ -32,6 +35,7 @@ var annotated_dup =
       [ "PlatformDataEngineWrapper", "class_platform_data_engine_1_1_platform_data_engine_wrapper.html", "class_platform_data_engine_1_1_platform_data_engine_wrapper" ],
       [ "PlayerDamageHandler", "class_platform_data_engine_1_1_player_damage_handler.html", null ],
       [ "PlayerInputManager", "class_platform_data_engine_1_1_player_input_manager.html", "class_platform_data_engine_1_1_player_input_manager" ],
+      [ "Projectile", "class_platform_data_engine_1_1_projectile.html", "class_platform_data_engine_1_1_projectile" ],
       [ "PropDamageHandler", "class_platform_data_engine_1_1_prop_damage_handler.html", null ],
       [ "RaycastCallback", "class_platform_data_engine_1_1_raycast_callback.html", null ],
       [ "RocketLauncher", "class_platform_data_engine_1_1_rocket_launcher.html", "class_platform_data_engine_1_1_rocket_launcher" ],
@@ -49,6 +53,7 @@ var annotated_dup =
       [ "TileSprite", "class_platform_data_engine_1_1_tile_sprite.html", "class_platform_data_engine_1_1_tile_sprite" ],
       [ "TileTexture", "class_platform_data_engine_1_1_tile_texture.html", "class_platform_data_engine_1_1_tile_texture" ],
       [ "TimedDestroy", "class_platform_data_engine_1_1_timed_destroy.html", "class_platform_data_engine_1_1_timed_destroy" ],
-      [ "Utility", "class_platform_data_engine_1_1_utility.html", null ]
+      [ "Utility", "class_platform_data_engine_1_1_utility.html", null ],
+      [ "Weapon", "class_platform_data_engine_1_1_weapon.html", "class_platform_data_engine_1_1_weapon" ]
     ] ]
 ];

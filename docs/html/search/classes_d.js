@@ -10,5 +10,6 @@ var searchData=
   ['playerinputmanager_7',['PlayerInputManager',['../class_platform_data_engine_1_1_player_input_manager.html',1,'PlatformDataEngine']]],
   ['playerspawn_8',['PlayerSpawn',['../struct_platform_data_engine_1_1_game_world_1_1_player_spawn.html',1,'PlatformDataEngine::GameWorld']]],
   ['profileconfig_9',['ProfileConfig',['../struct_platform_data_engine_1_1_platform_data_engine_wrapper_1_1_profile_config.html',1,'PlatformDataEngine::PlatformDataEngineWrapper']]],
-  ['propdamagehandler_10',['PropDamageHandler',['../class_platform_data_engine_1_1_prop_damage_handler.html',1,'PlatformDataEngine']]]
+  ['projectile_10',['Projectile',['../class_platform_data_engine_1_1_projectile.html',1,'PlatformDataEngine']]],
+  ['propdamagehandler_11',['PropDamageHandler',['../class_platform_data_engine_1_1_prop_damage_handler.html',1,'PlatformDataEngine']]]
 ];

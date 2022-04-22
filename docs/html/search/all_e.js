@@ -13,5 +13,6 @@ var searchData=
   ['playerspawn_10',['PlayerSpawn',['../struct_platform_data_engine_1_1_game_world_1_1_player_spawn.html',1,'PlatformDataEngine::GameWorld']]],
   ['process_11',['process',['../class_platform_data_engine_1_1_client.html#aa2fdbeb10b7108222308b24f2bb41e21',1,'PlatformDataEngine::Client::process()'],['../class_platform_data_engine_1_1_network_handler.html#a1c8e8c7de91a0dbb33ec0f34c9ce2d49',1,'PlatformDataEngine::NetworkHandler::process()'],['../class_platform_data_engine_1_1_server.html#ad55e2b61b41d8dbc90ac177f97c002d9',1,'PlatformDataEngine::Server::process()']]],
   ['profileconfig_12',['ProfileConfig',['../struct_platform_data_engine_1_1_platform_data_engine_wrapper_1_1_profile_config.html',1,'PlatformDataEngine::PlatformDataEngineWrapper']]],
-  ['propdamagehandler_13',['PropDamageHandler',['../class_platform_data_engine_1_1_prop_damage_handler.html',1,'PlatformDataEngine']]]
+  ['projectile_13',['Projectile',['../class_platform_data_engine_1_1_projectile.html',1,'PlatformDataEngine']]],
+  ['propdamagehandler_14',['PropDamageHandler',['../class_platform_data_engine_1_1_prop_damage_handler.html',1,'PlatformDataEngine']]]
 ];

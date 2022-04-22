@@ -104,12 +104,16 @@ Inheritance diagram for PlatformDataEngine::Connection:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a2ce4811d1e94355fa6a9988fd464baf5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_connection.html#a2ce4811d1e94355fa6a9988fd464baf5">networkSerializeInit</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;output)</td></tr>
+<tr class="memdesc:a2ce4811d1e94355fa6a9988fd464baf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when an object is sent to the clients for the first time  <a href="class_platform_data_engine_1_1_connection.html#a2ce4811d1e94355fa6a9988fd464baf5">More...</a><br /></td></tr>
 <tr class="separator:a2ce4811d1e94355fa6a9988fd464baf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4dde09cebde08cd0375074545542c6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_connection.html#ac4dde09cebde08cd0375074545542c6e">networkDeserializeInit</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;input)</td></tr>
+<tr class="memdesc:ac4dde09cebde08cd0375074545542c6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when an object is recieved on a client for the first time  <a href="class_platform_data_engine_1_1_connection.html#ac4dde09cebde08cd0375074545542c6e">More...</a><br /></td></tr>
 <tr class="separator:ac4dde09cebde08cd0375074545542c6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a585f523f4465c60335502d5b238ec7ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_connection.html#a585f523f4465c60335502d5b238ec7ff">networkSerialize</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;output)</td></tr>
+<tr class="memdesc:a585f523f4465c60335502d5b238ec7ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called every time an object is sent to a client  <a href="class_platform_data_engine_1_1_connection.html#a585f523f4465c60335502d5b238ec7ff">More...</a><br /></td></tr>
 <tr class="separator:a585f523f4465c60335502d5b238ec7ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c6a348a6e4bd7467f41d22a7cbe3e5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_connection.html#a2c6a348a6e4bd7467f41d22a7cbe3e5d">networkDeserialize</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;input)</td></tr>
+<tr class="memdesc:a2c6a348a6e4bd7467f41d22a7cbe3e5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called every time an object is recieved from a client  <a href="class_platform_data_engine_1_1_connection.html#a2c6a348a6e4bd7467f41d22a7cbe3e5d">More...</a><br /></td></tr>
 <tr class="separator:a2c6a348a6e4bd7467f41d22a7cbe3e5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -161,7 +165,15 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>health</b></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="class_platform_data_engine_1_1_networkable.html">PlatformDataEngine::Networkable</a>.</p>
+<p>Called every time an object is recieved from a client </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_platform_data_engine_1_1_networkable.html#a0f8d573d7e8d91d5b91a05c183fff49c">PlatformDataEngine::Networkable</a>.</p>
 
 </div>
 </div>
@@ -189,7 +201,15 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>health</b></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="class_platform_data_engine_1_1_networkable.html">PlatformDataEngine::Networkable</a>.</p>
+<p>Called when an object is recieved on a client for the first time </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_platform_data_engine_1_1_networkable.html#aa35790c615aef3f3e3b0e9a6afbf7fb1">PlatformDataEngine::Networkable</a>.</p>
 
 </div>
 </div>
@@ -217,7 +237,15 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>health</b></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="class_platform_data_engine_1_1_networkable.html">PlatformDataEngine::Networkable</a>.</p>
+<p>Called every time an object is sent to a client </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">output</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_platform_data_engine_1_1_networkable.html#a62b19623549e90702e6a8bdfe0f644d1">PlatformDataEngine::Networkable</a>.</p>
 
 </div>
 </div>
@@ -245,7 +273,15 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>health</b></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="class_platform_data_engine_1_1_networkable.html">PlatformDataEngine::Networkable</a>.</p>
+<p>Called when an object is sent to the clients for the first time </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">output</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_platform_data_engine_1_1_networkable.html#a42cf0c6ed06740d707e1654cd3cf5683">PlatformDataEngine::Networkable</a>.</p>
 
 </div>
 </div>

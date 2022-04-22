@@ -28,6 +28,7 @@ var hierarchy =
     ] ],
     [ "PlatformDataEngine::CameraController", "class_platform_data_engine_1_1_camera_controller.html", null ],
     [ "PlatformDataEngine::ComponentFactory", "class_platform_data_engine_1_1_component_factory.html", null ],
+    [ "PlatformDataEngine::ConnectionStats", "class_platform_data_engine_1_1_connection_stats.html", null ],
     [ "sf::Drawable", null, [
       [ "PlatformDataEngine::Component", "class_platform_data_engine_1_1_component.html", [
         [ "PlatformDataEngine::AnimationController", "class_platform_data_engine_1_1_animation_controller.html", null ],
@@ -40,15 +41,21 @@ var hierarchy =
         [ "PlatformDataEngine::Menu", "class_platform_data_engine_1_1_menu.html", null ],
         [ "PlatformDataEngine::ParticleSystem", "class_platform_data_engine_1_1_particle_system.html", null ],
         [ "PlatformDataEngine::PhysicsBody", "class_platform_data_engine_1_1_physics_body.html", null ],
-        [ "PlatformDataEngine::RocketLauncher", "class_platform_data_engine_1_1_rocket_launcher.html", null ],
-        [ "PlatformDataEngine::RocketProjectile", "class_platform_data_engine_1_1_rocket_projectile.html", null ],
+        [ "PlatformDataEngine::Projectile", "class_platform_data_engine_1_1_projectile.html", [
+          [ "PlatformDataEngine::Bullet", "class_platform_data_engine_1_1_bullet.html", null ],
+          [ "PlatformDataEngine::RocketProjectile", "class_platform_data_engine_1_1_rocket_projectile.html", null ]
+        ] ],
         [ "PlatformDataEngine::Spike", "class_platform_data_engine_1_1_spike.html", null ],
         [ "PlatformDataEngine::SpriteRenderer", "class_platform_data_engine_1_1_sprite_renderer.html", null ],
         [ "PlatformDataEngine::StatsPanel", "class_platform_data_engine_1_1_stats_panel.html", null ],
         [ "PlatformDataEngine::TextRenderer", "class_platform_data_engine_1_1_text_renderer.html", [
           [ "PlatformDataEngine::EngineStatsText", "class_platform_data_engine_1_1_engine_stats_text.html", null ]
         ] ],
-        [ "PlatformDataEngine::TimedDestroy", "class_platform_data_engine_1_1_timed_destroy.html", null ]
+        [ "PlatformDataEngine::TimedDestroy", "class_platform_data_engine_1_1_timed_destroy.html", null ],
+        [ "PlatformDataEngine::Weapon", "class_platform_data_engine_1_1_weapon.html", [
+          [ "PlatformDataEngine::MiniGun", "class_platform_data_engine_1_1_mini_gun.html", null ],
+          [ "PlatformDataEngine::RocketLauncher", "class_platform_data_engine_1_1_rocket_launcher.html", null ]
+        ] ]
       ] ],
       [ "PlatformDataEngine::GameObject", "class_platform_data_engine_1_1_game_object.html", null ],
       [ "PlatformDataEngine::GameWorld", "class_platform_data_engine_1_1_game_world.html", null ],

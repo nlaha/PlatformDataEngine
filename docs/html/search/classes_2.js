@@ -6,5 +6,6 @@ var searchData=
   ['component_3',['Component',['../class_platform_data_engine_1_1_component.html',1,'PlatformDataEngine']]],
   ['componentfactory_4',['ComponentFactory',['../class_platform_data_engine_1_1_component_factory.html',1,'PlatformDataEngine']]],
   ['connection_5',['Connection',['../class_platform_data_engine_1_1_connection.html',1,'PlatformDataEngine']]],
-  ['contactfilter_6',['ContactFilter',['../class_platform_data_engine_1_1_contact_filter.html',1,'PlatformDataEngine']]]
+  ['connectionstats_6',['ConnectionStats',['../class_platform_data_engine_1_1_connection_stats.html',1,'PlatformDataEngine']]],
+  ['contactfilter_7',['ContactFilter',['../class_platform_data_engine_1_1_contact_filter.html',1,'PlatformDataEngine']]]
 ];

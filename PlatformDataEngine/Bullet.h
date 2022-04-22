@@ -12,15 +12,16 @@ namespace PlatformDataEngine {
     class PhysicsBody;
 
     /// <summary>
-    /// The rocket launcher rocket projectile
+    /// The MiniGun bullet projectile - currently exactly the same as the rocket projectile
+    /// it will eventually have a unique sound, explosion, etc
     /// </summary>
-    class RocketProjectile :
+    class Bullet :
         public Projectile
     {
     public:
 
-        ~RocketProjectile();
-        
+        ~Bullet();
+
         void init();
 
         void update(const float& dt, const float& elapsedTime);
@@ -32,10 +33,9 @@ namespace PlatformDataEngine {
         void loadDefinition(nlohmann::json object);
 
         void setOwner(std::shared_ptr<GameObject> owner);
-        
+
 
     private:
-        
+
     };
 }
-

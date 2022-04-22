@@ -172,6 +172,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClCompile Include="Alive.cpp" />
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="AudioSystem.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="CharacterController.cpp" />
     <ClCompile Include="Client.cpp" />
@@ -184,6 +185,8 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Message.cpp" />
+    <ClCompile Include="Minigun.cpp" />
     <ClCompile Include="Networkable.cpp" />
     <ClCompile Include="NetworkHandler.cpp" />
     <ClCompile Include="NetworkInputManager.cpp" />
@@ -196,6 +199,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="PlatformDataEngineWrapper.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="PropDamageHandler.cpp" />
     <ClCompile Include="RocketProjectile.cpp" />
     <ClCompile Include="RocketLauncher.cpp" />
@@ -212,11 +216,13 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClCompile Include="TileTexture.cpp" />
     <ClCompile Include="TimedDestroy.cpp" />
     <ClCompile Include="Utility.cpp" />
+    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alive.h" />
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="AudioSystem.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="CameraController.h" />
     <ClInclude Include="CharacterController.h" />
     <ClInclude Include="Client.h" />
@@ -230,6 +236,8 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClInclude Include="Globals.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="Message.h" />
+    <ClInclude Include="MiniGun.h" />
     <ClInclude Include="Networkable.h" />
     <ClInclude Include="NetworkHandler.h" />
     <ClInclude Include="NetworkInputManager.h" />
@@ -240,6 +248,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClInclude Include="PlayerInputManager.h" />
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="PlatformDataEngineWrapper.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="PropDamageHandler.h" />
     <ClInclude Include="RocketProjectile.h" />
     <ClInclude Include="PhysicsCallbacks.h" />
@@ -257,6 +266,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClInclude Include="TileTexture.h" />
     <ClInclude Include="TimedDestroy.h" />
     <ClInclude Include="Utility.h" />
+    <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\vcpkg.json">
@@ -281,6 +291,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </None>
+    <None Include="assets\MiniGun.json" />
     <None Include="assets\Plants.tsx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
@@ -297,8 +308,10 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </None>
+    <None Include="game\gameObjects\Bullet.json" />
     <None Include="game\gameObjects\MainMenu.json" />
     <None Include="game\gameObjects\MainMenuTitle.json" />
+    <None Include="game\gameObjects\MiniGun.json" />
     <None Include="game\gameObjects\Spike.json" />
     <None Include="game\worlds\menu.json" />
     <None Include="game\worlds\world.json" />

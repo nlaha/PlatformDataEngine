@@ -1,18 +1,33 @@
-
 #include <map>
 
-#include "RocketLauncher.h"
 #include "GameObject.h"
 #include "Utility.h"
 #include "Server.h"
 #include "InputManager.h"
 #include "PlatformDataEngineWrapper.h"
+#include "Weapon.h"
 
 using namespace PlatformDataEngine;
 
+void Weapon::init()
+{
+	Component::init();
+	this->m_isCoolingDown = false;
 
+	if (this->m_parent->getParent().get() == PlatformDataEngineWrapper::getWorld()->getPlayer()) {
+		this->m_pInputManager = PlatformDataEngineWrapper::getPlayerInputManager();
+	}
+	else {
+		this->m_pInputManager = std::make_shared<NetworkInputManager>();
+		std::shared_ptr<NetworkInputManager> netIn = std::dynamic_pointer_cast<NetworkInputManager>(this->m_pInputManager);
+		netIn->loadDefinition("./game/input.json");
+		if (!PlatformDataEngineWrapper::getIsClient()) {
+			dynamic_cast<Server*>(PlatformDataEngineWrapper::getNetworkHandler())->addInputManager(this->m_parent->getParent()->getConnection(), netIn);
+		}
+	}
+}
 
-void RocketLauncher::update(const float& dt, const float& elapsedTime)
+void Weapon::update(const float& dt, const float& elapsedTime)
 {
 	if (!PlatformDataEngineWrapper::getIsClient()) {
 		sf::Vector2f worldPos = this->m_pInputManager->getMouse();
@@ -44,7 +59,7 @@ void RocketLauncher::update(const float& dt, const float& elapsedTime)
 				this->m_isCoolingDown = false;
 				sf::Vector2f directionVec = Utility::directionVec(parent->getPosition(), worldPos);
 				GameObject* p_gameObject = PlatformDataEngineWrapper::getWorld()->spawnGameObject(
-					"RocketProjectile",
+					"Projectile",
 					(parent->getPosition() + this->m_parent->getPosition())
 				).get();
 				p_gameObject->setZlayer(40);
@@ -59,7 +74,7 @@ void RocketLauncher::update(const float& dt, const float& elapsedTime)
 				AnimationController* animControl = this->m_parent->findComponentOfType<AnimationController>().get();
 				animControl->setAnimation("Shoot", 1.0, false);
 
-				RocketProjectile* projectile = p_gameObject->findComponentOfType<RocketProjectile>().get();
+				Projectile* projectile = p_gameObject->findComponentOfType<Projectile>().get();
 				projectile->setOwner(this->m_parent->getParent());
 
 				this->m_weaponClock.restart();
@@ -71,14 +86,29 @@ void RocketLauncher::update(const float& dt, const float& elapsedTime)
 	}
 }
 
-
-
-void RocketLauncher::copy(std::shared_ptr<Component> otherCompPtr)
+void Weapon::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	std::shared_ptr<RocketLauncher> other = std::dynamic_pointer_cast<RocketLauncher>(otherCompPtr);
+}
+
+void Weapon::copy(std::shared_ptr<Component> otherCompPtr)
+{
+	std::shared_ptr<Weapon> other = std::dynamic_pointer_cast<Weapon>(otherCompPtr);
 
 	*this = *other;
 }
 
+void Weapon::loadDefinition(nlohmann::json object)
+{
+	this->m_Cooldown = object.at("cooldown");
+	this->m_velocity = object.at("velocity");
+}
 
+void Weapon::networkSerialize(PDEPacket& output)
+{
+	output << this->m_isCoolingDown;
+}
 
+void Weapon::networkDeserialize(PDEPacket& input)
+{
+	input >> this->m_isCoolingDown;
+}

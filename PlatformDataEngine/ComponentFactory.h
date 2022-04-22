@@ -11,8 +11,10 @@
 #include "TextRenderer.h"
 #include "EngineStatsText.h"
 #include "RocketLauncher.h"
+#include "Minigun.h"
 #include "ParticleSystem.h"
 #include "RocketProjectile.h"
+#include "Bullet.h"
 #include "TimedDestroy.h"
 #include "StatsPanel.h"
 #include "Menu.h"
@@ -60,8 +62,10 @@ namespace PlatformDataEngine
             {"TextRenderer", &construct<TextRenderer>},
             {"EngineStatsText", &construct<EngineStatsText>},
             {"RocketLauncher", &construct<RocketLauncher>},
+            {"MiniGun", &construct<MiniGun>},
             {"ParticleSystem", &construct<ParticleSystem>},
             {"RocketProjectile", &construct<RocketProjectile>},
+            {"Bullet", &construct<Bullet>},
             {"TimedDestroy", &construct<TimedDestroy>},
             {"StatsPanel", &construct<StatsPanel>},
             {"Menu", &construct<Menu>},

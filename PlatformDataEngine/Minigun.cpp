@@ -1,7 +1,6 @@
-
 #include <map>
 
-#include "RocketLauncher.h"
+#include "MiniGun.h"
 #include "GameObject.h"
 #include "Utility.h"
 #include "Server.h"
@@ -12,7 +11,7 @@ using namespace PlatformDataEngine;
 
 
 
-void RocketLauncher::update(const float& dt, const float& elapsedTime)
+void MiniGun::update(const float& dt, const float& elapsedTime)
 {
 	if (!PlatformDataEngineWrapper::getIsClient()) {
 		sf::Vector2f worldPos = this->m_pInputManager->getMouse();
@@ -44,9 +43,10 @@ void RocketLauncher::update(const float& dt, const float& elapsedTime)
 				this->m_isCoolingDown = false;
 				sf::Vector2f directionVec = Utility::directionVec(parent->getPosition(), worldPos);
 				GameObject* p_gameObject = PlatformDataEngineWrapper::getWorld()->spawnGameObject(
-					"RocketProjectile",
+					"Bullet",
 					(parent->getPosition() + this->m_parent->getPosition())
 				).get();
+
 				p_gameObject->setZlayer(40);
 				p_gameObject->setRotation(rot);
 
@@ -59,7 +59,7 @@ void RocketLauncher::update(const float& dt, const float& elapsedTime)
 				AnimationController* animControl = this->m_parent->findComponentOfType<AnimationController>().get();
 				animControl->setAnimation("Shoot", 1.0, false);
 
-				RocketProjectile* projectile = p_gameObject->findComponentOfType<RocketProjectile>().get();
+				Bullet* projectile = p_gameObject->findComponentOfType<Bullet>().get();
 				projectile->setOwner(this->m_parent->getParent());
 
 				this->m_weaponClock.restart();
@@ -73,12 +73,9 @@ void RocketLauncher::update(const float& dt, const float& elapsedTime)
 
 
 
-void RocketLauncher::copy(std::shared_ptr<Component> otherCompPtr)
+void MiniGun::copy(std::shared_ptr<Component> otherCompPtr)
 {
-	std::shared_ptr<RocketLauncher> other = std::dynamic_pointer_cast<RocketLauncher>(otherCompPtr);
+	std::shared_ptr<MiniGun> other = std::dynamic_pointer_cast<MiniGun>(otherCompPtr);
 
 	*this = *other;
 }
-
-
-

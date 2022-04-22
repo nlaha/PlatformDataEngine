@@ -5,22 +5,21 @@
 
 #include "Component.h"
 #include "Utility.h"
-#include "Projectile.h"
 
 namespace PlatformDataEngine {
 
     class PhysicsBody;
 
     /// <summary>
-    /// The rocket launcher rocket projectile
+    /// The projectile generic class
     /// </summary>
-    class RocketProjectile :
-        public Projectile
+    class Projectile :
+        public Component
     {
     public:
 
-        ~RocketProjectile();
-        
+        ~Projectile();
+
         void init();
 
         void update(const float& dt, const float& elapsedTime);
@@ -32,10 +31,22 @@ namespace PlatformDataEngine {
         void loadDefinition(nlohmann::json object);
 
         void setOwner(std::shared_ptr<GameObject> owner);
-        
 
-    private:
-        
+    protected:
+
+        std::shared_ptr<GameObject> m_owningGameObject;
+
+        PhysicsBody* m_PhysBody;
+        b2Fixture* m_forceSensor;
+        b2Fixture* m_damageSensor;
+
+        std::string m_ParticleSystemName;
+        float m_explosionRadius;
+        float m_explosionForce;
+        float m_explosionDamage;
+
+        sf::Sound* m_sound;
+
+        bool m_isExploding;
     };
 }
-

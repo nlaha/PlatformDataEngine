@@ -22,9 +22,9 @@ const sf::IntRect& TileTexture::getRect() const
 
 
 /// <summary>
-/// Move the texture.
+/// Gets the texture.
 /// </summary>
-/// <returns>The texture unique ptr.</returns>
+/// <returns>The texture ptr.</returns>
 const sf::Texture* TileTexture::getTexture()
 {
 	return this->m_texture;

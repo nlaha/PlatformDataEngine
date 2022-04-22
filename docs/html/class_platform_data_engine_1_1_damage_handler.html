@@ -91,6 +91,11 @@ $(document).ready(function(){initNavTree('class_platform_data_engine_1_1_damage_
   <div class="headertitle"><div class="title">PlatformDataEngine::DamageHandler Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Base damage handler class responsible for handling onDeath and onDamage events from the <a class="el" href="class_platform_data_engine_1_1_alive.html" title="Class that defines an &quot;alive&quot; object, ie. an object that can take damage and die">Alive</a> class  
+ <a href="class_platform_data_engine_1_1_damage_handler.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_damage_handler_8h_source.html">DamageHandler.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for PlatformDataEngine::DamageHandler:</div>
 <div class="dyncontent">
@@ -98,6 +103,7 @@ Inheritance diagram for PlatformDataEngine::DamageHandler:</div>
   <img src="class_platform_data_engine_1_1_damage_handler.png" usemap="#PlatformDataEngine::DamageHandler_map" alt=""/>
   <map id="PlatformDataEngine::DamageHandler_map" name="PlatformDataEngine::DamageHandler_map">
 <area href="class_platform_data_engine_1_1_component.html" title="The base component class, when creating components to add gameplay functionality, they should inherit..." alt="PlatformDataEngine::Component" shape="rect" coords="133,56,390,80"/>
+<area href="class_platform_data_engine_1_1_networkable.html" alt="PlatformDataEngine::Networkable" shape="rect" coords="267,0,524,24"/>
 <area href="class_platform_data_engine_1_1_player_damage_handler.html" alt="PlatformDataEngine::PlayerDamageHandler" shape="rect" coords="0,168,257,192"/>
 <area href="class_platform_data_engine_1_1_prop_damage_handler.html" alt="PlatformDataEngine::PropDamageHandler" shape="rect" coords="267,168,524,192"/>
   </map>
@@ -142,6 +148,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>registerHierarchy</b>
 <tr class="memitem:a176b3c5d23903d8bfadba749dfe2a0cc inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_component.html#a176b3c5d23903d8bfadba749dfe2a0cc">draw</a> (sf::RenderTarget &amp;target, sf::RenderStates states) const</td></tr>
 <tr class="memdesc:a176b3c5d23903d8bfadba749dfe2a0cc inherit pub_methods_class_platform_data_engine_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called every draw cycle  <a href="class_platform_data_engine_1_1_component.html#a176b3c5d23903d8bfadba749dfe2a0cc">More...</a><br /></td></tr>
 <tr class="separator:a176b3c5d23903d8bfadba749dfe2a0cc inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a882f7f6fac3e7f8fcc231e47b95aa53f inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_component.html#a882f7f6fac3e7f8fcc231e47b95aa53f">networkSerializeInit</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;output)</td></tr>
+<tr class="memdesc:a882f7f6fac3e7f8fcc231e47b95aa53f inherit pub_methods_class_platform_data_engine_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when sending data for the first time  <a href="class_platform_data_engine_1_1_component.html#a882f7f6fac3e7f8fcc231e47b95aa53f">More...</a><br /></td></tr>
+<tr class="separator:a882f7f6fac3e7f8fcc231e47b95aa53f inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a607ec11c10704d9cd341b78ccaa62620 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_component.html#a607ec11c10704d9cd341b78ccaa62620">networkDeserializeInit</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;input)</td></tr>
+<tr class="memdesc:a607ec11c10704d9cd341b78ccaa62620 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when recieving data for the first time  <a href="class_platform_data_engine_1_1_component.html#a607ec11c10704d9cd341b78ccaa62620">More...</a><br /></td></tr>
+<tr class="separator:a607ec11c10704d9cd341b78ccaa62620 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad33d466e5abc882663d78c91082f03e4 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_component.html#ad33d466e5abc882663d78c91082f03e4">networkSerialize</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;output)</td></tr>
+<tr class="memdesc:ad33d466e5abc882663d78c91082f03e4 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use this function to serialize any members you want replicated this is handy for animation components that should copy their state to all client instances  <a href="class_platform_data_engine_1_1_component.html#ad33d466e5abc882663d78c91082f03e4">More...</a><br /></td></tr>
+<tr class="separator:ad33d466e5abc882663d78c91082f03e4 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c18ca14a25adce1a771e144e7287321 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_component.html#a9c18ca14a25adce1a771e144e7287321">networkDeserialize</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;input)</td></tr>
+<tr class="memdesc:a9c18ca14a25adce1a771e144e7287321 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use this function to deserialize data coming from the server for this specific client  <a href="class_platform_data_engine_1_1_component.html#a9c18ca14a25adce1a771e144e7287321">More...</a><br /></td></tr>
+<tr class="separator:a9c18ca14a25adce1a771e144e7287321 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9dd42f6dbcc9ce41117e26784220e47f inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_component.html#a9dd42f6dbcc9ce41117e26784220e47f">loadDefinition</a> (nlohmann::json object)</td></tr>
 <tr class="memdesc:a9dd42f6dbcc9ce41117e26784220e47f inherit pub_methods_class_platform_data_engine_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when game object definitions are loaded  <a href="class_platform_data_engine_1_1_component.html#a9dd42f6dbcc9ce41117e26784220e47f">More...</a><br /></td></tr>
 <tr class="separator:a9dd42f6dbcc9ce41117e26784220e47f inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,15 +169,23 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getType</b> ()
 <tr class="memitem:a8de87ca9d1f827ff5c2fb1ae30b8484e inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top"><a id="a8de87ca9d1f827ff5c2fb1ae30b8484e" name="a8de87ca9d1f827ff5c2fb1ae30b8484e"></a>
 nlohmann::json&#160;</td><td class="memItemRight" valign="bottom"><b>getProps</b> () const</td></tr>
 <tr class="separator:a8de87ca9d1f827ff5c2fb1ae30b8484e inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55ded99926ccf4fa1e506476135b320e inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top"><a id="a55ded99926ccf4fa1e506476135b320e" name="a55ded99926ccf4fa1e506476135b320e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setType</b> (std::string type)</td></tr>
-<tr class="separator:a55ded99926ccf4fa1e506476135b320e inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70a31b69f58db067be2150d5bac769e7 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top"><a id="a70a31b69f58db067be2150d5bac769e7" name="a70a31b69f58db067be2150d5bac769e7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setType</b> (const std::string &amp;type)</td></tr>
+<tr class="separator:a70a31b69f58db067be2150d5bac769e7 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f0a51f636bd5f885243a274891f3275 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top"><a id="a0f0a51f636bd5f885243a274891f3275" name="a0f0a51f636bd5f885243a274891f3275"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setProps</b> (nlohmann::json &amp;props)</td></tr>
 <tr class="separator:a0f0a51f636bd5f885243a274891f3275 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af40f330417be4fc49576252d439723b1 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memItemLeft" align="right" valign="top"><a id="af40f330417be4fc49576252d439723b1" name="af40f330417be4fc49576252d439723b1"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setIsDefinition</b> (bool isDef)</td></tr>
 <tr class="separator:af40f330417be4fc49576252d439723b1 inherit pub_methods_class_platform_data_engine_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42cf0c6ed06740d707e1654cd3cf5683"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_networkable.html#a42cf0c6ed06740d707e1654cd3cf5683">networkSerializeInit</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;output)=0</td></tr>
+<tr class="separator:a42cf0c6ed06740d707e1654cd3cf5683"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa35790c615aef3f3e3b0e9a6afbf7fb1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_networkable.html#aa35790c615aef3f3e3b0e9a6afbf7fb1">networkDeserializeInit</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;input)=0</td></tr>
+<tr class="separator:aa35790c615aef3f3e3b0e9a6afbf7fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62b19623549e90702e6a8bdfe0f644d1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_networkable.html#a62b19623549e90702e6a8bdfe0f644d1">networkSerialize</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;output)=0</td></tr>
+<tr class="separator:a62b19623549e90702e6a8bdfe0f644d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f8d573d7e8d91d5b91a05c183fff49c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_networkable.html#a0f8d573d7e8d91d5b91a05c183fff49c">networkDeserialize</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;input)=0</td></tr>
+<tr class="separator:a0f8d573d7e8d91d5b91a05c183fff49c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -183,7 +209,9 @@ nlohmann::json&#160;</td><td class="memItemRight" valign="bottom"><b>m_all_props
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_type</b></td></tr>
 <tr class="separator:adeb2377fb6c656326f2731576c4f2a63 inherit pro_attribs_class_platform_data_engine_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >Base damage handler class responsible for handling onDeath and onDamage events from the <a class="el" href="class_platform_data_engine_1_1_alive.html" title="Class that defines an &quot;alive&quot; object, ie. an object that can take damage and die">Alive</a> class </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a79750584ca19dfe8dd76586342750547" name="a79750584ca19dfe8dd76586342750547"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a79750584ca19dfe8dd76586342750547">&#9670;&nbsp;</a></span>copy()</h2>
 

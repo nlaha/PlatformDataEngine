@@ -91,36 +91,49 @@ $(document).ready(function(){initNavTree('_client_8h_source.html',''); initResiz
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;SFML/Network.hpp&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;SFML/Graphics.hpp&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;spdlog/spdlog.h&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;MessageTypes.h&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;GameObject.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;Packet.h&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;GameWorld.h&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;NetworkHandler.h&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>PlatformDataEngine {</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="class_platform_data_engine_1_1_client.html">   12</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_platform_data_engine_1_1_client.html">Client</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_platform_data_engine_1_1_network_handler.html">NetworkHandler</a></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <a class="code hl_class" href="class_platform_data_engine_1_1_client.html">Client</a>();</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keywordtype">void</span> start();</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;MessageTypes.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;GameObject.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;Packet.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;GameWorld.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;NetworkHandler.h&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>PlatformDataEngine {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="class_platform_data_engine_1_1_client.html">   14</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_platform_data_engine_1_1_client.html">Client</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_platform_data_engine_1_1_network_handler.html">NetworkHandler</a></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <a class="code hl_function" href="class_platform_data_engine_1_1_client.html#ae51af7aa6b8f591496a8f6a4a87a14bf">Client</a>();</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordtype">void</span> stop();</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_client.html#a742373e08a80d993d2651b6fff76f5b9">start</a>();</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordtype">void</span> process(<a class="code hl_class" href="class_platform_data_engine_1_1_game_world.html">GameWorld</a>* world);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_client.html#a9e827b82efa67d7e334dcdde36d7ea87">stop</a>();</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> m_serverPort;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        sf::IpAddress m_serverIp;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        sf::UdpSocket m_socket;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordtype">bool</span> m_isConnecting;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordtype">bool</span> m_isConnected;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    };</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
-<div class="ttc" id="aclass_platform_data_engine_1_1_client_html"><div class="ttname"><a href="class_platform_data_engine_1_1_client.html">PlatformDataEngine::Client</a></div><div class="ttdef"><b>Definition:</b> Client.h:13</div></div>
-<div class="ttc" id="aclass_platform_data_engine_1_1_game_world_html"><div class="ttname"><a href="class_platform_data_engine_1_1_game_world.html">PlatformDataEngine::GameWorld</a></div><div class="ttdoc">Represents a game world with it's own tile map and gameObjects</div><div class="ttdef"><b>Definition:</b> GameWorld.h:23</div></div>
-<div class="ttc" id="aclass_platform_data_engine_1_1_network_handler_html"><div class="ttname"><a href="class_platform_data_engine_1_1_network_handler.html">PlatformDataEngine::NetworkHandler</a></div><div class="ttdef"><b>Definition:</b> NetworkHandler.h:6</div></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_client.html#aa2fdbeb10b7108222308b24f2bb41e21">process</a>(<a class="code hl_class" href="class_platform_data_engine_1_1_game_world.html">GameWorld</a>* world);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_client.html#a5781d622125febd0a38061a701fd6991">recieve</a>(<a class="code hl_class" href="class_platform_data_engine_1_1_game_world.html">GameWorld</a>* world);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_client.html#a97e144b48409c0a9873eee09f04ce724">disconnect</a>();</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> m_serverPort;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        sf::IpAddress m_serverIp;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        sf::UdpSocket m_socket;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">bool</span> m_isConnecting;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordtype">bool</span> m_isConnected;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    };</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_client_html"><div class="ttname"><a href="class_platform_data_engine_1_1_client.html">PlatformDataEngine::Client</a></div><div class="ttdef"><b>Definition:</b> Client.h:15</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_client_html_a5781d622125febd0a38061a701fd6991"><div class="ttname"><a href="class_platform_data_engine_1_1_client.html#a5781d622125febd0a38061a701fd6991">PlatformDataEngine::Client::recieve</a></div><div class="ttdeci">void recieve(GameWorld *world)</div><div class="ttdoc">Checks for new data from the server and processes it</div><div class="ttdef"><b>Definition:</b> Client.cpp:82</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_client_html_a742373e08a80d993d2651b6fff76f5b9"><div class="ttname"><a href="class_platform_data_engine_1_1_client.html#a742373e08a80d993d2651b6fff76f5b9">PlatformDataEngine::Client::start</a></div><div class="ttdeci">void start()</div><div class="ttdoc">Starts the client, doesn't do anything right now</div><div class="ttdef"><b>Definition:</b> Client.cpp:28</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_client_html_a97e144b48409c0a9873eee09f04ce724"><div class="ttname"><a href="class_platform_data_engine_1_1_client.html#a97e144b48409c0a9873eee09f04ce724">PlatformDataEngine::Client::disconnect</a></div><div class="ttdeci">void disconnect()</div><div class="ttdoc">Lets the server know we're disconnecting</div><div class="ttdef"><b>Definition:</b> Client.cpp:210</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_client_html_a9e827b82efa67d7e334dcdde36d7ea87"><div class="ttname"><a href="class_platform_data_engine_1_1_client.html#a9e827b82efa67d7e334dcdde36d7ea87">PlatformDataEngine::Client::stop</a></div><div class="ttdeci">void stop()</div><div class="ttdoc">Stops the client, doesn't do anything right now</div><div class="ttdef"><b>Definition:</b> Client.cpp:36</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_client_html_aa2fdbeb10b7108222308b24f2bb41e21"><div class="ttname"><a href="class_platform_data_engine_1_1_client.html#aa2fdbeb10b7108222308b24f2bb41e21">PlatformDataEngine::Client::process</a></div><div class="ttdeci">void process(GameWorld *world)</div><div class="ttdoc">Sends data to the server, should be called in a fixed time period loop</div><div class="ttdef"><b>Definition:</b> Client.cpp:45</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_client_html_ae51af7aa6b8f591496a8f6a4a87a14bf"><div class="ttname"><a href="class_platform_data_engine_1_1_client.html#ae51af7aa6b8f591496a8f6a4a87a14bf">PlatformDataEngine::Client::Client</a></div><div class="ttdeci">Client()</div><div class="ttdoc">Constructor</div><div class="ttdef"><b>Definition:</b> Client.cpp:9</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_game_world_html"><div class="ttname"><a href="class_platform_data_engine_1_1_game_world.html">PlatformDataEngine::GameWorld</a></div><div class="ttdoc">Represents a game world with it's own tile map and gameObjects</div><div class="ttdef"><b>Definition:</b> GameWorld.h:26</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_network_handler_html"><div class="ttname"><a href="class_platform_data_engine_1_1_network_handler.html">PlatformDataEngine::NetworkHandler</a></div><div class="ttdoc">Base class for a network handler, responsible for handling network operations Example: Server,...</div><div class="ttdef"><b>Definition:</b> NetworkHandler.h:12</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

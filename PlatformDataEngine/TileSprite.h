@@ -10,6 +10,11 @@ namespace PlatformDataEngine {
 
 	class Tileset;
 
+	/// <summary>
+	/// Since tilesets are drawn each in a single draw call, this isn't 
+	/// responsible for holding a texture or something like a normal sprite would hold.
+	/// Instead it holds a tile index and a transform that can be referenced in a tileset
+	/// </summary>
 	class TileSprite : public sf::Transformable
 	{
 	public:

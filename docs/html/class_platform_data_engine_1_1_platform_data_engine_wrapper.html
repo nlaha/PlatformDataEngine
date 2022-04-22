@@ -85,6 +85,7 @@ $(document).ready(function(){initNavTree('class_platform_data_engine_1_1_platfor
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
@@ -98,15 +99,26 @@ $(document).ready(function(){initNavTree('class_platform_data_engine_1_1_platfor
 
 <p><code>#include &lt;<a class="el" href="_platform_data_engine_wrapper_8h_source.html">PlatformDataEngineWrapper.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_platform_data_engine_1_1_platform_data_engine_wrapper_1_1_host_config.html">HostConfig</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_platform_data_engine_1_1_platform_data_engine_wrapper_1_1_join_config.html">JoinConfig</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_platform_data_engine_1_1_platform_data_engine_wrapper_1_1_options_config.html">OptionsConfig</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_platform_data_engine_1_1_platform_data_engine_wrapper_1_1_profile_config.html">ProfileConfig</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab477f5679a02576b2d90ef1814710bd9"><td class="memItemLeft" align="right" valign="top"><a id="ab477f5679a02576b2d90ef1814710bd9" name="ab477f5679a02576b2d90ef1814710bd9"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> ()</td></tr>
 <tr class="separator:ab477f5679a02576b2d90ef1814710bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05e884c45c8c9dc195e3a13becf2ba24"><td class="memItemLeft" align="right" valign="top"><a id="a05e884c45c8c9dc195e3a13becf2ba24" name="a05e884c45c8c9dc195e3a13becf2ba24"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> (bool isClient)</td></tr>
-<tr class="memdesc:a05e884c45c8c9dc195e3a13becf2ba24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the game (makes window and starts systems) <br /></td></tr>
-<tr class="separator:a05e884c45c8c9dc195e3a13becf2ba24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae07892ce3ea059b11867eee7ab1c3918"><td class="memItemLeft" align="right" valign="top"><a id="ae07892ce3ea059b11867eee7ab1c3918" name="ae07892ce3ea059b11867eee7ab1c3918"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> (ApplicationMode appMode)</td></tr>
+<tr class="memdesc:ae07892ce3ea059b11867eee7ab1c3918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the game (makes window and starts systems) <br /></td></tr>
+<tr class="separator:ae07892ce3ea059b11867eee7ab1c3918"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -131,18 +143,48 @@ static <a class="el" href="class_platform_data_engine_1_1_network_handler.html">
 <tr class="memitem:a2b81b2ddbcab31fcbee8a5e9911fc2f8"><td class="memItemLeft" align="right" valign="top"><a id="a2b81b2ddbcab31fcbee8a5e9911fc2f8" name="a2b81b2ddbcab31fcbee8a5e9911fc2f8"></a>
 static bool&#160;</td><td class="memItemRight" valign="bottom"><b>getIsClient</b> ()</td></tr>
 <tr class="separator:a2b81b2ddbcab31fcbee8a5e9911fc2f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ab5b476118c1adb0486ee13ab90e9fe"><td class="memItemLeft" align="right" valign="top"><a id="a8ab5b476118c1adb0486ee13ab90e9fe" name="a8ab5b476118c1adb0486ee13ab90e9fe"></a>
+static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getPlayerName</b> ()</td></tr>
+<tr class="separator:a8ab5b476118c1adb0486ee13ab90e9fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae562e5452340c83a27fa8c18247be37a"><td class="memItemLeft" align="right" valign="top"><a id="ae562e5452340c83a27fa8c18247be37a" name="ae562e5452340c83a27fa8c18247be37a"></a>
+static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getPlayerInput</b> ()</td></tr>
+<tr class="separator:ae562e5452340c83a27fa8c18247be37a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b1dc601dc2c47181939fde9bfd7a6f4"><td class="memItemLeft" align="right" valign="top"><a id="a9b1dc601dc2c47181939fde9bfd7a6f4" name="a9b1dc601dc2c47181939fde9bfd7a6f4"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>setPlayerInput</b> (const std::string &amp;input)</td></tr>
+<tr class="separator:a9b1dc601dc2c47181939fde9bfd7a6f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5615a8cdc39868baf6e49f3e32a95910"><td class="memItemLeft" align="right" valign="top"><a id="a5615a8cdc39868baf6e49f3e32a95910" name="a5615a8cdc39868baf6e49f3e32a95910"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>quit</b> ()</td></tr>
+<tr class="separator:a5615a8cdc39868baf6e49f3e32a95910"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62e5d4d23d44415a73fea0e8a8cb1466"><td class="memItemLeft" align="right" valign="top"><a id="a62e5d4d23d44415a73fea0e8a8cb1466" name="a62e5d4d23d44415a73fea0e8a8cb1466"></a>
+static sf::FloatRect&#160;</td><td class="memItemRight" valign="bottom"><b>getViewport</b> ()</td></tr>
+<tr class="separator:a62e5d4d23d44415a73fea0e8a8cb1466"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaafca40b3386756b304c726074df94b0"><td class="memItemLeft" align="right" valign="top"><a id="aaafca40b3386756b304c726074df94b0" name="aaafca40b3386756b304c726074df94b0"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>loadServer</b> ()</td></tr>
+<tr class="separator:aaafca40b3386756b304c726074df94b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec4588b1d8b486c279470aae58653b61"><td class="memItemLeft" align="right" valign="top"><a id="aec4588b1d8b486c279470aae58653b61" name="aec4588b1d8b486c279470aae58653b61"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>loadClient</b> ()</td></tr>
+<tr class="separator:aec4588b1d8b486c279470aae58653b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad286f857883c9267bb8a5a7b9276288"><td class="memItemLeft" align="right" valign="top"><a id="aad286f857883c9267bb8a5a7b9276288" name="aad286f857883c9267bb8a5a7b9276288"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>loadMenu</b> ()</td></tr>
+<tr class="separator:aad286f857883c9267bb8a5a7b9276288"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa794b4b3fc18fe8597ba64a0462ba684"><td class="memItemLeft" align="right" valign="top"><a id="aa794b4b3fc18fe8597ba64a0462ba684" name="aa794b4b3fc18fe8597ba64a0462ba684"></a>
+static sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><b>getWindowZero</b> ()</td></tr>
+<tr class="separator:aa794b4b3fc18fe8597ba64a0462ba684"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87e65217bb8d189c0f3dad7ed6c2c15e"><td class="memItemLeft" align="right" valign="top"><a id="a87e65217bb8d189c0f3dad7ed6c2c15e" name="a87e65217bb8d189c0f3dad7ed6c2c15e"></a>
+static sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><b>getWindowCenter</b> ()</td></tr>
+<tr class="separator:a87e65217bb8d189c0f3dad7ed6c2c15e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfb2a089a9b32ddd3e7f8601afa8747b"><td class="memItemLeft" align="right" valign="top"><a id="acfb2a089a9b32ddd3e7f8601afa8747b" name="acfb2a089a9b32ddd3e7f8601afa8747b"></a>
+static std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_audio_system.html">AudioSystem</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getAudioSystem</b> ()</td></tr>
+<tr class="separator:acfb2a089a9b32ddd3e7f8601afa8747b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:aedd6b980b80d1f1c224c2946c36350ee"><td class="memItemLeft" align="right" valign="top"><a id="aedd6b980b80d1f1c224c2946c36350ee" name="aedd6b980b80d1f1c224c2946c36350ee"></a>
-static std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_world.html">GameWorld</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mp_mainWorld</b> = std::make_shared&lt;<a class="el" href="class_platform_data_engine_1_1_game_world.html">GameWorld</a>&gt;()</td></tr>
+static std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_world.html">GameWorld</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mp_mainWorld</b> = nullptr</td></tr>
 <tr class="separator:aedd6b980b80d1f1c224c2946c36350ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67409f908e2ab0cd69e317181c4d9d50"><td class="memItemLeft" align="right" valign="top"><a id="a67409f908e2ab0cd69e317181c4d9d50" name="a67409f908e2ab0cd69e317181c4d9d50"></a>
 static float&#160;</td><td class="memItemRight" valign="bottom"><b>m_fps</b> { 0.0 }</td></tr>
 <tr class="separator:a67409f908e2ab0cd69e317181c4d9d50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ad9399b3c74613903ce1fbcbdd9d637"><td class="memItemLeft" align="right" valign="top"><a id="a2ad9399b3c74613903ce1fbcbdd9d637" name="a2ad9399b3c74613903ce1fbcbdd9d637"></a>
-static sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><b>m_windowZero</b> { 0.0, 0.0 }</td></tr>
-<tr class="separator:a2ad9399b3c74613903ce1fbcbdd9d637"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Game Wrapper </p>

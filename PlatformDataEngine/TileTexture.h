@@ -4,6 +4,10 @@
 
 namespace PlatformDataEngine {
 
+	/// <summary>
+	/// The tile texture class is responsible for defining a
+	/// texture and a corrosponding rect inside that texture
+	/// </summary>
 	class TileTexture
 	{
 	public:

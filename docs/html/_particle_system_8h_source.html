@@ -90,38 +90,40 @@ $(document).ready(function(){initNavTree('_particle_system_8h_source.html',''); 
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;thread&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;Component.h&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>PlatformDataEngine {</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keyword">class </span>GameObject;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="class_platform_data_engine_1_1_particle_system.html">   14</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_platform_data_engine_1_1_particle_system.html">ParticleSystem</a> :</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keyword">public</span> <a class="code hl_class" href="class_platform_data_engine_1_1_component.html">Component</a></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_particle_system.html#a05ecf3c330285190603fb13f6731cfd3">init</a>();</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_particle_system.html#a984680c1bcb2f4c0fb992e2a6ca8f35a">update</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; dt, <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; elapsedTime);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_particle_system.html#aae99e6864b2dec1343ad6e01d33dd5a1">draw</a>(sf::RenderTarget&amp; target, sf::RenderStates states) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_particle_system.html#af7e10dbc48b1b2f27824b33c463a4787">copy</a>(std::shared_ptr&lt;Component&gt; otherCompPtr);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_particle_system.html#aecc178f117d07257f73d2359ab890483">loadDefinition</a>(nlohmann::json <span class="keywordtype">object</span>);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordtype">void</span> spawnParticles();</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        std::string m_particleName;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordtype">int</span> m_numParticles;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">float</span> m_velocity;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    };</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="ttc" id="aclass_platform_data_engine_1_1_component_html"><div class="ttname"><a href="class_platform_data_engine_1_1_component.html">PlatformDataEngine::Component</a></div><div class="ttdoc">The base component class, when creating components to add gameplay functionality, they should inherit...</div><div class="ttdef"><b>Definition:</b> Component.h:16</div></div>
-<div class="ttc" id="aclass_platform_data_engine_1_1_particle_system_html"><div class="ttname"><a href="class_platform_data_engine_1_1_particle_system.html">PlatformDataEngine::ParticleSystem</a></div><div class="ttdoc">The particle system component spawns a number of other game objects and applies a velocity to them</div><div class="ttdef"><b>Definition:</b> ParticleSystem.h:16</div></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;SFML/Audio.hpp&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;Component.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>PlatformDataEngine {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">class </span>GameObject;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="class_platform_data_engine_1_1_particle_system.html">   15</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_platform_data_engine_1_1_particle_system.html">ParticleSystem</a> :</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keyword">public</span> <a class="code hl_class" href="class_platform_data_engine_1_1_component.html">Component</a></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_particle_system.html#a05ecf3c330285190603fb13f6731cfd3">init</a>();</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_particle_system.html#a984680c1bcb2f4c0fb992e2a6ca8f35a">update</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; dt, <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; elapsedTime);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_particle_system.html#aae99e6864b2dec1343ad6e01d33dd5a1">draw</a>(sf::RenderTarget&amp; target, sf::RenderStates states) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_particle_system.html#af7e10dbc48b1b2f27824b33c463a4787">copy</a>(std::shared_ptr&lt;Component&gt; otherCompPtr);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_particle_system.html#aecc178f117d07257f73d2359ab890483">loadDefinition</a>(nlohmann::json <span class="keywordtype">object</span>);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordtype">void</span> spawnParticles();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        std::string m_particleName;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">int</span> m_numParticles;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordtype">float</span> m_velocity;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        sf::Sound* m_sound;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    };</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_component_html"><div class="ttname"><a href="class_platform_data_engine_1_1_component.html">PlatformDataEngine::Component</a></div><div class="ttdoc">The base component class, when creating components to add gameplay functionality, they should inherit...</div><div class="ttdef"><b>Definition:</b> Component.h:18</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_particle_system_html"><div class="ttname"><a href="class_platform_data_engine_1_1_particle_system.html">PlatformDataEngine::ParticleSystem</a></div><div class="ttdoc">The particle system component spawns a number of other game objects and applies a velocity to them</div><div class="ttdef"><b>Definition:</b> ParticleSystem.h:17</div></div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_particle_system_html_a05ecf3c330285190603fb13f6731cfd3"><div class="ttname"><a href="class_platform_data_engine_1_1_particle_system.html#a05ecf3c330285190603fb13f6731cfd3">PlatformDataEngine::ParticleSystem::init</a></div><div class="ttdeci">void init()</div><div class="ttdoc">Called once on startup</div><div class="ttdef"><b>Definition:</b> ParticleSystem.cpp:7</div></div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_particle_system_html_a984680c1bcb2f4c0fb992e2a6ca8f35a"><div class="ttname"><a href="class_platform_data_engine_1_1_particle_system.html#a984680c1bcb2f4c0fb992e2a6ca8f35a">PlatformDataEngine::ParticleSystem::update</a></div><div class="ttdeci">void update(const float &amp;dt, const float &amp;elapsedTime)</div><div class="ttdoc">Called every update cycle</div><div class="ttdef"><b>Definition:</b> ParticleSystem.cpp:14</div></div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_particle_system_html_aae99e6864b2dec1343ad6e01d33dd5a1"><div class="ttname"><a href="class_platform_data_engine_1_1_particle_system.html#aae99e6864b2dec1343ad6e01d33dd5a1">PlatformDataEngine::ParticleSystem::draw</a></div><div class="ttdeci">void draw(sf::RenderTarget &amp;target, sf::RenderStates states) const</div><div class="ttdoc">Called every draw cycle</div><div class="ttdef"><b>Definition:</b> ParticleSystem.cpp:18</div></div>

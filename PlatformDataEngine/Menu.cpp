@@ -10,6 +10,10 @@ void Menu::init()
 	playerProfileMenu->addOption(std::make_shared<TextBox>("Name:", playerProfileMenu.get()), &PlatformDataEngineWrapper::ProfileConfig::name);
 	this->m_menus.push_back(playerProfileMenu);
 
+	std::shared_ptr<ListMenu> optionsMenu = std::make_shared<ListMenu>(this);
+	optionsMenu->addOption(std::make_shared<TextBox>("Music %:", optionsMenu.get()), &PlatformDataEngineWrapper::OptionsConfig::musicVol);
+	this->m_menus.push_back(optionsMenu);
+
 	// init host game menu
 	std::shared_ptr<ListMenu> hostMenu = std::make_shared<ListMenu>(this);
 	hostMenu->addOption(std::make_shared<TextBox>("IP:", hostMenu.get()), &PlatformDataEngineWrapper::HostConfig::ip);
@@ -29,21 +33,26 @@ void Menu::init()
 	topLevel->addOption(std::make_shared<MenuOption>("Host Game", topLevel.get()), hostMenu.get());
 	topLevel->addOption(std::make_shared<MenuOption>("Join Game", topLevel.get()), joinMenu.get());
 	topLevel->addOption(std::make_shared<MenuOption>("Edit Profile", topLevel.get()), playerProfileMenu.get());
+	topLevel->addOption(std::make_shared<MenuOption>("Options", topLevel.get()), optionsMenu.get());
 	topLevel->addOption(std::make_shared<MenuOption>("Quit", topLevel.get()), &PlatformDataEngineWrapper::quit);
 	this->m_menus.push_back(topLevel);
 
 	this->m_currentMenu = topLevel.get();
 
-	sf::Music* bgMusic = PlatformDataEngineWrapper::getAudioSystem()->getMusic("menu.ogg");
-	bgMusic->play();
-	bgMusic->setVolume(50);
-	bgMusic->setLoop(true);
+	m_bgMusic = PlatformDataEngineWrapper::getAudioSystem()->getMusic("menu.ogg");
+	m_bgMusic->play();
+	m_bgMusic->setVolume(30);
+	m_bgMusic->setLoop(true);
 
 }
 
 void Menu::update(const float& dt, const float& elapsedTime)
 {
 	this->m_currentMenu->update(dt, elapsedTime);
+	std::stringstream ss(PlatformDataEngineWrapper::OptionsConfig::musicVol);
+	int vol = 30;
+	ss >> vol;
+	this->m_bgMusic->setVolume(vol);
 }
 
 void Menu::draw(sf::RenderTarget& target, sf::RenderStates states) const

@@ -41,3 +41,4 @@ vcpkg_installed/*
 /x64/Debug
 /x64
 /PlatformDataEngine/x64/DebugClient
+/PlatformDataEngine/DebugClient

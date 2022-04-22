@@ -9,11 +9,10 @@ var class_platform_data_engine_1_1_p_d_e_packet =
       [ "Connected", "class_platform_data_engine_1_1_p_d_e_packet.html#a75300f2d0dbab039b17bb362cfc5c1efadf04895481565b5f3eff13b8ebfb6b55", null ],
       [ "Disconnected", "class_platform_data_engine_1_1_p_d_e_packet.html#a75300f2d0dbab039b17bb362cfc5c1efacf627e15806c4f452f35a7f7a73e9afe", null ],
       [ "Text", "class_platform_data_engine_1_1_p_d_e_packet.html#a75300f2d0dbab039b17bb362cfc5c1efa8f81c7314e3bea62e1543a8d5d4abcc7", null ],
-      [ "MoveGameObject", "class_platform_data_engine_1_1_p_d_e_packet.html#a75300f2d0dbab039b17bb362cfc5c1efa95e46ef32975dd5d0adefdda8ab17394", null ],
-      [ "SpawnGameObject", "class_platform_data_engine_1_1_p_d_e_packet.html#a75300f2d0dbab039b17bb362cfc5c1efa75d16487ee4920867ed3b5b5b60f8c14", null ],
-      [ "DamageGameObject", "class_platform_data_engine_1_1_p_d_e_packet.html#a75300f2d0dbab039b17bb362cfc5c1efa2206d0623b7fc9894aef83a07a5607e7", null ],
-      [ "UserInput", "class_platform_data_engine_1_1_p_d_e_packet.html#a75300f2d0dbab039b17bb362cfc5c1efa8111b5e2cc4e9e4f4870d7a535ce2483", null ],
-      [ "BindPlayer", "class_platform_data_engine_1_1_p_d_e_packet.html#a75300f2d0dbab039b17bb362cfc5c1efaa3348a69af5711664846ba5b538c0f9f", null ]
+      [ "SetObjectHealth", "class_platform_data_engine_1_1_p_d_e_packet.html#a75300f2d0dbab039b17bb362cfc5c1efa7d43868a546b534cd80a90e698732da4", null ],
+      [ "RequestUpdates", "class_platform_data_engine_1_1_p_d_e_packet.html#a75300f2d0dbab039b17bb362cfc5c1efa7de2c62c54233a5c29ff64de2ebba47a", null ],
+      [ "SendUpdates", "class_platform_data_engine_1_1_p_d_e_packet.html#a75300f2d0dbab039b17bb362cfc5c1efacd86e04969f57cff228d167d08926819", null ],
+      [ "UserInput", "class_platform_data_engine_1_1_p_d_e_packet.html#a75300f2d0dbab039b17bb362cfc5c1efa8111b5e2cc4e9e4f4870d7a535ce2483", null ]
     ] ],
     [ "PDEPacket", "class_platform_data_engine_1_1_p_d_e_packet.html#a6958c91f2764089000c73590645d8ebd", null ],
     [ "PDEPacket", "class_platform_data_engine_1_1_p_d_e_packet.html#a11aead56c11c0258ffa2d19fa6d7ab22", null ],

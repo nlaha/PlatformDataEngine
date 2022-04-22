@@ -4,6 +4,9 @@
 
 using namespace PlatformDataEngine;
 
+/// <summary>
+/// Constructor
+/// </summary>
 Server::Server()
 {
 	spdlog::info("Running in SERVER mode!");
@@ -17,6 +20,9 @@ Server::Server()
 	this->m_socket.setBlocking(false);
 }
 
+/// <summary>
+/// Starts the server
+/// </summary>
 void Server::start()
 {
 	// bind the m_socket to a port
@@ -29,10 +35,19 @@ void Server::start()
 	}
 }
 
+/// <summary>
+/// Stops the server
+/// (currently does nothing)
+/// </summary>
 void Server::stop()
 {
 }
 
+/// <summary>
+/// Process: sends data to the clients, this should be called
+/// on a fixed interval
+/// </summary>
+/// <param name="world">The game world</param>
 void Server::process(GameWorld* world)
 {
 	if (this->m_clientConnection->state == PlayerState::DEAD)
@@ -63,6 +78,7 @@ void Server::process(GameWorld* world)
 		// send update data
 		packet = PDEPacket(PDEPacket::SendUpdates);
 		conn->networkSerialize(packet);
+
 		packet << static_cast<sf::Uint32>(world->getGameObjects().size());
 		for (const auto& gameObjectPair : world->getGameObjects())
 		{
@@ -77,13 +93,14 @@ void Server::process(GameWorld* world)
 					<< gameObjectPair.second->getType()
 					<< gameObjectPair.second->getPosition().x
 					<< gameObjectPair.second->getPosition().y
-					<< gameObjectPair.second->getId();
+					<< gameObjectPair.second->getId()
+					<< gameObjectPair.second->getHasBeenSent(conn->id);
 				if (gameObjectPair.second->getHasBeenSent(conn->id)) {
-					spdlog::debug("Sending existing object {}", gameObjectPair.second->getId());
+					spdlog::debug("Sending existing object {} {}", gameObjectPair.second->getId(), gameObjectPair.second->getType());
 					gameObjectPair.second->networkSerialize(packet);
 				}
 				else {
-					spdlog::debug("Sending new object {}", gameObjectPair.second->getId());
+					spdlog::debug("Sending new object {} {}", gameObjectPair.second->getId(), gameObjectPair.second->getType());
 					gameObjectPair.second->networkSerializeInit(packet);
 					gameObjectPair.second->setHasBeenSent(conn->id);
 				}
@@ -97,6 +114,10 @@ void Server::process(GameWorld* world)
 	}
 }
 
+/// <summary>
+/// Checks for new data from the clients
+/// </summary>
+/// <param name="world">The game world</param>
 void Server::recieve(GameWorld* world)
 {
 	PDEPacket packet;
@@ -117,6 +138,9 @@ void Server::recieve(GameWorld* world)
 		connection->port = clientPort;
 		connection->state = PlayerState::ALIVE;
 
+		ConnectionStats stats;
+		this->m_connectionStats.emplace(connection, stats);
+
 		spdlog::info("A player has connected: {}:{} - {}", clientIp.toString(), clientPort, connection->id);
 		std::string playerId = world->spawnPlayer(connection);
 
@@ -134,6 +158,7 @@ void Server::recieve(GameWorld* world)
 		sf::Int8 value = 0;
 		bool valueBool = false;
 		std::string clientId;
+		std::string objId;
 		packet >> clientId;
 		bool isNetworked;
 
@@ -199,6 +224,12 @@ void Server::recieve(GameWorld* world)
 	}
 }
 
+/// <summary>
+/// Broadcasts health updates, makes
+/// sure it's not being sent too frequently
+/// </summary>
+/// <param name="objName">the object id</param>
+/// <param name="health">the new health</param>
 void Server::broadcastObjectHealth(const std::string& objName, float health)
 {
 	// override timer for death packets
@@ -223,6 +254,12 @@ void Server::broadcastObjectHealth(const std::string& objName, float health)
 	}
 }
 
+/// <summary>
+/// Finds a connection by ip and id
+/// </summary>
+/// <param name="ip">the ip of the connection</param>
+/// <param name="id">the id of the connection</param>
+/// <returns></returns>
 std::shared_ptr<Connection> Server::findConnection(sf::IpAddress ip, std::string id)
 {
 	for (std::shared_ptr<Connection> conn : this->m_connections)
@@ -234,3 +271,8 @@ std::shared_ptr<Connection> Server::findConnection(sf::IpAddress ip, std::string
 	return nullptr;
 }
 
+ConnectionStats::ConnectionStats()
+{
+	this->m_playerDeaths = 0;
+	this->m_playerKills = 0;
+}

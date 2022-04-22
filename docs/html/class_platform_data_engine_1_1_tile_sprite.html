@@ -90,6 +90,11 @@ $(document).ready(function(){initNavTree('class_platform_data_engine_1_1_tile_sp
   <div class="headertitle"><div class="title">PlatformDataEngine::TileSprite Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Since tilesets are drawn each in a single draw call, this isn't responsible for holding a texture or something like a normal sprite would hold. Instead it holds a tile index and a transform that can be referenced in a tileset  
+ <a href="class_platform_data_engine_1_1_tile_sprite.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_tile_sprite_8h_source.html">TileSprite.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for PlatformDataEngine::TileSprite:</div>
 <div class="dyncontent">
@@ -118,7 +123,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>getTileIdx</b> () cons
 void&#160;</td><td class="memItemRight" valign="bottom"><b>preDraw</b> ()</td></tr>
 <tr class="separator:aceeb1a6b8f33738c5ca182ee8507fcff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >Since tilesets are drawn each in a single draw call, this isn't responsible for holding a texture or something like a normal sprite would hold. Instead it holds a tile index and a transform that can be referenced in a tileset </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>PlatformDataEngine/<a class="el" href="_tile_sprite_8h_source.html">TileSprite.h</a></li>
 <li>PlatformDataEngine/TileSprite.cpp</li>
 </ul>

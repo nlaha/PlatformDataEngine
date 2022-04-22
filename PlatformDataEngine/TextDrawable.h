@@ -11,7 +11,7 @@ namespace PlatformDataEngine
 	class TextDrawable : public sf::Drawable, public sf::Transformable
 	{
 	public:
-		TextDrawable();
+		TextDrawable(std::string fontFilename = "assets/smallest_pixel-7.ttf");
 		TextDrawable(int fontSize, bool bold, float renderSize, const std::string &text);
 
 		void setText(const std::string &text);
@@ -20,7 +20,7 @@ namespace PlatformDataEngine
 
 		// getters
 
-		inline const sf::Font& getFont() const { return this->m_font; };
+		inline sf::Font& getFont() { return this->m_font; };
 		inline int getFontSize() const { return this->m_fontSize; };
 		inline bool getFontBold() const { return this->m_fontBold; };
 		inline float getRenderSize() const { return this->m_renderSize; };

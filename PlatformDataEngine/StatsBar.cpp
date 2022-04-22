@@ -55,6 +55,10 @@ void StatsBar::loadDefinition(nlohmann::json object)
     );
 }
 
+/// <summary>
+/// Sets the position of the stats bar
+/// </summary>
+/// <param name="pos">the new position</param>
 void StatsBar::setPosition(sf::Vector2f pos)
 {
     this->m_position = pos;

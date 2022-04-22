@@ -101,7 +101,8 @@ Inheritance diagram for PlatformDataEngine::GameObject:</div>
  <div class="center">
   <img src="class_platform_data_engine_1_1_game_object.png" usemap="#PlatformDataEngine::GameObject_map" alt=""/>
   <map id="PlatformDataEngine::GameObject_map" name="PlatformDataEngine::GameObject_map">
-<area href="class_platform_data_engine_1_1_alive.html" title="Class that defines an &quot;alive&quot; object, ie. an object that can take damage and die" alt="PlatformDataEngine::Alive" shape="rect" coords="416,0,614,24"/>
+<area href="class_platform_data_engine_1_1_alive.html" title="Class that defines an &quot;alive&quot; object, ie. an object that can take damage and die" alt="PlatformDataEngine::Alive" shape="rect" coords="418,0,617,24"/>
+<area href="class_platform_data_engine_1_1_networkable.html" alt="PlatformDataEngine::Networkable" shape="rect" coords="627,0,826,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -121,18 +122,23 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> ()</td></tr>
 <tr class="memitem:aa80462742b51fe06e9e44d59e178ec32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_object.html#aa80462742b51fe06e9e44d59e178ec32">update</a> (const float &amp;dt, const float &amp;elapsedTime)</td></tr>
 <tr class="memdesc:aa80462742b51fe06e9e44d59e178ec32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the update loop for every component in this gameObject and itself  <a href="class_platform_data_engine_1_1_game_object.html#aa80462742b51fe06e9e44d59e178ec32">More...</a><br /></td></tr>
 <tr class="separator:aa80462742b51fe06e9e44d59e178ec32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9d27e2c972869a4799c595aef30f03b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_object.html#ae9d27e2c972869a4799c595aef30f03b">networkSerialize</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;output)</td></tr>
+<tr class="separator:ae9d27e2c972869a4799c595aef30f03b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3ff07bc9330897d7220bbe402b2731c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_object.html#ad3ff07bc9330897d7220bbe402b2731c">networkDeserialize</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;input)</td></tr>
+<tr class="separator:ad3ff07bc9330897d7220bbe402b2731c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70644913e3c25e0b7a422db613bb842e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_object.html#a70644913e3c25e0b7a422db613bb842e">networkSerializeInit</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;output)</td></tr>
+<tr class="separator:a70644913e3c25e0b7a422db613bb842e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ba46f634b6c8c512baa3fd4e5cf87d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_object.html#a6ba46f634b6c8c512baa3fd4e5cf87d9">networkDeserializeInit</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;input)</td></tr>
+<tr class="separator:a6ba46f634b6c8c512baa3fd4e5cf87d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6d7650a920e2dd79b0125560faf3807"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_object.html#aa6d7650a920e2dd79b0125560faf3807">draw</a> (sf::RenderTarget &amp;target, sf::RenderStates states) const</td></tr>
 <tr class="memdesc:aa6d7650a920e2dd79b0125560faf3807"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drawcall, never call explicitly  <a href="class_platform_data_engine_1_1_game_object.html#aa6d7650a920e2dd79b0125560faf3807">More...</a><br /></td></tr>
 <tr class="separator:aa6d7650a920e2dd79b0125560faf3807"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a608cd0d7c9a4be3cf7836019d610f5fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_object.html#a608cd0d7c9a4be3cf7836019d610f5fe">loadDefinition</a> (std::string filename)</td></tr>
-<tr class="memdesc:a608cd0d7c9a4be3cf7836019d610f5fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a gameObject definition from a json file  <a href="class_platform_data_engine_1_1_game_object.html#a608cd0d7c9a4be3cf7836019d610f5fe">More...</a><br /></td></tr>
-<tr class="separator:a608cd0d7c9a4be3cf7836019d610f5fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13f05f8eb8953394a9024b8f8f6afb0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_object.html#a13f05f8eb8953394a9024b8f8f6afb0a">loadDefinition</a> (const std::string &amp;filename)</td></tr>
+<tr class="memdesc:a13f05f8eb8953394a9024b8f8f6afb0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a gameObject definition from a json file  <a href="class_platform_data_engine_1_1_game_object.html#a13f05f8eb8953394a9024b8f8f6afb0a">More...</a><br /></td></tr>
+<tr class="separator:a13f05f8eb8953394a9024b8f8f6afb0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a614e0dfd2fa659c8e1a715a9a417eb5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_game_object.html#a614e0dfd2fa659c8e1a715a9a417eb5a">registerComponentHierarchy</a> (std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt; self)</td></tr>
 <tr class="memdesc:a614e0dfd2fa659c8e1a715a9a417eb5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the gameObject pointer as the parent for each component this object owns  <a href="class_platform_data_engine_1_1_game_object.html#a614e0dfd2fa659c8e1a715a9a417eb5a">More...</a><br /></td></tr>
 <tr class="separator:a614e0dfd2fa659c8e1a715a9a417eb5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7293357172b38532e80213a66621d61e"><td class="memItemLeft" align="right" valign="top"><a id="a7293357172b38532e80213a66621d61e" name="a7293357172b38532e80213a66621d61e"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getName</b> () const</td></tr>
-<tr class="separator:a7293357172b38532e80213a66621d61e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7396d70c83743cad7f10f0ea75dd34db"><td class="memItemLeft" align="right" valign="top"><a id="a7396d70c83743cad7f10f0ea75dd34db" name="a7396d70c83743cad7f10f0ea75dd34db"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>isDefinition</b> () const</td></tr>
 <tr class="separator:a7396d70c83743cad7f10f0ea75dd34db"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -157,21 +163,54 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setIsUI</b> (bool isU
 <tr class="memitem:ade6639da86557a8efc7fb8e9551785cb"><td class="memItemLeft" align="right" valign="top"><a id="ade6639da86557a8efc7fb8e9551785cb" name="ade6639da86557a8efc7fb8e9551785cb"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>getIsUI</b> () const</td></tr>
 <tr class="separator:ade6639da86557a8efc7fb8e9551785cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ec01a6ac22009c9c995902b9706a743"><td class="memItemLeft" align="right" valign="top"><a id="a0ec01a6ac22009c9c995902b9706a743" name="a0ec01a6ac22009c9c995902b9706a743"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setConnection</b> (std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_connection.html">Connection</a> &gt; conn)</td></tr>
+<tr class="separator:a0ec01a6ac22009c9c995902b9706a743"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdaab22aaf07bd0c4cc884a26fc2a89c"><td class="memItemLeft" align="right" valign="top"><a id="abdaab22aaf07bd0c4cc884a26fc2a89c" name="abdaab22aaf07bd0c4cc884a26fc2a89c"></a>
+std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_connection.html">Connection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getConnection</b> () const</td></tr>
+<tr class="separator:abdaab22aaf07bd0c4cc884a26fc2a89c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2ebc8870f8a0a63d29cd4ed153a28a8"><td class="memItemLeft" align="right" valign="top"><a id="ab2ebc8870f8a0a63d29cd4ed153a28a8" name="ab2ebc8870f8a0a63d29cd4ed153a28a8"></a>
 std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getParent</b> ()</td></tr>
 <tr class="separator:ab2ebc8870f8a0a63d29cd4ed153a28a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adddc3051bd14c666444e71266fc3b724"><td class="memItemLeft" align="right" valign="top"><a id="adddc3051bd14c666444e71266fc3b724" name="adddc3051bd14c666444e71266fc3b724"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setName</b> (std::string &amp;name)</td></tr>
-<tr class="separator:adddc3051bd14c666444e71266fc3b724"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56a0a54f179369e9eb4e564f82fa1165"><td class="memItemLeft" align="right" valign="top"><a id="a56a0a54f179369e9eb4e564f82fa1165" name="a56a0a54f179369e9eb4e564f82fa1165"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setAlreadyReplicated</b> (bool replicated)</td></tr>
+<tr class="separator:a56a0a54f179369e9eb4e564f82fa1165"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa502ddfdfe4ee743134c8db735c1f139"><td class="memItemLeft" align="right" valign="top"><a id="aa502ddfdfe4ee743134c8db735c1f139" name="aa502ddfdfe4ee743134c8db735c1f139"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getId</b> () const</td></tr>
+<tr class="separator:aa502ddfdfe4ee743134c8db735c1f139"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b9feff6bf07a757b94e916207108bec"><td class="memItemLeft" align="right" valign="top"><a id="a0b9feff6bf07a757b94e916207108bec" name="a0b9feff6bf07a757b94e916207108bec"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setId</b> (const std::string &amp;id)</td></tr>
+<tr class="separator:a0b9feff6bf07a757b94e916207108bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06a66a196024d672843b2f8746d25da2"><td class="memItemLeft" align="right" valign="top"><a id="a06a66a196024d672843b2f8746d25da2" name="a06a66a196024d672843b2f8746d25da2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setName</b> (const std::string &amp;name)</td></tr>
+<tr class="separator:a06a66a196024d672843b2f8746d25da2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36e76922956a4df2febd28f191b74fa0"><td class="memItemLeft" align="right" valign="top"><a id="a36e76922956a4df2febd28f191b74fa0" name="a36e76922956a4df2febd28f191b74fa0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>destroySelf</b> ()</td></tr>
 <tr class="separator:a36e76922956a4df2febd28f191b74fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a754d0aa87e40971d90ff8bc82256f199"><td class="memItemLeft" align="right" valign="top"><a id="a754d0aa87e40971d90ff8bc82256f199" name="a754d0aa87e40971d90ff8bc82256f199"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getType</b> () const</td></tr>
+<tr class="separator:a754d0aa87e40971d90ff8bc82256f199"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7de2a13aef297bbd21c5f81cdf6d6544"><td class="memItemLeft" align="right" valign="top"><a id="a7de2a13aef297bbd21c5f81cdf6d6544" name="a7de2a13aef297bbd21c5f81cdf6d6544"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setType</b> (const std::string &amp;type)</td></tr>
+<tr class="separator:a7de2a13aef297bbd21c5f81cdf6d6544"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc579ab4ec1674fb7ce22b6994d139f0"><td class="memItemLeft" align="right" valign="top"><a id="acc579ab4ec1674fb7ce22b6994d139f0" name="acc579ab4ec1674fb7ce22b6994d139f0"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>getDestroyed</b> () const</td></tr>
 <tr class="separator:acc579ab4ec1674fb7ce22b6994d139f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa07207a7be61671ff2d386cd1330568"><td class="memItemLeft" align="right" valign="top"><a id="afa07207a7be61671ff2d386cd1330568" name="afa07207a7be61671ff2d386cd1330568"></a>
 std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_game_object.html">GameObject</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getChildren</b> () const</td></tr>
 <tr class="separator:afa07207a7be61671ff2d386cd1330568"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae608e54d72860c62aa6393ea16758fe9"><td class="memItemLeft" align="right" valign="top"><a id="ae608e54d72860c62aa6393ea16758fe9" name="ae608e54d72860c62aa6393ea16758fe9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setNetworked</b> (bool networked)</td></tr>
+<tr class="separator:ae608e54d72860c62aa6393ea16758fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35c3b729f9d7b4f829b1027fd3278c39"><td class="memItemLeft" align="right" valign="top"><a id="a35c3b729f9d7b4f829b1027fd3278c39" name="a35c3b729f9d7b4f829b1027fd3278c39"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>getNetworked</b> ()</td></tr>
+<tr class="separator:a35c3b729f9d7b4f829b1027fd3278c39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53249e35ff1cdcf6e69247d35643462f"><td class="memItemLeft" align="right" valign="top"><a id="a53249e35ff1cdcf6e69247d35643462f" name="a53249e35ff1cdcf6e69247d35643462f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setHasBeenSent</b> (const std::string &amp;id)</td></tr>
+<tr class="separator:a53249e35ff1cdcf6e69247d35643462f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4a8e6d03b2fb545ec9665d38f0b123d"><td class="memItemLeft" align="right" valign="top"><a id="ad4a8e6d03b2fb545ec9665d38f0b123d" name="ad4a8e6d03b2fb545ec9665d38f0b123d"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>getHasBeenSent</b> (const std::string &amp;id) const</td></tr>
+<tr class="separator:ad4a8e6d03b2fb545ec9665d38f0b123d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89ac3d19f582e348cd463f06e2b4dcf3"><td class="memItemLeft" align="right" valign="top"><a id="a89ac3d19f582e348cd463f06e2b4dcf3" name="a89ac3d19f582e348cd463f06e2b4dcf3"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>sortChildZ</b> ()</td></tr>
 <tr class="memdesc:a89ac3d19f582e348cd463f06e2b4dcf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes sure children are in the correct Z order for drawing <br /></td></tr>
@@ -195,6 +234,17 @@ template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a5a3ce7521a065cb9cd9443608d568989 inherit pub_methods_class_platform_data_engine_1_1_alive"><td class="memItemLeft" align="right" valign="top"><a id="a5a3ce7521a065cb9cd9443608d568989" name="a5a3ce7521a065cb9cd9443608d568989"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>getHealth</b> () const</td></tr>
 <tr class="separator:a5a3ce7521a065cb9cd9443608d568989 inherit pub_methods_class_platform_data_engine_1_1_alive"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a714f7d80b8a3c867e2e34c0004405bef inherit pub_methods_class_platform_data_engine_1_1_alive"><td class="memItemLeft" align="right" valign="top"><a id="a714f7d80b8a3c867e2e34c0004405bef" name="a714f7d80b8a3c867e2e34c0004405bef"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setHealth</b> (float hp)</td></tr>
+<tr class="separator:a714f7d80b8a3c867e2e34c0004405bef inherit pub_methods_class_platform_data_engine_1_1_alive"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42cf0c6ed06740d707e1654cd3cf5683"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_networkable.html#a42cf0c6ed06740d707e1654cd3cf5683">networkSerializeInit</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;output)=0</td></tr>
+<tr class="separator:a42cf0c6ed06740d707e1654cd3cf5683"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa35790c615aef3f3e3b0e9a6afbf7fb1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_networkable.html#aa35790c615aef3f3e3b0e9a6afbf7fb1">networkDeserializeInit</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;input)=0</td></tr>
+<tr class="separator:aa35790c615aef3f3e3b0e9a6afbf7fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62b19623549e90702e6a8bdfe0f644d1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_networkable.html#a62b19623549e90702e6a8bdfe0f644d1">networkSerialize</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;output)=0</td></tr>
+<tr class="separator:a62b19623549e90702e6a8bdfe0f644d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f8d573d7e8d91d5b91a05c183fff49c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_networkable.html#a0f8d573d7e8d91d5b91a05c183fff49c">networkDeserialize</a> (<a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;input)=0</td></tr>
+<tr class="separator:a0f8d573d7e8d91d5b91a05c183fff49c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -276,8 +326,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>m_HP</b></td></tr>
 
 </div>
 </div>
-<a id="a608cd0d7c9a4be3cf7836019d610f5fe" name="a608cd0d7c9a4be3cf7836019d610f5fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a608cd0d7c9a4be3cf7836019d610f5fe">&#9670;&nbsp;</a></span>loadDefinition()</h2>
+<a id="a13f05f8eb8953394a9024b8f8f6afb0a" name="a13f05f8eb8953394a9024b8f8f6afb0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13f05f8eb8953394a9024b8f8f6afb0a">&#9670;&nbsp;</a></span>loadDefinition()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -285,7 +335,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>m_HP</b></td></tr>
         <tr>
           <td class="memname">void GameObject::loadDefinition </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>filename</em></td><td>)</td>
           <td></td>
         </tr>
@@ -299,6 +349,118 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>m_HP</b></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ad3ff07bc9330897d7220bbe402b2731c" name="ad3ff07bc9330897d7220bbe402b2731c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3ff07bc9330897d7220bbe402b2731c">&#9670;&nbsp;</a></span>networkDeserialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameObject::networkDeserialize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="class_platform_data_engine_1_1_networkable.html">PlatformDataEngine::Networkable</a>.</p>
+
+</div>
+</div>
+<a id="a6ba46f634b6c8c512baa3fd4e5cf87d9" name="a6ba46f634b6c8c512baa3fd4e5cf87d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ba46f634b6c8c512baa3fd4e5cf87d9">&#9670;&nbsp;</a></span>networkDeserializeInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameObject::networkDeserializeInit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="class_platform_data_engine_1_1_networkable.html">PlatformDataEngine::Networkable</a>.</p>
+
+</div>
+</div>
+<a id="ae9d27e2c972869a4799c595aef30f03b" name="ae9d27e2c972869a4799c595aef30f03b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9d27e2c972869a4799c595aef30f03b">&#9670;&nbsp;</a></span>networkSerialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameObject::networkSerialize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;&#160;</td>
+          <td class="paramname"><em>output</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="class_platform_data_engine_1_1_networkable.html">PlatformDataEngine::Networkable</a>.</p>
+
+</div>
+</div>
+<a id="a70644913e3c25e0b7a422db613bb842e" name="a70644913e3c25e0b7a422db613bb842e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70644913e3c25e0b7a422db613bb842e">&#9670;&nbsp;</a></span>networkSerializeInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameObject::networkSerializeInit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_platform_data_engine_1_1_p_d_e_packet.html">PDEPacket</a> &amp;&#160;</td>
+          <td class="paramname"><em>output</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="class_platform_data_engine_1_1_networkable.html">PlatformDataEngine::Networkable</a>.</p>
 
 </div>
 </div>

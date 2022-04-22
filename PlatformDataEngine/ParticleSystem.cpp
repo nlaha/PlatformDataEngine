@@ -53,8 +53,9 @@ void ParticleSystem::spawnParticles()
 	for (size_t i = 0; i < this->m_numParticles; i++)
 	{
 
+		sf::Vector2f randomOffset = sf::Vector2f(Utility::getRandomFloat(-4.0f, 4.0f), Utility::getRandomFloat(-4.0f, 4.0f));
 		std::shared_ptr<GameObject> particle = PlatformDataEngineWrapper::getWorld()->spawnGameObject(
-			this->m_particleName, this->m_parent->getPosition(), "", true);
+			this->m_particleName, this->m_parent->getPosition() + randomOffset, "", true);
 
 		b2Body *bd = particle->findComponentOfType<PhysicsBody>()->getBody();
 

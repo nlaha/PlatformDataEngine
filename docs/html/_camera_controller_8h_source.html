@@ -100,23 +100,25 @@ $(document).ready(function(){initNavTree('_camera_controller_8h_source.html','')
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <a class="code hl_function" href="class_platform_data_engine_1_1_camera_controller.html#a435861b907d203bd4551b2ad94be4827">CameraController</a>(<span class="keywordtype">float</span> lerpTime = 0.0f, std::shared_ptr&lt;sf::View&gt; view = <span class="keyword">nullptr</span>);</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_camera_controller.html#a1955ebccae720a20c96f0110ee213e40">setTarget</a>(std::shared_ptr&lt;GameObject&gt; gameObject);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keywordtype">void</span> update(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; dt, <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; elapsedTime);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        sf::Vector2f getUIOffset() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        std::shared_ptr&lt;sf::View&gt; m_view;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        std::shared_ptr&lt;GameObject&gt; m_gameObject;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordtype">float</span> m_lerpTime;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    };</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_platform_data_engine_1_1_camera_controller.html#a2d58725c995bcee52d7ef3b4fab10d96">setTarget</a>(<a class="code hl_class" href="class_platform_data_engine_1_1_game_object.html">GameObject</a>* gameObject);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keyword">inline</span> <a class="code hl_class" href="class_platform_data_engine_1_1_game_object.html">GameObject</a>* getTarget()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> this-&gt;m_gameObject; };</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordtype">void</span> update(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; dt, <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; elapsedTime);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        sf::Vector2f getUIOffset() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        std::shared_ptr&lt;sf::View&gt; m_view;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <a class="code hl_class" href="class_platform_data_engine_1_1_game_object.html">GameObject</a>* m_gameObject;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordtype">float</span> m_lerpTime;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    };</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_camera_controller_html"><div class="ttname"><a href="class_platform_data_engine_1_1_camera_controller.html">PlatformDataEngine::CameraController</a></div><div class="ttdoc">Handles moving the camera and targetting gameObjects</div><div class="ttdef"><b>Definition:</b> CameraController.h:14</div></div>
-<div class="ttc" id="aclass_platform_data_engine_1_1_camera_controller_html_a1955ebccae720a20c96f0110ee213e40"><div class="ttname"><a href="class_platform_data_engine_1_1_camera_controller.html#a1955ebccae720a20c96f0110ee213e40">PlatformDataEngine::CameraController::setTarget</a></div><div class="ttdeci">void setTarget(std::shared_ptr&lt; GameObject &gt; gameObject)</div><div class="ttdoc">Sets the gameObject for which the camera controller should follow</div><div class="ttdef"><b>Definition:</b> CameraController.cpp:21</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_camera_controller_html_a2d58725c995bcee52d7ef3b4fab10d96"><div class="ttname"><a href="class_platform_data_engine_1_1_camera_controller.html#a2d58725c995bcee52d7ef3b4fab10d96">PlatformDataEngine::CameraController::setTarget</a></div><div class="ttdeci">void setTarget(GameObject *gameObject)</div><div class="ttdoc">Sets the gameObject for which the camera controller should follow</div><div class="ttdef"><b>Definition:</b> CameraController.cpp:21</div></div>
 <div class="ttc" id="aclass_platform_data_engine_1_1_camera_controller_html_a435861b907d203bd4551b2ad94be4827"><div class="ttname"><a href="class_platform_data_engine_1_1_camera_controller.html#a435861b907d203bd4551b2ad94be4827">PlatformDataEngine::CameraController::CameraController</a></div><div class="ttdeci">CameraController(float lerpTime=0.0f, std::shared_ptr&lt; sf::View &gt; view=nullptr)</div><div class="ttdoc">Constructor</div><div class="ttdef"><b>Definition:</b> CameraController.cpp:10</div></div>
+<div class="ttc" id="aclass_platform_data_engine_1_1_game_object_html"><div class="ttname"><a href="class_platform_data_engine_1_1_game_object.html">PlatformDataEngine::GameObject</a></div><div class="ttdoc">The base container class for a gameplay related object, it's drawable, transformable and components c...</div><div class="ttdef"><b>Definition:</b> GameObject.h:25</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -54,6 +54,7 @@ namespace PlatformDataEngine {
 		inline void setConnection(std::shared_ptr<Connection> conn) { this->m_owningConnection = conn; };
 		inline std::shared_ptr<Connection> getConnection() const { return this->m_owningConnection; };
 		inline std::shared_ptr<GameObject> getParent() { return this->m_parent; };
+		inline void setAlreadyReplicated(bool replicated) { this->m_alreadyReplicated = replicated; };
 
 		inline std::string getId() const { return this->m_id; };
 		inline void setId(const std::string& id) { this->m_id = id; };
@@ -76,7 +77,14 @@ namespace PlatformDataEngine {
 		inline bool getNetworked() { return this->m_networked; };
 
 		inline void setHasBeenSent(const std::string& id) { this->m_hasBeenSent.emplace(id, true); };
-		inline bool getHasBeenSent(const std::string& id) const { return this->m_hasBeenSent.count(id) > 0; };
+		inline bool getHasBeenSent(const std::string& id) const {
+			if (!this->m_alreadyReplicated) {
+				return this->m_hasBeenSent.count(id) > 0;
+			}
+			else {
+				return true;
+			}
+		};
 
 		void sortChildZ();
 
@@ -111,6 +119,7 @@ namespace PlatformDataEngine {
 		std::string m_objName;
 		std::string m_id;
 		int m_zLayer;
+		bool m_alreadyReplicated;
 		bool m_destroyed;
 		bool m_isDefinition;
 		bool m_isUI;

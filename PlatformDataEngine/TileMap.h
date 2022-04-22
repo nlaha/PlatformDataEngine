@@ -16,6 +16,11 @@
 
 namespace PlatformDataEngine {
 
+    /// <summary>
+    /// Responsible for loading a tiled TMX file,
+    /// this currently does a lot of stuff, and that's not necessarily a good thing.
+    /// Beware... messy code ahead!
+    /// </summary>
     class TileMap : public sf::Drawable
     {
     public:

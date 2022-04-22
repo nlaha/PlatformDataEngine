@@ -24,7 +24,6 @@ GameObject::GameObject(bool isDef)
 	this->m_type = "";
 	this->m_hasPhysics = true;
 	this->m_networked = true;
-
 }
 
 /// <summary>
@@ -58,6 +57,7 @@ GameObject::GameObject(const GameObject& other)
 	if (other.m_healthBar != nullptr)
 		this->m_healthBar = std::make_shared<StatsBar>(*other.m_healthBar);
 	this->m_hasHealthBar = other.m_hasHealthBar;
+	this->m_alreadyReplicated = false;
 }
 
 /// <summary>

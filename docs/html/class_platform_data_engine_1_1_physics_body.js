@@ -4,5 +4,7 @@ var class_platform_data_engine_1_1_physics_body =
     [ "draw", "class_platform_data_engine_1_1_physics_body.html#a49b0670e9be352e5b2df61ce2fa2675a", null ],
     [ "init", "class_platform_data_engine_1_1_physics_body.html#aa8e8571527c8030ccf4f5ccedf7fdc12", null ],
     [ "loadDefinition", "class_platform_data_engine_1_1_physics_body.html#a146dab71aa09531b552e49df02e16598", null ],
+    [ "networkDeserialize", "class_platform_data_engine_1_1_physics_body.html#af2c607ce3482b568b158e00a59502dca", null ],
+    [ "networkSerialize", "class_platform_data_engine_1_1_physics_body.html#ad2b56005127aa74b567929c96f64f6de", null ],
     [ "update", "class_platform_data_engine_1_1_physics_body.html#ae8c28b05a597666ce1134d2589bf0558", null ]
 ];

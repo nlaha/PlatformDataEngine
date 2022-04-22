@@ -1,7 +1,13 @@
 var searchData=
 [
-  ['tilemap_0',['TileMap',['../class_platform_data_engine_1_1_tile_map.html#a7f83bdae41d910effdd9dbbe47fc717b',1,'PlatformDataEngine::TileMap']]],
-  ['tileset_1',['Tileset',['../class_platform_data_engine_1_1_tileset.html#abca768859a472a578c16b28f85434f78',1,'PlatformDataEngine::Tileset']]],
-  ['tilesprite_2',['TileSprite',['../class_platform_data_engine_1_1_tile_sprite.html#a86cda93cd19e27f47bad14a0d224c008',1,'PlatformDataEngine::TileSprite::TileSprite(std::shared_ptr&lt; Tileset &gt; tileset, b2PolygonShape &amp;collisionShape, int tileIdx=0, bool hasPhysics=false)'],['../class_platform_data_engine_1_1_tile_sprite.html#ab10079905de75dea04d9860929d2ceb4',1,'PlatformDataEngine::TileSprite::TileSprite(std::shared_ptr&lt; Tileset &gt; tileset, b2PolygonShape &amp;collisionShape, int tileIdx=0, bool hasPhysics=false, sf::Vector2f position={ 0, 0 })'],['../class_platform_data_engine_1_1_tile_sprite.html#a23a1c87b9d1b9e82867db929bd583241',1,'PlatformDataEngine::TileSprite::TileSprite(const TileSprite &amp;other)']]],
-  ['tiletexture_3',['TileTexture',['../class_platform_data_engine_1_1_tile_texture.html#abdbdb4a5f6956373ceddeb146f0b2a26',1,'PlatformDataEngine::TileTexture']]]
+  ['server_0',['Server',['../class_platform_data_engine_1_1_server.html#ad5ec9462b520e59f7ea831e157ee5e59',1,'PlatformDataEngine::Server']]],
+  ['setconnection_1',['setConnection',['../class_platform_data_engine_1_1_network_handler.html#a0a94428f8cf23f0c98148629dea346d5',1,'PlatformDataEngine::NetworkHandler']]],
+  ['setflag_2',['setFlag',['../class_platform_data_engine_1_1_p_d_e_packet.html#ad99272c71fcfcedbbea1ba79cd8f4bb9',1,'PlatformDataEngine::PDEPacket']]],
+  ['setflipflag_3',['setFlipFlag',['../class_platform_data_engine_1_1_animation_controller.html#a941f72ebe529cdc76aea271c7db18d3e',1,'PlatformDataEngine::AnimationController']]],
+  ['setposition_4',['setPosition',['../class_platform_data_engine_1_1_stats_bar.html#a1c8fdc04202dd4c63a72763d17a31b47',1,'PlatformDataEngine::StatsBar']]],
+  ['settarget_5',['setTarget',['../class_platform_data_engine_1_1_camera_controller.html#a2d58725c995bcee52d7ef3b4fab10d96',1,'PlatformDataEngine::CameraController']]],
+  ['settext_6',['setText',['../class_platform_data_engine_1_1_text_drawable.html#a9630b4eca7acd3679e2e1b6cef4b9a95',1,'PlatformDataEngine::TextDrawable']]],
+  ['sortchildz_7',['sortChildZ',['../class_platform_data_engine_1_1_game_object.html#a89ac3d19f582e348cd463f06e2b4dcf3',1,'PlatformDataEngine::GameObject']]],
+  ['start_8',['start',['../class_platform_data_engine_1_1_client.html#a742373e08a80d993d2651b6fff76f5b9',1,'PlatformDataEngine::Client::start()'],['../class_platform_data_engine_1_1_server.html#a7eac07d2582fa01c2671362efa955b31',1,'PlatformDataEngine::Server::start()']]],
+  ['stop_9',['stop',['../class_platform_data_engine_1_1_client.html#a9e827b82efa67d7e334dcdde36d7ea87',1,'PlatformDataEngine::Client::stop()'],['../class_platform_data_engine_1_1_server.html#a07c45a7e101a3926d8f9685c3c5d14e4',1,'PlatformDataEngine::Server::stop()']]]
 ];

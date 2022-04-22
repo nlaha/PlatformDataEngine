@@ -3,6 +3,9 @@
 
 using namespace PlatformDataEngine;
 
+/// <summary>
+/// Constructor
+/// </summary>
 Client::Client()
 {
 	spdlog::info("Running in CLIENT mode!");
@@ -18,14 +21,27 @@ Client::Client()
 	this->m_isConnected = false;
 }
 
+/// <summary>
+/// Starts the client,
+/// doesn't do anything right now
+/// </summary>
 void Client::start()
 {	
 }
 
+/// <summary>
+/// Stops the client,
+/// doesn't do anything right now
+/// </summary>
 void Client::stop()
 {
 }
 
+/// <summary>
+/// Sends data to the server, should be called
+/// in a fixed time period loop
+/// </summary>
+/// <param name="world">The game world</param>
 void Client::process(GameWorld* world)
 {
 	if (!this->m_isConnecting) {
@@ -59,6 +75,10 @@ void Client::process(GameWorld* world)
 	}
 }
 
+/// <summary>
+/// Checks for new data from the server and processes it
+/// </summary>
+/// <param name="world">The game world</param>
 void Client::recieve(GameWorld* world)
 {
 	PDEPacket packet;
@@ -93,6 +113,7 @@ void Client::recieve(GameWorld* world)
 					packet >> objType;
 					packet >> objPos.x >> objPos.y;
 					packet >> objId;
+					packet >> hasRecievedBefore;
 
 					updatedObjects.push_back(objId);
 
@@ -101,12 +122,18 @@ void Client::recieve(GameWorld* world)
 						spdlog::error("Update packet is malformed!");
 					}
 					//spdlog::info("Moving {} to position ({}, {})", objId, objPos.x, objPos.y);
-					if (world->getGameObject(objId) != nullptr) {
+					if (hasRecievedBefore && world->getGameObject(objId) != nullptr) {
 						world->getGameObject(objId)->networkDeserialize(packet);
 					}
 					else {
-						obj = world->spawnGameObject(objType, objPos, objId);
-						obj->networkDeserializeInit(packet);
+						if (world->getGameObject(objId) == nullptr) {
+							spdlog::debug("Creating object with ID: {}", objId);
+							obj = world->spawnGameObject(objType, objPos, objId);
+							obj->networkDeserializeInit(packet);
+						}
+						else {
+							spdlog::warn("Skipped initialization for existing object: {} {}", objId, objType);
+						}
 					}
 				}
 			}
@@ -177,6 +204,9 @@ void Client::recieve(GameWorld* world)
 	}
 }
 
+/// <summary>
+/// Lets the server know we're disconnecting
+/// </summary>
 void Client::disconnect()
 {
 	PDEPacket disconnectPk(PDEPacket::Disconnect);

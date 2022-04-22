@@ -85,6 +85,7 @@ $(document).ready(function(){initNavTree('class_platform_data_engine_1_1_server.
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="class_platform_data_engine_1_1_server-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">PlatformDataEngine::Server Class Reference</div></div>
@@ -96,29 +97,144 @@ Inheritance diagram for PlatformDataEngine::Server:</div>
  <div class="center">
   <img src="class_platform_data_engine_1_1_server.png" usemap="#PlatformDataEngine::Server_map" alt=""/>
   <map id="PlatformDataEngine::Server_map" name="PlatformDataEngine::Server_map">
-<area href="class_platform_data_engine_1_1_network_handler.html" alt="PlatformDataEngine::NetworkHandler" shape="rect" coords="0,0,220,24"/>
+<area href="class_platform_data_engine_1_1_network_handler.html" title="Base class for a network handler, responsible for handling network operations Example: Server,..." alt="PlatformDataEngine::NetworkHandler" shape="rect" coords="0,0,220,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ad5ec9462b520e59f7ea831e157ee5e59"><td class="memItemLeft" align="right" valign="top"><a id="ad5ec9462b520e59f7ea831e157ee5e59" name="ad5ec9462b520e59f7ea831e157ee5e59"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Server</b> ()</td></tr>
+<tr class="memdesc:ad5ec9462b520e59f7ea831e157ee5e59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor <br /></td></tr>
+<tr class="separator:ad5ec9462b520e59f7ea831e157ee5e59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7eac07d2582fa01c2671362efa955b31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_server.html#a7eac07d2582fa01c2671362efa955b31">start</a> ()</td></tr>
+<tr class="memdesc:a7eac07d2582fa01c2671362efa955b31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the server  <a href="class_platform_data_engine_1_1_server.html#a7eac07d2582fa01c2671362efa955b31">More...</a><br /></td></tr>
 <tr class="separator:a7eac07d2582fa01c2671362efa955b31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07c45a7e101a3926d8f9685c3c5d14e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_server.html#a07c45a7e101a3926d8f9685c3c5d14e4">stop</a> ()</td></tr>
+<tr class="memdesc:a07c45a7e101a3926d8f9685c3c5d14e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the server (currently does nothing)  <a href="class_platform_data_engine_1_1_server.html#a07c45a7e101a3926d8f9685c3c5d14e4">More...</a><br /></td></tr>
 <tr class="separator:a07c45a7e101a3926d8f9685c3c5d14e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad55e2b61b41d8dbc90ac177f97c002d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_server.html#ad55e2b61b41d8dbc90ac177f97c002d9">process</a> (<a class="el" href="class_platform_data_engine_1_1_game_world.html">GameWorld</a> *world)</td></tr>
+<tr class="memdesc:ad55e2b61b41d8dbc90ac177f97c002d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process: sends data to the clients, this should be called on a fixed interval  <a href="class_platform_data_engine_1_1_server.html#ad55e2b61b41d8dbc90ac177f97c002d9">More...</a><br /></td></tr>
 <tr class="separator:ad55e2b61b41d8dbc90ac177f97c002d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb0fd2194f825035e82950ef89c6a3e9"><td class="memItemLeft" align="right" valign="top"><a id="adb0fd2194f825035e82950ef89c6a3e9" name="adb0fd2194f825035e82950ef89c6a3e9"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>start</b> ()=0</td></tr>
-<tr class="separator:adb0fd2194f825035e82950ef89c6a3e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78676d377748610ad12a3c1bcbbcd9ae"><td class="memItemLeft" align="right" valign="top"><a id="a78676d377748610ad12a3c1bcbbcd9ae" name="a78676d377748610ad12a3c1bcbbcd9ae"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>stop</b> ()=0</td></tr>
-<tr class="separator:a78676d377748610ad12a3c1bcbbcd9ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c8e8c7de91a0dbb33ec0f34c9ce2d49"><td class="memItemLeft" align="right" valign="top"><a id="a1c8e8c7de91a0dbb33ec0f34c9ce2d49" name="a1c8e8c7de91a0dbb33ec0f34c9ce2d49"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>process</b> (<a class="el" href="class_platform_data_engine_1_1_game_world.html">GameWorld</a> *world)=0</td></tr>
-<tr class="separator:a1c8e8c7de91a0dbb33ec0f34c9ce2d49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad67bb4a267b9257d8d7541e33fbc88fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_server.html#ad67bb4a267b9257d8d7541e33fbc88fb">recieve</a> (<a class="el" href="class_platform_data_engine_1_1_game_world.html">GameWorld</a> *world)</td></tr>
+<tr class="memdesc:ad67bb4a267b9257d8d7541e33fbc88fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks for new data from the clients  <a href="class_platform_data_engine_1_1_server.html#ad67bb4a267b9257d8d7541e33fbc88fb">More...</a><br /></td></tr>
+<tr class="separator:ad67bb4a267b9257d8d7541e33fbc88fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34b41dcbf23bd2349e19a24421ae4fb8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_server.html#a34b41dcbf23bd2349e19a24421ae4fb8">broadcastObjectHealth</a> (const std::string &amp;objName, float health)</td></tr>
+<tr class="memdesc:a34b41dcbf23bd2349e19a24421ae4fb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Broadcasts health updates, makes sure it's not being sent too frequently  <a href="class_platform_data_engine_1_1_server.html#a34b41dcbf23bd2349e19a24421ae4fb8">More...</a><br /></td></tr>
+<tr class="separator:a34b41dcbf23bd2349e19a24421ae4fb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83f8354af341f1a472ca2f4dad94548a"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_connection.html">Connection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_server.html#a83f8354af341f1a472ca2f4dad94548a">findConnection</a> (sf::IpAddress ip, std::string id)</td></tr>
+<tr class="memdesc:a83f8354af341f1a472ca2f4dad94548a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds a connection by ip and id  <a href="class_platform_data_engine_1_1_server.html#a83f8354af341f1a472ca2f4dad94548a">More...</a><br /></td></tr>
+<tr class="separator:a83f8354af341f1a472ca2f4dad94548a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab636f2e797a4a284bc940fa9d2d80f8"><td class="memItemLeft" align="right" valign="top"><a id="aab636f2e797a4a284bc940fa9d2d80f8" name="aab636f2e797a4a284bc940fa9d2d80f8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addInputManager</b> (std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_connection.html">Connection</a> &gt; ip, std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_input_manager.html">InputManager</a> &gt; input)</td></tr>
+<tr class="separator:aab636f2e797a4a284bc940fa9d2d80f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_platform_data_engine_1_1_network_handler"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_platform_data_engine_1_1_network_handler')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_platform_data_engine_1_1_network_handler.html">PlatformDataEngine::NetworkHandler</a></td></tr>
+<tr class="memitem:abeaa38bf6bbef76aa1775837163e9154 inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="memItemLeft" align="right" valign="top"><a id="abeaa38bf6bbef76aa1775837163e9154" name="abeaa38bf6bbef76aa1775837163e9154"></a>
+const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getId</b> ()</td></tr>
+<tr class="separator:abeaa38bf6bbef76aa1775837163e9154 inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1987f62d4cf5e39dbf0a0fe0a3d4a20 inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="memItemLeft" align="right" valign="top"><a id="ab1987f62d4cf5e39dbf0a0fe0a3d4a20" name="ab1987f62d4cf5e39dbf0a0fe0a3d4a20"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setId</b> (const std::string &amp;name)</td></tr>
+<tr class="separator:ab1987f62d4cf5e39dbf0a0fe0a3d4a20 inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb0fd2194f825035e82950ef89c6a3e9 inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_network_handler.html#adb0fd2194f825035e82950ef89c6a3e9">start</a> ()=0</td></tr>
+<tr class="separator:adb0fd2194f825035e82950ef89c6a3e9 inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78676d377748610ad12a3c1bcbbcd9ae inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_network_handler.html#a78676d377748610ad12a3c1bcbbcd9ae">stop</a> ()=0</td></tr>
+<tr class="separator:a78676d377748610ad12a3c1bcbbcd9ae inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c8e8c7de91a0dbb33ec0f34c9ce2d49 inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_network_handler.html#a1c8e8c7de91a0dbb33ec0f34c9ce2d49">process</a> (<a class="el" href="class_platform_data_engine_1_1_game_world.html">GameWorld</a> *world)=0</td></tr>
+<tr class="memdesc:a1c8e8c7de91a0dbb33ec0f34c9ce2d49 inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process is responsible for sending packets, limited in rate  <a href="class_platform_data_engine_1_1_network_handler.html#a1c8e8c7de91a0dbb33ec0f34c9ce2d49">More...</a><br /></td></tr>
+<tr class="separator:a1c8e8c7de91a0dbb33ec0f34c9ce2d49 inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70fb9055be6aa4b9141330ef8ebc50b3 inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_network_handler.html#a70fb9055be6aa4b9141330ef8ebc50b3">recieve</a> (<a class="el" href="class_platform_data_engine_1_1_game_world.html">GameWorld</a> *world)=0</td></tr>
+<tr class="memdesc:a70fb9055be6aa4b9141330ef8ebc50b3 inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recieve checks for new packets, not limited in rate  <a href="class_platform_data_engine_1_1_network_handler.html#a70fb9055be6aa4b9141330ef8ebc50b3">More...</a><br /></td></tr>
+<tr class="separator:a70fb9055be6aa4b9141330ef8ebc50b3 inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a872afe6870f54113154532f62f8182d5 inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_connection.html">Connection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_network_handler.html#a872afe6870f54113154532f62f8182d5">getConnection</a> ()</td></tr>
+<tr class="memdesc:a872afe6870f54113154532f62f8182d5 inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current process connection  <a href="class_platform_data_engine_1_1_network_handler.html#a872afe6870f54113154532f62f8182d5">More...</a><br /></td></tr>
+<tr class="separator:a872afe6870f54113154532f62f8182d5 inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a94428f8cf23f0c98148629dea346d5 inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_network_handler.html#a0a94428f8cf23f0c98148629dea346d5">setConnection</a> (std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_connection.html">Connection</a> &gt; conn)</td></tr>
+<tr class="memdesc:a0a94428f8cf23f0c98148629dea346d5 inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the current process connection  <a href="class_platform_data_engine_1_1_network_handler.html#a0a94428f8cf23f0c98148629dea346d5">More...</a><br /></td></tr>
+<tr class="separator:a0a94428f8cf23f0c98148629dea346d5 inherit pub_methods_class_platform_data_engine_1_1_network_handler"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_attribs_class_platform_data_engine_1_1_network_handler"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_platform_data_engine_1_1_network_handler')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_platform_data_engine_1_1_network_handler.html">PlatformDataEngine::NetworkHandler</a></td></tr>
+<tr class="memitem:aeeb222c3408d314646dd80a3996346cd inherit pro_attribs_class_platform_data_engine_1_1_network_handler"><td class="memItemLeft" align="right" valign="top"><a id="aeeb222c3408d314646dd80a3996346cd" name="aeeb222c3408d314646dd80a3996346cd"></a>
+std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_connection.html">Connection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_clientConnection</b></td></tr>
+<tr class="separator:aeeb222c3408d314646dd80a3996346cd inherit pro_attribs_class_platform_data_engine_1_1_network_handler"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a34b41dcbf23bd2349e19a24421ae4fb8" name="a34b41dcbf23bd2349e19a24421ae4fb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34b41dcbf23bd2349e19a24421ae4fb8">&#9670;&nbsp;</a></span>broadcastObjectHealth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Server::broadcastObjectHealth </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>objName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>health</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Broadcasts health updates, makes sure it's not being sent too frequently </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">objName</td><td>the object id</td></tr>
+    <tr><td class="paramname">health</td><td>the new health</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a83f8354af341f1a472ca2f4dad94548a" name="a83f8354af341f1a472ca2f4dad94548a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83f8354af341f1a472ca2f4dad94548a">&#9670;&nbsp;</a></span>findConnection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="class_platform_data_engine_1_1_connection.html">Connection</a> &gt; Server::findConnection </td>
+          <td>(</td>
+          <td class="paramtype">sf::IpAddress&#160;</td>
+          <td class="paramname"><em>ip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finds a connection by ip and id </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ip</td><td>the ip of the connection</td></tr>
+    <tr><td class="paramname">id</td><td>the id of the connection</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
 <a id="ad55e2b61b41d8dbc90ac177f97c002d9" name="ad55e2b61b41d8dbc90ac177f97c002d9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad55e2b61b41d8dbc90ac177f97c002d9">&#9670;&nbsp;</a></span>process()</h2>
 
@@ -143,7 +259,51 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>process</b> (
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="class_platform_data_engine_1_1_network_handler.html">PlatformDataEngine::NetworkHandler</a>.</p>
+<p>Process: sends data to the clients, this should be called on a fixed interval </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td>The game world</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_platform_data_engine_1_1_network_handler.html#a1c8e8c7de91a0dbb33ec0f34c9ce2d49">PlatformDataEngine::NetworkHandler</a>.</p>
+
+</div>
+</div>
+<a id="ad67bb4a267b9257d8d7541e33fbc88fb" name="ad67bb4a267b9257d8d7541e33fbc88fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad67bb4a267b9257d8d7541e33fbc88fb">&#9670;&nbsp;</a></span>recieve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Server::recieve </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_platform_data_engine_1_1_game_world.html">GameWorld</a> *&#160;</td>
+          <td class="paramname"><em>world</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks for new data from the clients </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td>The game world</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_platform_data_engine_1_1_network_handler.html#a70fb9055be6aa4b9141330ef8ebc50b3">PlatformDataEngine::NetworkHandler</a>.</p>
 
 </div>
 </div>
@@ -169,6 +329,8 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>process</b> (
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Starts the server </p>
 
 <p>Implements <a class="el" href="class_platform_data_engine_1_1_network_handler.html">PlatformDataEngine::NetworkHandler</a>.</p>
 
@@ -196,6 +358,8 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>process</b> (
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Stops the server (currently does nothing) </p>
 
 <p>Implements <a class="el" href="class_platform_data_engine_1_1_network_handler.html">PlatformDataEngine::NetworkHandler</a>.</p>
 

@@ -11,9 +11,10 @@ GameWorld::GameWorld()
 	this->mp_currentPlayer = nullptr;
 	this->m_spawnIdx = 0;
 
+	m_youDiedText = TextDrawable("assets/OptimusPrinceps.ttf");
 	m_youDiedText.setText("YOU DIED");
 	m_youDiedText.setColor(sf::Color::Red);
-	m_youDiedText.setScale({ 0.8f, 0.8f });
+	m_youDiedText.setScale({ 0.5f, 0.5f });
 	m_respawnTimerText.setScale({ 0.2f, 0.2f });
 }
 
@@ -21,8 +22,8 @@ GameWorld::GameWorld()
 /// Initializes the game world with a world.json definition file
 /// and a view as defined by the game wrapper
 /// </summary>
-/// <param name="filePath">the path to the world definition file</param>
-/// <param name="view">a view that has been linked to a window</param>
+/// <param id="filePath">the path to the world definition file</param>
+/// <param id="view">a view that has been linked to a window</param>
 void GameWorld::init(const std::string& filePath, sf::View& view, ApplicationMode appMode)
 {
 
@@ -134,8 +135,8 @@ void GameWorld::initPhysics()
 /// <summary>
 /// Update loop, calls update on the tileMap, gameObjects and the camera controller
 /// </summary>
-/// <param name="dt">delta time</param>
-/// <param name="elapsedTime">elapsed time (since game started)</param>
+/// <param id="dt">delta time</param>
+/// <param id="elapsedTime">elapsed time (since game started)</param>
 void GameWorld::update(const float& dt, const float& elapsedTime)
 {
 	// network recieve, unlimited
@@ -144,7 +145,7 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 
 		// network update
 		// limit send rate
-		if (this->m_packetClock.getElapsedTime().asMilliseconds() > 24) {
+		if (this->m_packetClock.getElapsedTime().asMilliseconds() > 25) {
 			if (this->mp_currentPlayer == nullptr && PlatformDataEngineWrapper::getNetworkHandler()->getConnection() != nullptr) {
 				this->mp_currentPlayer = this->getGameObject(PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->id).get();
 			}
@@ -178,9 +179,11 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 		if (PlatformDataEngineWrapper::getNetworkHandler()->getConnection() != nullptr) {
 			if (PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->state == PlayerState::DEAD)
 			{
+				float respawnSeconds = PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->respawnTimer.getElapsedTime().asSeconds();
+				m_youDiedText.setScale({0.5f * ((respawnSeconds / 20.0f) + 1), 0.5f * ((respawnSeconds / 20.0f) + 1)});
 				m_youDiedText.setPosition(PlatformDataEngineWrapper::getWindowCenter());
 				m_respawnTimerText.setText(fmt::format("Respawning in: {:.2f}", 
-					10.0f - PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->respawnTimer.getElapsedTime().asSeconds()));
+					10.0f - respawnSeconds));
 				m_respawnTimerText.setPosition({ 
 					PlatformDataEngineWrapper::getWindowCenter().x,
 					PlatformDataEngineWrapper::getWindowCenter().y + 20
@@ -193,12 +196,12 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 /// <summary>
 /// Updates the physics simulation
 /// </summary>
-/// <param name="dt">delta time</param>
-/// <param name="elapsedTime">elapsed time (since game started)</param>
+/// <param id="dt">delta time</param>
+/// <param id="elapsedTime">elapsed time (since game started)</param>
 void GameWorld::physicsUpdate(const float& dt, const float& elapsedTime)
 {
-	int velocityIterations = 12;
-	int positionIterations = 8;
+	int velocityIterations = 8;
+	int positionIterations = 3;
 	float timeStep = dt * 2.0f;
 
 	// simulate physics
@@ -208,8 +211,8 @@ void GameWorld::physicsUpdate(const float& dt, const float& elapsedTime)
 /// <summary>
 /// Draw call, never call explicitly
 /// </summary>
-/// <param name="target"></param>
-/// <param name="states"></param>
+/// <param id="target"></param>
+/// <param id="states"></param>
 void GameWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	// draw tile map
@@ -227,7 +230,7 @@ void GameWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	std::sort(gameObjects.begin(), gameObjects.end(), [](std::shared_ptr<GameObject> a, std::shared_ptr<GameObject> b) {
 		return a->getZlayer() < b->getZlayer();
-		});
+	});
 
 	// draw game objects
 	for (auto& gameObject : gameObjects)
@@ -256,11 +259,11 @@ void GameWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 }
 
 /// <summary>
-/// Registers a game object with a name 
+/// Registers a game object with a id 
 /// (places it in the world's gameObjects map)
 /// </summary>
-/// <param name="name">a unique name for the gameObject</param>
-/// <param name="gameObject">a pointer to the gameObject</param>
+/// <param id="id">a unique id for the gameObject</param>
+/// <param id="gameObject">a pointer to the gameObject</param>
 void GameWorld::registerGameObject(const std::string& name, std::shared_ptr<GameObject> gameObject)
 {
 	this->mp_gameObjects.emplace(name, gameObject);
@@ -275,8 +278,8 @@ void GameWorld::registerGameObject(const std::string& name, std::shared_ptr<Game
 /// Registers a gameObject definition, similar to registerGameObject() 
 /// but it stores an actual gameObject rather than a pointer
 /// </summary>
-/// <param name="name">a unique name for the gameObject definition</param>
-/// <param name="gameObject">the gameObject "template" definition</param>
+/// <param id="id">a unique id for the gameObject definition</param>
+/// <param id="gameObject">the gameObject "template" definition</param>
 void GameWorld::registerGameObjectDefinition(const std::string& name, std::shared_ptr<GameObject> gameObject)
 {
 	gameObject->setType(name);
@@ -305,13 +308,15 @@ void GameWorld::loadGameObjectDefinitions()
 	}
 }
 
-std::shared_ptr<GameObject> GameWorld::spawnGameObject(const std::string& type, sf::Vector2f position, std::string name, bool noReplication, float rotation, sf::Vector2f origin)
+std::shared_ptr<GameObject> GameWorld::spawnGameObject(const std::string& type, sf::Vector2f position, std::string id, bool noReplication, float rotation, sf::Vector2f origin, bool alreadyReplicated)
 {
 	sf::Clock timer;
 	if (this->m_gameObjectDefinitions.count(type) > 0) {
 		std::shared_ptr<GameObject> p_gameObject = std::make_shared<GameObject>(
 			*this->getGameObjectDefs().at(type)
 			);
+
+		p_gameObject->setAlreadyReplicated(alreadyReplicated);
 
 		// since we're spawning something, it's not a definition
 		p_gameObject->setIsDefinition(false);
@@ -321,20 +326,20 @@ std::shared_ptr<GameObject> GameWorld::spawnGameObject(const std::string& type, 
 		p_gameObject->setRotation(rotation);
 		p_gameObject->registerComponentHierarchy(p_gameObject);
 
-		if (name == "") {
-			name = Utility::generate_uuid_v4();
-			spdlog::debug("Creating new UUID for object: {}", name);
+		if (id == "") {
+			id = Utility::generate_uuid_v4();
+			//spdlog::debug("Creating new UUID for object: {}", id);
 		}
 
-		p_gameObject->setId(name);
+		p_gameObject->setId(id);
 		p_gameObject->setIsUI(false);
 
 		this->registerGameObject(
-			name, p_gameObject
+			id, p_gameObject
 		);
 
 		if (PlatformDataEngineWrapper::getIsClient()) {
-			if (name == dynamic_cast<Client*>(PlatformDataEngineWrapper::getNetworkHandler())->getConnection()->id) {
+			if (id == dynamic_cast<Client*>(PlatformDataEngineWrapper::getNetworkHandler())->getConnection()->id) {
 				this->mp_currentPlayer = p_gameObject.get();
 				this->m_cameraControl.setTarget(p_gameObject.get());
 				spdlog::info("Setting current player to {}", p_gameObject->getId());
@@ -448,7 +453,13 @@ std::shared_ptr<GameObject> GameWorld::spawnDefinedGameObject(nlohmann::json gam
 		name = Utility::generate_uuid_v4();
 	}
 	p_gameObject->setId(name);
-	p_gameObject->setNetworked(true);
+
+	if (gameObject.count("networked") > 0) {
+		p_gameObject->setNetworked(gameObject.at("networked"));
+	}
+	else {
+		p_gameObject->setNetworked(true);
+	}
 
 	this->registerGameObject(name, p_gameObject);
 

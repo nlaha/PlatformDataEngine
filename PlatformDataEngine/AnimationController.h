@@ -16,6 +16,9 @@ namespace PlatformDataEngine
     public:
         AnimationController();
 
+        /// <summary>
+        /// Represents a frame in an animation
+        /// </summary>
         struct AnimationFrame
         {
             int index;
@@ -24,11 +27,18 @@ namespace PlatformDataEngine
             sf::IntRect sourceFrame;
             sf::Vector2u sourceSize;
         };
+
+        /// <summary>
+        /// Represents an animation (a collection of frames)
+        /// </summary>
         struct Animation
         {
             std::vector<AnimationFrame> frames;
         };
 
+        /// <summary>
+        /// Enum for flipping a sprite
+        /// </summary>
         enum FlipFlags
         {
             NONE,
@@ -49,6 +59,10 @@ namespace PlatformDataEngine
 
         void loadDefinition(nlohmann::json object);
 
+        /// <summary>
+        /// Sets the flip flags for this animation controller
+        /// </summary>
+        /// <param name="flip">the new flip flag</param>
         inline void setFlipFlag(AnimationController::FlipFlags flip) { this->m_flip = flip; };
 
         void setAnimation(const std::string animName, float speed = 1.0f, bool loop = true);

@@ -90,6 +90,11 @@ $(document).ready(function(){initNavTree('class_platform_data_engine_1_1_input_m
   <div class="headertitle"><div class="title">PlatformDataEngine::InputManager::Axis Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Defines an axis, this is usually something like a joystick slider or knob  
+ <a href="class_platform_data_engine_1_1_input_manager_1_1_axis.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_input_manager_8h_source.html">InputManager.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for PlatformDataEngine::InputManager::Axis:</div>
 <div class="dyncontent">
@@ -103,16 +108,18 @@ Inheritance diagram for PlatformDataEngine::InputManager::Axis:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aba8bb33dcb41323a7ca2f467e33c8c6a"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_input_manager_1_1_axis.html#aba8bb33dcb41323a7ca2f467e33c8c6a">getValue</a> ()=0</td></tr>
-<tr class="separator:aba8bb33dcb41323a7ca2f467e33c8c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a565b565bb2a4a00178c8de78a94dcdd3"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_input_manager_1_1_axis.html#a565b565bb2a4a00178c8de78a94dcdd3">isPositive</a> ()=0</td></tr>
-<tr class="separator:a565b565bb2a4a00178c8de78a94dcdd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a222437947d166a348e4eb0c493aa0cdb"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_input_manager_1_1_axis.html#a222437947d166a348e4eb0c493aa0cdb">isNegative</a> ()=0</td></tr>
-<tr class="separator:a222437947d166a348e4eb0c493aa0cdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff252311d628467455c94ddd787a2d55"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_input_manager_1_1_axis.html#aff252311d628467455c94ddd787a2d55">getValue</a> () const =0</td></tr>
+<tr class="separator:aff252311d628467455c94ddd787a2d55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e2dbc1aed3363a4f18859a167de8f4c"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_input_manager_1_1_axis.html#a8e2dbc1aed3363a4f18859a167de8f4c">isPositive</a> () const =0</td></tr>
+<tr class="separator:a8e2dbc1aed3363a4f18859a167de8f4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96ddbb984d10420870d41d7393e5194d"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_platform_data_engine_1_1_input_manager_1_1_axis.html#a96ddbb984d10420870d41d7393e5194d">isNegative</a> () const =0</td></tr>
+<tr class="separator:a96ddbb984d10420870d41d7393e5194d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="aba8bb33dcb41323a7ca2f467e33c8c6a" name="aba8bb33dcb41323a7ca2f467e33c8c6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba8bb33dcb41323a7ca2f467e33c8c6a">&#9670;&nbsp;</a></span>getValue()</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >Defines an axis, this is usually something like a joystick slider or knob </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aff252311d628467455c94ddd787a2d55" name="aff252311d628467455c94ddd787a2d55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff252311d628467455c94ddd787a2d55">&#9670;&nbsp;</a></span>getValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -124,7 +131,7 @@ Public Member Functions</h2></td></tr>
           <td class="memname">virtual float PlatformDataEngine::InputManager::Axis::getValue </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -134,12 +141,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="class_platform_data_engine_1_1_player_input_manager_1_1_axis.html#afa2e98ba7cbaf3f55535a83ac9720315">PlatformDataEngine::PlayerInputManager::Axis</a>.</p>
+<p>Implemented in <a class="el" href="class_platform_data_engine_1_1_player_input_manager_1_1_axis.html#aefa5fe3b90a1094ad0642c8c88b9897c">PlatformDataEngine::PlayerInputManager::Axis</a>.</p>
 
 </div>
 </div>
-<a id="a222437947d166a348e4eb0c493aa0cdb" name="a222437947d166a348e4eb0c493aa0cdb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a222437947d166a348e4eb0c493aa0cdb">&#9670;&nbsp;</a></span>isNegative()</h2>
+<a id="a96ddbb984d10420870d41d7393e5194d" name="a96ddbb984d10420870d41d7393e5194d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96ddbb984d10420870d41d7393e5194d">&#9670;&nbsp;</a></span>isNegative()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -151,7 +158,7 @@ Public Member Functions</h2></td></tr>
           <td class="memname">virtual bool PlatformDataEngine::InputManager::Axis::isNegative </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -161,12 +168,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="class_platform_data_engine_1_1_player_input_manager_1_1_axis.html#ae09b7c0ebc003398281b618c60c84569">PlatformDataEngine::PlayerInputManager::Axis</a>.</p>
+<p>Implemented in <a class="el" href="class_platform_data_engine_1_1_player_input_manager_1_1_axis.html#ac7d314512f2442c8e50ba365951b4975">PlatformDataEngine::PlayerInputManager::Axis</a>.</p>
 
 </div>
 </div>
-<a id="a565b565bb2a4a00178c8de78a94dcdd3" name="a565b565bb2a4a00178c8de78a94dcdd3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a565b565bb2a4a00178c8de78a94dcdd3">&#9670;&nbsp;</a></span>isPositive()</h2>
+<a id="a8e2dbc1aed3363a4f18859a167de8f4c" name="a8e2dbc1aed3363a4f18859a167de8f4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e2dbc1aed3363a4f18859a167de8f4c">&#9670;&nbsp;</a></span>isPositive()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -178,7 +185,7 @@ Public Member Functions</h2></td></tr>
           <td class="memname">virtual bool PlatformDataEngine::InputManager::Axis::isPositive </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -188,7 +195,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="class_platform_data_engine_1_1_player_input_manager_1_1_axis.html#a2da7362fffaf889298be7b6f51fbe73d">PlatformDataEngine::PlayerInputManager::Axis</a>.</p>
+<p>Implemented in <a class="el" href="class_platform_data_engine_1_1_player_input_manager_1_1_axis.html#a158366e1420df41e351bfe3dadcfdcf5">PlatformDataEngine::PlayerInputManager::Axis</a>.</p>
 
 </div>
 </div>

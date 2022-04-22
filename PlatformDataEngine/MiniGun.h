@@ -10,17 +10,16 @@
 namespace PlatformDataEngine {
 
     /// <summary>
-    /// The rocket launcher component
+    /// The Minigun component
     /// </summary>
-    class RocketLauncher :
+    class MiniGun :
         public Weapon
     {
     public:
         void update(const float& dt, const float& elapsedTime);
         void copy(std::shared_ptr<Component> otherCompPtr);
-   
+
     private:
 
     };
 }
-

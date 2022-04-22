@@ -79,6 +79,30 @@
     <Filter Include="Header Files\Components\Weapon\RocketLauncher">
       <UniqueIdentifier>{a79633b1-18cb-4a5e-a0e8-fb58cd2f30a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Components\Projectile">
+      <UniqueIdentifier>{b8d8272e-3546-46c5-a04d-9e45a87b8340}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\Projectile\RocketLauncher">
+      <UniqueIdentifier>{fc93bffd-046d-4b30-be2a-5e8eaf33244b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Projectile">
+      <UniqueIdentifier>{1c4e1674-aa35-4cec-8398-0a9be891c894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Projectile\RocketLauncher">
+      <UniqueIdentifier>{cf15ac68-7a7a-4722-a27c-ba4ae10fb622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Weapon\Minigun">
+      <UniqueIdentifier>{b472b947-3d76-4985-bbb9-1b332c3528a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\Weapon\MiniGun">
+      <UniqueIdentifier>{e903bf6d-2025-4bd3-b524-e2382d5f9938}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Projectile\Bullet">
+      <UniqueIdentifier>{d9d33d42-533d-47bf-a5e0-315fda0867cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\Projectile\Bullet">
+      <UniqueIdentifier>{5ce744ae-5e55-42c8-bc58-006b6e571346}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -139,9 +163,6 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="RocketLauncher.cpp">
-      <Filter>Source Files\Components\Weapon\Rocket Launcher</Filter>
-    </ClCompile>
-    <ClCompile Include="RocketProjectile.cpp">
       <Filter>Source Files\Components\Weapon\Rocket Launcher</Filter>
     </ClCompile>
     <ClCompile Include="TimedDestroy.cpp">
@@ -216,6 +237,18 @@
     <ClCompile Include="Weapon.cpp">
       <Filter>Source Files\Components\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Source Files\Components\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="RocketProjectile.cpp">
+      <Filter>Source Files\Components\Projectile\RocketLauncher</Filter>
+    </ClCompile>
+    <ClCompile Include="Minigun.cpp">
+      <Filter>Source Files\Components\Weapon\Minigun</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Source Files\Components\Projectile\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameWorld.h">
@@ -282,9 +315,6 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="RocketLauncher.h">
-      <Filter>Header Files\Components\Weapon\RocketLauncher</Filter>
-    </ClInclude>
-    <ClInclude Include="RocketProjectile.h">
       <Filter>Header Files\Components\Weapon\RocketLauncher</Filter>
     </ClInclude>
     <ClInclude Include="TimedDestroy.h">
@@ -356,6 +386,18 @@
     <ClInclude Include="Weapon.h">
       <Filter>Header Files\Components\Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Header Files\Components\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="RocketProjectile.h">
+      <Filter>Header Files\Components\Projectile\RocketLauncher</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGun.h">
+      <Filter>Header Files\Components\Weapon\MiniGun</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Header Files\Components\Projectile\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\vcpkg.json">
@@ -386,6 +428,15 @@
       <Filter>Resource Files\Game\GameObjects</Filter>
     </None>
     <None Include="game\gameObjects\Spike.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </None>
+    <None Include="game\gameObjects\MiniGun.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </None>
+    <None Include="assets\MiniGun.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="game\gameObjects\Bullet.json">
       <Filter>Resource Files\Game\GameObjects</Filter>
     </None>
   </ItemGroup>

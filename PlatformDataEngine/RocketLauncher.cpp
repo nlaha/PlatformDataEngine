@@ -1,4 +1,4 @@
-/*
+
 #include <map>
 
 #include "RocketLauncher.h"
@@ -10,23 +10,7 @@
 
 using namespace PlatformDataEngine;
 
-void RocketLauncher::init()
-{
-	Component::init();
-	this->m_isCoolingDown = false;
 
-	if (this->m_parent->getParent().get() == PlatformDataEngineWrapper::getWorld()->getPlayer()) {
-		this->m_pInputManager = PlatformDataEngineWrapper::getPlayerInputManager();
-	}
-	else {
-		this->m_pInputManager = std::make_shared<NetworkInputManager>();
-		std::shared_ptr<NetworkInputManager> netIn = std::dynamic_pointer_cast<NetworkInputManager>(this->m_pInputManager);
-		netIn->loadDefinition("./game/input.json");
-		if (!PlatformDataEngineWrapper::getIsClient()) {
-			dynamic_cast<Server*>(PlatformDataEngineWrapper::getNetworkHandler())->addInputManager(this->m_parent->getParent()->getConnection(), netIn);
-		}
-	}
-}
 
 void RocketLauncher::update(const float& dt, const float& elapsedTime)
 {
@@ -55,8 +39,8 @@ void RocketLauncher::update(const float& dt, const float& elapsedTime)
 
 
 			if (this->m_pInputManager->getButton("primary").getValue() &&
-				this->m_rocketClock.getElapsedTime().asMilliseconds() >
-				this->m_rocketCooldown) {
+				this->m_weaponClock.getElapsedTime().asMilliseconds() >
+				this->m_Cooldown) {
 				this->m_isCoolingDown = false;
 				sf::Vector2f directionVec = Utility::directionVec(parent->getPosition(), worldPos);
 				GameObject* p_gameObject = PlatformDataEngineWrapper::getWorld()->spawnGameObject(
@@ -78,7 +62,7 @@ void RocketLauncher::update(const float& dt, const float& elapsedTime)
 				RocketProjectile* projectile = p_gameObject->findComponentOfType<RocketProjectile>().get();
 				projectile->setOwner(this->m_parent->getParent());
 
-				this->m_rocketClock.restart();
+				this->m_weaponClock.restart();
 			}
 			else {
 				this->m_isCoolingDown = true;
@@ -87,9 +71,7 @@ void RocketLauncher::update(const float& dt, const float& elapsedTime)
 	}
 }
 
-void RocketLauncher::draw(sf::RenderTarget& target, sf::RenderStates states) const
-{
-}
+
 
 void RocketLauncher::copy(std::shared_ptr<Component> otherCompPtr)
 {
@@ -98,19 +80,5 @@ void RocketLauncher::copy(std::shared_ptr<Component> otherCompPtr)
 	*this = *other;
 }
 
-void RocketLauncher::loadDefinition(nlohmann::json object)
-{
-	this->m_rocketCooldown = object.at("cooldown");
-	this->m_velocity = object.at("velocity");
-}
 
-void RocketLauncher::networkSerialize(PDEPacket& output)
-{
-	output << this->m_isCoolingDown;
-}
 
-void RocketLauncher::networkDeserialize(PDEPacket& input)
-{
-	input >> this->m_isCoolingDown;
-}
-*/

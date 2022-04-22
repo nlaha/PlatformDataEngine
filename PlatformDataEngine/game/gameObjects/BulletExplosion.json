@@ -1,0 +1,22 @@
+{
+  "components": [
+    {
+      "type": "ParticleSystem",
+      "properties": {
+        "numParticles": 5,
+        "velocity": 10,
+        "particle": "FireParticle",
+        "sound": "sfx_exp_short_soft1.wav"
+      }
+    },
+    {
+      "type": "TimedDestroy",
+      "properties": {
+        "time": 1000,
+        "range": false,
+        "rangeLow": 1000,
+        "rangeHigh": 1000
+      }
+    }
+  ]
+}

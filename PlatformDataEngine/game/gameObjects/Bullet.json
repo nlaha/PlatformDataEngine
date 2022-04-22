@@ -18,7 +18,7 @@
         "explosionRadius": 5,
         "explosionDamage": 5,
         "explosionForce": 5,
-        "particleSystemName": "RocketExplosion",
+        "particleSystemName": "BulletExplosion",
         "sound": "sfx_weapon_singleshot4.wav"
       }
     },

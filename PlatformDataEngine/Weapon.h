@@ -15,18 +15,18 @@ namespace PlatformDataEngine {
         public Component
     {
     public:
-        void init();
+        virtual void init();
 
-        void update(const float& dt, const float& elapsedTime);
+        virtual void update(const float& dt, const float& elapsedTime);
 
-        void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-        void copy(std::shared_ptr<Component> otherCompPtr);
+        virtual void copy(std::shared_ptr<Component> otherCompPtr);
 
-        void loadDefinition(nlohmann::json object);
+        virtual void loadDefinition(nlohmann::json object);
 
-        void networkSerialize(PDEPacket& output);
-        void networkDeserialize(PDEPacket& input);
+        virtual void networkSerialize(PDEPacket& output);
+        virtual void networkDeserialize(PDEPacket& input);
 
         inline bool isCoolingDown() const {
             return m_isCoolingDown;

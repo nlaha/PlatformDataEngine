@@ -19,7 +19,7 @@
         "explosionDamage": 5,
         "explosionForce": 5,
         "particleSystemName": "BulletExplosion",
-        "sound": "sfx_weapon_singleshot4.wav"
+        "sound": "sfx_wpn_machinegun_loop9.wav"
       }
     },
     {

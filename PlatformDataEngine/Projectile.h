@@ -20,17 +20,17 @@ namespace PlatformDataEngine {
 
         ~Projectile();
 
-        void init();
+        virtual void init();
 
-        void update(const float& dt, const float& elapsedTime);
+        virtual void update(const float& dt, const float& elapsedTime);
 
-        void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-        void copy(std::shared_ptr<Component> otherCompPtr);
+        virtual void copy(std::shared_ptr<Component> otherCompPtr);
 
-        void loadDefinition(nlohmann::json object);
+        virtual virtual void loadDefinition(nlohmann::json object);
 
-        void setOwner(std::shared_ptr<GameObject> owner);
+        virtual void setOwner(std::shared_ptr<GameObject> owner);
 
     protected:
 

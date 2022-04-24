@@ -1,0 +1,34 @@
+{
+  "components": [
+   {
+      "type": "SpriteRenderer",
+      "properties": {
+        "texture": "assets/floatingbox.png",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": -1,
+          "height": -1
+        }
+      }
+    },
+    {
+      "type": "PhysicsBody",
+      "properties": {
+        "type": "dynamic",
+        "doesRotate": false,
+        "continuous": false,
+        "density": 2.0,
+        "friction": 1.5,
+        "bouncy": 1,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "fixtures": []
+      }
+    }
+  ]
+}

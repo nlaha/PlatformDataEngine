@@ -68,18 +68,17 @@
     },
     {
       "name": "FloatingBlocks",
-      "type": "floatingbox", //This is the type that I am having diffiuclty with
-      "isUI": false,
+      "type": "floatingbox", 
       "transform": {
         "x": 0,
         "y": 0,
         "origin_x": 0,
         "origin_y": 0,
-        "z_layer": 30,
+        "z_layer": 3,
         "rotation": 0,
         "scale": 1
-      }
+      },
       "children": []
-    } 
+    }
   ]
 }

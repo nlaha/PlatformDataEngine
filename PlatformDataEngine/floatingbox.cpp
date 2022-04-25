@@ -6,6 +6,7 @@
 #include "AnimationController.h"
 
 using namespace PlatformDataEngine;
+
 void Floatingbox::init()
 {
     Component::init();
@@ -20,10 +21,11 @@ void Floatingbox::init()
 
 void Floatingbox::update(const float& dt, const float& elapsedTime) //Called once per update cycle
 {
-    if (std::abs(distance) >> 80) {
+    if (std::abs(distance) >= 80) {
         direction = direction * -1; //This updates the direction if it has passed 5 lengths of the box in terms of distance
     }
     this->m_parent->move(((direction * 1)*dt), 0); //This creates horizonatal movment along the x-axis 
+    distance = distance + (1 * dt);
 }
 
 void Floatingbox::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -37,5 +39,6 @@ void Floatingbox::copy(std::shared_ptr<Component> otherCompPtr)
 }
 void Floatingbox::loadDefinition(nlohmann::json object)
 {
-
+    this->direction = -1;
+    this->distance = 0;
 }

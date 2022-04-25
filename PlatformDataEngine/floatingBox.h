@@ -23,10 +23,9 @@ namespace PlatformDataEngine
         // called once for the definition (not called on instances)
         void loadDefinition(nlohmann::json object);
 
-        //
     private:
         PhysicsBody* m_PhysBody;
-        int distance;
+        float distance;
         int direction;
     };
 }

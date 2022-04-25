@@ -1,6 +1,6 @@
 {
   "components": [
-   {
+    {
       "type": "SpriteRenderer",
       "properties": {
         "texture": "assets/floatingbox.png",
@@ -13,10 +13,17 @@
       }
     },
     {
+      "type": "floatingbox",
+      "properties": {
+        "distance": 0,
+        "direction": 1
+      }
+    },
+    {
       "type": "PhysicsBody",
       "properties": {
         "type": "kinematic",
-        "doesRotate": true,
+        "doesRotate": false,
         "continuous": false,
         "density": 4.0,
         "friction": 0.25,
@@ -31,8 +38,8 @@
           {
             "shape": "box",
             "rect": {
-              "x": 1,
-              "y": 1,
+              "x": 0,
+              "y": 0,
               "width": 16,
               "height": 16
             }

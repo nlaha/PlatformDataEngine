@@ -58,7 +58,7 @@ void MiniGun::update(const float& dt, const float& elapsedTime)
 
 				AnimationController* animControl = this->m_parent->findComponentOfType<AnimationController>().get();
 				if (animControl->getAnimName() != "Shoot") {
-					animControl->setAnimation("Shoot", 4.0, false);
+					animControl->setAnimation("Shoot", 6.0, false);
 				}
 
 				Bullet* projectile = p_gameObject->findComponentOfType<Bullet>().get();

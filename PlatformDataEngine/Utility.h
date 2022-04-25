@@ -4,12 +4,16 @@
 #include <box2d/box2d.h>
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
+#include <GameNetworkingSockets/steam/isteamnetworkingsockets.h>
+#include <GameNetworkingSockets/steam/isteamnetworkingutils.h>
 
 #include "Networkable.h"
 #include "Globals.h"
 
 namespace PlatformDataEngine
 {
+
+    static unsigned int idCounter = 0;
 
     enum class PlayerState
     {
@@ -21,9 +25,9 @@ namespace PlatformDataEngine
     class Connection : Networkable
     {
     public:
-        sf::IpAddress ip;
+        SteamNetworkingIPAddr ip;
         std::string id;
-        unsigned short port;
+        std::uint16_t port;
         std::string name;
 
         sf::Clock respawnTimer;
@@ -57,23 +61,23 @@ namespace PlatformDataEngine
             {
                 ss << Utility::dis(Utility::gen);
             }
-            ss << "-";
+            //ss << "-";
             for (i = 0; i < 4; i++)
             {
                 ss << Utility::dis(Utility::gen);
             }
-            ss << "-4";
+            //ss << "-4";
             for (i = 0; i < 3; i++)
             {
                 ss << Utility::dis(Utility::gen);
             }
-            ss << "-";
+            ///ss << "-";
             ss << Utility::dis2(Utility::gen);
             for (i = 0; i < 3; i++)
             {
                 ss << Utility::dis(Utility::gen);
             }
-            ss << "-";
+            //ss << "-";
             for (i = 0; i < 12; i++)
             {
                 ss << Utility::dis(Utility::gen);

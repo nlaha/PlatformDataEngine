@@ -2,6 +2,7 @@
 #include <SFML/Network.hpp>
 #include <SFML/Graphics.hpp>
 #include <spdlog/spdlog.h>
+#include <unordered_map>
 #include <map>
 #include <sstream>
 #include "GameObject.h"
@@ -9,67 +10,114 @@
 #include "GameWorld.h"
 #include "Utility.h"
 #include "NetworkHandler.h"
+#include <GameNetworkingSockets/steam/isteamnetworkingsockets.h>
+#include <GameNetworkingSockets/steam/isteamnetworkingutils.h>
 
-namespace PlatformDataEngine {
+namespace PlatformDataEngine
+{
 
-	class ConnectionStats {
+	class ConnectionStats
+	{
 
 	public:
 		ConnectionStats();
-		
+
 		sf::Uint16 m_playerDeaths;
 		sf::Uint16 m_playerKills;
 
 	private:
-
-
 	};
 
 	class Server : public NetworkHandler
 	{
 	public:
-
-		Server();
+		Server(GameWorld *world = nullptr);
 
 		void start();
 
 		void stop();
 
-		void process(GameWorld* world);
+		void OnSteamNetConnectionStatusChanged(SteamNetConnectionStatusChangedCallback_t *pInfo);
 
-		void recieve(GameWorld* world);
+		void PollConnectionStateChanges();
+
+		void process(GameWorld *world);
+
+		void recieve(GameWorld *world);
 
 		void broadcastObjectHealth(const std::string& objName, float health);
 
-		std::shared_ptr<Connection> findConnection(sf::IpAddress ip, std::string id);
-
-		inline void addInputManager(std::shared_ptr<Connection> ip, std::shared_ptr<InputManager> input) {
-			if (this->m_inputManagers.count(ip) > 0) {
+		inline void addInputManager(std::shared_ptr<Connection> ip, std::shared_ptr<InputManager> input)
+		{
+			if (this->m_inputManagers.count(ip) > 0)
+			{
 				this->m_inputManagers.find(ip)->second->inputs.push_back(input.get());
 			}
-			else {
+			else
+			{
 				std::shared_ptr<InputList> inputList = std::make_shared<InputList>();
 				inputList->inputs.push_back(input.get());
 				this->m_inputManagers.emplace(ip, inputList);
 			}
 		}
 
-	private:
+		inline std::shared_ptr<Connection> getConnection() {
+			return this->m_clientConnection;
+		}
 
-		struct InputList {
-			std::vector<InputManager*> inputs;
+		// get connection from map by id
+		inline std::shared_ptr<Connection> getConnection(const std::string &id)
+		{
+			for (const auto& connPair : this->m_mapClients)
+			{
+				if (connPair.second->id == id) {
+					return connPair.second;
+				}
+			}
+			return nullptr;
+		}
+
+	private:
+		struct InputList
+		{
+			std::vector<InputManager *> inputs;
 		};
 
 		std::map<std::shared_ptr<Connection>, std::shared_ptr<InputList>> m_inputManagers;
-		std::vector<std::shared_ptr<Connection>> m_connections;
 
-		unsigned short m_port;
+		std::uint16_t m_port;
 		sf::IpAddress m_ip;
-		sf::UdpSocket m_socket;
+		GameWorld *m_world;
 
 		sf::Clock m_broadcastCooldown;
-
-
 		std::map<std::shared_ptr<Connection>, ConnectionStats> m_connectionStats;
+
+		/// <summary>
+		/// STEAM
+		/// </summary>
+
+		HSteamListenSocket m_hListenSock;
+		HSteamNetPollGroup m_hPollGroup;
+		ISteamNetworkingSockets *m_pInterface;
+
+		std::map<HSteamNetConnection, std::shared_ptr<Connection>> m_mapClients;
+
+		void SendPacketToClient(HSteamNetConnection conn, PDEPacket &pkt)
+		{
+			size_t size = 0;
+			const void *data = pkt.onSend(size);
+			m_pInterface->SendMessageToConnection(conn, data, size, k_nSteamNetworkingSend_UnreliableNoDelay, nullptr);
+		}
+
+		void SendPacketToAllClients(PDEPacket &pkt, HSteamNetConnection except = k_HSteamNetConnection_Invalid)
+		{
+			for (auto &c : m_mapClients)
+			{
+				if (c.first != except)
+				{
+					SendPacketToClient(c.first, pkt);
+				}
+			}
+		}
 	};
 }

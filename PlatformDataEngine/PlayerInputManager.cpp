@@ -326,7 +326,7 @@ void PlayerInputManager::serializeInputs(PDEPacket& packet)
 	sf::Uint8 counter = 0; // todo, make a vector of inputs as well as map for sending indices
 	for (const auto& axis : this->m_axisIdx)
 	{
-		packet << counter << static_cast<sf::Int8>(axis->getValue());
+		packet << counter << sf::Int8(axis->getValue());
 		counter++;
 	}
 

@@ -14,8 +14,8 @@ GameWorld::GameWorld()
 	m_youDiedText = TextDrawable("assets/OptimusPrinceps.ttf");
 	m_youDiedText.setText("YOU DIED");
 	m_youDiedText.setColor(sf::Color::Red);
-	m_youDiedText.setScale({ 0.5f, 0.5f });
-	m_respawnTimerText.setScale({ 0.2f, 0.2f });
+	m_youDiedText.setScale({0.5f, 0.5f});
+	m_respawnTimerText.setScale({0.2f, 0.2f});
 }
 
 /// <summary>
@@ -24,7 +24,7 @@ GameWorld::GameWorld()
 /// </summary>
 /// <param id="filePath">the path to the world definition file</param>
 /// <param id="view">a view that has been linked to a window</param>
-void GameWorld::init(const std::string& filePath, sf::View& view, ApplicationMode appMode)
+void GameWorld::init(const std::string &filePath, sf::View &view, ApplicationMode appMode)
 {
 
 	// load world json file
@@ -40,7 +40,8 @@ void GameWorld::init(const std::string& filePath, sf::View& view, ApplicationMod
 	nlohmann::json world;
 	file >> world;
 
-	if (world.count("tiledMapFile") > 0) {
+	if (world.count("tiledMapFile") > 0)
+	{
 		this->mp_tileMap = std::make_shared<TileMap>(world.at("tiledMapFile"));
 	}
 
@@ -52,26 +53,30 @@ void GameWorld::init(const std::string& filePath, sf::View& view, ApplicationMod
 	this->mp_view = std::make_shared<sf::View>(view);
 
 	// loop through all game objects
-	for (auto& gameObject : gameObjects)
+	for (auto &gameObject : gameObjects)
 	{
-		if (gameObject.count("isPlayer") <= 0 || !gameObject.at("isPlayer")) {
+		if (gameObject.count("isPlayer") <= 0 || !gameObject.at("isPlayer"))
+		{
 			spawnDefinedGameObject(gameObject);
 		}
-		else {
+		else
+		{
 			this->m_playerDef = gameObject;
 		}
 	}
 
-	if (appMode != ApplicationMode::DEDICATED) {
+	if (appMode != ApplicationMode::DEDICATED)
+	{
 		// init camera controller
-		if (world.count("cameraController") > 0) {
+		if (world.count("cameraController") > 0)
+		{
 			nlohmann::json cameraControllerObj = world.at("cameraController");
 
 			// spawn host player
 			std::shared_ptr<Connection> hostConnection = std::make_shared<Connection>();
 			hostConnection->id = "Server";
 			hostConnection->name = PlatformDataEngineWrapper::getPlayerName();
-			hostConnection->ip = sf::IpAddress::getLocalAddress();
+			hostConnection->ip = SteamNetworkingIPAddr();
 			hostConnection->port = 5660;
 			hostConnection->state = PlayerState::ALIVE;
 
@@ -90,13 +95,13 @@ void GameWorld::init(const std::string& filePath, sf::View& view, ApplicationMod
 	}
 
 	// init game objects
-	for (auto& gameObjectPair : this->mp_gameObjects)
+	for (auto &gameObjectPair : this->mp_gameObjects)
 	{
 		gameObjectPair.second->init();
 	}
 }
 
-void GameWorld::initClient(const std::string& filePath, sf::View& view)
+void GameWorld::initClient(const std::string &filePath, sf::View &view)
 {
 
 	// load world json file
@@ -137,16 +142,19 @@ void GameWorld::initPhysics()
 /// </summary>
 /// <param id="dt">delta time</param>
 /// <param id="elapsedTime">elapsed time (since game started)</param>
-void GameWorld::update(const float& dt, const float& elapsedTime)
+void GameWorld::update(const float &dt, const float &elapsedTime)
 {
-	// network recieve, unlimited
-	if (PlatformDataEngineWrapper::getNetworkHandler() != nullptr) {
-		PlatformDataEngineWrapper::getNetworkHandler()->recieve(this);
+	if (PlatformDataEngineWrapper::getNetworkHandler() != nullptr)
+	{
 
 		// network update
 		// limit send rate
-		if (this->m_packetClock.getElapsedTime().asMilliseconds() > 25) {
-			if (this->mp_currentPlayer == nullptr && PlatformDataEngineWrapper::getNetworkHandler()->getConnection() != nullptr) {
+		if (this->m_packetClock.getElapsedTime().asMilliseconds() > 15)
+		{
+			PlatformDataEngineWrapper::getNetworkHandler()->recieve(this);
+
+			if (this->mp_currentPlayer == nullptr && PlatformDataEngineWrapper::getNetworkHandler()->getConnection() != nullptr)
+			{
 				this->mp_currentPlayer = this->getGameObject(PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->id).get();
 			}
 
@@ -156,7 +164,8 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 	}
 
 	// update tile objects
-	if (this->mp_tileMap != nullptr) {
+	if (this->mp_tileMap != nullptr)
+	{
 		this->mp_tileMap->update(dt, elapsedTime);
 	}
 
@@ -165,7 +174,8 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 	{
 		gameObjectPair.second->update(dt, elapsedTime);
 
-		if (this != PlatformDataEngineWrapper::getWorld().get()) {
+		if (this != PlatformDataEngineWrapper::getWorld().get())
+		{
 			return;
 		}
 	}
@@ -175,19 +185,19 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 	// update camera
 	this->m_cameraControl.update(dt, elapsedTime);
 
-	if (PlatformDataEngineWrapper::getNetworkHandler() != nullptr) {
-		if (PlatformDataEngineWrapper::getNetworkHandler()->getConnection() != nullptr) {
+	if (PlatformDataEngineWrapper::getNetworkHandler() != nullptr)
+	{
+		if (PlatformDataEngineWrapper::getNetworkHandler()->getConnection() != nullptr)
+		{
 			if (PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->state == PlayerState::DEAD)
 			{
 				float respawnSeconds = PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->respawnTimer.getElapsedTime().asSeconds();
 				m_youDiedText.setScale({0.5f * ((respawnSeconds / 20.0f) + 1), 0.5f * ((respawnSeconds / 20.0f) + 1)});
 				m_youDiedText.setPosition(PlatformDataEngineWrapper::getWindowCenter());
-				m_respawnTimerText.setText(fmt::format("Respawning in: {:.2f}", 
-					10.0f - respawnSeconds));
-				m_respawnTimerText.setPosition({ 
-					PlatformDataEngineWrapper::getWindowCenter().x,
-					PlatformDataEngineWrapper::getWindowCenter().y + 20
-				});
+				m_respawnTimerText.setText(fmt::format("Respawning in: {:.2f}",
+													   10.0f - respawnSeconds));
+				m_respawnTimerText.setPosition({PlatformDataEngineWrapper::getWindowCenter().x,
+												PlatformDataEngineWrapper::getWindowCenter().y + 20});
 			}
 		}
 	}
@@ -198,7 +208,7 @@ void GameWorld::update(const float& dt, const float& elapsedTime)
 /// </summary>
 /// <param id="dt">delta time</param>
 /// <param id="elapsedTime">elapsed time (since game started)</param>
-void GameWorld::physicsUpdate(const float& dt, const float& elapsedTime)
+void GameWorld::physicsUpdate(const float &dt, const float &elapsedTime)
 {
 	int velocityIterations = 8;
 	int positionIterations = 3;
@@ -213,29 +223,30 @@ void GameWorld::physicsUpdate(const float& dt, const float& elapsedTime)
 /// </summary>
 /// <param id="target"></param>
 /// <param id="states"></param>
-void GameWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void GameWorld::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	// draw tile map
-	if (this->mp_tileMap != nullptr) {
+	if (this->mp_tileMap != nullptr)
+	{
 		target.draw(*this->mp_tileMap, states);
 	}
 
 	// sort game objects by z layer
 	// TODO: this could be done faster
 	std::vector<std::shared_ptr<GameObject>> gameObjects;
-	for (auto& gameObjectPair : this->mp_gameObjects)
+	for (auto &gameObjectPair : this->mp_gameObjects)
 	{
 		gameObjects.push_back(gameObjectPair.second);
 	}
 
-	std::sort(gameObjects.begin(), gameObjects.end(), [](std::shared_ptr<GameObject> a, std::shared_ptr<GameObject> b) {
-		return a->getZlayer() < b->getZlayer();
-	});
+	std::sort(gameObjects.begin(), gameObjects.end(), [](std::shared_ptr<GameObject> a, std::shared_ptr<GameObject> b)
+			  { return a->getZlayer() < b->getZlayer(); });
 
 	// draw game objects
-	for (auto& gameObject : gameObjects)
+	for (auto &gameObject : gameObjects)
 	{
-		if (!gameObject->getDestroyed()) { 
+		if (!gameObject->getDestroyed())
+		{
 			if (gameObject->getParent() == nullptr)
 			{
 				target.draw(*gameObject, states);
@@ -243,12 +254,15 @@ void GameWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		}
 	}
 
-	if (PlatformDataEngineWrapper::getIsDebugPhysics()) {
+	if (PlatformDataEngineWrapper::getIsDebugPhysics())
+	{
 		this->mp_physicsWorld->DebugDraw();
 	}
 
-	if (PlatformDataEngineWrapper::getNetworkHandler() != nullptr) {
-		if (PlatformDataEngineWrapper::getNetworkHandler()->getConnection() != nullptr) {
+	if (PlatformDataEngineWrapper::getNetworkHandler() != nullptr)
+	{
+		if (PlatformDataEngineWrapper::getNetworkHandler()->getConnection() != nullptr)
+		{
 			if (PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->state == PlayerState::DEAD)
 			{
 				target.draw(this->m_youDiedText, states);
@@ -259,12 +273,12 @@ void GameWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 }
 
 /// <summary>
-/// Registers a game object with a id 
+/// Registers a game object with a id
 /// (places it in the world's gameObjects map)
 /// </summary>
 /// <param id="id">a unique id for the gameObject</param>
 /// <param id="gameObject">a pointer to the gameObject</param>
-void GameWorld::registerGameObject(const std::string& name, std::shared_ptr<GameObject> gameObject)
+void GameWorld::registerGameObject(const std::string &name, std::shared_ptr<GameObject> gameObject)
 {
 	this->mp_gameObjects.emplace(name, gameObject);
 
@@ -275,12 +289,12 @@ void GameWorld::registerGameObject(const std::string& name, std::shared_ptr<Game
 }
 
 /// <summary>
-/// Registers a gameObject definition, similar to registerGameObject() 
+/// Registers a gameObject definition, similar to registerGameObject()
 /// but it stores an actual gameObject rather than a pointer
 /// </summary>
 /// <param id="id">a unique id for the gameObject definition</param>
 /// <param id="gameObject">the gameObject "template" definition</param>
-void GameWorld::registerGameObjectDefinition(const std::string& name, std::shared_ptr<GameObject> gameObject)
+void GameWorld::registerGameObjectDefinition(const std::string &name, std::shared_ptr<GameObject> gameObject)
 {
 	gameObject->setType(name);
 	this->m_gameObjectDefinitions.emplace(name, gameObject);
@@ -293,9 +307,11 @@ void GameWorld::loadGameObjectDefinitions()
 	// and create game objects from them
 	const fs::path gameObjectPath("./game/gameObjects/");
 
-	for (const auto& entry : fs::directory_iterator(gameObjectPath)) {
+	for (const auto &entry : fs::directory_iterator(gameObjectPath))
+	{
 		const auto filenameStr = entry.path().filename().string();
-		if (entry.is_regular_file()) {
+		if (entry.is_regular_file())
+		{
 			if (entry.path().extension() == ".json")
 			{
 				// we've found a gameObject definition
@@ -308,13 +324,13 @@ void GameWorld::loadGameObjectDefinitions()
 	}
 }
 
-std::shared_ptr<GameObject> GameWorld::spawnGameObject(const std::string& type, sf::Vector2f position, std::string id, bool noReplication, float rotation, sf::Vector2f origin, bool alreadyReplicated)
+std::shared_ptr<GameObject> GameWorld::spawnGameObject(const std::string &type, sf::Vector2f position, std::string id, bool noReplication, float rotation, sf::Vector2f origin, bool alreadyReplicated)
 {
 	sf::Clock timer;
-	if (this->m_gameObjectDefinitions.count(type) > 0) {
+	if (this->m_gameObjectDefinitions.count(type) > 0)
+	{
 		std::shared_ptr<GameObject> p_gameObject = std::make_shared<GameObject>(
-			*this->getGameObjectDefs().at(type)
-			);
+			*this->getGameObjectDefs().at(type));
 
 		p_gameObject->setAlreadyReplicated(alreadyReplicated);
 
@@ -326,20 +342,22 @@ std::shared_ptr<GameObject> GameWorld::spawnGameObject(const std::string& type, 
 		p_gameObject->setRotation(rotation);
 		p_gameObject->registerComponentHierarchy(p_gameObject);
 
-		if (id == "") {
+		if (id == "")
+		{
 			id = Utility::generate_uuid_v4();
-			//spdlog::debug("Creating new UUID for object: {}", id);
+			// spdlog::debug("Creating new UUID for object: {}", id);
 		}
 
 		p_gameObject->setId(id);
 		p_gameObject->setIsUI(false);
 
 		this->registerGameObject(
-			id, p_gameObject
-		);
+			id, p_gameObject);
 
-		if (PlatformDataEngineWrapper::getIsClient()) {
-			if (id == dynamic_cast<Client*>(PlatformDataEngineWrapper::getNetworkHandler())->getConnection()->id) {
+		if (PlatformDataEngineWrapper::getIsClient())
+		{
+			if (id == dynamic_cast<Client *>(PlatformDataEngineWrapper::getNetworkHandler())->getConnection()->id)
+			{
 				this->mp_currentPlayer = p_gameObject.get();
 				this->m_cameraControl.setTarget(p_gameObject.get());
 				spdlog::info("Setting current player to {}", p_gameObject->getId());
@@ -348,38 +366,44 @@ std::shared_ptr<GameObject> GameWorld::spawnGameObject(const std::string& type, 
 
 		p_gameObject->init();
 
-		//spdlog::info("Spawning object {} took: {}uS at position {}, {}", p_gameObject->getId(), timer.getElapsedTime().asMicroseconds(), position.x, position.y);
+		// spdlog::info("Spawning object {} took: {}uS at position {}, {}", p_gameObject->getId(), timer.getElapsedTime().asMicroseconds(), position.x, position.y);
 
-		if (noReplication) {
+		if (noReplication)
+		{
 			p_gameObject->setNetworked(false);
 		}
-		else {
+		else
+		{
 			p_gameObject->setNetworked(true);
 		}
 
 		return p_gameObject;
 	}
-	else {
+	else
+	{
 		return nullptr;
 	}
 }
 
 std::string GameWorld::spawnPlayer(std::shared_ptr<Connection> conn)
 {
-	spdlog::info("Spawning player for connection: {}:{} - {}", conn->ip.toString(), conn->port, conn->id);
+	spdlog::info("Spawning player for connection: {} - {}", conn->port, conn->id);
 
 	std::shared_ptr<GameObject> player = this->spawnDefinedGameObject(this->m_playerDef, conn->id);
 	this->m_players.emplace(conn, player.get());
 
 	player->setPosition(this->mp_playerSpawns[this->m_spawnIdx].position);
-	if (this->m_spawnIdx < this->mp_playerSpawns.size()) {
+	if (this->m_spawnIdx < this->mp_playerSpawns.size() - 1)
+	{
 		this->m_spawnIdx++;
 	}
-	else {
+	else
+	{
 		this->m_spawnIdx = 0;
 	}
 
-	if (!PlatformDataEngineWrapper::getIsClient()) {
+	if (!PlatformDataEngineWrapper::getIsClient())
+	{
 		if (conn->id == "Server")
 		{
 			this->mp_currentPlayer = player.get();
@@ -404,60 +428,62 @@ std::string GameWorld::spawnPlayer(std::shared_ptr<Connection> conn)
 std::shared_ptr<GameObject> GameWorld::spawnDefinedGameObject(nlohmann::json gameObject, std::string name)
 {
 	std::shared_ptr<GameObject> p_gameObject = std::make_shared<GameObject>(
-		*this->m_gameObjectDefinitions.at(gameObject.at("type"))
-		);
+		*this->m_gameObjectDefinitions.at(gameObject.at("type")));
 
 	sf::Vector2f pos;
-	if (gameObject.at("transform").at("x") != "centered") {
+	if (gameObject.at("transform").at("x") != "centered")
+	{
 		pos.x = gameObject.at("transform").at("x");
 	}
-	else {
+	else
+	{
 		pos.x = this->mp_view->getSize().x / 2.0f;
 	}
 
-	if (gameObject.at("transform").at("y") != "centered") {
+	if (gameObject.at("transform").at("y") != "centered")
+	{
 		pos.y = gameObject.at("transform").at("y");
 	}
-	else {
+	else
+	{
 		pos.y = this->mp_view->getSize().y / 2.0f;
 	}
 
 	p_gameObject->setPosition(
 		pos.x,
-		pos.y
-	);
+		pos.y);
 	p_gameObject->setOrigin(
 		gameObject.at("transform").at("origin_x"),
-		gameObject.at("transform").at("origin_y")
-	);
+		gameObject.at("transform").at("origin_y"));
 	p_gameObject->setZlayer(
-		gameObject.at("transform").at("z_layer")
-	);
+		gameObject.at("transform").at("z_layer"));
 	p_gameObject->setRotation(
-		gameObject.at("transform").at("rotation")
-	);
-	p_gameObject->setScale({
-		gameObject.at("transform").at("scale"),
-		gameObject.at("transform").at("scale")
-		});
+		gameObject.at("transform").at("rotation"));
+	p_gameObject->setScale({gameObject.at("transform").at("scale"),
+							gameObject.at("transform").at("scale")});
 
-	if (gameObject.count("isUI") > 0) {
+	if (gameObject.count("isUI") > 0)
+	{
 		p_gameObject->setIsUI(gameObject.at("isUI"));
 	}
-	else {
+	else
+	{
 		p_gameObject->setIsUI(false);
 	}
 	p_gameObject->registerComponentHierarchy(p_gameObject);
 
-	if (name == "") {
+	if (name == "")
+	{
 		name = Utility::generate_uuid_v4();
 	}
 	p_gameObject->setId(name);
 
-	if (gameObject.count("networked") > 0) {
+	if (gameObject.count("networked") > 0)
+	{
 		p_gameObject->setNetworked(gameObject.at("networked"));
 	}
-	else {
+	else
+	{
 		p_gameObject->setNetworked(true);
 	}
 
@@ -471,7 +497,6 @@ std::shared_ptr<GameObject> GameWorld::spawnDefinedGameObject(nlohmann::json gam
 		p_gameObject->addChild(childObj);
 	}
 
-
 	return p_gameObject;
 }
 
@@ -483,13 +508,15 @@ void GameWorld::garbageCollect()
 		if (it->second->getDestroyed())
 		{
 
-			if (it->second.get() == this->mp_currentPlayer) {
+			if (it->second.get() == this->mp_currentPlayer)
+			{
 				this->setPlayer(nullptr);
 			}
 
 			// no idea why I need to explicitly call the destructor here, clearly
 			// something still has ownership idk
-			if (it->second->findComponentOfType<PhysicsBody>().get() != nullptr) {
+			if (it->second->findComponentOfType<PhysicsBody>().get() != nullptr)
+			{
 				it->second->findComponentOfType<PhysicsBody>()->~PhysicsBody();
 			}
 
@@ -502,13 +529,15 @@ void GameWorld::garbageCollect()
 	}
 
 	// destroy physics bodies that are queued for destruction
-	b2Body* body = this->mp_physicsWorld->GetBodyList();
-	if (body != nullptr) {
+	b2Body *body = this->mp_physicsWorld->GetBodyList();
+	if (body != nullptr)
+	{
 		while (body->GetUserData().pointer != 0 && body->GetNext() != nullptr)
 		{
-			b2Body* next = body->GetNext();
-			if (reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer)->destroyed == true) {
-				delete reinterpret_cast<PhysBodyUserData*>(body->GetUserData().pointer);
+			b2Body *next = body->GetNext();
+			if (reinterpret_cast<PhysBodyUserData *>(body->GetUserData().pointer)->destroyed == true)
+			{
+				delete reinterpret_cast<PhysBodyUserData *>(body->GetUserData().pointer);
 				this->getPhysWorld()->DestroyBody(body);
 			}
 

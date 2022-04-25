@@ -7,8 +7,10 @@ using namespace PlatformDataEngine;
 /// <summary>
 /// Constructor
 /// </summary>
-Server::Server()
+Server::Server(GameWorld* world)
 {
+	this->m_world = world;
+
 	spdlog::info("Running in SERVER mode!");
 
 	std::stringstream portSS(PlatformDataEngineWrapper::HostConfig::port);
@@ -16,31 +18,204 @@ Server::Server()
 
 	portSS >> this->m_port;
 	ipSS >> this->m_ip;
-
-	this->m_socket.setBlocking(false);
 }
+
+static Server* s_pCallbackInstance;
+static void SteamNetConnectionStatusChangedCallback(SteamNetConnectionStatusChangedCallback_t* pInfo)
+{
+	s_pCallbackInstance->OnSteamNetConnectionStatusChanged(pInfo);
+}
+
+void Server::PollConnectionStateChanges()
+{
+	s_pCallbackInstance = this;
+	m_pInterface->RunCallbacks();
+}
+
 
 /// <summary>
 /// Starts the server
 /// </summary>
 void Server::start()
 {
-	// bind the m_socket to a port
-	if (m_socket.bind(this->m_port, this->m_ip) != sf::Socket::Done)
+	InitSteamDatagramConnectionSockets();
+
+	// Select instance to use.  For now we'll always use the default.
+	// But we could use SteamGameServerNetworkingSockets() on Steam.
+	m_pInterface = SteamNetworkingSockets();
+
+	if (this->m_port <= 0 || this->m_port > 65535)
 	{
-		spdlog::error("Could not bind socket to port {}", this->m_port);
+		spdlog::error("Invalid port {}", this->m_port);
 	}
-	else {
-		spdlog::info("Server started, listening on port {}", this->m_port);
-	}
+
+	// Start listening
+	SteamNetworkingIPAddr serverLocalAddr;
+	serverLocalAddr.Clear();
+	serverLocalAddr.ParseString(this->m_ip.toString().c_str());
+	serverLocalAddr.m_port = this->m_port;
+
+	SteamNetworkingConfigValue_t opt;
+	opt.SetPtr(k_ESteamNetworkingConfig_Callback_ConnectionStatusChanged, (void*)SteamNetConnectionStatusChangedCallback);
+	m_hListenSock = m_pInterface->CreateListenSocketIP(serverLocalAddr, 1, &opt);
+	if (m_hListenSock == k_HSteamListenSocket_Invalid)
+		spdlog::error("Failed to listen on port %d", this->m_port);
+	m_hPollGroup = m_pInterface->CreatePollGroup();
+	if (m_hPollGroup == k_HSteamNetPollGroup_Invalid)
+		spdlog::error("Failed to listen on port {}", this->m_port);
+	spdlog::info("Server listening on port {}\n", this->m_port);
 }
 
 /// <summary>
 /// Stops the server
-/// (currently does nothing)
 /// </summary>
 void Server::stop()
 {
+	spdlog::info("Closing connections...\n");
+	for (auto it : m_mapClients)
+	{
+		// Send them one more goodbye message.  Note that we also have the
+		// connection close reason as a place to send final data.  However,
+		// that's usually best left for more diagnostic/debug text not actual
+		// protocol strings.
+		PDEPacket packet(PDEPacket::Disconnected);
+		SendPacketToClient(it.first, packet);
+
+		// Close the connection.  We use "linger mode" to ask SteamNetworkingSockets
+		// to flush this out and close gracefully.
+		m_pInterface->CloseConnection(it.first, 0, "Server Shutdown", true);
+	}
+	m_mapClients.clear();
+
+	m_pInterface->CloseListenSocket(m_hListenSock);
+	m_hListenSock = k_HSteamListenSocket_Invalid;
+
+	m_pInterface->DestroyPollGroup(m_hPollGroup);
+	m_hPollGroup = k_HSteamNetPollGroup_Invalid;
+}
+
+void Server::OnSteamNetConnectionStatusChanged(SteamNetConnectionStatusChangedCallback_t* pInfo)
+{
+	// What's the state of the connection?
+	switch (pInfo->m_info.m_eState)
+	{
+		case k_ESteamNetworkingConnectionState_None:
+			// NOTE: We will get callbacks here when we destroy connections.  You can ignore these.
+			break;
+
+		case k_ESteamNetworkingConnectionState_ClosedByPeer:
+		case k_ESteamNetworkingConnectionState_ProblemDetectedLocally:
+		{
+
+			// Ignore if they were not previously connected.  (If they disconnected
+			// before we accepted the connection.)
+			if (pInfo->m_eOldState == k_ESteamNetworkingConnectionState_Connected)
+			{
+				// Locate the client.  Note that it should have been found, because this
+				// is the only codepath where we remove clients (except on shutdown),
+				// and connection change callbacks are dispatched in queue order.
+				auto itClient = m_mapClients.find(pInfo->m_hConn);
+				assert(itClient != m_mapClients.end());
+
+				if (pInfo->m_info.m_eState == k_ESteamNetworkingConnectionState_ProblemDetectedLocally)
+				{
+					spdlog::warn("Alas, {} hath fallen into shadow! (Internal Server Error)", itClient->second->name);
+				}
+				else
+				{
+					spdlog::warn("{} has disconnected! (Connection Closed by Peer)", itClient->second->name);
+				}
+
+				spdlog::info("Connection {}, reason: ",
+					pInfo->m_info.m_szConnectionDescription,
+					pInfo->m_info.m_eEndReason);
+
+				if (this->m_world->getGameObject(itClient->second->id) != nullptr) {
+					this->m_world->getGameObject(itClient->second->id)->destroySelf();
+					this->m_world->getPlayers().erase(itClient->second);
+				}
+
+				// remove client from client map
+				m_mapClients.erase(itClient);
+
+				// TODO: possibly notify other clients?
+			}
+			else
+			{
+				assert(pInfo->m_eOldState == k_ESteamNetworkingConnectionState_Connecting);
+			}
+
+			// Clean up the connection.  This is important!
+			// The connection is "closed" in the network sense, but
+			// it has not been destroyed.  We must close it on our end, too
+			// to finish up.  The reason information do not matter in this case,
+			// and we cannot linger because it's already closed on the other end,
+			// so we just pass 0's.
+			m_pInterface->CloseConnection(pInfo->m_hConn, 0, nullptr, false);
+			break;
+		}
+
+		case k_ESteamNetworkingConnectionState_Connecting:
+		{
+			// This must be a new connection
+			assert(m_mapClients.find(pInfo->m_hConn) == m_mapClients.end());
+
+			spdlog::info("Connection request from {}", pInfo->m_info.m_szConnectionDescription);
+
+			// A client is attempting to connect
+			// Try to accept the connection.
+			if (m_pInterface->AcceptConnection(pInfo->m_hConn) != k_EResultOK)
+			{
+				// This could fail.  If the remote host tried to connect, but then
+				// disconnected, the connection may already be half closed.  Just
+				// destroy whatever we have on our side.
+				m_pInterface->CloseConnection(pInfo->m_hConn, 0, nullptr, false);
+				spdlog::warn("Can't accept connection.  (It was already closed?)");
+				break;
+			}
+
+			// Assign the poll group
+			if (!m_pInterface->SetConnectionPollGroup(pInfo->m_hConn, m_hPollGroup))
+			{
+				m_pInterface->CloseConnection(pInfo->m_hConn, 0, nullptr, false);
+				spdlog::error("Failed to set poll group?");
+				break;
+			}
+
+			// client connected
+			// spawn new player on server
+			std::string name = "Connecting...";
+			std::shared_ptr<Connection> connection = std::make_shared<Connection>();
+			connection->ip = pInfo->m_info.m_addrRemote;
+			connection->id = Utility::generate_uuid_v4();
+			connection->name = name;
+			connection->port = pInfo->m_info.m_addrRemote.m_port;
+			connection->state = PlayerState::ALIVE;
+
+			std::string playerId = this->m_world->spawnPlayer(connection);
+
+			std::string ip;
+			connection->ip.ToString(ip.data(), ip.size(), false);
+			spdlog::info("A player has connected: {}:{} - {}", ip, connection->port, connection->id);
+
+			PDEPacket packet(PDEPacket::Connected);
+			packet << connection->id;
+			SendPacketToClient(pInfo->m_hConn, packet);
+
+			this->m_mapClients.emplace(pInfo->m_hConn, connection);
+
+			break;
+		}
+
+		case k_ESteamNetworkingConnectionState_Connected:
+			// We will get a callback immediately after accepting the connection.
+			// Since we are the server, we can ignore this, it's not news to us.
+			break;
+
+		default:
+			// Silences -Wswitch
+			break;
+	}
 }
 
 /// <summary>
@@ -62,9 +237,10 @@ void Server::process(GameWorld* world)
 	}
 
 	PDEPacket packet;
-	bool isNetworked = false;
-	for (std::shared_ptr<Connection> conn : this->m_connections)
+	for (const auto& connPair : this->m_mapClients)
 	{
+		const auto conn = connPair.second;
+
 		if (conn->state == PlayerState::DEAD)
 		{
 			if (conn->respawnTimer.getElapsedTime().asSeconds() > 10)
@@ -79,38 +255,36 @@ void Server::process(GameWorld* world)
 		packet = PDEPacket(PDEPacket::SendUpdates);
 		conn->networkSerialize(packet);
 
-		packet << static_cast<sf::Uint32>(world->getGameObjects().size());
 		for (const auto& gameObjectPair : world->getGameObjects())
 		{
-			isNetworked = gameObjectPair.second->getNetworked();
-			packet << isNetworked;
-			if (isNetworked) {
-				if (gameObjectPair.second->getId() == "")
-				{
-					spdlog::error("Update packet is malformed!");
-				}
-				packet
-					<< gameObjectPair.second->getType()
-					<< gameObjectPair.second->getPosition().x
-					<< gameObjectPair.second->getPosition().y
-					<< gameObjectPair.second->getId()
-					<< gameObjectPair.second->getHasBeenSent(conn->id);
-				if (gameObjectPair.second->getHasBeenSent(conn->id)) {
-					spdlog::debug("Sending existing object {} {}", gameObjectPair.second->getId(), gameObjectPair.second->getType());
-					gameObjectPair.second->networkSerialize(packet);
-				}
-				else {
-					spdlog::debug("Sending new object {} {}", gameObjectPair.second->getId(), gameObjectPair.second->getType());
-					gameObjectPair.second->networkSerializeInit(packet);
-					gameObjectPair.second->setHasBeenSent(conn->id);
-				}
+			bool isNetworked = gameObjectPair.second->getNetworked();
+			if (!isNetworked)
+				continue;
+
+			packet << true;
+			if (gameObjectPair.second->getId() == "")
+			{
+				spdlog::error("Update packet is malformed!");
+			}
+			packet
+				<< gameObjectPair.second->getType()
+				<< gameObjectPair.second->getPosition().x
+				<< gameObjectPair.second->getPosition().y
+				<< gameObjectPair.second->getId()
+				<< gameObjectPair.second->getHasBeenSent(conn->id);
+			if (gameObjectPair.second->getHasBeenSent(conn->id)) {
+				spdlog::debug("Sending existing object {} {}", gameObjectPair.second->getId(), gameObjectPair.second->getType());
+				gameObjectPair.second->networkSerialize(packet);
 			}
 			else {
-				spdlog::debug("Object is not networked! {}", gameObjectPair.second->getId());
+				spdlog::info("Sending new object {} {}", gameObjectPair.second->getId(), gameObjectPair.second->getType());
+				gameObjectPair.second->networkSerializeInit(packet);
+				gameObjectPair.second->setHasBeenSent(conn->id);
 			}
 		}
+		packet << false;
 
-		m_socket.send(packet, conn->ip, conn->port);
+		SendPacketToClient(connPair.first, packet);
 	}
 }
 
@@ -120,107 +294,83 @@ void Server::process(GameWorld* world)
 /// <param name="world">The game world</param>
 void Server::recieve(GameWorld* world)
 {
-	PDEPacket packet;
-	sf::IpAddress clientIp;
-	unsigned short clientPort;
+	// poll connection state
+	PollConnectionStateChanges();
 
-	m_socket.receive(packet, clientIp, clientPort);
+	ISteamNetworkingMessage* pIncomingMsg = nullptr;
+	int numMsgs = m_pInterface->ReceiveMessagesOnPollGroup(m_hPollGroup, &pIncomingMsg, 1);
+	if (numMsgs == 0)
+		return;
+	if (numMsgs < 0)
+		spdlog::error("Error checking for messages");
+	assert(numMsgs == 1 && pIncomingMsg);
+	auto incomingClient = m_mapClients.find(pIncomingMsg->m_conn);
+	assert(incomingClient != m_mapClients.end());
 
-	// player connected
-	if (packet.flag() == PDEPacket::Connect) {
-		// spawn new player on server
-		std::string name;
-		packet >> name;
-		std::shared_ptr<Connection> connection = std::make_shared<Connection>();
-		connection->ip = clientIp;
-		connection->id = Utility::generate_uuid_v4();
-		connection->name = name;
-		connection->port = clientPort;
-		connection->state = PlayerState::ALIVE;
+	PDEPacket incomingPkt;
+	incomingPkt.clear();
+	incomingPkt.onReceive(pIncomingMsg->m_pData, pIncomingMsg->m_cbSize);
 
-		ConnectionStats stats;
-		this->m_connectionStats.emplace(connection, stats);
+	// We don't need this anymore.
+	pIncomingMsg->Release();
 
-		spdlog::info("A player has connected: {}:{} - {}", clientIp.toString(), clientPort, connection->id);
-		std::string playerId = world->spawnPlayer(connection);
 
-		// send connected message back
-		PDEPacket connectedPacket(PDEPacket::Connected);
-		connectedPacket << connection->id;
-		m_socket.send(connectedPacket, clientIp, clientPort);
+	// we now have a recieved packet in the normal format
 
-		this->m_connections.push_back(connection);
-	}
-	else {
-		unsigned short numAxis = 0;
-		unsigned short numButtons = 0;
-		sf::Int8 idx = 0;
-		sf::Int8 value = 0;
-		bool valueBool = false;
-		std::string clientId;
-		std::string objId;
-		packet >> clientId;
-		bool isNetworked;
+	unsigned short numAxis = 0;
+	unsigned short numButtons = 0;
+	sf::Int8 idx = 0;
+	sf::Int8 value = 0;
+	bool valueBool = false;
+	std::string clientId;
+	std::string objId;
+	bool isNetworked;
 
-		std::shared_ptr<Connection> connection = this->findConnection(clientIp, clientId);
-		if (connection != nullptr) {
-			GameObject* player = world->getPlayer(connection);
+	// grab the client's id
+	incomingPkt >> clientId;
 
-			std::shared_ptr<InputList> clientInputs = nullptr;
+	// get the player from the connection
+	GameObject* player = world->getPlayer(incomingClient->second);
 
-			switch (packet.flag())
+	
+	std::shared_ptr<InputList> clientInputs = nullptr;
+
+	// packet flag switch
+	switch (incomingPkt.flag())
+	{
+		// we're recieving input values from the clients
+		case PDEPacket::UserInput:
+			// recieve input data
+			clientInputs = this->m_inputManagers.at(incomingClient->second);
+
+			incomingPkt >> numAxis >> numButtons;
+
+			for (unsigned short i = 0; i < numAxis; i++)
 			{
-			case PDEPacket::UserInput:
-				// recieve input data
-				clientInputs = this->m_inputManagers.at(connection);
-
-				packet >> numAxis >> numButtons;
-
-				for (unsigned short i = 0; i < numAxis; i++)
-				{
-					packet >> idx >> value;
-					for (const auto& input : clientInputs->inputs) {
-						dynamic_cast<NetworkInputManager*>(input)->setAxis(idx, value);
-					}
-
-				}
-
-				for (unsigned short i = 0; i < numButtons; i++)
-				{
-					packet >> idx >> valueBool;
-					for (const auto& input : clientInputs->inputs) {
-						dynamic_cast<NetworkInputManager*>(input)->setButton(idx, valueBool);
-					}
-
-				}
-
-				float mouseX;
-				float mouseY;
-				packet >> mouseX >> mouseY;
+				incomingPkt >> idx >> value;
 				for (const auto& input : clientInputs->inputs) {
-					dynamic_cast<NetworkInputManager*>(input)->setMouse(sf::Vector2f(mouseX, mouseY));
+					dynamic_cast<NetworkInputManager*>(input)->setAxis(idx, value);
 				}
 
-				break;
-
-			case PDEPacket::Disconnect:
-				this->m_connections.erase(std::remove(this->m_connections.begin(),
-					this->m_connections.end(), findConnection(clientIp, clientId)));
-
-				if (world->getGameObject(clientId) != nullptr) {
-					world->getGameObject(clientId)->destroySelf();
-					world->getPlayers().erase(findConnection(clientIp, clientId));
-				}
-
-				packet = PDEPacket(PDEPacket::Disconnected);
-				packet << connection->id;
-				m_socket.send(packet, clientIp, clientPort);
-
-				spdlog::info("Player {} disconnected", clientId);
-
-				break;
 			}
-		}
+
+			for (unsigned short i = 0; i < numButtons; i++)
+			{
+				incomingPkt >> idx >> valueBool;
+				for (const auto& input : clientInputs->inputs) {
+					dynamic_cast<NetworkInputManager*>(input)->setButton(idx, valueBool);
+				}
+
+			}
+
+			float mouseX;
+			float mouseY;
+			incomingPkt >> mouseX >> mouseY;
+			for (const auto& input : clientInputs->inputs) {
+				dynamic_cast<NetworkInputManager*>(input)->setMouse(sf::Vector2f(mouseX, mouseY));
+			}
+
+			break;
 	}
 }
 
@@ -234,8 +384,10 @@ void Server::broadcastObjectHealth(const std::string& objName, float health)
 {
 	// override timer for death packets
 	if (this->m_broadcastCooldown.getElapsedTime().asMilliseconds() > 100 || health <= 0) {
-		for (std::shared_ptr<Connection> conn : this->m_connections)
+		for (const auto& connPair : this->m_mapClients)
 		{
+			const auto& conn = connPair.second;
+
 			if (objName == conn->id) {
 				// we're broadcasting a player's health
 				if (health <= 0) {
@@ -248,27 +400,10 @@ void Server::broadcastObjectHealth(const std::string& objName, float health)
 
 			PDEPacket packet(PDEPacket::SetObjectHealth);
 			packet << objName << health;
-			m_socket.send(packet, conn->ip, conn->port);
+			SendPacketToClient(connPair.first, packet);
 		}
 		this->m_broadcastCooldown.restart();
 	}
-}
-
-/// <summary>
-/// Finds a connection by ip and id
-/// </summary>
-/// <param name="ip">the ip of the connection</param>
-/// <param name="id">the id of the connection</param>
-/// <returns></returns>
-std::shared_ptr<Connection> Server::findConnection(sf::IpAddress ip, std::string id)
-{
-	for (std::shared_ptr<Connection> conn : this->m_connections)
-	{
-		if (conn->id == id && conn->ip == ip) {
-			return conn;
-		}
-	}
-	return nullptr;
 }
 
 ConnectionStats::ConnectionStats()

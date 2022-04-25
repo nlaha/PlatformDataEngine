@@ -66,12 +66,15 @@ namespace PlatformDataEngine {
 			Clears the packet as usual and sets the flag to 'None', so isFlagged() will return false.  */
 		virtual void clear();
 
+		const void* onSend(std::size_t& size);
+
+		void onReceive(const void* data, std::size_t size);
+
+		//virtual void onReceive(const void*, std::size_t);
+		//virtual const void* onSend(std::size_t&);
 
 	private:
 		sf::Uint8    m_flag;
-
-		virtual void onReceive(const void*, std::size_t);
-		virtual const void* onSend(std::size_t&);
 
 	};
 

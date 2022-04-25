@@ -22,8 +22,8 @@ void Alive::damage(float damageAmount)
 		this->m_HP = 0.0f;
 		if (!PlatformDataEngineWrapper::getIsClient()) {
 			onDamage(this->m_HP);
+			onDeath();
 		}
-		onDeath();
 	}
 	else {
 		// don't damage on client, sever will take care of that

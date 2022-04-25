@@ -18,11 +18,11 @@ namespace PlatformDataEngine {
     sf::Vector2f PlatformDataEngineWrapper::m_windowZero = sf::Vector2f(0.0f, 0.0f);
     sf::Vector2f PlatformDataEngineWrapper::m_windowCenter = sf::Vector2f(0.0f, 0.0f);
 
-    std::string PlatformDataEngineWrapper::HostConfig::ip = "localhost";
-    std::string PlatformDataEngineWrapper::HostConfig::port = "65525";
+    std::string PlatformDataEngineWrapper::HostConfig::ip = "127.0.0.1";
+    std::string PlatformDataEngineWrapper::HostConfig::port = "26565";
 
-    std::string PlatformDataEngineWrapper::JoinConfig::ip = "localhost";
-    std::string PlatformDataEngineWrapper::JoinConfig::port = "65525";
+    std::string PlatformDataEngineWrapper::JoinConfig::ip = "127.0.0.1";
+    std::string PlatformDataEngineWrapper::JoinConfig::port = "26565";
 
     std::string PlatformDataEngineWrapper::ProfileConfig::name = "Player";
 

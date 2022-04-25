@@ -10,7 +10,7 @@ using namespace PlatformDataEngine;
 /// </summary>
 GameObject::GameObject(bool isDef)
 {
-	// called for GameObjectDefinitions as well... 
+	// called for GameObjectDefinitions as well...
 	// even though they aren't actually added to the world!
 	this->m_destroyed = false;
 	this->m_zLayer = 0;
@@ -30,14 +30,14 @@ GameObject::GameObject(bool isDef)
 /// Copy constructor
 /// </summary>
 /// <param name="other">other object</param>
-GameObject::GameObject(const GameObject& other)
+GameObject::GameObject(const GameObject &other)
 {
-	for (const auto& componentPair : other.m_components)
+	for (const auto &componentPair : other.m_components)
 	{
 		std::string compType = componentPair.second->getType();
 		std::shared_ptr<Component> compObj = ComponentFactory::create(compType);
-		//nlohmann::json properties = componentPair.second->getProps();
-		//compObj->loadDefinition(properties);
+		// nlohmann::json properties = componentPair.second->getProps();
+		// compObj->loadDefinition(properties);
 		compObj->copy(componentPair.second); // custom copy for special cases (physics body, etc.)
 		compObj->registerHierarchy(this->m_self);
 
@@ -72,15 +72,14 @@ void GameObject::init()
 		this->m_healthBar->init();
 	}
 
-	for (auto& compPair : this->m_components)
+	for (auto &compPair : this->m_components)
 	{
 		compPair.second->init();
 	}
 	sortChildZ();
 
 	this->m_nameText.setText(this->m_objName);
-	this->m_nameText.setScale({ 0.05f, 0.05f });
-
+	this->m_nameText.setScale({0.05f, 0.05f});
 }
 
 /// <summary>
@@ -88,7 +87,7 @@ void GameObject::init()
 /// </summary>
 /// <param name="dt">delta time</param>
 /// <param name="elapsedTime">elapsed time (since game started)</param>
-void GameObject::update(const float& dt, const float& elapsedTime)
+void GameObject::update(const float &dt, const float &elapsedTime)
 {
 	if (this->m_hasHealthBar && this->m_healthBar != nullptr)
 	{
@@ -96,57 +95,61 @@ void GameObject::update(const float& dt, const float& elapsedTime)
 		this->m_healthBar->update(dt, elapsedTime, this->m_HP);
 	}
 
-	for (auto& compPair : this->m_components)
+	for (auto &compPair : this->m_components)
 	{
 		compPair.second->update(dt, elapsedTime);
 	}
 
-	if (this->m_objName != "") {
+	if (this->m_objName != "")
+	{
 		this->m_nameText.setText(fmt::format("{}", this->m_objName));
 	}
 }
 
-void GameObject::networkSerialize(PDEPacket& output)
+void GameObject::networkSerialize(PDEPacket &output)
 {
-	if (!this->m_hasPhysics) {
-		output << this->getPosition().x << this->getPosition().y << this->getRotation();
-	}
+	//if (!this->m_hasPhysics)
+	//{
+	//	output << this->getPosition().x << this->getPosition().y << this->getRotation();
+	//}
 
-	for (auto& compPair : this->m_components)
-	{
-		compPair.second->networkSerialize(output);
-	}
+	//for (auto &compPair : this->m_components)
+	//{
+	//	compPair.second->networkSerialize(output);
+	//}
 }
 
-void GameObject::networkDeserialize(PDEPacket& input)
+void GameObject::networkDeserialize(PDEPacket &input)
 {
-	if (!this->m_hasPhysics) {
-		float x = 0.0f, y = 0.0f, angle = 0.0f;
-		input >> x >> y >> angle;
-		this->setPosition(x, y);
-		this->setRotation(angle);
-	}
+	//if (!this->m_hasPhysics)
+	//{
+	//	float x = 0.0f, y = 0.0f, angle = 0.0f;
+	//	input >> x >> y >> angle;
+	//	this->setPosition(x, y);
+	//	this->setRotation(angle);
+	//}
 
-	// update child links
-	if (this->m_children.size() < this->m_childNames.size())
-	{
-		for (const std::string& name : this->m_childNames) {
-			if (PlatformDataEngineWrapper::getWorld()->getGameObject(name) != nullptr) {
-				this->addChild(PlatformDataEngineWrapper::getWorld()->getGameObject(name));
-				PlatformDataEngineWrapper::getWorld()->getGameObject(name)->setParent(
-					PlatformDataEngineWrapper::getWorld()->getGameObject(this->getId())
-				);
-			}
-		}
-	}
+	//// update child links
+	//if (this->m_children.size() < this->m_childNames.size())
+	//{
+	//	for (const std::string &name : this->m_childNames)
+	//	{
+	//		if (PlatformDataEngineWrapper::getWorld()->getGameObject(name) != nullptr)
+	//		{
+	//			this->addChild(PlatformDataEngineWrapper::getWorld()->getGameObject(name));
+	//			PlatformDataEngineWrapper::getWorld()->getGameObject(name)->setParent(
+	//				PlatformDataEngineWrapper::getWorld()->getGameObject(this->getId()));
+	//		}
+	//	}
+	//}
 
-	for (auto& compPair : this->m_components)
-	{
-		compPair.second->networkDeserialize(input);
-	}
+	//for (auto &compPair : this->m_components)
+	//{
+	//	compPair.second->networkDeserialize(input);
+	//}
 }
 
-void GameObject::networkSerializeInit(PDEPacket& output)
+void GameObject::networkSerializeInit(PDEPacket &output)
 {
 	output << this->m_zLayer << this->m_isUI;
 
@@ -161,7 +164,7 @@ void GameObject::networkSerializeInit(PDEPacket& output)
 	output << this->m_objName;
 }
 
-void GameObject::networkDeserializeInit(PDEPacket& input)
+void GameObject::networkDeserializeInit(PDEPacket &input)
 {
 	input >> this->m_zLayer >> this->m_isUI;
 
@@ -195,11 +198,12 @@ GameObject::~GameObject()
 /// </summary>
 /// <param name="target"></param>
 /// <param name="states"></param>
-void GameObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void GameObject::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	// apply transform
 	sf::Transform ourTransform = this->getTransform();
-	if (this->m_isUI) {
+	if (this->m_isUI)
+	{
 		sf::Vector2f uiOffset = PlatformDataEngineWrapper::getWorld()->getCameraController().getUIOffset();
 		ourTransform.translate(uiOffset);
 	}
@@ -207,12 +211,12 @@ void GameObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	if (this->m_components.size() > 0)
 	{
-		for (auto& compPair : this->m_components)
+		for (auto &compPair : this->m_components)
 		{
 			target.draw(*compPair.second, states);
 		}
 	}
-	for (const auto& child : this->m_children)
+	for (const auto &child : this->m_children)
 	{
 		child->draw(target, states);
 	}
@@ -222,8 +226,9 @@ void GameObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		target.draw(*this->m_healthBar, states);
 	}
-	
-	if (this->m_nameText.getText() != "") {
+
+	if (this->m_nameText.getText() != "")
+	{
 		target.draw(m_nameText, states);
 	}
 }
@@ -232,10 +237,11 @@ void GameObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
 /// Loads a gameObject definition from a json file
 /// </summary>
 /// <param name="filename">game object definition .json filename</param>
-void GameObject::loadDefinition(const std::string& filename) {
+void GameObject::loadDefinition(const std::string &filename)
+{
 	// load json file
 	std::ifstream file(filename);
-	
+
 	// parse json file
 	nlohmann::json object;
 	file >> object;
@@ -244,13 +250,13 @@ void GameObject::loadDefinition(const std::string& filename) {
 
 	if (object.count("hasHealthBar") > 0)
 		this->m_hasHealthBar = object.at("hasHealthBar");
-		if (this->m_hasHealthBar)
-			this->m_healthBar = std::make_shared<StatsBar>();
-		if (object.count("healthBar") > 0)
-			this->m_healthBar->loadDefinition(object.at("healthBar"));
+	if (this->m_hasHealthBar)
+		this->m_healthBar = std::make_shared<StatsBar>();
+	if (object.count("healthBar") > 0)
+		this->m_healthBar->loadDefinition(object.at("healthBar"));
 
 	// load components
-	for (auto& comp : object["components"])
+	for (auto &comp : object["components"])
 	{
 		std::string compType = comp["type"];
 		std::shared_ptr<Component> compObj = ComponentFactory::create(compType);
@@ -270,12 +276,11 @@ void GameObject::loadDefinition(const std::string& filename) {
 void GameObject::registerComponentHierarchy(std::shared_ptr<GameObject> self)
 {
 	this->m_self = self.get();
-	for (auto& compPair : this->m_components)
+	for (auto &compPair : this->m_components)
 	{
 		compPair.second->registerHierarchy(self.get());
 	}
 }
-
 
 /// <summary>
 /// Makes sure children are in the correct Z order for drawing
@@ -283,9 +288,8 @@ void GameObject::registerComponentHierarchy(std::shared_ptr<GameObject> self)
 void GameObject::sortChildZ()
 {
 	// z order sorting
-	std::sort(this->m_children.begin(), this->m_children.end(), [](std::shared_ptr<GameObject> a, std::shared_ptr<GameObject> b) {
-		return a->getZlayer() < b->getZlayer();
-	});
+	std::sort(this->m_children.begin(), this->m_children.end(), [](std::shared_ptr<GameObject> a, std::shared_ptr<GameObject> b)
+			  { return a->getZlayer() < b->getZlayer(); });
 }
 
 void GameObject::onDeath()
@@ -294,12 +298,23 @@ void GameObject::onDeath()
 	if (dh != nullptr)
 		dh->onDeath();
 
-	if (!PlatformDataEngineWrapper::getIsClient()) {
-		if (this->m_id == PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->id) {
-			// player has died
+	if (!PlatformDataEngineWrapper::getIsClient())
+	{
+		// player has died
+		// cast to server
+		Server* server = reinterpret_cast<Server*>(PlatformDataEngineWrapper::getNetworkHandler());
+
+		if (server->getConnection(this->getId()) != nullptr) {
+			server->getConnection(this->getId())->state = PlayerState::DEAD;
+			server->getConnection(this->getId())->respawnTimer.restart();
+			spdlog::info("Player {} has died!", server->getConnection()->name);
+		}
+	}
+	else {
+		if (this->getId() == PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->id)
+		{
 			PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->state = PlayerState::DEAD;
 			PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->respawnTimer.restart();
-			spdlog::info("Player {} has died!", PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->name);
 		}
 	}
 
@@ -308,17 +323,19 @@ void GameObject::onDeath()
 
 void GameObject::onDamage(float currentHP)
 {
-	if (this->m_hasHealthBar) {
+	if (this->m_hasHealthBar)
+	{
 		std::shared_ptr<DamageHandler> dh = this->findComponentOfType<DamageHandler>();
 		if (dh != nullptr)
 			dh->onDamage(currentHP);
 
-		if (!PlatformDataEngineWrapper::getIsClient()) {
-			dynamic_cast<Server*>(PlatformDataEngineWrapper::getNetworkHandler())->
-				broadcastObjectHealth(this->m_id, this->m_HP);
-		}
+		 //if (!PlatformDataEngineWrapper::getIsClient()) {
+			//dynamic_cast<Server*>(PlatformDataEngineWrapper::getNetworkHandler())->
+			//	broadcastObjectHealth(this->m_id, this->m_HP);
+		 //}
 	}
-	else {
+	else
+	{
 		this->m_HP = 100.0f;
 	}
 }

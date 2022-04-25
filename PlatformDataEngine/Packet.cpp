@@ -34,35 +34,54 @@ void PDEPacket::clear()
 
 
 
-void PDEPacket::onReceive(const void* data, std::size_t size)
-{
-    std::string uncompressed;
-    snappy::Uncompress(((char*)data), size, &uncompressed);
+//void PDEPacket::onReceive(const void* data, std::size_t size)
+//{
+//    std::string uncompressed;
+//    snappy::Uncompress(((char*)data), size, &uncompressed);
+//
+//    std::size_t so_flag = sizeof m_flag;
+//
+//    std::memcpy(&m_flag, ((char*)uncompressed.data()) + uncompressed.size() - so_flag, so_flag);
+//
+//    append(uncompressed.data(), uncompressed.size() - so_flag);
+//}
+//
+//const void* PDEPacket::onSend(std::size_t& size)
+//{
+//    *this << m_flag;
+//
+//    std::string compressed;
+//    snappy::Compress(((char*)getData()), getDataSize(), &compressed);
+//
+//    size = compressed.size();
+//
+//    clear();
+//    append(compressed.data(), compressed.size());
+//
+//    return getData();
+//}
 
-    std::size_t so_flag = sizeof m_flag;
 
-    std::memcpy(&m_flag, ((char*)uncompressed.data()) + uncompressed.size() - so_flag, so_flag);
-
-    append(uncompressed.data(), uncompressed.size() - so_flag);
-}
-
-
-
+////////////////////////////////////////////////////////////
 const void* PDEPacket::onSend(std::size_t& size)
 {
     *this << m_flag;
 
-    std::string compressed;
-    snappy::Compress(((char*)getData()), getDataSize(), &compressed);
-
-    size = compressed.size();
-
-    clear();
-    append(compressed.data(), compressed.size());
-
+    size = getDataSize();
     return getData();
 }
 
+
+////////////////////////////////////////////////////////////
+void PDEPacket::onReceive(const void* data, std::size_t size)
+{
+    std::size_t so_flag = sizeof m_flag;
+    std::memcpy(&m_flag, ((char*)data) + size - so_flag, so_flag);
+
+    spdlog::warn("Packet size {} bytes, type {}", size, this->m_flag);
+
+    append(data, size - so_flag);
+}
 
 
 bool operator== (const PDEPacket& p1, const PDEPacket::PFlag& p2)

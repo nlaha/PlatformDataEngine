@@ -8,6 +8,8 @@
 #include "Packet.h"
 #include "GameWorld.h"
 #include "NetworkHandler.h"
+#include <GameNetworkingSockets/steam/isteamnetworkingsockets.h>
+#include <GameNetworkingSockets/steam/isteamnetworkingutils.h>
 
 namespace PlatformDataEngine {
 	class Client : public NetworkHandler
@@ -19,6 +21,10 @@ namespace PlatformDataEngine {
 
 		void stop();
 
+		void OnSteamNetConnectionStatusChanged(SteamNetConnectionStatusChangedCallback_t* pInfo);
+
+		void PollConnectionStateChanges();
+
 		void process(GameWorld* world);
 
 		void recieve(GameWorld* world);
@@ -27,11 +33,24 @@ namespace PlatformDataEngine {
 
 	private:
 
-		unsigned short m_serverPort;
-		sf::IpAddress m_serverIp;
-		sf::UdpSocket m_socket;
-		bool m_isConnecting;
-		bool m_isConnected;
+		HSteamNetConnection m_hConnection;
+		ISteamNetworkingSockets* m_pInterface;
 
+		std::uint16_t m_serverPort;
+		sf::IpAddress m_serverIp;
+
+		void SendPacketToServer(HSteamNetConnection conn, PDEPacket& pkt)
+		{
+			size_t size = 0;
+			const void* data = pkt.onSend(size);
+			m_pInterface->SendMessageToConnection(conn, data, size, k_nSteamNetworkingSend_Reliable, nullptr);
+		}
+
+		void SendPacketToServerUnreliable(HSteamNetConnection conn, PDEPacket& pkt)
+		{
+			size_t size = 0;
+			const void* data = pkt.onSend(size);
+			m_pInterface->SendMessageToConnection(conn, data, size, k_nSteamNetworkingSend_Unreliable, nullptr);
+		}
 	};
 }

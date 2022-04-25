@@ -1,5 +1,5 @@
 {
-  "tiledMapFile": "assets/Arena2.tmx",
+  "tiledMapFile": "assets/Arena.tmx",
   "playerObject":  "MainPlayer",
   "cameraController": {
     "cameraLockObject": "MainPlayer",
@@ -22,7 +22,7 @@
       "children": [
         {
           "name": "PlayerRocketLauncher",
-          "type": "MiniGun",
+          "type": "RocketLauncher",
           "transform": {
             "x": 4,
             "y": 10,

@@ -1,4 +1,4 @@
-#include "floatingBox.h"
+#include "FloatingBox.h"
 #include "GameObject.h"
 #include "PhysicsBody.h"
 #include "PhysicsCallbacks.h"
@@ -7,7 +7,7 @@
 
 using namespace PlatformDataEngine;
 
-void Floatingbox::init()
+void FloatingBox::init()
 {
     Component::init();
     PhysicsBody* pb = this->m_parent->findComponentOfType<PhysicsBody>().get();
@@ -19,7 +19,7 @@ void Floatingbox::init()
     }
 }
 
-void Floatingbox::update(const float& dt, const float& elapsedTime) //Called once per update cycle
+void FloatingBox::update(const float& dt, const float& elapsedTime) //Called once per update cycle
 {
     if (std::abs(distance) >= 80) {
         direction = direction * -1; //This updates the direction if it has passed 5 lengths of the box in terms of distance
@@ -28,16 +28,16 @@ void Floatingbox::update(const float& dt, const float& elapsedTime) //Called onc
     distance = distance + (1 * dt);
 }
 
-void Floatingbox::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+void FloatingBox::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
-void Floatingbox::copy(std::shared_ptr<Component> otherCompPtr)
+void FloatingBox::copy(std::shared_ptr<Component> otherCompPtr)
 {
-    std::shared_ptr<Floatingbox> other = std::dynamic_pointer_cast<Floatingbox>(otherCompPtr);
+    std::shared_ptr<FloatingBox> other = std::dynamic_pointer_cast<FloatingBox>(otherCompPtr);
 
     *this = *other;
 }
-void Floatingbox::loadDefinition(nlohmann::json object)
+void FloatingBox::loadDefinition(nlohmann::json object)
 {
     this->direction = -1;
     this->distance = 0;

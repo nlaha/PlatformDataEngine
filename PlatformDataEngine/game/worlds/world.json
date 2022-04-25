@@ -68,7 +68,7 @@
     },
     {
       "name": "FloatingBlocks",
-      "type": "floatingbox", 
+      "type": "FloatingBox", 
       "transform": {
         "x": 0,
         "y": 0,

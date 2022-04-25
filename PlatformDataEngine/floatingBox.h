@@ -4,7 +4,7 @@
 namespace PlatformDataEngine
 {
     class PhysicsBody; //Forward Declaration
-    class Floatingbox : public Component {
+    class FloatingBox : public Component {
     public:
         // called once when the game starts for every instance of the game object
         void init();

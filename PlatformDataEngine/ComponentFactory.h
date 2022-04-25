@@ -23,7 +23,7 @@
 #include "PropDamageHandler.h"
 
 #include "Spike.h"
-#include "floatingBox.h"
+#include "FloatingBox.h"
 
 namespace PlatformDataEngine
 {
@@ -71,7 +71,7 @@ namespace PlatformDataEngine
             {"StatsPanel", &construct<StatsPanel>},
             {"Menu", &construct<Menu>},
             {"Spike", &construct<Spike>},
-            {"floatingbox", &construct<Floatingbox>},
+            {"FloatingBox", &construct<FloatingBox>},
 
             // damage handlers
             {"PlayerDamageHandler", &construct<PlayerDamageHandler>},

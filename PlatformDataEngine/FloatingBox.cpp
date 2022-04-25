@@ -21,11 +21,11 @@ void FloatingBox::init()
 
 void FloatingBox::update(const float& dt, const float& elapsedTime) //Called once per update cycle
 {
-    if (std::abs(distance) >= 80) {
-        direction = direction * -1; //This updates the direction if it has passed 5 lengths of the box in terms of distance
+    if (std::abs(this->cDistance) >= distance) {
+        direction *= -1; //This updates the direction if it has passed 5 lengths of the box in terms of distance
     }
-    this->m_parent->move(((direction * 1)*dt), 0); //This creates horizonatal movment along the x-axis 
-    distance = distance + (1 * dt);
+    this->m_PhysBody->getBody()->SetTransform(b2Vec2(cDistance, 0), 0); //This creates horizonatal movment along the x-axis 
+    cDistance += (1 * dt) * direction;
 }
 
 void FloatingBox::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -39,6 +39,6 @@ void FloatingBox::copy(std::shared_ptr<Component> otherCompPtr)
 }
 void FloatingBox::loadDefinition(nlohmann::json object)
 {
-    this->direction = -1;
-    this->distance = 0;
+    this->direction = object.at("direction");
+    this->distance = object.at("distance");
 }

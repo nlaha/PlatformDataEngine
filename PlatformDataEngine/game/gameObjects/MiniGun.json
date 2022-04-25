@@ -16,7 +16,8 @@
       "type": "MiniGun",
       "properties": {
         "velocity": 10,
-        "cooldown": 80
+        "cooldown": 80,
+        "recoil":  1.5
       }
     },
     {

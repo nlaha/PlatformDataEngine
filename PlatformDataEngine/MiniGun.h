@@ -18,8 +18,8 @@ namespace PlatformDataEngine {
     public:
         void update(const float& dt, const float& elapsedTime);
         void copy(std::shared_ptr<Component> otherCompPtr);
-
+        void loadDefinition(nlohmann::json object);
     private:
-
+        float m_recoil;
     };
 }

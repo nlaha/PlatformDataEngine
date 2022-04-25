@@ -12,8 +12,7 @@ namespace PlatformDataEngine {
     class PhysicsBody;
 
     /// <summary>
-    /// The MiniGun bullet projectile - currently exactly the same as the rocket projectile
-    /// it will eventually have a unique sound, explosion, etc
+    /// The MiniGun bullet projectile
     /// </summary>
     class Bullet :
         public Projectile

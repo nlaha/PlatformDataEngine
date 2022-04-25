@@ -41,6 +41,7 @@ namespace PlatformDataEngine {
         b2Fixture* m_damageSensor;
 
         std::string m_ParticleSystemName;
+        // think these should be renamed and/or removed to make this class more generic
         float m_explosionRadius;
         float m_explosionForce;
         float m_explosionDamage;

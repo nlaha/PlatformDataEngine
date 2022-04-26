@@ -536,6 +536,9 @@
     <Image Include="assets\floatingbox.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="assets\MiniGun.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="assets\VT323-Regular.ttf">

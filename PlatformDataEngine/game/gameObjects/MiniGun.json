@@ -3,7 +3,7 @@
     {
       "type": "SpriteRenderer",
       "properties": {
-        "texture": "assets/RocketLauncher.png",
+        "texture": "assets/MiniGun.png",
         "rect": {
           "x": 0,
           "y": 0,
@@ -16,13 +16,14 @@
       "type": "MiniGun",
       "properties": {
         "velocity": 10,
-        "cooldown": 80
+        "cooldown": 80,
+        "recoil":  1.5
       }
     },
     {
       "type": "AnimationController",
       "properties": {
-        "aespriteFile": "assets/RocketLauncher.json",
+        "aespriteFile": "assets/MiniGun.json",
         "animation": "Idle",
         "loop": true,
         "speed": 1

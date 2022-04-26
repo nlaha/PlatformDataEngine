@@ -3,7 +3,7 @@
     {
       "type": "SpriteRenderer",
       "properties": {
-        "texture": "assets/RocketProjectile.png",
+        "texture": "assets/Bullet.png",
         "rect": {
           "x": 0,
           "y": 0,
@@ -15,9 +15,8 @@
     {
       "type": "Bullet",
       "properties": {
-        "explosionRadius": 5,
+        "explosionRadius": 1,
         "explosionDamage": 5,
-        "explosionForce": 5,
         "particleSystemName": "BulletExplosion",
         "sound": "sfx_wpn_machinegun_loop9.wav"
       }
@@ -28,7 +27,7 @@
         "type": "dynamic",
         "doesRotate": true,
         "continuous": true,
-        "density": 1.0,
+        "density": 2.0,
         "friction": 0.0,
         "bouncy": 0.0,
         "rect": {
@@ -44,7 +43,7 @@
               "x": 0,
               "y": 0,
               "width": 2,
-              "height": 2
+              "height": 1
             }
           }
         ]

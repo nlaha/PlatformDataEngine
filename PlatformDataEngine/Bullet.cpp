@@ -41,17 +41,6 @@ void Bullet::init()
     this->m_PhysBody->getBody()->SetBullet(true);
     this->m_PhysBody->getBody()->SetGravityScale(0.0f);
 
-    // set up force sensor fixture
-    b2CircleShape forceSensorShape;
-    forceSensorShape.m_radius = this->m_explosionRadius / Constants::PHYS_SCALE;
-    b2FixtureDef forceSensorDef;
-    forceSensorDef.shape = &forceSensorShape;
-    forceSensorDef.isSensor = true;
-    b2Filter forceSensorFilter;
-    forceSensorFilter.categoryBits = PlatformDataEngine::WORLD_DYNAMIC;
-    forceSensorDef.filter = forceSensorFilter;
-    this->m_forceSensor = this->m_PhysBody->getBody()->CreateFixture(&forceSensorDef);
-
     // set up damage sensor fixture
     b2CircleShape damageSensorShape;
     damageSensorShape.m_radius = (this->m_explosionRadius / Constants::PHYS_SCALE) / 3.0f;
@@ -114,37 +103,8 @@ void Bullet::update(const float& dt, const float& elapsedTime)
                     }
                 }
 
-                // apply force
-                if (c->contact->GetFixtureA() == this->m_forceSensor || c->contact->GetFixtureB() == this->m_forceSensor) {
+          
 
-                    b2Body* body = c->other;
-
-                    // we don't need to do anything if we're interacting
-                    // with a static body
-                    if (body->GetType() == b2BodyType::b2_dynamicBody) {
-
-                        b2Vec2 bodyCenter = body->GetPosition();
-                        b2Vec2 impulseVec = Utility::normalize(b2Vec2(
-                            (bodyCenter.x - (ourPos.x / Constants::PHYS_SCALE)),
-                            (bodyCenter.y - (ourPos.y / Constants::PHYS_SCALE))
-                        ));
-
-                        float distFrac = std::fmaxf(0.0f, 1.10f - Utility::distance(bodyCenter, Utility::fromSf(ourPos)) / this->m_explosionRadius);
-                        float velocityFalloff = std::sqrt(distFrac);
-
-                        impulseVec.x *= this->m_explosionForce * velocityFalloff;
-                        impulseVec.y *= this->m_explosionForce * velocityFalloff;
-
-                        // don't apply force to particles
-                        if (body->GetFixtureList()[0].GetFilterData().categoryBits != PhysicsCategory::PARTICLE) {
-                            b2Vec2 velocity = body->GetLinearVelocity();
-                            velocity.x *= 0.50f;
-                            velocity.y *= 0.50f;
-                            body->SetLinearVelocity(velocity);
-                            body->ApplyLinearImpulseToCenter(impulseVec, true);
-                        }
-                    }
-                }
             }
 
             // explode FX
@@ -174,7 +134,7 @@ void Bullet::copy(std::shared_ptr<Component> otherCompPtr)
 void Bullet::loadDefinition(nlohmann::json object)
 {
     this->m_explosionDamage = object.at("explosionDamage");
-    this->m_explosionForce = object.at("explosionForce");
+    //this->m_explosionForce = object.at("explosionForce");
     this->m_explosionRadius = object.at("explosionRadius");
     this->m_ParticleSystemName = object.at("particleSystemName");
 

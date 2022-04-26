@@ -57,10 +57,23 @@ void MiniGun::update(const float& dt, const float& elapsedTime)
 					Utility::fromSf(directionVec * -this->m_velocity), true);
 
 				AnimationController* animControl = this->m_parent->findComponentOfType<AnimationController>().get();
-				animControl->setAnimation("Shoot", 1.0, false);
+				if (animControl->getAnimName() != "Shoot") {
+					animControl->setAnimation("Shoot", 4.0, false);
+				}
 
 				Bullet* projectile = p_gameObject->findComponentOfType<Bullet>().get();
 				projectile->setOwner(this->m_parent->getParent());
+
+				// Apply recoil to player
+				b2Body* body = PlatformDataEngineWrapper::getWorld()->getPlayer()->findComponentOfType<PhysicsBody>()->getBody();
+
+
+
+				b2Vec2 velocity = body->GetLinearVelocity();
+				velocity.x *= this->m_recoil;
+				velocity.y *= this->m_recoil;
+				body->SetLinearVelocity(velocity);
+				body->ApplyForceToCenter(Utility::fromSf(directionVec * this->m_velocity), true);
 
 				this->m_weaponClock.restart();
 			}
@@ -78,4 +91,11 @@ void MiniGun::copy(std::shared_ptr<Component> otherCompPtr)
 	std::shared_ptr<MiniGun> other = std::dynamic_pointer_cast<MiniGun>(otherCompPtr);
 
 	*this = *other;
+}
+
+void MiniGun::loadDefinition(nlohmann::json object)
+{
+	this->m_Cooldown = object.at("cooldown");
+	this->m_velocity = object.at("velocity");
+	this->m_recoil = object.at("recoil");
 }

@@ -65,6 +65,7 @@ namespace PlatformDataEngine
         /// <param name="flip">the new flip flag</param>
         inline void setFlipFlag(AnimationController::FlipFlags flip) { this->m_flip = flip; };
 
+        inline std::string getAnimName() const { return this->m_currentAnim; };
         void setAnimation(const std::string animName, float speed = 1.0f, bool loop = true);
 
     private:

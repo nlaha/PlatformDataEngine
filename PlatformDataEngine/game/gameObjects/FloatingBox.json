@@ -1,0 +1,52 @@
+{
+  "components": [
+    {
+      "type": "FloatingBox",
+      "properties": {
+        "distance": 20,
+        "speed": 3,
+        "direction": 1
+      }
+    },
+    {
+      "type": "SpriteRenderer",
+      "properties": {
+        "texture": "assets/FloatingBox.png",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": -1,
+          "height": -1
+        }
+      }
+    },
+    {
+      "type": "PhysicsBody",
+      "properties": {
+        "type": "kinematic",
+        "doesRotate": false,
+        "continuous": false,
+        "density": 4.0,
+        "friction": 0.25,
+        "bouncy": 0.5,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 16
+        },
+        "fixtures": [
+          {
+            "shape": "box",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 32,
+              "height": 16
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

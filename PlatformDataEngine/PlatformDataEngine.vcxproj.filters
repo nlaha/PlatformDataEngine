@@ -231,6 +231,9 @@
     <ClCompile Include="AudioSystem.cpp">
       <Filter>Source Files\Internal</Filter>
     </ClCompile>
+    <ClCompile Include="FloatingBox.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
     <ClCompile Include="Weapon.cpp">
       <Filter>Source Files\Components\Weapon</Filter>
     </ClCompile>
@@ -374,6 +377,9 @@
     <ClInclude Include="AudioSystem.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
+    <ClInclude Include="FloatingBox.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
     <ClInclude Include="Weapon.h">
       <Filter>Header Files\Components\Weapon</Filter>
     </ClInclude>
@@ -434,6 +440,9 @@
       <Filter>Resource Files\Game\GameObjects</Filter>
     </None>
     <None Include="game\gameObjects\BulletExplosion.json">
+      <Filter>Resource Files\Game\GameObjects</Filter>
+    </None>
+    <None Include="game\gameObjects\FloatingBox.json">
       <Filter>Resource Files\Game\GameObjects</Filter>
     </None>
   </ItemGroup>
@@ -522,6 +531,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\StatsPanel.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\floatingbox.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\MiniGun.png">

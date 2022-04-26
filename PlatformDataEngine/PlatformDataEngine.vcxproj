@@ -179,6 +179,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DamageHandler.cpp" />
     <ClCompile Include="EngineStatsText.cpp" />
+    <ClCompile Include="FloatingBox.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="GlobalEffects.cpp" />
@@ -229,6 +230,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="DamageHandler.h" />
     <ClInclude Include="EngineStatsText.h" />
+    <ClInclude Include="FloatingBox.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="GlobalEffects.h" />
@@ -309,6 +311,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
     </None>
     <None Include="game\gameObjects\Bullet.json" />
     <None Include="game\gameObjects\BulletExplosion.json" />
+    <None Include="game\gameObjects\FloatingBox.json" />
     <None Include="game\gameObjects\MainMenu.json" />
     <None Include="game\gameObjects\MainMenuTitle.json" />
     <None Include="game\gameObjects\MiniGun.json" />
@@ -463,6 +466,7 @@ xcopy /y /s /e /i "$(ProjectDir)shaders"  "$(OutDir)shaders"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </Image>
+    <Image Include="assets\floatingbox.png" />
     <Image Include="assets\MiniGun.png" />
     <Image Include="assets\Plants.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>

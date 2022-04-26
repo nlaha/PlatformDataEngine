@@ -1,6 +1,6 @@
 {
   "tiledMapFile": "assets/Arena2.tmx",
-  "playerObject":  "MainPlayer",
+  "playerObject": "MainPlayer",
   "cameraController": {
     "cameraLockObject": "MainPlayer",
     "cameraLerpSpeed": 3
@@ -9,7 +9,7 @@
     {
       "name": "MainPlayer",
       "type": "PlayerCharacter",
-      "isPlayer":  true,
+      "isPlayer": true,
       "transform": {
         "x": 0,
         "y": 0,
@@ -61,6 +61,20 @@
         "origin_x": 0,
         "origin_y": 0,
         "z_layer": 100,
+        "rotation": 0,
+        "scale": 1
+      },
+      "children": []
+    },
+    {
+      "name": "FloatingBlocks",
+      "type": "FloatingBox", 
+      "transform": {
+        "x": 0,
+        "y": 0,
+        "origin_x": 0,
+        "origin_y": 0,
+        "z_layer": 3,
         "rotation": 0,
         "scale": 1
       },

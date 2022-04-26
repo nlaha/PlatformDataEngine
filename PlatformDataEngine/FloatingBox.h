@@ -26,6 +26,7 @@ namespace PlatformDataEngine
     private:
         PhysicsBody* m_PhysBody;
         float distance;
+        float speed;
         int direction;
         float cDistance;
     };

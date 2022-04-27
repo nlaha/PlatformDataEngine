@@ -31,6 +31,16 @@ void FloatingBox::update(const float& dt, const float& elapsedTime) //Called onc
 void FloatingBox::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
+void FloatingBox::networkSerialize(PDEPacket& output)
+{
+    output << this->cDistance;
+}
+
+void FloatingBox::networkDeserialize(PDEPacket& input)
+{
+    input >> this->cDistance;
+}
+
 void FloatingBox::copy(std::shared_ptr<Component> otherCompPtr)
 {
     std::shared_ptr<FloatingBox> other = std::dynamic_pointer_cast<FloatingBox>(otherCompPtr);

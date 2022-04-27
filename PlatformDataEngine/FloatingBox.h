@@ -15,6 +15,10 @@ namespace PlatformDataEngine
         // for drawing things (called on separate thread)
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+        void networkSerialize(PDEPacket& output);
+
+        void networkDeserialize(PDEPacket& input);
+
         // YOU MUST IMPLEMENT COPY (BAD THINGS WILL HAPPEN IF YOU DON'T)
         // like a copy constructor but you must std::dynamic_pointer_cast the parameter
         void copy(std::shared_ptr<Component> otherCompPtr);

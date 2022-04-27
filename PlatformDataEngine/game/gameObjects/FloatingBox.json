@@ -21,14 +21,23 @@
       }
     },
     {
+      "type": "AnimationController",
+      "properties": {
+        "aespriteFile": "assets/floatingbox.json",
+        "animation": "Idle",
+        "loop": true,
+        "speed": 2
+      }
+    },
+    {
       "type": "PhysicsBody",
       "properties": {
         "type": "kinematic",
         "doesRotate": false,
         "continuous": false,
         "density": 4.0,
-        "friction": 0.25,
-        "bouncy": 0.5,
+        "friction": 1.25,
+        "bouncy": 0.0,
         "rect": {
           "x": 0,
           "y": 0,

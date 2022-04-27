@@ -3,6 +3,7 @@
 ![stars badge](https://img.shields.io/github/stars/nlaha/PlatformDataEngine)
 ![forks badge](https://img.shields.io/github/forks/nlaha/PlatformDataEngine)
 [![docs badge](https://img.shields.io/badge/Documentation-API%20Reference-red)](https://nlaha.github.io/PlatformDataEngine/html/annotated.html)
+[![wiki badge](https://img.shields.io/badge/Project%20Wiki-blue)](https://github.com/nlaha/PlatformDataEngine/wiki)
 
 A data-driven platformer game engine using SFML
 

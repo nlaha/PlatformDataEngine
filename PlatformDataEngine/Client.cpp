@@ -15,6 +15,8 @@ Client::Client()
 
 	portSS >> this->m_serverPort;
 	ipSS >> this->m_serverIp;
+
+	this->m_isConnected = false;
 }
 
 static Client* s_pCallbackInstance;
@@ -129,10 +131,10 @@ void Client::process(GameWorld* world)
 	if (this->m_clientConnection != nullptr) {
 		// send out our current inputs
 		PDEPacket inputPacket(PDEPacket::UserInput);
-		inputPacket << this->m_clientConnection->id;
+		//inputPacket << this->m_clientConnection->id;
 		PlatformDataEngineWrapper::getPlayerInputManager()->serializeInputs(inputPacket);
 
-		SendPacketToServer(this->m_hConnection, inputPacket);
+		SendPacketToServerUnreliable(this->m_hConnection, inputPacket);
 	}
 }
 
@@ -149,8 +151,9 @@ void Client::recieve(GameWorld* world)
 	if (numMsgs == 0) {
 		return;
 	}
-	if (numMsgs < 0) {
+	if (numMsgs < 0 || pIncomingMsg == nullptr) {
 		spdlog::error("Error checking for messages");
+		return;
 	}
 
 	PDEPacket packet;
@@ -160,18 +163,6 @@ void Client::recieve(GameWorld* world)
 	// We don't need this anymore.
 	pIncomingMsg->Release();
 
-	std::string objType = "";
-	sf::Vector2f objPos;
-	std::string objId = "";
-	std::shared_ptr<GameObject> obj = nullptr;
-	std::string objConnId = "";
-	std::string parentName = "";
-	sf::Uint32 numObjs = 0;
-	bool isNetworked = true;
-	float objHealth = 0.0f;
-	bool hasRecievedBefore = false;
-	std::vector<std::string> updatedObjects;
-
 	//spdlog::warn("Flag: {}", packet.flag());
 
 	//spdlog::info("Packet Size: {}", pIncomingMsg->m_cbSize);
@@ -179,64 +170,62 @@ void Client::recieve(GameWorld* world)
 	switch (packet.flag())
 	{
 	case PDEPacket::SendUpdates:
-		this->m_clientConnection->networkDeserialize(packet);
+	{
+		// make sure we're fully connected
+		if (this->m_isConnected) {
+			std::vector<std::string> noDestroy;
 
-		while(isNetworked)
-		{
-			packet >> isNetworked;
-			if (isNetworked) {
-				packet >> objType;
-				packet >> objPos.x >> objPos.y;
-				packet >> objId;
-				packet >> hasRecievedBefore;
+			bool skippingUpdate = false;
 
-				updatedObjects.push_back(objId);
-
-				if (objId == "")
+			while(!packet.endOfPacket())
+			{
+				std::string id;
+				std::string type;
+				bool newObject = false;
+				packet >> id;
+				packet >> type;
+				//spdlog::info("Recieving update for {} - {}", id, type);
+				if (world->getGameObject(id) != nullptr)
 				{
-					spdlog::error("Update packet is malformed! Size: {}, Data {}", packet.getDataSize(), fmt::ptr(packet.getData()));
-				}
-				//spdlog::info("Moving {} to position ({}, {})", objId, objPos.x, objPos.y);
-				if (hasRecievedBefore && world->getGameObject(objId) != nullptr) {
-					world->getGameObject(objId)->networkDeserialize(packet);
+					world->getGameObject(id)->networkDeserialize(packet);
+					noDestroy.push_back(id);
 				}
 				else {
-					if (world->getGameObject(objId) == nullptr) {
-						spdlog::debug("Creating object with ID: {}", objId);
-						obj = world->spawnGameObject(objType, objPos, objId);
-						obj->networkDeserializeInit(packet);
+					if (id == "") {
+						spdlog::error("ID was blank!");
+						break;
 					}
-					else {
-						spdlog::warn("Skipped initialization for existing object: {} {}", objId, objType);
-					}
+					spdlog::info("Spawned object: {} - {}", id, type);
+					sf::Vector2f pos;
+					auto obj = world->spawnGameObject(type, pos, id);
+					obj->networkDeserialize(packet);
+					noDestroy.push_back(id);
 				}
 			}
-			else {
-				break;
-			}
-		}
+			//spdlog::debug("Recieved updates for {} objects", numUpdates);
 
-		for (const auto& gameObjectPair : world->getGameObjects())
-		{
-			if (gameObjectPair.second->getNetworked()) {
-				if (std::find(updatedObjects.begin(),
-					updatedObjects.end(),
-					gameObjectPair.first) != updatedObjects.end())
+			if (!skippingUpdate)
+			{
+				for (auto& obj : world->getNetworkObjects())
 				{
-					// found object, don't destroy
-				}
-				else {
-					// we didn't get an update, go ahead and destroy it
-					spdlog::info("Destryoing object {}", gameObjectPair.first);
-					gameObjectPair.second->onDamage(0);
-					gameObjectPair.second->onDeath();
+					if (obj != nullptr) {
+						auto it = std::find(noDestroy.begin(), noDestroy.end(), obj->getId());
+						if (it == std::end(noDestroy)) {
+							spdlog::info("Destroying object {}", obj->getId());
+							obj->onDeath();
+						}
+					}
 				}
 			}
 		}
 
 		break;
-
+	}
 	case PDEPacket::SetObjectHealth:
+	{
+		std::string objId = "";
+		float objHealth = 0.0f;
+
 		packet >> objId;
 		packet >> objHealth;
 		if (world->getGameObject(objId) != nullptr) {
@@ -251,12 +240,23 @@ void Client::recieve(GameWorld* world)
 		}
 
 		break;
-
+	}
 	case PDEPacket::Connected:
+	{
 		this->m_clientConnection = std::make_shared<Connection>();
 		packet >> this->m_clientConnection->id;
 		world->setInGame(true);
 		spdlog::info("Client connected to server: {}:{} - {}", m_serverIp.toString(), m_serverPort, this->m_clientConnection->id);
+
+		PDEPacket profilePacket(PDEPacket::ClientProfile);
+		profilePacket << PlatformDataEngineWrapper::ProfileConfig::name;
+		SendPacketToServer(this->m_hConnection, profilePacket);
+
+		break;
+	}
+
+	case PDEPacket::ProfileRecieved:
+		this->m_isConnected = true;
 
 		break;
 

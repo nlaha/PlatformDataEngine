@@ -62,6 +62,12 @@ namespace PlatformDataEngine
         bool m_doesRotate;
         PhysBodyUserData *m_bodyUserData;
 
+        // network stuff
+        b2Vec2 net_targetPos;
+        b2Vec2 net_targetVel;
+        float net_targetAngle;
+        float net_targetAngleVel;
+
         b2BodyDef m_bodyDef;
         std::vector<b2FixtureDef> m_bodyFixtureDefs;
 

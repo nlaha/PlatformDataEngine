@@ -93,6 +93,7 @@ namespace PlatformDataEngine {
 		}
 
 		static inline void loadServer() {
+			m_isClient = false;
 
 			spdlog::info("Loading server world please wait...");
 
@@ -106,7 +107,6 @@ namespace PlatformDataEngine {
 
 			PlatformDataEngineWrapper::mp_mainWorld->init("game/worlds/world.json", m_view, ApplicationMode::SERVER);
 
-			m_isClient = false;
 			m_netHandler->start();
 
 			/* Initialize Debug Draw */
@@ -119,6 +119,7 @@ namespace PlatformDataEngine {
 		}
 
 		static inline void loadClient() {
+			m_isClient = true;
 
 			spdlog::info("Loading client world please wait...");
 
@@ -131,7 +132,6 @@ namespace PlatformDataEngine {
 
 			PlatformDataEngineWrapper::mp_mainWorld->initClient("game/worlds/world.json", m_view);
 
-			m_isClient = true;
 			m_netHandler->start();
 
 			/* Initialize Debug Draw */

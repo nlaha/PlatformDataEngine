@@ -5,6 +5,9 @@
 #include <spdlog/spdlog.h>
 #include <snappy.h>
 #include <memory>
+#include <sstream>
+#include <string>
+#include <iomanip>
 
 namespace PlatformDataEngine {
 
@@ -42,9 +45,10 @@ namespace PlatformDataEngine {
 			Text,
 
 			SetObjectHealth,
-			RequestUpdates,
 			SendUpdates,
 			UserInput,
+			ClientProfile,
+			ProfileRecieved,
 		};
 
 		/** Default constructor. */
@@ -54,6 +58,8 @@ namespace PlatformDataEngine {
 
 		/** Sets the flag to the packet */
 		void setFlag(PFlag);
+
+		inline void setCompressed(bool isCompressed) { this->m_compressed = isCompressed; };
 
 		/** Reads the flag. */
 		inline PFlag        flag() const { return static_cast<PFlag>(m_flag); }
@@ -76,6 +82,7 @@ namespace PlatformDataEngine {
 	private:
 		sf::Uint8    m_flag;
 
+		bool m_compressed;
 	};
 
 

@@ -1,5 +1,5 @@
 {
-  "tiledMapFile": "assets/Arena.tmx",
+  "tiledMapFile": "assets/Arena2.tmx",
   "playerObject":  "MainPlayer",
   "cameraController": {
     "cameraLockObject": "MainPlayer",
@@ -55,6 +55,7 @@
       "name": "PlayerStatsPanel",
       "type": "StatsPanel",
       "isUI": true,
+      "networked": false,
       "transform": {
         "x": 0,
         "y": 0,

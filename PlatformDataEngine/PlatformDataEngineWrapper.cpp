@@ -194,8 +194,15 @@ namespace PlatformDataEngine {
             }
         }
 
+        this->mp_mainWorld->getNetThread()->terminate();
+
         if (m_isClient) {
             dynamic_cast<Client*>(PlatformDataEngineWrapper::getNetworkHandler())->disconnect();
+        }
+
+        if (this->m_netHandler != nullptr)
+        {
+            this->m_netHandler->stop();
         }
     }
 }

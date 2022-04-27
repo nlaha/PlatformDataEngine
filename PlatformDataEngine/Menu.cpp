@@ -16,7 +16,7 @@ void Menu::init()
 
 	// init host game menu
 	std::shared_ptr<ListMenu> hostMenu = std::make_shared<ListMenu>(this);
-	hostMenu->addOption(std::make_shared<TextBox>("IP:", hostMenu.get()), &PlatformDataEngineWrapper::HostConfig::ip);
+	//hostMenu->addOption(std::make_shared<TextBox>("IP:", hostMenu.get()), &PlatformDataEngineWrapper::HostConfig::ip);
 	hostMenu->addOption(std::make_shared<TextBox>("Port:", hostMenu.get()), &PlatformDataEngineWrapper::HostConfig::port);
 	hostMenu->addOption(std::make_shared<MenuOption>("Start Server", hostMenu.get()), &PlatformDataEngineWrapper::loadServer);
 	this->m_menus.push_back(hostMenu);

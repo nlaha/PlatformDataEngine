@@ -45,6 +45,11 @@ namespace PlatformDataEngine
 
 		void recieve(GameWorld *world);
 
+		void destroyObject(std::string id);
+
+		void replicateGameObject(GameObject* obj);
+		void replicateGameObject(GameObject* obj, HSteamNetConnection conn);
+
 		void broadcastObjectHealth(const std::string& objName, float health);
 
 		inline void addInputManager(std::shared_ptr<Connection> ip, std::shared_ptr<InputManager> input)
@@ -102,13 +107,23 @@ namespace PlatformDataEngine
 
 		std::map<HSteamNetConnection, std::shared_ptr<Connection>> m_mapClients;
 
+		/// <summary>
+		/// Sends a packet to a client
+		/// </summary>
+		/// <param name="conn"></param>
+		/// <param name="pkt"></param>
 		void SendPacketToClient(HSteamNetConnection conn, PDEPacket &pkt)
 		{
 			size_t size = 0;
 			const void *data = pkt.onSend(size);
-			m_pInterface->SendMessageToConnection(conn, data, size, k_nSteamNetworkingSend_UnreliableNoDelay, nullptr);
+			m_pInterface->SendMessageToConnection(conn, data, size, k_nSteamNetworkingSend_Reliable, nullptr);
 		}
 
+		/// <summary>
+		/// Sends a packet to all clients
+		/// </summary>
+		/// <param name="pkt"></param>
+		/// <param name="except"></param>
 		void SendPacketToAllClients(PDEPacket &pkt, HSteamNetConnection except = k_HSteamNetConnection_Invalid)
 		{
 			for (auto &c : m_mapClients)

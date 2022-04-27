@@ -14,6 +14,7 @@
 #include "StatsBar.h"
 #include "Packet.h"
 
+
 namespace PlatformDataEngine {
 
 	/// <summary>
@@ -59,15 +60,12 @@ namespace PlatformDataEngine {
 		inline std::string getId() const { return this->m_id; };
 		inline void setId(const std::string& id) { this->m_id = id; };
 
-		inline void setName(const std::string& name) { this->m_objName = name; };
-
-		inline void destroySelf() {
-			this->m_destroyed = true;
-			for (std::shared_ptr<GameObject> child : this->m_children)
-			{
-				child->destroySelf();
-			}
+		inline void setName(const std::string& name) { 
+			this->m_objName = name; 
+			this->m_nameText.setText(name);
 		};
+
+		void destroySelf();
 
 		inline std::string getType() const { return this->m_type; };
 		inline void setType(const std::string& type) { this->m_type = type; };
@@ -79,7 +77,7 @@ namespace PlatformDataEngine {
 		inline void setHasBeenSent(const std::string& id) { this->m_hasBeenSent.emplace(id, true); };
 		inline bool getHasBeenSent(const std::string& id) const {
 			if (!this->m_alreadyReplicated) {
-				return this->m_hasBeenSent.count(id) > 0;
+				return (this->m_hasBeenSent.count(id) > 0);
 			}
 			else {
 				return true;

@@ -20,7 +20,7 @@ void Connection::networkSerialize(PDEPacket& output)
 
 	//}
 
-	output << this->name << this->health;
+	//output << this->name << this->health;
 }
 
 void Connection::networkDeserialize(PDEPacket& input)
@@ -41,5 +41,5 @@ void Connection::networkDeserialize(PDEPacket& input)
 	//	break;
 	//}
 
-	input >> this->name >> this->health;
+	//input >> this->name >> this->health;
 }

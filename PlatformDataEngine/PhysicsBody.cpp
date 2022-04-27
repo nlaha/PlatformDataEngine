@@ -73,6 +73,30 @@ void PhysicsBody::init()
 
 void PhysicsBody::update(const float& dt, const float& elapsedTime)
 {
+	if (PlatformDataEngineWrapper::getIsClient()) {
+		// smoothly interpolate position and angle to network
+		if (this->m_body->GetPosition() != this->net_targetPos
+			|| this->m_body->GetAngle() != this->net_targetAngle)
+		{
+			this->m_body->SetTransform(
+				Utility::lerp(this->m_body->GetPosition(), this->net_targetPos, dt * 18.0f),
+				Utility::lerp(this->m_body->GetAngle(), this->net_targetAngle, dt * 18.0f)
+			);
+		}
+
+		// smoothly interpolate velocity to network
+		if (this->m_body->GetLinearVelocity() != this->net_targetVel)
+		{
+			this->m_body->SetLinearVelocity(Utility::lerp(this->m_body->GetLinearVelocity(), this->net_targetVel, dt * 18.0f));
+		}
+
+		// smoothly interpolate angular velocity to network
+		if (this->m_body->GetAngularVelocity() != this->net_targetAngleVel)
+		{
+			this->m_body->SetAngularVelocity(Utility::lerp(this->m_body->GetAngularVelocity(), this->net_targetAngleVel, dt * 18.0f));
+		}
+	}
+
 	this->m_parent->setPosition(
 		this->m_body->GetTransform().p.x * Constants::PHYS_SCALE,
 		this->m_body->GetTransform().p.y * Constants::PHYS_SCALE
@@ -99,12 +123,9 @@ void PhysicsBody::networkSerialize(PDEPacket& output)
 
 void PhysicsBody::networkDeserialize(PDEPacket& input)
 {
-	float x = 0.0f, y = 0.0f, angle = 0.0f, vx = 0.0f, vy = 0.0f, va = 0.0f;
-	input >> x >> y >> angle >> vx >> vy >> va;
-	this->m_body->SetTransform({ x, y }, angle);
-	this->m_body->SetLinearVelocity({vx, vy});
-	this->m_body->SetAngularVelocity(va);
-
+	input >> this->net_targetPos.x >> this->net_targetPos.y >> this->net_targetAngle
+		>> this->net_targetVel.x >> this->net_targetVel.y
+		>> this->net_targetAngleVel;
 }
 
 void PhysicsBody::loadDefinition(nlohmann::json object)

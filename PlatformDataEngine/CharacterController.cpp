@@ -93,7 +93,6 @@ void CharacterController::update(const float& dt, const float& elapsedTime)
     }
 
     if (m_pInputManager->getButton("jump").getValue() &&
-        !this->m_prev_jump_state && 
         this->fastGroundCheck() && this->m_jumpCooldownClock.getElapsedTime().asMilliseconds() > this->m_jumpCooldown)
     {
         this->m_PhysBody->getBody()->SetAwake(true);
@@ -136,10 +135,10 @@ void CharacterController::update(const float& dt, const float& elapsedTime)
     this->m_PhysBody->getBody()->SetLinearVelocity(newVelocity);
     this->m_PhysBody->getBody()->SetLinearDamping(0.25f);
 
-    for (TileMap::TilesetPair& ts : PlatformDataEngineWrapper::getWorld()->getTileMap()->getTilesets())
-    {
-        ts.tileset->getShader()->setUniform("charPos", this->m_parent->getPosition());
-    }
+    //for (TileMap::TilesetPair& ts : PlatformDataEngineWrapper::getWorld()->getTileMap()->getTilesets())
+    //{
+    //    ts.tileset->getShader()->setUniform("charPos", this->m_parent->getPosition());
+    //}
 
     // update animation state
     this->updateAnimation(vel);

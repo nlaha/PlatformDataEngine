@@ -20,7 +20,7 @@ namespace PlatformDataEngine {
 				spdlog::error(pszMsg);
 			}
 			else {
-				spdlog::info(pszMsg);
+				//spdlog::info(pszMsg);
 			}
 		}
 		catch (std::exception e)
@@ -110,7 +110,9 @@ namespace PlatformDataEngine {
 		/// Gets the current process connection
 		/// </summary>
 		/// <returns></returns>
-		inline std::shared_ptr<Connection> getConnection() { return this->m_clientConnection; };
+		inline std::shared_ptr<Connection> getConnection() { 
+			return this->m_clientConnection; 
+		};
 
 		/// <summary>
 		/// Sets the current process connection

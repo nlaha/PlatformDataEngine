@@ -45,6 +45,8 @@ namespace PlatformDataEngine {
 		void physicsUpdate(const float& dt, const float& elapsedTime);
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+		void networkThread();
+
 		// helpers
 		void registerGameObject(const std::string& name, std::shared_ptr<GameObject> gameObject);
 		void registerGameObjectDefinition(const std::string& name, std::shared_ptr<GameObject> gameObjectDef);
@@ -53,6 +55,7 @@ namespace PlatformDataEngine {
 		std::shared_ptr<GameObject> spawnGameObject(const std::string& type, sf::Vector2f position, std::string id = "", bool noReplication = false, float rotation = 0, sf::Vector2f origin = { 0.0, 0.0 }, bool alreadyReplicated = false);
 
 		// getters
+		inline std::shared_ptr<sf::Thread> getNetThread() const { return this->mp_networkingThread; };
 		inline std::map<std::string, std::shared_ptr<GameObject>>& getGameObjects() { return this->mp_gameObjects; };
 		inline std::shared_ptr<b2World> getPhysWorld() const { return this->mp_physicsWorld; };
 		inline std::shared_ptr<TileMap> getTileMap() const { return this->mp_tileMap; };
@@ -97,9 +100,12 @@ namespace PlatformDataEngine {
 
 		inline bool getInGame() { return this->m_inGame; };
 
+		inline const std::vector<GameObject*> getNetworkObjects() const { return this->mp_networkObjects; };
 		std::map<std::shared_ptr<Connection>, GameObject*> getPlayers() const { return this->m_players; };
 
 	private:
+		std::shared_ptr<sf::Thread> mp_networkingThread;
+
 		std::shared_ptr<b2World> mp_physicsWorld;
 		std::shared_ptr<TileMap> mp_tileMap;
 		GameObject* mp_currentPlayer;
@@ -114,6 +120,7 @@ namespace PlatformDataEngine {
 
 		std::shared_ptr<ContactFilter> m_physFilter;
 
+		std::vector<GameObject*> mp_networkObjects;
 		std::map<std::string, std::shared_ptr<GameObject>> mp_gameObjects;
 		std::map<std::shared_ptr<Connection>, GameObject*> m_players;
 		nlohmann::json m_playerDef;

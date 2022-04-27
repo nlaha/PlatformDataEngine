@@ -137,6 +137,10 @@ void GameWorld::initPhysics()
 	this->mp_physicsWorld->SetContactFilter(m_physFilter.get());
 }
 
+void GameWorld::networkThread()
+{
+}
+
 /// <summary>
 /// Update loop, calls update on the tileMap, gameObjects and the camera controller
 /// </summary>
@@ -146,13 +150,29 @@ void GameWorld::update(const float &dt, const float &elapsedTime)
 {
 	if (PlatformDataEngineWrapper::getNetworkHandler() != nullptr)
 	{
+		if (this->mp_networkingThread == nullptr)
+		{
+			this->mp_networkingThread = std::make_shared<sf::Thread>(&GameWorld::networkThread, this);
+		}
+
+		PlatformDataEngineWrapper::getNetworkHandler()->recieve(this);
+
+		mp_networkObjects.clear();
+		for (auto gameObjectPair : this->mp_gameObjects)
+		{
+			if (gameObjectPair.second == nullptr)
+				continue;
+
+			if (gameObjectPair.second->getNetworked())
+			{
+				mp_networkObjects.push_back(gameObjectPair.second.get());
+			}
+		}
 
 		// network update
 		// limit send rate
-		if (this->m_packetClock.getElapsedTime().asMilliseconds() > 15)
+		if (this->m_packetClock.getElapsedTime().asMilliseconds() > 20)
 		{
-			PlatformDataEngineWrapper::getNetworkHandler()->recieve(this);
-
 			if (this->mp_currentPlayer == nullptr && PlatformDataEngineWrapper::getNetworkHandler()->getConnection() != nullptr)
 			{
 				this->mp_currentPlayer = this->getGameObject(PlatformDataEngineWrapper::getNetworkHandler()->getConnection()->id).get();
@@ -172,6 +192,12 @@ void GameWorld::update(const float &dt, const float &elapsedTime)
 	// update game objects
 	for (auto gameObjectPair : this->mp_gameObjects)
 	{
+		if (gameObjectPair.second == nullptr)
+			continue;
+
+		if (gameObjectPair.second->isDefinition())
+			continue;
+
 		gameObjectPair.second->update(dt, elapsedTime);
 
 		if (this != PlatformDataEngineWrapper::getWorld().get())
@@ -297,6 +323,7 @@ void GameWorld::registerGameObject(const std::string &name, std::shared_ptr<Game
 void GameWorld::registerGameObjectDefinition(const std::string &name, std::shared_ptr<GameObject> gameObject)
 {
 	gameObject->setType(name);
+
 	this->m_gameObjectDefinitions.emplace(name, gameObject);
 }
 
@@ -354,15 +381,19 @@ std::shared_ptr<GameObject> GameWorld::spawnGameObject(const std::string &type, 
 		this->registerGameObject(
 			id, p_gameObject);
 
-		if (PlatformDataEngineWrapper::getIsClient())
-		{
-			if (id == dynamic_cast<Client *>(PlatformDataEngineWrapper::getNetworkHandler())->getConnection()->id)
-			{
-				this->mp_currentPlayer = p_gameObject.get();
-				this->m_cameraControl.setTarget(p_gameObject.get());
-				spdlog::info("Setting current player to {}", p_gameObject->getId());
-			}
-		}
+		//if (PlatformDataEngineWrapper::getIsClient())
+		//{
+		//	if (PlatformDataEngineWrapper::getNetworkHandler() != nullptr) {
+		//		Client* client = dynamic_cast<Client*>(
+		//			PlatformDataEngineWrapper::getNetworkHandler());
+		//		if (client->getConnection() != nullptr && id == client->getConnection()->id)
+		//		{
+		//			this->mp_currentPlayer = p_gameObject.get();
+		//			this->m_cameraControl.setTarget(p_gameObject.get());
+		//			spdlog::info("Setting current player to {}", p_gameObject->getId());
+		//		}
+		//	}
+		//}
 
 		p_gameObject->init();
 
@@ -375,6 +406,12 @@ std::shared_ptr<GameObject> GameWorld::spawnGameObject(const std::string &type, 
 		else
 		{
 			p_gameObject->setNetworked(true);
+			//if (!PlatformDataEngineWrapper::getIsClient()) {
+			//	if (PlatformDataEngineWrapper::getNetworkHandler() != nullptr) {
+			//		dynamic_cast<Server*>(
+			//			PlatformDataEngineWrapper::getNetworkHandler())->replicateGameObject(p_gameObject.get());
+			//	}
+			//}
 		}
 
 		return p_gameObject;
@@ -449,6 +486,9 @@ std::shared_ptr<GameObject> GameWorld::spawnDefinedGameObject(nlohmann::json gam
 		pos.y = this->mp_view->getSize().y / 2.0f;
 	}
 
+	// since we're spawning something, it's not a definition
+	p_gameObject->setIsDefinition(false);
+
 	p_gameObject->setPosition(
 		pos.x,
 		pos.y);
@@ -507,6 +547,15 @@ void GameWorld::garbageCollect()
 	{
 		if (it->second->getDestroyed())
 		{
+			//if (PlatformDataEngineWrapper::getNetworkHandler() != nullptr)
+			//{
+			//	if (!PlatformDataEngineWrapper::getIsClient())
+			//	{
+			//		Server* server = dynamic_cast<Server*>(
+			//			PlatformDataEngineWrapper::getNetworkHandler());
+			//		server->destroyObject(it->second->getId());
+			//	}
+			//}
 
 			if (it->second.get() == this->mp_currentPlayer)
 			{

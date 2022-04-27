@@ -3,6 +3,12 @@
 
 using namespace PlatformDataEngine;
 
+SpriteRenderer::SpriteRenderer()
+{
+    this->m_rect = sf::IntRect();
+    this->m_texture = nullptr;
+}
+
 void SpriteRenderer::init()
 {
 }
@@ -54,8 +60,8 @@ void SpriteRenderer::networkDeserialize(PDEPacket& input)
     input >> x >> y;
     this->m_sprite.setPosition(x, y);
 
-    input >> this->m_rect.left 
-        >> this->m_rect.top 
+    input >> this->m_rect.left
+        >> this->m_rect.top
         >> this->m_rect.width
         >> this->m_rect.height;
 }

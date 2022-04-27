@@ -91,6 +91,7 @@ void NetworkInputManager::setAxis(sf::Uint8 idx, float value)
 void NetworkInputManager::setButton(sf::Uint8 idx, bool value)
 {
 	if (idx < this->m_buttonIdx.size()) {
+		//spdlog::info("Button recieved: {}, value: {}", idx, value);
 		this->m_buttonIdx[idx]->setValue(value);
 	}
 }

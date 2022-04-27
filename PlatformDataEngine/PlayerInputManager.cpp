@@ -321,22 +321,30 @@ void PlayerInputManager::serializeInputs(PDEPacket& packet)
 	// grab axis values
 	packet.setFlag(PDEPacket::UserInput);
 
-	packet << static_cast<unsigned short>(this->m_axis.size()) << static_cast<unsigned short>(this->m_buttons.size());
-
 	sf::Uint8 counter = 0; // todo, make a vector of inputs as well as map for sending indices
 	for (const auto& axis : this->m_axisIdx)
 	{
-		packet << counter << sf::Int8(axis->getValue());
+		if (axis->needsUpdate()) {
+			packet << true;
+			axis->setLast(axis->getValue());
+			packet << counter << sf::Int8(axis->getValue());
+		}
 		counter++;
 	}
+	packet << false;
 
 	// grab button values
 	counter = 0;
 	for (const auto& button : this->m_buttonIdx)
 	{
-		packet << counter << button->getValue();
+		if (button->needsUpdate()) {
+			packet << true;
+			button->setLast(button->getValue());
+			packet << counter << button->getValue();
+		}
 		counter++;
 	}
+	packet << false;
 
 	sf::Vector2f mouse = this->getMouse();
 	packet << mouse.x << mouse.y;

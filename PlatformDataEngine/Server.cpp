@@ -52,7 +52,7 @@ void Server::start()
 	// Start listening
 	SteamNetworkingIPAddr serverLocalAddr;
 	serverLocalAddr.Clear();
-	serverLocalAddr.ParseString(this->m_ip.toString().c_str());
+	//serverLocalAddr.ParseString(this->m_ip.toString().c_str());
 	serverLocalAddr.m_port = this->m_port;
 
 	SteamNetworkingConfigValue_t opt;
@@ -192,12 +192,6 @@ void Server::OnSteamNetConnectionStatusChanged(SteamNetConnectionStatusChangedCa
 			connection->port = pInfo->m_info.m_addrRemote.m_port;
 			connection->state = PlayerState::ALIVE;
 
-			std::string playerId = this->m_world->spawnPlayer(connection);
-
-			std::string ip;
-			connection->ip.ToString(ip.data(), ip.size(), false);
-			spdlog::info("A player has connected: {}:{} - {}", ip, connection->port, connection->id);
-
 			PDEPacket packet(PDEPacket::Connected);
 			packet << connection->id;
 			SendPacketToClient(pInfo->m_hConn, packet);
@@ -225,6 +219,39 @@ void Server::OnSteamNetConnectionStatusChanged(SteamNetConnectionStatusChangedCa
 /// <param name="world">The game world</param>
 void Server::process(GameWorld* world)
 {
+	HSteamNetConnection except = k_HSteamNetConnection_Invalid;
+	for (const auto& connPair : this->m_mapClients) {
+		if (connPair.first != except)
+		{
+			// send out update packets
+			PDEPacket packet(PDEPacket::SendUpdates);
+
+			int counter = 0;
+			for (GameObject* obj : world->getNetworkObjects())
+			{
+				//spdlog::info("Sending update for {} - ", obj->getId(), obj->getType());
+				counter++;
+				packet << obj->getId();
+				packet << obj->getType();
+				obj->networkSerialize(packet);
+			}
+			SendPacketToClient(connPair.first, packet);
+		}
+	}
+
+	//spdlog::info("Sending updates for {} objects in {} bytes", counter, packet.getDataSize());
+
+}
+
+/// <summary>
+/// Checks for new data from the clients
+/// </summary>
+/// <param name="world">The game world</param>
+void Server::recieve(GameWorld* world)
+{
+	// poll connection state
+	PollConnectionStateChanges();
+
 	if (this->m_clientConnection->state == PlayerState::DEAD)
 	{
 		if (this->m_clientConnection->respawnTimer.getElapsedTime().asSeconds() > 10)
@@ -236,66 +263,25 @@ void Server::process(GameWorld* world)
 		}
 	}
 
-	PDEPacket packet;
+	HSteamNetConnection except = k_HSteamNetConnection_Invalid;
+
 	for (const auto& connPair : this->m_mapClients)
 	{
-		const auto conn = connPair.second;
+		if (connPair.first != except) {
 
-		if (conn->state == PlayerState::DEAD)
-		{
-			if (conn->respawnTimer.getElapsedTime().asSeconds() > 10)
+			const auto conn = connPair.second;
+
+			if (conn->state == PlayerState::DEAD)
 			{
-				spdlog::info("Spawning player {}", conn->name);
-				conn->state = PlayerState::ALIVE;
-				std::string playerId = world->spawnPlayer(conn);
+				if (conn->respawnTimer.getElapsedTime().asSeconds() > 10)
+				{
+					spdlog::info("Spawning player {}", conn->name);
+					conn->state = PlayerState::ALIVE;
+					std::string playerId = world->spawnPlayer(conn);
+				}
 			}
 		}
-
-		// send update data
-		packet = PDEPacket(PDEPacket::SendUpdates);
-		conn->networkSerialize(packet);
-
-		for (const auto& gameObjectPair : world->getGameObjects())
-		{
-			bool isNetworked = gameObjectPair.second->getNetworked();
-			if (!isNetworked)
-				continue;
-
-			packet << true;
-			if (gameObjectPair.second->getId() == "")
-			{
-				spdlog::error("Update packet is malformed!");
-			}
-			packet
-				<< gameObjectPair.second->getType()
-				<< gameObjectPair.second->getPosition().x
-				<< gameObjectPair.second->getPosition().y
-				<< gameObjectPair.second->getId()
-				<< gameObjectPair.second->getHasBeenSent(conn->id);
-			if (gameObjectPair.second->getHasBeenSent(conn->id)) {
-				spdlog::debug("Sending existing object {} {}", gameObjectPair.second->getId(), gameObjectPair.second->getType());
-				gameObjectPair.second->networkSerialize(packet);
-			}
-			else {
-				spdlog::info("Sending new object {} {}", gameObjectPair.second->getId(), gameObjectPair.second->getType());
-				gameObjectPair.second->networkSerializeInit(packet);
-				gameObjectPair.second->setHasBeenSent(conn->id);
-			}
-		}
-		packet << false;
-
-		SendPacketToClient(connPair.first, packet);
 	}
-}
-
-/// <summary>
-/// Checks for new data from the clients
-/// </summary>
-/// <param name="world">The game world</param>
-void Server::recieve(GameWorld* world)
-{
-	// poll connection state
-	PollConnectionStateChanges();
 
 	ISteamNetworkingMessage* pIncomingMsg = nullptr;
 	int numMsgs = m_pInterface->ReceiveMessagesOnPollGroup(m_hPollGroup, &pIncomingMsg, 1);
@@ -326,8 +312,7 @@ void Server::recieve(GameWorld* world)
 	std::string objId;
 	bool isNetworked;
 
-	// grab the client's id
-	incomingPkt >> clientId;
+	bool stillGoing = true;
 
 	// get the player from the connection
 	GameObject* player = world->getPlayer(incomingClient->second);
@@ -343,19 +328,25 @@ void Server::recieve(GameWorld* world)
 			// recieve input data
 			clientInputs = this->m_inputManagers.at(incomingClient->second);
 
-			incomingPkt >> numAxis >> numButtons;
 
-			for (unsigned short i = 0; i < numAxis; i++)
+			while (stillGoing)
 			{
+				incomingPkt >> stillGoing;
+				if (!stillGoing)
+					break;
 				incomingPkt >> idx >> value;
 				for (const auto& input : clientInputs->inputs) {
 					dynamic_cast<NetworkInputManager*>(input)->setAxis(idx, value);
 				}
 
 			}
+			stillGoing = true;
 
-			for (unsigned short i = 0; i < numButtons; i++)
+			while(stillGoing)
 			{
+				incomingPkt >> stillGoing;
+				if (!stillGoing)
+					break;
 				incomingPkt >> idx >> valueBool;
 				for (const auto& input : clientInputs->inputs) {
 					dynamic_cast<NetworkInputManager*>(input)->setButton(idx, valueBool);
@@ -371,6 +362,18 @@ void Server::recieve(GameWorld* world)
 			}
 
 			break;
+
+		case PDEPacket::ClientProfile:
+
+			incomingPkt >> incomingClient->second->name;
+
+			spdlog::info("A player has connected: {} - {}, spawning character...", incomingClient->second->name, incomingClient->second->id);
+			std::string id = this->m_world->spawnPlayer(incomingClient->second);
+
+			PDEPacket packet(PDEPacket::ProfileRecieved);
+			SendPacketToClient(incomingClient->first, packet);
+
+			break;
 	}
 }
 
@@ -382,25 +385,29 @@ void Server::recieve(GameWorld* world)
 /// <param name="health">the new health</param>
 void Server::broadcastObjectHealth(const std::string& objName, float health)
 {
+	HSteamNetConnection except = k_HSteamNetConnection_Invalid;
+
 	// override timer for death packets
 	if (this->m_broadcastCooldown.getElapsedTime().asMilliseconds() > 100 || health <= 0) {
 		for (const auto& connPair : this->m_mapClients)
 		{
-			const auto& conn = connPair.second;
+			if (connPair.first != except) {
+				const auto& conn = connPair.second;
 
-			if (objName == conn->id) {
-				// we're broadcasting a player's health
-				if (health <= 0) {
-					// player has died
-					conn->state = PlayerState::DEAD;
-					conn->respawnTimer.restart();
-					spdlog::info("Player {} has died!", conn->name);
+				if (objName == conn->id) {
+					// we're broadcasting a player's health
+					if (health <= 0) {
+						// player has died
+						conn->state = PlayerState::DEAD;
+						conn->respawnTimer.restart();
+						spdlog::info("Player {} has died!", conn->name);
+					}
 				}
-			}
 
-			PDEPacket packet(PDEPacket::SetObjectHealth);
-			packet << objName << health;
-			SendPacketToClient(connPair.first, packet);
+				PDEPacket packet(PDEPacket::SetObjectHealth);
+				packet << objName << health;
+				SendPacketToClient(connPair.first, packet);
+			}
 		}
 		this->m_broadcastCooldown.restart();
 	}

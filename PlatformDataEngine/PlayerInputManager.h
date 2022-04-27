@@ -33,8 +33,11 @@ namespace PlatformDataEngine {
 			bool isNegative() const;
 			void addTrigger(sf::Joystick::Axis axis);
 			void addTrigger(sf::Keyboard::Key key, bool direction);
+			bool needsUpdate() const { return getValue() != m_lastValue; }
+			void setLast(float value) { this->m_lastValue = value; };
 
 		private:
+			float m_lastValue;
 			std::vector<sf::Joystick::Axis> m_joyAxis;
 			std::vector < sf::Keyboard::Key> m_positiveKeys;
 			std::vector < sf::Keyboard::Key> m_negativeKeys;
@@ -50,8 +53,11 @@ namespace PlatformDataEngine {
 			void addTrigger(int button);
 			void addTrigger(sf::Keyboard::Key key);
 			void addTrigger(sf::Mouse::Button button);
+			bool needsUpdate() const { return getValue() != m_lastValue; };
+			void setLast(bool value) { this->m_lastValue = value; };
 
 		private:
+			bool m_lastValue;
 			std::vector <int> m_buttons;
 			std::vector <sf::Keyboard::Key> m_keys;
 			std::vector<sf::Mouse::Button> m_mouseBtns;

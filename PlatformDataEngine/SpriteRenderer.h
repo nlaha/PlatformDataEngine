@@ -13,6 +13,8 @@ namespace PlatformDataEngine {
     {
     public:
 
+        SpriteRenderer();
+
         void init();
 
         void update(const float& dt, const float& elapsedTime);

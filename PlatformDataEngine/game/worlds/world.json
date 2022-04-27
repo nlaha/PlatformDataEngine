@@ -22,7 +22,7 @@
       "children": [
         {
           "name": "PlayerRocketLauncher",
-          "type": "MiniGun",
+          "type": "RocketLauncher",
           "transform": {
             "x": 4,
             "y": 10,
